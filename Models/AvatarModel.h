@@ -37,6 +37,6 @@
 +(NSDictionary *)buildManyFromJson:(NSDictionary *)properties;
 
 // any object having an avatar can call this method to load it's image
--(void)loadImage:(id) withDelegate forAvatarOwnder:(id) avatarOwner;
+-(void)loadImage:(id) withDelegate forAvatarOwner:(id) avatarOwner;
 
 @end

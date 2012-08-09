@@ -8,13 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "AvatarModel.h"
+#import "SBJSON.h"
 #import "AvatarImageLoadCompleteDelegate.h"
 #import "RequestDataFromServer.h"
 #import "BowerBirdConstants.h"
+#import "UserLoadCompleteDelegate.h"
 
 
-
-@interface UserModel : NSObject <AvatarImageLoadCompleteDelegate, RequestDataFromServer>
+@interface UserModel : NSObject <AvatarImageLoadCompleteDelegate>
 
 @property (nonatomic, strong) NSString *identifier;
 @property (nonatomic, strong) NSString *firstName;
@@ -22,6 +23,8 @@
 @property (nonatomic, strong) NSString *email;
 @property (nonatomic, strong) NSDictionary* avatars;
 @property (nonatomic) BOOL isLoggedIn;
+
++(NSArray *)loadUserFromResponseString:(NSString *)responseString;
 
 +(UserModel *)buildFromJson:(NSDictionary *)properties;
 

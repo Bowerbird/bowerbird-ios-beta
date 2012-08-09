@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AuthenticationCompleteDelegate.h"
 #import "UserModel.h"
 #import "LoginView.h"
 #import "ASIHTTPRequest.h"
@@ -19,8 +20,6 @@
 #define EMAIL "email";
 #define PASSWORD "password";
 
-@interface LoginViewController : UIViewController
-
-
+@interface LoginViewController : UIViewController <AuthenticationCompleteDelegate>
 
 @end

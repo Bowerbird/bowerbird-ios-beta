@@ -6,7 +6,6 @@
  
  -----------------------------------------------------------------------------------------------*/
 
-
 #import "ProjectModel.h"
 
 @interface ProjectModel()
@@ -20,6 +19,7 @@
 @synthesize networkQueue;
 @synthesize projects = _projects;
 @synthesize projectLoadCompleteDelegate = _projectLoadCompleteDelegate;
+
 
 
 #pragma mark - Class methods for iterating JSON blobs.
@@ -68,6 +68,7 @@
 }
 
 
+
 #pragma mark - Network methods for loading Projects
  
 // this method uses blocks behind the scenes to do run an asynchronous, non blocking thread
@@ -80,12 +81,7 @@
 	[[self networkQueue] setRequestDidFailSelector:@selector(requestFailed:)];
 	[[self networkQueue] setQueueDidFinishSelector:@selector(queueFinished:)];
     
-    NSURL *url = [NSURL URLWithString:[[BowerBirdConstants RootUri]
-              stringByAppendingFormat:@"%@", @"/projects"]];
-    
-    NSLog(@"Loading from url: %@", url);
-    
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[BowerBirdConstants ProjectsUrl]];
     [request addRequestHeader:@"Accept" value:@"*/*"];
     [request addRequestHeader:@"X-Requested-With" value:@"XMLHttpRequest"];
     
@@ -124,6 +120,7 @@
 }
 
 
+
 #pragma mark - Callback methods to this and methods setting this as delegate
 
 // call network opertaions to load projects and set caller delegate
@@ -147,7 +144,7 @@
             {
                 // we are passing this object as a callback delegate
                 // so we are notified when the avatar image has loaded for the project
-                [avatarModel loadImage:(self) forAvatarOwnder:(project)];
+                [avatarModel loadImage:(self) forAvatarOwner:(project)];
             }
         }
     }

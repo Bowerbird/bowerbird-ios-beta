@@ -14,9 +14,9 @@
 
 +(NSString *)RootUri;
 
-+(NSString *)ProjectUri;
++(NSURL *)ProjectsUrl;
 
-+(NSString *)ObservationUri;
++(NSURL *)AccountLoginUrl;
 
 +(NSString *)AuthCookieName;
 

@@ -14,13 +14,16 @@
 #import "BowerBirdConstants.h"
 #import "UserModel.h"
 #import "SBJSON.h"
+#import "AuthenticationCompleteDelegate.h"
 
 @interface AuthenticationModel : NSObject <PostDataToServer, UserLoadCompleteDelegate>
 
 @property (retain) ASINetworkQueue *networkQueue;
 
-//- (void)doPostRequest:(NSString *)toUrl withParameters:(NSDictionary *) params;
-//
+- (id)initWithCallbackDelegate:(id)delegate;
+
+- (void)doPostRequest:(NSURL *)toUrl withParameters:(NSDictionary *) params;
+
 //- (void)requestFinished:(ASIFormDataRequest *)request;
 //
 //- (void)requestFailed:(ASIFormDataRequest *)request;

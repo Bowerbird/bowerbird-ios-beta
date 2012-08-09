@@ -127,7 +127,7 @@
 // set up the calling object having an avatar as the delegate to notify when the
 // image for the avatar has been loaded
 -(void)loadImage:(id)withDelegate
-    forAvatarOwnder:(id)avatarOwner
+    forAvatarOwner:(id)avatarOwner
 {
     self.imageLoadDelegate = withDelegate;
     self.avatarOwner = avatarOwner;

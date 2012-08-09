@@ -32,6 +32,7 @@
 @synthesize filemgr = _filemgr;
 
 
+
 #pragma mark - Initialize the Application and Segue
 
 -(BOOL)applicationRequiresLoginOrRegistration
@@ -78,8 +79,8 @@
 }
 
 
-#pragma mark - View Display logic
 
+#pragma mark - View Display logic
 
 - (void) viewDidAppear:(BOOL) animated
 {
@@ -102,6 +103,7 @@
 {
     return YES;
 }
+
 
 
 #pragma mark - Loading screen animation

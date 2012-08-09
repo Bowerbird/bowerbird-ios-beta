@@ -24,7 +24,10 @@
 @synthesize authenticatedUser = _authenticatedUser;
 @synthesize authenticationModel = _authenticationModel;
 
-// Wire up the email and password text boxes to update properties
+
+
+#pragma mark - Wire up UI Actions
+
 - (IBAction)userEmailAddress:(UITextField *)sender {
     self.email = sender.text;
     NSLog(@"User entered email: %@", self.email);
@@ -37,13 +40,29 @@
 // when user presses login, make the request to the server
 - (IBAction)logUserIn:(id)sender
 {
-    NSURL *url = [NSURL URLWithString:[[BowerBirdConstants RootUri] stringByAppendingFormat:@"/%@/%@", @"account", @"login"]];
+    AuthenticationModel* authenticator = [[AuthenticationModel alloc]initWithCallbackDelegate:(self)];
     
     NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:self.email, @"email", self.password, @"password", nil];
     
-    self.authenticationModel = [[AuthenticationModel alloc]init];
+    [authenticator doPostRequest:[BowerBirdConstants AccountLoginUrl] withParameters:params];
 }
 
+
+
+#pragma mark - Authentication methods and Segues
+
+-(void)segueToHome
+{
+    [self performSegueWithIdentifier:@"Home" sender:nil];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if([segue.identifier isEqualToString:@"Home"])
+    {
+        // set up data if req'd
+    }
+}
 
 // if we return with a user object, set current user
 -(void)setCurrentUser:(UserModel *)currentUser
@@ -61,6 +80,18 @@
 #pragma mark - Callback methods to this and methods setting this as delegate
 
 // handle delegate response from login to tell of authentication success/failure
-
+-(void)UserAuthenticated:(UserModel*)user
+{
+    if(user)
+    {
+        self.authenticatedUser = user;
+        
+        [self performSelector:@selector(segueToHome)withObject:self];
+    }
+    else
+    {
+        // there was a problem. display a message
+    }
+}
 
 @end

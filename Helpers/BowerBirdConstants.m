@@ -10,7 +10,6 @@
 
 @implementation BowerBirdConstants
 
-
 // colors
 +(NSString *)BowerbirdBlueHexString
 {
@@ -21,20 +20,21 @@
 +(NSString *)RootUri
 {
     // hamish's pc
-    return @"http://136.154.22.24:65000";
+    //return @"http://136.154.22.24:65000";
     
-    //return @"http://dev.bowerbird.org.au";
+    // bowerbird dev
+    return @"http://dev.bowerbird.org.au";
 }
 
 // restful segments
-+(NSString *)ProjectUri
++(NSURL *)ProjectsUrl
 {
-    return @"http://dev.bowerbird.org.au/projects";
+    return [NSURL URLWithString:([[self RootUri] stringByAppendingString:@"/projects"])];
 }
 
-+(NSString *)ObservationUri
++(NSURL *)AccountLoginUrl
 {
-    return @"http://dev.bowerbird.org.au/observations";
+    return [NSURL URLWithString:([[self RootUri] stringByAppendingString:@"/account/login"])];
 }
 
 +(NSString *)AuthCookieName

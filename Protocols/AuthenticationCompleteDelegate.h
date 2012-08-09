@@ -11,7 +11,10 @@
 
 
 #import <Foundation/Foundation.h>
+#import "UserModel.h"
 
 @protocol AuthenticationCompleteDelegate <NSObject>
+
+-(void)UserAuthenticated:(UserModel*)user;
 
 @end

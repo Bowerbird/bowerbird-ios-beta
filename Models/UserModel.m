@@ -10,6 +10,7 @@
 
 @interface UserModel()
 -(void)loadAvatarImages;
+@property (nonatomic, weak) id<UserLoadCompleteDelegate> userLoadCompleteDelegate;
 @end
 
 @implementation UserModel
@@ -43,7 +44,33 @@
 }
 
 
+#pragma mark - Object initializers
+
+- (id)initWithCallbackDelegate:(id)delegate
+{
+    self.userLoadCompleteDelegate = delegate;
+    
+    return self;
+}
+
+
 #pragma mark - Class methods for iterating JSON blobs.
+
++(UserModel *)loadUserFromResponseString:(NSString *)responseString
+{
+    SBJSON *parser = [[SBJSON alloc] init];
+    UserModel *user = [[UserModel alloc]init];
+    
+    id jsonObject = [parser objectWithString:responseString error:nil];
+    
+    if([jsonObject isKindOfClass:[NSDictionary class]])
+    {
+        NSDictionary* model = [jsonObject objectForKey:@"Model.User"];
+        user = [self buildFromJson:model];
+    }
+    
+    return user;
+}
 
 +(UserModel *)buildFromJson:(NSDictionary *)properties;
 {
@@ -53,7 +80,6 @@
     model.firstName = @"project";
     model.lastName = [properties objectForKey:@"Name"];
     model.email = [properties objectForKey:@"Description"];
-    //model.description = [properties objectForKey:@"Description"];
     
     NSDictionary* avatarJson = [properties objectForKey:@"Avatar"];
     NSDictionary* imageJson = [avatarJson objectForKey:@"Image"];
@@ -69,22 +95,17 @@
 // the 'job done' message. delegates to ImageFinishedLoading below..
 -(void)loadAvatarImages
 {
-    
-    //    for (ProjectModel *project in self.projects) {
-    //        for(id avatar in project.avatars)
-    //        {
-    //            // not sure why, but id avatar in the for loop above points to the dictionary item
-    //            AvatarModel* avatarModel = [project.avatars objectForKey:avatar];
-    //            if([avatarModel isKindOfClass:[AvatarModel class]]
-    //               && avatarModel.imageDimensionName == [BowerBirdConstants ProjectDisplayAvatarName])
-    //            {
-    //                // we are passing this object as a callback delegate
-    //                // so we are notified when image has loaded
-    //                [avatarModel loadImage:(self) forProject:(project)];
-    //            }
-    //        }
-    //    }
-}
+    for(id avatar in self.avatars)
+    {
+        AvatarModel* avatarModel = [self.avatars objectForKey:avatar];
+        if([avatarModel isKindOfClass:[AvatarModel class]]
+           && avatarModel.imageDimensionName == [BowerBirdConstants ProjectDisplayAvatarName])
+        {
+            // we are passing this object as a callback delegate
+            // so we are notified when the avatar image has loaded for the project
+            [avatarModel loadImage:(self) forAvatarOwner:(self)];
+        }
+    }}
 
 // this method is called back via the protocol delegate in
 // the AvatarModel when it's image has loaded from network call.
@@ -94,60 +115,11 @@
 {
     if(imageDimensionName == [BowerBirdConstants ProjectDisplayAvatarName])
     {
-        //ProjectModel* projectModel = [self.projects objectAtIndex:[self.projects indexOfObject:(project)]];
-        
-        // notify this object's delegate that project is successfully loaded
-        //[self.projectLoadCompleteDelegate ProjectLoaded:projectModel];
+        if([self.userLoadCompleteDelegate respondsToSelector:@selector(userLoadCompleteDelegate)])
+        {
+            [self.userLoadCompleteDelegate UserLoaded:(self)];
+        }
     }
 }
 
 @end
-
-/*
- {
-     "Model": 
-        {
-         "User": 
-            {
-             "Id": "users/2",
-             "Avatar": {
-                 "Id": "mediaresources/",
-                 "MediaType": "image",
-                 "UploadedOn": "2012-08-02T05:32:39Z",
-                 "Metadata": {},
-                 "Image": {
-                 "Square42": {
-                 "FileName": "default-user-avatar.jpg",
-                 "RelativeUri": "/img/default-user-avatar.jpg",
-                 "Format": "jpeg",
-                 "Width": 42,
-                 "Height": 42,
-                 "Extension": "jpg"
-             },
-             "Square100": {
-                 "FileName": "default-user-avatar.jpg",
-                 "RelativeUri": "/img/default-user-avatar.jpg",
-                 "Format": "jpeg",
-                 "Width": 100,
-                 "Height": 100,
-                 "Extension": "jpg"
-             },
-             "Square200": {
-                 "FileName": "default-user-avatar.jpg",
-                 "RelativeUri": "/img/default-user-avatar.jpg",
-                 "Format": "jpeg",
-                 "Width": 200,
-                 "Height": 200,
-                 "Extension": "jpg"
-                 }
-             },
-                "Key": "dbc87770-8f71-4be2-bfa6-571dd1b3af25"
-             },
-             "FirstName": "Hamish",
-             "LastName": "Crittenden",
-             "Name": "Hamish Crittenden"
-         }
-     }
- }
- 
- */

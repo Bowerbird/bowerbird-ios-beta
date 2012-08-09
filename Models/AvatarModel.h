@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "NSNumber+NSNumber_ConvertMethods.h"
+#import "NSNumber+ConvertMethods.h"
 #import "BowerBirdConstants.h"
 #import "RequestDataFromServer.h"
 #import "ASINetworkQueue.h"

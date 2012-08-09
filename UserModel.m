@@ -47,11 +47,19 @@
 
 +(UserModel *)buildFromJson:(NSDictionary *)properties;
 {
-    UserModel* loggedInUser = [[UserModel alloc]init];
+    UserModel* model = [[UserModel alloc]init];
     
-    // parse user properties out of response string dictionary structure - see commented out below.
+    model.identifier = [properties objectForKey:@"Id"];
+    model.firstName = @"project";
+    model.lastName = [properties objectForKey:@"Name"];
+    model.email = [properties objectForKey:@"Description"];
+    model.description = [properties objectForKey:@"Description"];
     
-    return loggedInUser;
+    NSDictionary* avatarJson = [properties objectForKey:@"Avatar"];
+    NSDictionary* imageJson = [avatarJson objectForKey:@"Image"];
+    model.avatars = [AvatarModel buildManyFromJson:imageJson];
+    
+    return model;
 }
 
 

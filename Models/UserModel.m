@@ -105,7 +105,8 @@
             // so we are notified when the avatar image has loaded for the project
             [avatarModel loadImage:(self) forAvatarOwner:(self)];
         }
-    }}
+    }
+}
 
 // this method is called back via the protocol delegate in
 // the AvatarModel when it's image has loaded from network call.

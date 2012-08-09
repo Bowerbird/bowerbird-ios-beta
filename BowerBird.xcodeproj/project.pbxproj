@@ -22,7 +22,6 @@
 		1CDF726415D3417300BE72C1 /* AuthenticationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF724C15D3417300BE72C1 /* AuthenticationModel.m */; };
 		1CDF726515D3417300BE72C1 /* AvatarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF724E15D3417300BE72C1 /* AvatarModel.m */; };
 		1CDF726715D3417300BE72C1 /* GroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF725215D3417300BE72C1 /* GroupModel.m */; };
-		1CDF726815D3417300BE72C1 /* HomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF725415D3417300BE72C1 /* HomeModel.m */; };
 		1CDF726915D3417300BE72C1 /* ProjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF725615D3417300BE72C1 /* ProjectModel.m */; };
 		1CDF726A15D3417300BE72C1 /* RegisterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF725815D3417300BE72C1 /* RegisterModel.m */; };
 		1CDF726C15D3417300BE72C1 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF725C15D3417300BE72C1 /* UserModel.m */; };
@@ -49,6 +48,9 @@
 		1CDF72C215D341A700BE72C1 /* RegisterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF72BC15D341A700BE72C1 /* RegisterView.m */; };
 		1CDF72C515D3626000BE72C1 /* NSNumber+ConvertMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF72C415D3626000BE72C1 /* NSNumber+ConvertMethods.m */; };
 		1CDF72C915D39D2C00BE72C1 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF72C815D39D2C00BE72C1 /* HomeViewController.m */; };
+		1CDF72CC15D3A7F900BE72C1 /* AuthenticatedUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF72CB15D3A7F900BE72C1 /* AuthenticatedUserModel.m */; };
+		1CDF72CF15D3A8CA00BE72C1 /* MembershipModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF72CE15D3A8CA00BE72C1 /* MembershipModel.m */; };
+		1CDF72D215D3AE6300BE72C1 /* CollectionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF72D115D3AE6300BE72C1 /* CollectionHelper.m */; };
 		1CFA7F7B15C89B340051CFA1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CFA7F7A15C89B340051CFA1 /* UIKit.framework */; };
 		1CFA7F7D15C89B340051CFA1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CFA7F7C15C89B340051CFA1 /* Foundation.framework */; };
 		1CFA7F7F15C89B340051CFA1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CFA7F7E15C89B340051CFA1 /* CoreGraphics.framework */; };
@@ -84,8 +86,6 @@
 		1CDF724E15D3417300BE72C1 /* AvatarModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvatarModel.m; sourceTree = "<group>"; };
 		1CDF725115D3417300BE72C1 /* GroupModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupModel.h; sourceTree = "<group>"; };
 		1CDF725215D3417300BE72C1 /* GroupModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupModel.m; sourceTree = "<group>"; };
-		1CDF725315D3417300BE72C1 /* HomeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeModel.h; sourceTree = "<group>"; };
-		1CDF725415D3417300BE72C1 /* HomeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeModel.m; sourceTree = "<group>"; };
 		1CDF725515D3417300BE72C1 /* ProjectModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectModel.h; sourceTree = "<group>"; };
 		1CDF725615D3417300BE72C1 /* ProjectModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectModel.m; sourceTree = "<group>"; };
 		1CDF725715D3417300BE72C1 /* RegisterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterModel.h; sourceTree = "<group>"; };
@@ -148,6 +148,13 @@
 		1CDF72C615D3629600BE72C1 /* NSNumber+ConvertMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+ConvertMethods.h"; sourceTree = "<group>"; };
 		1CDF72C715D39D2B00BE72C1 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		1CDF72C815D39D2C00BE72C1 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		1CDF72CA15D3A7F900BE72C1 /* AuthenticatedUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticatedUserModel.h; sourceTree = "<group>"; };
+		1CDF72CB15D3A7F900BE72C1 /* AuthenticatedUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticatedUserModel.m; sourceTree = "<group>"; };
+		1CDF72CD15D3A8CA00BE72C1 /* MembershipModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MembershipModel.h; sourceTree = "<group>"; };
+		1CDF72CE15D3A8CA00BE72C1 /* MembershipModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MembershipModel.m; sourceTree = "<group>"; };
+		1CDF72D015D3AE6300BE72C1 /* CollectionHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionHelper.h; sourceTree = "<group>"; };
+		1CDF72D115D3AE6300BE72C1 /* CollectionHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionHelper.m; sourceTree = "<group>"; };
+		1CDF72D315D3BC1300BE72C1 /* AuthenticatedUserModelLoadCompleteDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticatedUserModelLoadCompleteDelegate.h; sourceTree = "<group>"; };
 		1CFA7F7615C89B340051CFA1 /* BowerBird.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BowerBird.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CFA7F7A15C89B340051CFA1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1CFA7F7C15C89B340051CFA1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -208,14 +215,16 @@
 				1CDF724E15D3417300BE72C1 /* AvatarModel.m */,
 				1CDF725115D3417300BE72C1 /* GroupModel.h */,
 				1CDF725215D3417300BE72C1 /* GroupModel.m */,
-				1CDF725315D3417300BE72C1 /* HomeModel.h */,
-				1CDF725415D3417300BE72C1 /* HomeModel.m */,
 				1CDF725515D3417300BE72C1 /* ProjectModel.h */,
 				1CDF725615D3417300BE72C1 /* ProjectModel.m */,
 				1CDF725715D3417300BE72C1 /* RegisterModel.h */,
 				1CDF725815D3417300BE72C1 /* RegisterModel.m */,
 				1CDF725B15D3417300BE72C1 /* UserModel.h */,
 				1CDF725C15D3417300BE72C1 /* UserModel.m */,
+				1CDF72CA15D3A7F900BE72C1 /* AuthenticatedUserModel.h */,
+				1CDF72CB15D3A7F900BE72C1 /* AuthenticatedUserModel.m */,
+				1CDF72CD15D3A8CA00BE72C1 /* MembershipModel.h */,
+				1CDF72CE15D3A8CA00BE72C1 /* MembershipModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -229,6 +238,7 @@
 				1CDF726115D3417300BE72C1 /* ProjectLoadCompleteDelegate.h */,
 				1CDF726215D3417300BE72C1 /* RequestDataFromServer.h */,
 				1CDF726315D3417300BE72C1 /* UserLoadCompleteDelegate.h */,
+				1CDF72D315D3BC1300BE72C1 /* AuthenticatedUserModelLoadCompleteDelegate.h */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -299,6 +309,8 @@
 				1CDF72A515D3418C00BE72C1 /* CookieCutter.m */,
 				1CDF72A615D3418C00BE72C1 /* GuidGenerator.h */,
 				1CDF72A715D3418C00BE72C1 /* GuidGenerator.m */,
+				1CDF72D015D3AE6300BE72C1 /* CollectionHelper.h */,
+				1CDF72D115D3AE6300BE72C1 /* CollectionHelper.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -458,7 +470,6 @@
 				1CDF726415D3417300BE72C1 /* AuthenticationModel.m in Sources */,
 				1CDF726515D3417300BE72C1 /* AvatarModel.m in Sources */,
 				1CDF726715D3417300BE72C1 /* GroupModel.m in Sources */,
-				1CDF726815D3417300BE72C1 /* HomeModel.m in Sources */,
 				1CDF726915D3417300BE72C1 /* ProjectModel.m in Sources */,
 				1CDF726A15D3417300BE72C1 /* RegisterModel.m in Sources */,
 				1CDF726C15D3417300BE72C1 /* UserModel.m in Sources */,
@@ -485,6 +496,9 @@
 				1CDF72C215D341A700BE72C1 /* RegisterView.m in Sources */,
 				1CDF72C515D3626000BE72C1 /* NSNumber+ConvertMethods.m in Sources */,
 				1CDF72C915D39D2C00BE72C1 /* HomeViewController.m in Sources */,
+				1CDF72CC15D3A7F900BE72C1 /* AuthenticatedUserModel.m in Sources */,
+				1CDF72CF15D3A8CA00BE72C1 /* MembershipModel.m in Sources */,
+				1CDF72D215D3AE6300BE72C1 /* CollectionHelper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

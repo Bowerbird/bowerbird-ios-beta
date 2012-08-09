@@ -26,7 +26,7 @@
 
 +(NSArray *)loadUserFromResponseString:(NSString *)responseString;
 
-+(UserModel *)buildFromJson:(NSDictionary *)properties;
+-(id)initWithJsonBlob:(NSDictionary*)jsonBlob;
 
 -(void)setAvatars:(NSDictionary *)avatars;
 

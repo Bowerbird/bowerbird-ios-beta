@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BowerBirdConstants.h"
+#import "CookieHelper.h"
 
 @interface LoadingViewController : UIViewController
 

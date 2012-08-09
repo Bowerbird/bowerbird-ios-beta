@@ -15,6 +15,7 @@
 
 @implementation AvatarModel
 
+@synthesize networkQueue;
 @synthesize identifier = _identifier;
 @synthesize imageDimensionName = _imageDimensionName;
 @synthesize fileName = _fileName;
@@ -25,25 +26,25 @@
 @synthesize extension = _extension;
 @synthesize image = _image;
 @synthesize avatarOwner = _avatarOwner;
-@synthesize networkQueue;
 
 
 #pragma mark - Class methods for iterating JSON blobs.
- 
-+(AvatarModel *)buildSingleFromJson:(NSDictionary *)properties
+
+-(id)initWithJsonBlob:(NSDictionary *)jsonBlob;
 {
     AvatarModel* model = [[AvatarModel alloc]init];
     
-    model.identifier = [properties objectForKey:@"Id"];
-    model.fileName = [properties objectForKey:@"FileName"];
-    model.relativeUri = [properties objectForKey:@"RelativeUri"];
-    model.format = [properties objectForKey:@"Format"];
-    model.width = [NSNumber ConvertFromString:[properties objectForKey:@"Width"]];
-    model.height = [NSNumber ConvertFromString:[properties objectForKey:@"Height"]];
-    model.extension = [properties objectForKey:@"Extension"];
+    model.identifier = [jsonBlob objectForKey:@"Id"];
+    model.fileName = [jsonBlob objectForKey:@"FileName"];
+    model.relativeUri = [jsonBlob objectForKey:@"RelativeUri"];
+    model.format = [jsonBlob objectForKey:@"Format"];
+    model.width = [NSNumber ConvertFromString:[jsonBlob objectForKey:@"Width"]];
+    model.height = [NSNumber ConvertFromString:[jsonBlob objectForKey:@"Height"]];
+    model.extension = [jsonBlob objectForKey:@"Extension"];
     
-    return model;
+    return self;
 }
+
 
 // needs to be passed dictionary of Json object of Avatar Images
 // then extracts them with known avatar image property names
@@ -58,7 +59,7 @@
         for (NSString* avatarType in [BowerBirdConstants AvatarTypes])
         {
             NSDictionary* avatarJson = [properties objectForKey:avatarType];
-            AvatarModel* avatar = [AvatarModel buildSingleFromJson:avatarJson];
+            AvatarModel* avatar = [[AvatarModel alloc]initWithJsonBlob:avatarJson];
             avatar.imageDimensionName = avatarType;
             [avatarList setObject:(avatar) forKey:avatar.imageDimensionName];
         }
@@ -70,7 +71,7 @@
 
 #pragma mark - Network methods for loading Avatar Images from Media Urls
 
-- (void)doGetRequest:(NSString *)withUrl
+- (void)doGetRequest:(NSURL *)withUrl
 {
 	[[self networkQueue] cancelAllOperations];
 	[self setNetworkQueue:[ASINetworkQueue queue]];
@@ -79,11 +80,7 @@
 	[[self networkQueue] setRequestDidFailSelector:@selector(requestFailed:)];
 	[[self networkQueue] setQueueDidFinishSelector:@selector(queueFinished:)];
     
-    NSURL *url = [NSURL URLWithString:[[BowerBirdConstants RootUri]
-              stringByAppendingFormat:@"%@", withUrl]];
-    NSLog(@"Loading from url: %@", url);
-    
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];  
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:withUrl];
     [[self networkQueue] addOperation:request];
 	[[self networkQueue] go];
 }
@@ -132,7 +129,7 @@
     self.imageLoadDelegate = withDelegate;
     self.avatarOwner = avatarOwner;
     
-    [self doGetRequest:self.relativeUri];
+    [self doGetRequest:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", [BowerBirdConstants RootUriString], self.relativeUri]]];
 }
 
 

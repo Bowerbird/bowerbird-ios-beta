@@ -12,11 +12,15 @@
 
 +(NSString *)BowerbirdBlueHexString;
 
-+(NSString *)RootUri;
++(NSURL *)RootUri;
+
++(NSString *)RootUriString;
 
 +(NSURL *)ProjectsUrl;
 
 +(NSURL *)AccountLoginUrl;
+
++(NSURL *)AuthenticatedUserProfileUrl;
 
 +(NSString *)AuthCookieName;
 

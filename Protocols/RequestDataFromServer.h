@@ -16,7 +16,7 @@
 
 @property (retain) ASINetworkQueue *networkQueue;
 
-- (void)doGetRequest:(NSString *)withUrl;
+- (void)doGetRequest:(NSURL *)withUrl;
 
 - (void)requestFinished:(ASIHTTPRequest *)request;
 

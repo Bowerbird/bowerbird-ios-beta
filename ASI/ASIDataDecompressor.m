@@ -29,6 +29,7 @@
 	if (streamReady) {
 		[self closeStream];
 	}
+    [super dealloc];
 }
 
 - (NSError *)setupStream

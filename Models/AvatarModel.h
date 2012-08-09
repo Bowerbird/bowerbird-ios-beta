@@ -32,7 +32,7 @@
 // the binary image data to be displayed for this avatar
 @property (nonatomic,strong) UIImage* image;
 
-+(AvatarModel *)buildSingleFromJson:(NSDictionary *)properties;
+-(id)initWithJsonBlob:(NSDictionary *)jsonBlob;
 
 +(NSDictionary *)buildManyFromJson:(NSDictionary *)properties;
 

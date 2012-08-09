@@ -1,13 +1,15 @@
-//
-//  HomeViewController.h
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 9/08/12.
-//  Copyright (c) 2012 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
 
 #import <UIKit/UIKit.h>
+#import "AuthenticatedUserModel.h"
+#import "BowerBirdConstants.h"
 
-@interface HomeViewController : UIViewController
+@interface HomeViewController : UIViewController <AuthenticatedUserModelLoadCompleteDelegate>
 
 @end

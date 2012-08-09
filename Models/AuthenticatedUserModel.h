@@ -17,6 +17,7 @@
 #import "MembershipModel.h"
 #import "CollectionHelper.h"
 #import "AuthenticatedUserModelLoadCompleteDelegate.h"
+#import "CookieHelper.h"
 
 @interface AuthenticatedUserModel : NSObject <RequestDataFromServer, AvatarImageLoadCompleteDelegate>
 
@@ -32,5 +33,7 @@
 @property (nonatomic, strong) NSString* defaultLicence;
 
 +(AuthenticatedUserModel*)loadAuthenticatedUserModelFromResponseString:(NSString *)responseString;
+
+- (void)doGetRequest:(NSURL *)withUrl;
 
 @end

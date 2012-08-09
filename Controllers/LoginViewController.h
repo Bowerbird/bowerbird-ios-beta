@@ -15,7 +15,7 @@
 #import "BowerBirdConstants.h"
 #import "SBJSON.h"
 #import "ASINetworkQueue.h"
-#import "CookieCutter.h"
+#import "CookieHelper.h"
 
 #define EMAIL "email";
 #define PASSWORD "password";

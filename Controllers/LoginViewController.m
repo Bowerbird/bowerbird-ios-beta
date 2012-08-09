@@ -25,7 +25,6 @@
 @synthesize authenticationModel = _authenticationModel;
 
 
-
 #pragma mark - Wire up UI Actions
 
 - (IBAction)userEmailAddress:(UITextField *)sender {

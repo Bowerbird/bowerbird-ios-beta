@@ -1,10 +1,11 @@
-//
-//  User.m
-//  Bowerbird-iOS
-//
-//  Created by Hamish Crittenden on 26/07/12.
-//  Copyright (c) 2012 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "UserModel.h"
 
@@ -65,27 +66,27 @@
     
     if([jsonObject isKindOfClass:[NSDictionary class]])
     {
-        NSDictionary* model = [jsonObject objectForKey:@"Model.User"];
-        user = [self buildFromJson:model];
+        NSDictionary* userJson = [jsonObject objectForKey:@"Model.User"];
+        user = [[UserModel alloc]initWithJsonBlob:userJson];
     }
     
     return user;
 }
 
-+(UserModel *)buildFromJson:(NSDictionary *)properties;
+-(id)initWithJsonBlob:(NSDictionary*)jsonBlob
 {
     UserModel* model = [[UserModel alloc]init];
     
-    model.identifier = [properties objectForKey:@"Id"];
-    model.firstName = @"project";
-    model.lastName = [properties objectForKey:@"Name"];
-    model.email = [properties objectForKey:@"Description"];
+    model.identifier = [jsonBlob objectForKey:@"Id"];
+    model.firstName = @"FirstName";
+    model.lastName = [jsonBlob objectForKey:@"LastName"];
+    model.email = [jsonBlob objectForKey:@"Email"];
     
-    NSDictionary* avatarJson = [properties objectForKey:@"Avatar"];
+    NSDictionary* avatarJson = [jsonBlob objectForKey:@"Avatar"];
     NSDictionary* imageJson = [avatarJson objectForKey:@"Image"];
     model.avatars = [AvatarModel buildManyFromJson:imageJson];
     
-    return model;
+    return self;
 }
 
 

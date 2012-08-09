@@ -44,35 +44,34 @@
         NSArray* projectList = [projectModel objectForKey:@"PagedListItems"];
         
         for (id projectProperties in projectList) {
-            [projects addObject:[self buildFromJson:projectProperties]];
+            [projects addObject:([[ProjectModel alloc]initWithJsonBlob:projectProperties])];
         }
     }
     
     return projects;
 }
 
-+(ProjectModel *)buildFromJson:(NSDictionary *)properties
+-(id)initWithJsonBlob:(NSDictionary *)jsonBlob
 {
     ProjectModel* model = [[ProjectModel alloc]init];
-
-    model.identifier = [properties objectForKey:@"Id"];
-    model.groupType = @"project";
-    model.name = [properties objectForKey:@"Name"];
-    model.description = [properties objectForKey:@"Description"];
     
-    NSDictionary* avatarJson = [properties objectForKey:@"Avatar"];
+    model.identifier = [jsonBlob objectForKey:@"Id"];
+    model.groupType = @"project";
+    model.name = [jsonBlob objectForKey:@"Name"];
+    model.description = [jsonBlob objectForKey:@"Description"];
+    
+    NSDictionary* avatarJson = [jsonBlob objectForKey:@"Avatar"];
     NSDictionary* imageJson = [avatarJson objectForKey:@"Image"];
     model.avatars = [AvatarModel buildManyFromJson:imageJson];
     
-    return model;
+    return self;
 }
-
 
 
 #pragma mark - Network methods for loading Projects
  
 // this method uses blocks behind the scenes to do run an asynchronous, non blocking thread
-- (void)doGetRequest:(NSString *)withUrl
+- (void)doGetRequest:(NSURL *)withUrl
 {
 	[[self networkQueue] cancelAllOperations];
 	[self setNetworkQueue:[ASINetworkQueue queue]];
@@ -81,7 +80,7 @@
 	[[self networkQueue] setRequestDidFailSelector:@selector(requestFailed:)];
 	[[self networkQueue] setQueueDidFinishSelector:@selector(queueFinished:)];
     
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[BowerBirdConstants ProjectsUrl]];
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:withUrl];
     [request addRequestHeader:@"Accept" value:@"*/*"];
     [request addRequestHeader:@"X-Requested-With" value:@"XMLHttpRequest"];
     
@@ -128,7 +127,7 @@
 {
     self.projectLoadCompleteDelegate = delegate;
     
-	[self doGetRequest:[BowerBirdConstants RootUri]];
+	[self doGetRequest:[BowerBirdConstants ProjectsUrl]];
 }
 
 // loads the project images from Avatar, and sets this class as callback for

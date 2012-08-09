@@ -40,7 +40,7 @@
 		1CDF72AD15D3418C00BE72C1 /* ProjectTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF729A15D3418C00BE72C1 /* ProjectTableViewController.m */; };
 		1CDF72AE15D3418C00BE72C1 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF729C15D3418C00BE72C1 /* RegisterViewController.m */; };
 		1CDF72B115D3418C00BE72C1 /* BowerBirdConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF72A315D3418C00BE72C1 /* BowerBirdConstants.m */; };
-		1CDF72B215D3418C00BE72C1 /* CookieCutter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF72A515D3418C00BE72C1 /* CookieCutter.m */; };
+		1CDF72B215D3418C00BE72C1 /* CookieHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF72A515D3418C00BE72C1 /* CookieHelper.m */; };
 		1CDF72B315D3418C00BE72C1 /* GuidGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF72A715D3418C00BE72C1 /* GuidGenerator.m */; };
 		1CDF72BF15D341A700BE72C1 /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF72B615D341A700BE72C1 /* LoadingView.m */; };
 		1CDF72C015D341A700BE72C1 /* LoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF72B815D341A700BE72C1 /* LoginView.m */; };
@@ -132,8 +132,8 @@
 		1CDF729C15D3418C00BE72C1 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		1CDF72A215D3418C00BE72C1 /* BowerBirdConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BowerBirdConstants.h; sourceTree = "<group>"; };
 		1CDF72A315D3418C00BE72C1 /* BowerBirdConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BowerBirdConstants.m; sourceTree = "<group>"; };
-		1CDF72A415D3418C00BE72C1 /* CookieCutter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CookieCutter.h; sourceTree = "<group>"; };
-		1CDF72A515D3418C00BE72C1 /* CookieCutter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CookieCutter.m; sourceTree = "<group>"; };
+		1CDF72A415D3418C00BE72C1 /* CookieHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CookieHelper.h; sourceTree = "<group>"; };
+		1CDF72A515D3418C00BE72C1 /* CookieHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CookieHelper.m; sourceTree = "<group>"; };
 		1CDF72A615D3418C00BE72C1 /* GuidGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuidGenerator.h; sourceTree = "<group>"; };
 		1CDF72A715D3418C00BE72C1 /* GuidGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuidGenerator.m; sourceTree = "<group>"; };
 		1CDF72B515D341A700BE72C1 /* LoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingView.h; sourceTree = "<group>"; };
@@ -305,8 +305,8 @@
 			children = (
 				1CDF72A215D3418C00BE72C1 /* BowerBirdConstants.h */,
 				1CDF72A315D3418C00BE72C1 /* BowerBirdConstants.m */,
-				1CDF72A415D3418C00BE72C1 /* CookieCutter.h */,
-				1CDF72A515D3418C00BE72C1 /* CookieCutter.m */,
+				1CDF72A415D3418C00BE72C1 /* CookieHelper.h */,
+				1CDF72A515D3418C00BE72C1 /* CookieHelper.m */,
 				1CDF72A615D3418C00BE72C1 /* GuidGenerator.h */,
 				1CDF72A715D3418C00BE72C1 /* GuidGenerator.m */,
 				1CDF72D015D3AE6300BE72C1 /* CollectionHelper.h */,
@@ -488,7 +488,7 @@
 				1CDF72AD15D3418C00BE72C1 /* ProjectTableViewController.m in Sources */,
 				1CDF72AE15D3418C00BE72C1 /* RegisterViewController.m in Sources */,
 				1CDF72B115D3418C00BE72C1 /* BowerBirdConstants.m in Sources */,
-				1CDF72B215D3418C00BE72C1 /* CookieCutter.m in Sources */,
+				1CDF72B215D3418C00BE72C1 /* CookieHelper.m in Sources */,
 				1CDF72B315D3418C00BE72C1 /* GuidGenerator.m in Sources */,
 				1CDF72BF15D341A700BE72C1 /* LoadingView.m in Sources */,
 				1CDF72C015D341A700BE72C1 /* LoginView.m in Sources */,

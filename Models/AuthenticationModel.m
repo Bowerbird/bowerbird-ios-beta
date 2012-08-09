@@ -5,7 +5,7 @@
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
  
- *> Use this class to attempt login, registration and user rehydration between app sessions
+ *> Use this class to attempt login and registration
  
  -----------------------------------------------------------------------------------------------*/
 
@@ -26,6 +26,7 @@
 @synthesize request =_request;
 @synthesize authenticationCompleteDelegate = _authenticationCompleteDelegate;
 
+
 #pragma mark - Object initializers
 - (id)initWithCallbackDelegate:(id)delegate
 {
@@ -44,9 +45,9 @@
     
     if([jsonObject isKindOfClass:[NSDictionary class]])
     {
-        NSDictionary* model = [jsonObject objectForKey:@"Model"];
-        NSDictionary* userModel = [model objectForKey:@"User"];
-        self.authenticatedUser = [UserModel buildFromJson:userModel];
+        NSDictionary* userJson = [jsonObject objectForKey:@"Model"];
+        userJson = [userJson objectForKey:@"User"];
+        self.authenticatedUser = [[UserModel alloc]initWithJsonBlob:userJson];
     }
     
     NSHTTPCookie* authenticatedCookie;

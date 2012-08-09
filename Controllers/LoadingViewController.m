@@ -37,21 +37,9 @@
 
 -(BOOL)applicationRequiresLoginOrRegistration
 {
-    // try and load the cookie for .BOWERBIRDAUTH.
-    NSHTTPCookieStorage *sharedHTTPCookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    NSArray *cookies = [sharedHTTPCookieStorage cookiesForURL:[NSURL URLWithString:[BowerBirdConstants RootUri]]];
+    NSHTTPCookie* cookie = [CookieHelper grabCookieForUrl:[BowerBirdConstants RootUri] withName:[BowerBirdConstants BowerbirdCookieName]];
     
-    NSEnumerator *enumerator = [cookies objectEnumerator];
-    NSHTTPCookie *cookie;
-    while (cookie = [enumerator nextObject])
-    {
-        if ([[cookie name] isEqualToString:[BowerBirdConstants BowerbirdCookieName]])
-        {
-            return NO;
-        }
-    }
-    
-    return YES;
+    return cookie == nil;
 }
 
 -(void)segueToLogin

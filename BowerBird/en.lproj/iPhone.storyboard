@@ -5,11 +5,11 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1498"/>
     </dependencies>
     <scenes>
-        <!--View Controller - Home-->
+        <!--Home View Controller - Home-->
         <scene sceneID="ySc-66-V7W">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p9d-SP-3Ys" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="rqF-QS-gk2" sceneMemberID="viewController">
+                <viewController id="rqF-QS-gk2" customClass="HomeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="01v-MP-E9X">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -299,6 +299,40 @@
         <image name="bowerbird-logo.png" width="169" height="39"/>
         <image name="loader.png" width="128" height="128"/>
     </resources>
+    <classes>
+        <class className="HomeViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeViewController.h"/>
+        </class>
+        <class className="LoadingView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoadingView.h"/>
+        </class>
+        <class className="LoadingViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoadingViewController.h"/>
+        </class>
+        <class className="LoginView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginView.h"/>
+        </class>
+        <class className="LoginViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="logUserIn:"/>
+                <relationship kind="action" name="userEmailAddress:" candidateClass="UITextField"/>
+                <relationship kind="action" name="userPassword:" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="ProjectTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProjectTableViewController.h"/>
+        </class>
+        <class className="ProjectsView" superclassName="UITableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProjectsView.h"/>
+        </class>
+        <class className="RegisterView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegisterView.h"/>
+        </class>
+        <class className="RegisterViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegisterViewController.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

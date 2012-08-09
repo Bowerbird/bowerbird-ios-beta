@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+@class AuthenticatedUserModel;
+
 @protocol AuthenticatedUserModelLoadCompleteDelegate <NSObject>
+
+-(void)AuthenticatedUserModelIsLoaded:(AuthenticatedUserModel*)authenticatedUserModel;
 
 @end

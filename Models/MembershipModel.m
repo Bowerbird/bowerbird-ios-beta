@@ -19,8 +19,8 @@
 {
     self.groupId = [jsonBlob objectForKey:@"GroupId"];
     self.groupType = @"GroupType";
-    self.permissions = [CollectionHelper populateArrayFromDictionary:[jsonBlob objectForKey:@"PermissionIds"]];
-    self.roleIds = [CollectionHelper populateArrayFromDictionary:[jsonBlob objectForKey:@"RoleIds"]];
+    self.permissions = [jsonBlob objectForKey:@"PermissionIds"];
+    self.roleIds = [jsonBlob objectForKey:@"RoleIds"];
 
     return self;
 }

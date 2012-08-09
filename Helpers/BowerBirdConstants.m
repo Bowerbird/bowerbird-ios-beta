@@ -17,24 +17,34 @@
 }
 
 // url
-+(NSString *)RootUri
++(NSURL *)RootUri
 {
-    // hamish's pc
-    //return @"http://136.154.22.24:65000";
-    
-    // bowerbird dev
+    return [NSURL URLWithString:[self RootUriString]];
+}
+
++(NSString *)RootUriString
+{
+    // Hamish's PC
     return @"http://dev.bowerbird.org.au";
+    
+    // Bowerbird dev server
+    //return @"http://136.154.22.24:65000";
 }
 
 // restful segments
 +(NSURL *)ProjectsUrl
 {
-    return [NSURL URLWithString:([[self RootUri] stringByAppendingString:@"/projects"])];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [self RootUriString], @"/projects"]];
 }
 
 +(NSURL *)AccountLoginUrl
 {
-    return [NSURL URLWithString:([[self RootUri] stringByAppendingString:@"/account/login"])];
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [self RootUriString], @"/account/login"]];
+}
+
++(NSURL *)AuthenticatedUserProfileUrl
+{
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [self RootUriString], @"/account/profile"]];
 }
 
 +(NSString *)AuthCookieName

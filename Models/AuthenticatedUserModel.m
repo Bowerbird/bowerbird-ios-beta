@@ -12,7 +12,7 @@
 @interface AuthenticatedUserModel()
 -(void)loadAvatarImages;
 @property (nonatomic, weak) id<AuthenticatedUserModelLoadCompleteDelegate> authenticatedUserModelLoadCompleteDelegate;
-@property AuthenticatedUserModel* authenticatedUserModel;
+@property (nonatomic, strong) AuthenticatedUserModel* authenticatedUserModel;
 @end
 
 @implementation AuthenticatedUserModel
@@ -55,23 +55,25 @@
     authenticatedUserModel.categories = [jsonDictionary objectForKey:@"Categories"];
         
     // drill down to AuthenticatedUser.Memberships
-    NSMutableArray* membershipModelArray = [[NSMutableArray alloc]init];
-    for(id member in [CollectionHelper populateArrayFromDictionary:[jsonBlob objectForKey:@"Memberships"]])
+    NSArray* membershipJson = [jsonBlob objectForKey:@"Memberships"];
+    NSMutableArray* membershipObjects = [[NSMutableArray alloc]init];
+    for(id member in membershipJson)
     {
-        [membershipModelArray addObject:[[MembershipModel alloc]initWithJsonBlob:(member)]];
+        [membershipObjects addObject:([[MembershipModel alloc]initWithJsonBlob:member])];
     }
-    authenticatedUserModel.memberships = [[NSArray alloc]initWithArray:membershipModelArray];
+    authenticatedUserModel.memberships = [[NSArray alloc]initWithArray:membershipObjects];
     
     // drill down to AuthenticatedUser.Projects
-    NSMutableArray* projectModelArray = [[NSMutableArray alloc]init];
-    for(id project in [CollectionHelper populateArrayFromDictionary:[jsonBlob objectForKey:@"Projects"]])
+    NSArray* projectsJson = [jsonBlob objectForKey:@"Projects"];
+    NSMutableArray* projectObjects = [[NSMutableArray alloc]init];
+    for(id project in projectsJson)
     {
-        [projectModelArray addObject:[ProjectModel buildFromJson:(project)]];
+        [projectObjects addObject:([[ProjectModel alloc]initWithJsonBlob:project])];
     }
-    authenticatedUserModel.projects = projectModelArray;
+    authenticatedUserModel.projects = [[NSArray alloc]initWithArray:projectObjects];
     
     // drill down to AuthenticatedUser.User
-    authenticatedUserModel.user = [UserModel buildFromJson:[jsonBlob objectForKey:@"User"]];
+    authenticatedUserModel.user = [[UserModel alloc]initWithJsonBlob:([jsonBlob objectForKey:@"User"])];
     
     return authenticatedUserModel;
 }
@@ -80,7 +82,7 @@
 #pragma mark - Network methods for loading Projects
 
 // this method uses blocks behind the scenes to do run an asynchronous, non blocking thread
-- (void)doGetRequest:(NSString *)withUrl
+- (void)doGetRequest:(NSURL *)withUrl
 {
 	[[self networkQueue] cancelAllOperations];
 	[self setNetworkQueue:[ASINetworkQueue queue]];
@@ -88,11 +90,10 @@
 	[[self networkQueue] setRequestDidFinishSelector:@selector(requestFinished:)];
 	[[self networkQueue] setRequestDidFailSelector:@selector(requestFailed:)];
 	[[self networkQueue] setQueueDidFinishSelector:@selector(queueFinished:)];
-    
-    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[BowerBirdConstants ProjectsUrl]];
+  
+    ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:withUrl];
     [request addRequestHeader:@"Accept" value:@"*/*"];
     [request addRequestHeader:@"X-Requested-With" value:@"XMLHttpRequest"];
-    
     [[self networkQueue] addOperation:request];
 	[[self networkQueue] go];
 }
@@ -163,15 +164,42 @@
 
 // this method is called back via the protocol delegate in
 // the AvatarModel when it's image has loaded from network call.
+// if the user and all the projects have images set then we have loaded everything.
 -(void)ImageFinishedLoading:(NSString *)imageDimensionName
              forAvatarOwner:(id)avatarOwner
 {
+    BOOL imagesAreAllLoaded = YES;
+    
     if(imageDimensionName == [BowerBirdConstants ProjectDisplayAvatarName])
     {
-        //ProjectModel* projectModel = [self.projects objectAtIndex:[self.projects indexOfObject:(avatarOwner)]];
-        
-        // notify this object's delegate that project is successfully loaded
-        //[self.projectLoadCompleteDelegate ProjectLoaded:projectModel];
+
+        UIImage* userAvatarImage = [self.authenticatedUserModel.user.avatars objectForKey:[BowerBirdConstants ProjectDisplayAvatarName]];
+        if(!userAvatarImage)
+        {
+            imagesAreAllLoaded = NO;
+        }
+            
+        // load the avatars for all the projects
+        for (ProjectModel *project in self.authenticatedUserModel.projects)
+        {
+            for(id avatar in project.avatars)
+            {
+                AvatarModel* projectAvatar = [project.avatars objectForKey:(avatar)];
+                
+                if(projectAvatar.image == nil)
+                {
+                    imagesAreAllLoaded = NO;
+                }
+            }
+        }
+    }
+    
+    if(imagesAreAllLoaded)
+    {
+        if([self.authenticatedUserModelLoadCompleteDelegate respondsToSelector:@selector(AuthenticatedUserModelIsLoaded:)])
+        {
+            [self.authenticatedUserModelLoadCompleteDelegate AuthenticatedUserModelIsLoaded:self.authenticatedUserModel];
+        }
     }
 }
 

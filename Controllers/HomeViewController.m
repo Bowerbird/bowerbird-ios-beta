@@ -1,18 +1,20 @@
-//
-//  HomeViewController.m
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 9/08/12.
-//  Copyright (c) 2012 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
 
 #import "HomeViewController.h"
 
 @interface HomeViewController ()
-
+@property (nonatomic, strong) AuthenticatedUserModel* authenticatedUserModel;
 @end
 
 @implementation HomeViewController
+
+@synthesize authenticatedUserModel = _authenticatedUserModel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -23,10 +25,16 @@
     return self;
 }
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    
+    // load the authenticatedUser:
+    self.authenticatedUserModel = [[AuthenticatedUserModel alloc]init];
+    
+    [self.authenticatedUserModel doGetRequest:[BowerBirdConstants AuthenticatedUserProfileUrl]];
+    
 }
 
 - (void)viewDidUnload
@@ -38,6 +46,15 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+
+-(void)AuthenticatedUserModelIsLoaded:(AuthenticatedUserModel*)authenticatedUserModel
+{
+    self.authenticatedUserModel = authenticatedUserModel;
+    
+    NSLog(@"AuthenticationUserModel has been loaded");
+    // do some rendering
 }
 
 @end

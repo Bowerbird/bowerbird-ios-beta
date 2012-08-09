@@ -13,9 +13,17 @@
 +(NSArray*)populateArrayFromDictionary:(NSDictionary*)dictionary
 {
     NSMutableArray* arrayOfValues = [[NSMutableArray alloc]init];
-    [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop){
-        [arrayOfValues addObject:obj];
-    }];
+    
+    // this is causing an exception.. need to follow better example..
+    //[dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop){
+        //[arrayOfValues addObject:obj];
+    //}];
+    
+    for(id key in dictionary)
+    {
+        id value = [dictionary objectForKey:key];
+        [arrayOfValues addObject:value];
+    }
     
     return [[NSArray alloc]initWithArray:arrayOfValues];
 }

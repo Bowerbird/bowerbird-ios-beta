@@ -17,7 +17,7 @@
 #import "BowerBirdConstants.h"
 #import "SBJSON.h"
 #import "ASINetworkQueue.h"
-#import "CookieCutter.h"
+#import "CookieHelper.h"
 
 @protocol PostDataToServer <NSObject>
 

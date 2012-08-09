@@ -37,19 +37,19 @@
 
 -(BOOL)applicationRequiresLoginOrRegistration
 {
-    NSString *dataFile;
-    NSString *docsDir;
-    NSArray *dirPaths;
+    // try and load the cookie for .BOWERBIRDAUTH.
+    NSHTTPCookieStorage *sharedHTTPCookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    NSArray *cookies = [sharedHTTPCookieStorage cookiesForURL:[NSURL URLWithString:[BowerBirdConstants RootUri]]];
     
-    self.filemgr = [NSFileManager defaultManager];
-    
-    // Identify the documents directory
-    dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    
-    docsDir = [dirPaths objectAtIndex:0];
-    
-    // Build the path to the data file - this will be replaced with a query for the NSData database file
-    dataFile = [docsDir stringByAppendingPathComponent: @"datafile.dat"];
+    NSEnumerator *enumerator = [cookies objectEnumerator];
+    NSHTTPCookie *cookie;
+    while (cookie = [enumerator nextObject])
+    {
+        if ([[cookie name] isEqualToString:[BowerBirdConstants BowerbirdCookieName]])
+        {
+            return NO;
+        }
+    }
     
     return YES;
 }
@@ -74,13 +74,20 @@
     }
     else if([segue.identifier isEqualToString:@"Home"])
     {
-        
+        // now we need to load the latest user data from account/profile,
+        // parse it and pass it to the home screen.
     }
 }
 
 
 
 #pragma mark - View Display logic
+
+-(void) viewWillAppear:(BOOL)animated
+{
+    [self startRotation];
+}
+
 
 - (void) viewDidAppear:(BOOL) animated
 {

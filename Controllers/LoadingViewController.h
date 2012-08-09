@@ -7,6 +7,7 @@
  -----------------------------------------------------------------------------------------------*/
 
 #import <UIKit/UIKit.h>
+#import "BowerBirdConstants.h"
 
 @interface LoadingViewController : UIViewController
 

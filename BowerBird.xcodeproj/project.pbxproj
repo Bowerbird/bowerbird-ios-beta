@@ -21,12 +21,10 @@
 		1C9B4EFD15CB9DA70034269C /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C9B4EF715CB9DA70034269C /* SBJsonWriter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1CDF726415D3417300BE72C1 /* AuthenticationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF724C15D3417300BE72C1 /* AuthenticationModel.m */; };
 		1CDF726515D3417300BE72C1 /* AvatarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF724E15D3417300BE72C1 /* AvatarModel.m */; };
-		1CDF726615D3417300BE72C1 /* BowerBirdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF725015D3417300BE72C1 /* BowerBirdModel.m */; };
 		1CDF726715D3417300BE72C1 /* GroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF725215D3417300BE72C1 /* GroupModel.m */; };
 		1CDF726815D3417300BE72C1 /* HomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF725415D3417300BE72C1 /* HomeModel.m */; };
 		1CDF726915D3417300BE72C1 /* ProjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF725615D3417300BE72C1 /* ProjectModel.m */; };
 		1CDF726A15D3417300BE72C1 /* RegisterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF725815D3417300BE72C1 /* RegisterModel.m */; };
-		1CDF726B15D3417300BE72C1 /* SightingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF725A15D3417300BE72C1 /* SightingModel.m */; };
 		1CDF726C15D3417300BE72C1 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF725C15D3417300BE72C1 /* UserModel.m */; };
 		1CDF728415D3417D00BE72C1 /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF726F15D3417D00BE72C1 /* ASIAuthenticationDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1CDF728515D3417D00BE72C1 /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF727215D3417D00BE72C1 /* ASIDataCompressor.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -37,15 +35,11 @@
 		1CDF728A15D3417D00BE72C1 /* ASIInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF727E15D3417D00BE72C1 /* ASIInputStream.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1CDF728B15D3417D00BE72C1 /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF728015D3417D00BE72C1 /* ASINetworkQueue.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1CDF728C15D3417D00BE72C1 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF728315D3417D00BE72C1 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		1CDF72A815D3418C00BE72C1 /* NSNumber+NSNumber_ConvertMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF728F15D3418C00BE72C1 /* NSNumber+NSNumber_ConvertMethods.m */; };
 		1CDF72A915D3418C00BE72C1 /* UIColor+CreateMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF729115D3418C00BE72C1 /* UIColor+CreateMethods.m */; };
-		1CDF72AA15D3418C00BE72C1 /* BowerBirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF729415D3418C00BE72C1 /* BowerBirdViewController.m */; };
 		1CDF72AB15D3418C00BE72C1 /* LoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF729615D3418C00BE72C1 /* LoadingViewController.m */; };
 		1CDF72AC15D3418C00BE72C1 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF729815D3418C00BE72C1 /* LoginViewController.m */; };
 		1CDF72AD15D3418C00BE72C1 /* ProjectTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF729A15D3418C00BE72C1 /* ProjectTableViewController.m */; };
 		1CDF72AE15D3418C00BE72C1 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF729C15D3418C00BE72C1 /* RegisterViewController.m */; };
-		1CDF72AF15D3418C00BE72C1 /* RotatableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF729E15D3418C00BE72C1 /* RotatableViewController.m */; };
-		1CDF72B015D3418C00BE72C1 /* StreamUITableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF72A015D3418C00BE72C1 /* StreamUITableViewController.m */; };
 		1CDF72B115D3418C00BE72C1 /* BowerBirdConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF72A315D3418C00BE72C1 /* BowerBirdConstants.m */; };
 		1CDF72B215D3418C00BE72C1 /* CookieCutter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF72A515D3418C00BE72C1 /* CookieCutter.m */; };
 		1CDF72B315D3418C00BE72C1 /* GuidGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF72A715D3418C00BE72C1 /* GuidGenerator.m */; };
@@ -53,7 +47,8 @@
 		1CDF72C015D341A700BE72C1 /* LoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF72B815D341A700BE72C1 /* LoginView.m */; };
 		1CDF72C115D341A700BE72C1 /* ProjectsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF72BA15D341A700BE72C1 /* ProjectsView.m */; };
 		1CDF72C215D341A700BE72C1 /* RegisterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF72BC15D341A700BE72C1 /* RegisterView.m */; };
-		1CDF72C315D341A700BE72C1 /* StreamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF72BE15D341A700BE72C1 /* StreamView.m */; };
+		1CDF72C515D3626000BE72C1 /* NSNumber+ConvertMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF72C415D3626000BE72C1 /* NSNumber+ConvertMethods.m */; };
+		1CDF72C915D39D2C00BE72C1 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF72C815D39D2C00BE72C1 /* HomeViewController.m */; };
 		1CFA7F7B15C89B340051CFA1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CFA7F7A15C89B340051CFA1 /* UIKit.framework */; };
 		1CFA7F7D15C89B340051CFA1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CFA7F7C15C89B340051CFA1 /* Foundation.framework */; };
 		1CFA7F7F15C89B340051CFA1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CFA7F7E15C89B340051CFA1 /* CoreGraphics.framework */; };
@@ -87,8 +82,6 @@
 		1CDF724C15D3417300BE72C1 /* AuthenticationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationModel.m; sourceTree = "<group>"; };
 		1CDF724D15D3417300BE72C1 /* AvatarModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvatarModel.h; sourceTree = "<group>"; };
 		1CDF724E15D3417300BE72C1 /* AvatarModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvatarModel.m; sourceTree = "<group>"; };
-		1CDF724F15D3417300BE72C1 /* BowerBirdModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BowerBirdModel.h; sourceTree = "<group>"; };
-		1CDF725015D3417300BE72C1 /* BowerBirdModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BowerBirdModel.m; sourceTree = "<group>"; };
 		1CDF725115D3417300BE72C1 /* GroupModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupModel.h; sourceTree = "<group>"; };
 		1CDF725215D3417300BE72C1 /* GroupModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupModel.m; sourceTree = "<group>"; };
 		1CDF725315D3417300BE72C1 /* HomeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeModel.h; sourceTree = "<group>"; };
@@ -97,8 +90,6 @@
 		1CDF725615D3417300BE72C1 /* ProjectModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectModel.m; sourceTree = "<group>"; };
 		1CDF725715D3417300BE72C1 /* RegisterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterModel.h; sourceTree = "<group>"; };
 		1CDF725815D3417300BE72C1 /* RegisterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterModel.m; sourceTree = "<group>"; };
-		1CDF725915D3417300BE72C1 /* SightingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SightingModel.h; sourceTree = "<group>"; };
-		1CDF725A15D3417300BE72C1 /* SightingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SightingModel.m; sourceTree = "<group>"; };
 		1CDF725B15D3417300BE72C1 /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
 		1CDF725C15D3417300BE72C1 /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		1CDF725E15D3417300BE72C1 /* AuthenticationCompleteDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationCompleteDelegate.h; sourceTree = "<group>"; };
@@ -129,12 +120,8 @@
 		1CDF728115D3417D00BE72C1 /* ASIProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIProgressDelegate.h; sourceTree = "<group>"; };
 		1CDF728215D3417D00BE72C1 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		1CDF728315D3417D00BE72C1 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		1CDF728E15D3418C00BE72C1 /* NSNumber+NSNumber_ConvertMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+NSNumber_ConvertMethods.h"; sourceTree = "<group>"; };
-		1CDF728F15D3418C00BE72C1 /* NSNumber+NSNumber_ConvertMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+NSNumber_ConvertMethods.m"; sourceTree = "<group>"; };
 		1CDF729015D3418C00BE72C1 /* UIColor+CreateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CreateMethods.h"; sourceTree = "<group>"; };
 		1CDF729115D3418C00BE72C1 /* UIColor+CreateMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CreateMethods.m"; sourceTree = "<group>"; };
-		1CDF729315D3418C00BE72C1 /* BowerBirdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BowerBirdViewController.h; sourceTree = "<group>"; };
-		1CDF729415D3418C00BE72C1 /* BowerBirdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BowerBirdViewController.m; sourceTree = "<group>"; };
 		1CDF729515D3418C00BE72C1 /* LoadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingViewController.h; sourceTree = "<group>"; };
 		1CDF729615D3418C00BE72C1 /* LoadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingViewController.m; sourceTree = "<group>"; };
 		1CDF729715D3418C00BE72C1 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -143,10 +130,6 @@
 		1CDF729A15D3418C00BE72C1 /* ProjectTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectTableViewController.m; sourceTree = "<group>"; };
 		1CDF729B15D3418C00BE72C1 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		1CDF729C15D3418C00BE72C1 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
-		1CDF729D15D3418C00BE72C1 /* RotatableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotatableViewController.h; sourceTree = "<group>"; };
-		1CDF729E15D3418C00BE72C1 /* RotatableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotatableViewController.m; sourceTree = "<group>"; };
-		1CDF729F15D3418C00BE72C1 /* StreamUITableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamUITableViewController.h; sourceTree = "<group>"; };
-		1CDF72A015D3418C00BE72C1 /* StreamUITableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamUITableViewController.m; sourceTree = "<group>"; };
 		1CDF72A215D3418C00BE72C1 /* BowerBirdConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BowerBirdConstants.h; sourceTree = "<group>"; };
 		1CDF72A315D3418C00BE72C1 /* BowerBirdConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BowerBirdConstants.m; sourceTree = "<group>"; };
 		1CDF72A415D3418C00BE72C1 /* CookieCutter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CookieCutter.h; sourceTree = "<group>"; };
@@ -161,8 +144,10 @@
 		1CDF72BA15D341A700BE72C1 /* ProjectsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectsView.m; sourceTree = "<group>"; };
 		1CDF72BB15D341A700BE72C1 /* RegisterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterView.h; sourceTree = "<group>"; };
 		1CDF72BC15D341A700BE72C1 /* RegisterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterView.m; sourceTree = "<group>"; };
-		1CDF72BD15D341A700BE72C1 /* StreamView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreamView.h; sourceTree = "<group>"; };
-		1CDF72BE15D341A700BE72C1 /* StreamView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreamView.m; sourceTree = "<group>"; };
+		1CDF72C415D3626000BE72C1 /* NSNumber+ConvertMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+ConvertMethods.m"; sourceTree = "<group>"; };
+		1CDF72C615D3629600BE72C1 /* NSNumber+ConvertMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+ConvertMethods.h"; sourceTree = "<group>"; };
+		1CDF72C715D39D2B00BE72C1 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		1CDF72C815D39D2C00BE72C1 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		1CFA7F7615C89B340051CFA1 /* BowerBird.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BowerBird.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CFA7F7A15C89B340051CFA1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1CFA7F7C15C89B340051CFA1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -221,8 +206,6 @@
 				1CDF724C15D3417300BE72C1 /* AuthenticationModel.m */,
 				1CDF724D15D3417300BE72C1 /* AvatarModel.h */,
 				1CDF724E15D3417300BE72C1 /* AvatarModel.m */,
-				1CDF724F15D3417300BE72C1 /* BowerBirdModel.h */,
-				1CDF725015D3417300BE72C1 /* BowerBirdModel.m */,
 				1CDF725115D3417300BE72C1 /* GroupModel.h */,
 				1CDF725215D3417300BE72C1 /* GroupModel.m */,
 				1CDF725315D3417300BE72C1 /* HomeModel.h */,
@@ -231,8 +214,6 @@
 				1CDF725615D3417300BE72C1 /* ProjectModel.m */,
 				1CDF725715D3417300BE72C1 /* RegisterModel.h */,
 				1CDF725815D3417300BE72C1 /* RegisterModel.m */,
-				1CDF725915D3417300BE72C1 /* SightingModel.h */,
-				1CDF725A15D3417300BE72C1 /* SightingModel.m */,
 				1CDF725B15D3417300BE72C1 /* UserModel.h */,
 				1CDF725C15D3417300BE72C1 /* UserModel.m */,
 			);
@@ -284,8 +265,8 @@
 		1CDF728D15D3418C00BE72C1 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				1CDF728E15D3418C00BE72C1 /* NSNumber+NSNumber_ConvertMethods.h */,
-				1CDF728F15D3418C00BE72C1 /* NSNumber+NSNumber_ConvertMethods.m */,
+				1CDF72C615D3629600BE72C1 /* NSNumber+ConvertMethods.h */,
+				1CDF72C415D3626000BE72C1 /* NSNumber+ConvertMethods.m */,
 				1CDF729015D3418C00BE72C1 /* UIColor+CreateMethods.h */,
 				1CDF729115D3418C00BE72C1 /* UIColor+CreateMethods.m */,
 			);
@@ -295,8 +276,6 @@
 		1CDF729215D3418C00BE72C1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				1CDF729315D3418C00BE72C1 /* BowerBirdViewController.h */,
-				1CDF729415D3418C00BE72C1 /* BowerBirdViewController.m */,
 				1CDF729515D3418C00BE72C1 /* LoadingViewController.h */,
 				1CDF729615D3418C00BE72C1 /* LoadingViewController.m */,
 				1CDF729715D3418C00BE72C1 /* LoginViewController.h */,
@@ -305,10 +284,8 @@
 				1CDF729A15D3418C00BE72C1 /* ProjectTableViewController.m */,
 				1CDF729B15D3418C00BE72C1 /* RegisterViewController.h */,
 				1CDF729C15D3418C00BE72C1 /* RegisterViewController.m */,
-				1CDF729D15D3418C00BE72C1 /* RotatableViewController.h */,
-				1CDF729E15D3418C00BE72C1 /* RotatableViewController.m */,
-				1CDF729F15D3418C00BE72C1 /* StreamUITableViewController.h */,
-				1CDF72A015D3418C00BE72C1 /* StreamUITableViewController.m */,
+				1CDF72C715D39D2B00BE72C1 /* HomeViewController.h */,
+				1CDF72C815D39D2C00BE72C1 /* HomeViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -337,8 +314,6 @@
 				1CDF72BA15D341A700BE72C1 /* ProjectsView.m */,
 				1CDF72BB15D341A700BE72C1 /* RegisterView.h */,
 				1CDF72BC15D341A700BE72C1 /* RegisterView.m */,
-				1CDF72BD15D341A700BE72C1 /* StreamView.h */,
-				1CDF72BE15D341A700BE72C1 /* StreamView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -482,12 +457,10 @@
 				1C9B4EFD15CB9DA70034269C /* SBJsonWriter.m in Sources */,
 				1CDF726415D3417300BE72C1 /* AuthenticationModel.m in Sources */,
 				1CDF726515D3417300BE72C1 /* AvatarModel.m in Sources */,
-				1CDF726615D3417300BE72C1 /* BowerBirdModel.m in Sources */,
 				1CDF726715D3417300BE72C1 /* GroupModel.m in Sources */,
 				1CDF726815D3417300BE72C1 /* HomeModel.m in Sources */,
 				1CDF726915D3417300BE72C1 /* ProjectModel.m in Sources */,
 				1CDF726A15D3417300BE72C1 /* RegisterModel.m in Sources */,
-				1CDF726B15D3417300BE72C1 /* SightingModel.m in Sources */,
 				1CDF726C15D3417300BE72C1 /* UserModel.m in Sources */,
 				1CDF728415D3417D00BE72C1 /* ASIAuthenticationDialog.m in Sources */,
 				1CDF728515D3417D00BE72C1 /* ASIDataCompressor.m in Sources */,
@@ -498,15 +471,11 @@
 				1CDF728A15D3417D00BE72C1 /* ASIInputStream.m in Sources */,
 				1CDF728B15D3417D00BE72C1 /* ASINetworkQueue.m in Sources */,
 				1CDF728C15D3417D00BE72C1 /* Reachability.m in Sources */,
-				1CDF72A815D3418C00BE72C1 /* NSNumber+NSNumber_ConvertMethods.m in Sources */,
 				1CDF72A915D3418C00BE72C1 /* UIColor+CreateMethods.m in Sources */,
-				1CDF72AA15D3418C00BE72C1 /* BowerBirdViewController.m in Sources */,
 				1CDF72AB15D3418C00BE72C1 /* LoadingViewController.m in Sources */,
 				1CDF72AC15D3418C00BE72C1 /* LoginViewController.m in Sources */,
 				1CDF72AD15D3418C00BE72C1 /* ProjectTableViewController.m in Sources */,
 				1CDF72AE15D3418C00BE72C1 /* RegisterViewController.m in Sources */,
-				1CDF72AF15D3418C00BE72C1 /* RotatableViewController.m in Sources */,
-				1CDF72B015D3418C00BE72C1 /* StreamUITableViewController.m in Sources */,
 				1CDF72B115D3418C00BE72C1 /* BowerBirdConstants.m in Sources */,
 				1CDF72B215D3418C00BE72C1 /* CookieCutter.m in Sources */,
 				1CDF72B315D3418C00BE72C1 /* GuidGenerator.m in Sources */,
@@ -514,7 +483,8 @@
 				1CDF72C015D341A700BE72C1 /* LoginView.m in Sources */,
 				1CDF72C115D341A700BE72C1 /* ProjectsView.m in Sources */,
 				1CDF72C215D341A700BE72C1 /* RegisterView.m in Sources */,
-				1CDF72C315D341A700BE72C1 /* StreamView.m in Sources */,
+				1CDF72C515D3626000BE72C1 /* NSNumber+ConvertMethods.m in Sources */,
+				1CDF72C915D39D2C00BE72C1 /* HomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

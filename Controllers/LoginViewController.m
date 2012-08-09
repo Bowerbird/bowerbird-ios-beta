@@ -40,13 +40,12 @@
 // when user presses login, make the request to the server
 - (IBAction)logUserIn:(id)sender
 {
-    AuthenticationModel* authenticator = [[AuthenticationModel alloc]initWithCallbackDelegate:(self)];
+    self.authenticationModel = [[AuthenticationModel alloc]initWithCallbackDelegate:(self)];
     
     NSDictionary* params = [NSDictionary dictionaryWithObjectsAndKeys:self.email, @"email", self.password, @"password", nil];
     
-    [authenticator doPostRequest:[BowerBirdConstants AccountLoginUrl] withParameters:params];
+    [self.authenticationModel doPostRequest:[BowerBirdConstants AccountLoginUrl] withParameters:params];
 }
-
 
 
 #pragma mark - Authentication methods and Segues

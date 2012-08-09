@@ -24,4 +24,6 @@
 
 +(NSString *)ProjectDisplayAvatarName;
 
++(NSString *)BowerbirdCookieName;
+
 @end

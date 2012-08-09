@@ -52,4 +52,9 @@
     return @"Square200";
 }
 
++(NSString *)BowerbirdCookieName
+{
+    return @".BOWERBIRDAUTH";
+}
+
 @end

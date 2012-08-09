@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2549" systemVersion="12A269" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="25a-a1-dOJ">
+    <dependencies>
+        <deployment defaultVersion="1296" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1498"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller - Home-->
+        <scene sceneID="ySc-66-V7W">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p9d-SP-3Ys" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="rqF-QS-gk2" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="01v-MP-E9X">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Home" id="TDB-4m-nFT"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1450" y="-743"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="o9U-6i-KYx">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="P7b-Qu-3Tq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="Vjg-K9-39h" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ubp-sb-rww">
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="2YV-6e-dzc"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="2454" y="-724"/>
+        </scene>
+        <!--Register View Controller - Register-->
+        <scene sceneID="HmO-pf-2NY">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PY3-t8-qPz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="SMM-HL-xBZ" customClass="RegisterViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="F0H-uf-3cc">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="jRj-CL-lJB" customClass="RegisterView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Register with BowerBird:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="8ZT-eG-0ed">
+                                        <rect key="frame" x="20" y="20" width="274" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="enter your email address" minimumFontSize="17" id="QA1-ax-bcc">
+                                        <rect key="frame" x="20" y="163" width="274" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="choose a password" minimumFontSize="17" id="WxT-bf-yYT">
+                                        <rect key="frame" x="19" y="218" width="275" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="enter your first name" minimumFontSize="17" id="go1-YK-5Ki">
+                                        <rect key="frame" x="20" y="63" width="274" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="enter your last name" minimumFontSize="17" id="3k0-yv-qEN">
+                                        <rect key="frame" x="19" y="112" width="274" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="yQs-32-L6s">
+                                        <rect key="frame" x="19" y="269" width="275" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Register">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Register" id="LKI-DN-ArJ"/>
+                    <connections>
+                        <outlet property="view" destination="jRj-CL-lJB" id="hLN-xU-ddX"/>
+                        <segue destination="rqF-QS-gk2" kind="push" identifier="Home After Register" id="u9P-66-oQM"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="907" y="-1428"/>
+        </scene>
+        <!--Project Table View Controller - Projects-->
+        <scene sceneID="ZyL-S5-tkB">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WIz-iY-TTV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="bxR-X8-Dwd" customClass="ProjectTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="g9T-c3-O2N" customClass="ProjectsView">
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Project Detail" textLabel="RCE-kH-RyC" detailTextLabel="E2y-lV-vvK" imageView="fmE-Cw-10g" style="IBUITableViewCellStyleSubtitle" id="HPW-cy-zvf">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RCE-kH-RyC">
+                                            <rect key="frame" x="53" y="2" width="38" height="22"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="E2y-lV-vvK">
+                                            <rect key="frame" x="53" y="24" width="47" height="18"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="loader.png" id="fmE-Cw-10g">
+                                            <rect key="frame" x="0.0" y="0.0" width="43" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="bxR-X8-Dwd" id="CE1-EF-dvO"/>
+                            <outlet property="delegate" destination="bxR-X8-Dwd" id="YYl-Wx-zQe"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Item" id="j3O-0D-idN"/>
+                    <navigationItem key="navigationItem" title="Projects" id="Rf9-SZ-UIq"/>
+                    <connections>
+                        <outlet property="view" destination="g9T-c3-O2N" id="BwF-z4-3JB"/>
+                    </connections>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="1967" y="-734"/>
+        </scene>
+        <!--Login View Controller - Login-->
+        <scene sceneID="6Ja-wv-aGG">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yUO-bO-Bib" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="ptA-zz-fvE" customClass="LoginViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="49g-pO-vBR">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="7jq-of-KFW" customClass="LoginView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="436"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5Mx-zM-IJl">
+                                        <rect key="frame" x="21" y="182" width="274" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Login">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="logUserIn:" destination="ptA-zz-fvE" eventType="touchUpInside" id="Wh9-rv-DQu"/>
+                                        </connections>
+                                    </button>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="enter your email address" minimumFontSize="17" id="bsi-1h-ZJa" userLabel="email">
+                                        <rect key="frame" x="21" y="70" width="274" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                        <connections>
+                                            <action selector="userEmailAddress:" destination="ptA-zz-fvE" eventType="editingDidEnd" id="Vz1-ee-JIi"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="enter your password" minimumFontSize="17" id="bmx-a1-PM5" userLabel="password">
+                                        <rect key="frame" x="20" y="128" width="275" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <connections>
+                                            <action selector="userPassword:" destination="ptA-zz-fvE" eventType="editingDidEnd" id="37a-4a-HK8"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Provide your BowerBird credentials:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="6Hb-id-kVo">
+                                        <rect key="frame" x="21" y="28" width="274" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Not a member? You need to register." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="GAd-EU-gWx">
+                                        <rect key="frame" x="21" y="285" width="293" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="E7a-Rh-TN3">
+                                        <rect key="frame" x="21" y="320" width="274" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Register">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="SMM-HL-xBZ" kind="push" identifier="Register" id="mus-Um-JwR"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Login" id="faA-D7-LtC"/>
+                    <connections>
+                        <outlet property="view" destination="7jq-of-KFW" id="xDj-c8-una"/>
+                        <segue destination="rqF-QS-gk2" kind="push" id="3M7-Xu-y9g"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="368" y="-1141"/>
+        </scene>
+        <!--Loading View Controller - Loading-->
+        <scene sceneID="jZ1-Qj-Gdk">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x7d-iK-pjM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="leX-A4-942" customClass="LoadingViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="onp-dr-Sfi" customClass="LoadingView">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="bowerbird-logo.png" id="Dzp-AK-49A">
+                                <rect key="frame" x="0.0" y="259" width="320" height="39"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Loading" id="Cr2-AG-3DN"/>
+                    <connections>
+                        <outlet property="view" destination="onp-dr-Sfi" id="MmA-w8-iaL"/>
+                        <segue destination="rqF-QS-gk2" kind="push" identifier="Home" id="W8O-wq-z7p"/>
+                        <segue destination="ptA-zz-fvE" kind="push" identifier="Login" id="ski-J0-Grc"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="-166" y="-743"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="rCQ-yx-2j3">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0ii-cb-ziM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController id="25a-a1-dOJ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="7ZA-bg-DNF">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="leX-A4-942" kind="relationship" relationship="rootViewController" id="E34-AJ-9jg"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="-634" y="-743"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="bowerbird-logo.png" width="169" height="39"/>
+        <image name="loader.png" width="128" height="128"/>
+    </resources>
+    <classes>
+        <class className="LoadingView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoadingView.h"/>
+        </class>
+        <class className="LoadingViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoadingViewController.h"/>
+        </class>
+        <class className="LoginView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginView.h"/>
+        </class>
+        <class className="LoginViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="logUserIn:"/>
+                <relationship kind="action" name="userEmailAddress:" candidateClass="UITextField"/>
+                <relationship kind="action" name="userPassword:" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="ProjectTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProjectTableViewController.h"/>
+        </class>
+        <class className="ProjectsView" superclassName="UITableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProjectsView.h"/>
+        </class>
+        <class className="RegisterView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegisterView.h"/>
+        </class>
+        <class className="RegisterViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RegisterViewController.h"/>
+        </class>
+    </classes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination"/>
+    </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="3M7-Xu-y9g"/>
+    </inferredMetricsTieBreakers>
+</document>

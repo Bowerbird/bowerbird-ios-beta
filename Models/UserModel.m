@@ -9,10 +9,13 @@
 
 #import "UserModel.h"
 
+
 @interface UserModel()
--(void)loadAvatarImages;
-@property (nonatomic, weak) id<UserLoadCompleteDelegate> userLoadCompleteDelegate;
+
+@property (nonatomic, weak) id<UserLoaded> userLoaded;
+
 @end
+
 
 @implementation UserModel
 
@@ -20,71 +23,20 @@
 @synthesize firstName = _firstName;
 @synthesize lastName = _lastName;
 @synthesize email = _email;
-@synthesize avatars = _avatars;
-@synthesize isLoggedIn = _isLoggedIn;
-
--(NSDictionary *) avatars
-{
-    if(! _avatars)
-    {
-        _avatars = [[NSDictionary alloc]init];
-    }
-    return _avatars;
-}
--(void)setAvatars:(NSDictionary *)avatars
-{
-    _avatars = avatars;
-}
-
--(void) addAvatar:(AvatarModel *)avatar
-{
-    NSMutableDictionary* projectAvatars = [NSMutableDictionary dictionaryWithDictionary:self.avatars];
-    [projectAvatars setObject:avatar forKey:avatar.imageDimensionName];
-    
-    [self setAvatars:[NSDictionary dictionaryWithDictionary: projectAvatars]];
-}
-
-
-#pragma mark - Object initializers
-
-- (id)initWithCallbackDelegate:(id)delegate
-{
-    self.userLoadCompleteDelegate = delegate;
-    
-    return self;
-}
+@synthesize avatar = _avatar;
 
 
 #pragma mark - Class methods for iterating JSON blobs.
 
-+(UserModel *)loadUserFromResponseString:(NSString *)responseString
+-(id)initWithJson:(NSDictionary*)dictionary
 {
-    SBJSON *parser = [[SBJSON alloc] init];
-    UserModel *user = [[UserModel alloc]init];
-    
-    id jsonObject = [parser objectWithString:responseString error:nil];
-    
-    if([jsonObject isKindOfClass:[NSDictionary class]])
-    {
-        NSDictionary* userJson = [jsonObject objectForKey:@"Model.User"];
-        user = [[UserModel alloc]initWithJsonBlob:userJson];
-    }
-    
-    return user;
-}
+    self.identifier = [dictionary objectForKey:@"Id"];
+    self.firstName = @"FirstName";
+    self.lastName = [dictionary objectForKey:@"LastName"];
+    self.email = [dictionary objectForKey:@"Email"];
 
--(id)initWithJsonBlob:(NSDictionary*)jsonBlob
-{
-    UserModel* model = [[UserModel alloc]init];
-    
-    model.identifier = [jsonBlob objectForKey:@"Id"];
-    model.firstName = @"FirstName";
-    model.lastName = [jsonBlob objectForKey:@"LastName"];
-    model.email = [jsonBlob objectForKey:@"Email"];
-    
-    NSDictionary* avatarJson = [jsonBlob objectForKey:@"Avatar"];
-    NSDictionary* imageJson = [avatarJson objectForKey:@"Image"];
-    model.avatars = [AvatarModel buildManyFromJson:imageJson];
+    NSDictionary* avatarJson = [[[dictionary objectForKey:@"Avatar"] objectForKey:@"Image"] objectForKey:([BowerBirdConstants NameOfAvatarImageThatGetsDisplayed])];
+    self.avatar = [[AvatarModel alloc]initWithJson:avatarJson andNotifyImageDownloadComplete:self];
     
     return self;
 }
@@ -92,35 +44,14 @@
 
 #pragma mark - Callback methods to this and methods setting this as delegate
 
-// loads the suer images from Avatar, and sets this class as callback for
-// the 'job done' message. delegates to ImageFinishedLoading below..
--(void)loadAvatarImages
-{
-    for(id avatar in self.avatars)
-    {
-        AvatarModel* avatarModel = [self.avatars objectForKey:avatar];
-        if([avatarModel isKindOfClass:[AvatarModel class]]
-           && avatarModel.imageDimensionName == [BowerBirdConstants ProjectDisplayAvatarName])
-        {
-            // we are passing this object as a callback delegate
-            // so we are notified when the avatar image has loaded for the project
-            [avatarModel loadImage:(self) forAvatarOwner:(self)];
-        }
-    }
-}
-
 // this method is called back via the protocol delegate in
 // the AvatarModel when it's image has loaded from network call.
 // If this image is of the projectDisplayImage type, the project is ready to display
--(void)ImageFinishedLoading:(NSString *)imageDimensionName
-             forAvatarOwner:(id)avatarOwner
+-(void)ImageFinishedLoading:(AvatarModel*)forAvatar;
 {
-    if(imageDimensionName == [BowerBirdConstants ProjectDisplayAvatarName])
+    if([self.userLoaded respondsToSelector:@selector(UserLoaded:)])
     {
-        if([self.userLoadCompleteDelegate respondsToSelector:@selector(userLoadCompleteDelegate)])
-        {
-            [self.userLoadCompleteDelegate UserLoaded:(self)];
-        }
+        [self.userLoaded UserLoaded:(self)];
     }
 }
 

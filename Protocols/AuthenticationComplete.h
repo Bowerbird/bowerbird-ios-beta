@@ -4,12 +4,17 @@
  Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
+ 
+ *> Use this protocol for notifying UI that Authentication Request has been processed
+ 
  -----------------------------------------------------------------------------------------------*/
 
-#import <UIKit/UIKit.h>
-#import "AuthenticatedUserModel.h"
-#import "BowerBirdConstants.h"
 
-@interface HomeViewController : UIViewController <AuthenticatedUserLoaded>
+#import <Foundation/Foundation.h>
+#import "UserModel.h"
+
+@protocol AuthenticationComplete <NSObject>
+
+-(void)UserAuthenticated:(UserModel*)user;
 
 @end

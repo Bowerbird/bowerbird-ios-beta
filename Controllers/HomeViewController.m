@@ -6,6 +6,7 @@
  
  -----------------------------------------------------------------------------------------------*/
 
+
 #import "HomeViewController.h"
 
 @interface HomeViewController ()
@@ -27,14 +28,10 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-	// Do any additional setup after loading the view.
-    
-    
     // load the authenticatedUser:
     self.authenticatedUserModel = [[AuthenticatedUserModel alloc]init];
     
-    [self.authenticatedUserModel doGetRequest:[BowerBirdConstants AuthenticatedUserProfileUrl]];
-    
+    [self.authenticatedUserModel loadAndNotifyDelegate:self];
 }
 
 - (void)viewDidUnload
@@ -49,9 +46,9 @@
 }
 
 
--(void)AuthenticatedUserModelIsLoaded:(AuthenticatedUserModel*)authenticatedUserModel
+-(void)AuthenticatedUserLoaded:(AuthenticatedUserModel *)authenticatedUser
 {
-    self.authenticatedUserModel = authenticatedUserModel;
+    self.authenticatedUserModel = authenticatedUser;
     
     NSLog(@"AuthenticationUserModel has been loaded");
     // do some rendering

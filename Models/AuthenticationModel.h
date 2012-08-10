@@ -8,26 +8,20 @@
 
 #import <Foundation/Foundation.h>
 #import "PostDataToServer.h"
-#import "UserLoadCompleteDelegate.h"
+#import "UserLoaded.h"
 #import "ASIFormDataRequest.h"
 #import "ASINetworkQueue.h"
 #import "BowerBirdConstants.h"
 #import "UserModel.h"
 #import "SBJSON.h"
-#import "AuthenticationCompleteDelegate.h"
+#import "AuthenticationComplete.h"
 
-@interface AuthenticationModel : NSObject <PostDataToServer, UserLoadCompleteDelegate>
+@interface AuthenticationModel : NSObject <PostDataToServer, UserLoaded>
 
 @property (retain) ASINetworkQueue *networkQueue;
 
 - (id)initWithCallbackDelegate:(id)delegate;
 
 - (void)doPostRequest:(NSURL *)toUrl withParameters:(NSDictionary *) params;
-
-//- (void)requestFinished:(ASIFormDataRequest *)request;
-//
-//- (void)requestFailed:(ASIFormDataRequest *)request;
-//
-//- (void)queueFinished:(ASIFormDataRequest *)queue;
 
 @end

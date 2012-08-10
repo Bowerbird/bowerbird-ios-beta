@@ -15,7 +15,7 @@
 @interface AuthenticationModel()
 -(void)processAuthenticationResponse:(ASIFormDataRequest*)request;
 @property (nonatomic, strong) UserModel* authenticatedUser;
-@property (nonatomic, weak) id<AuthenticationCompleteDelegate> authenticationCompleteDelegate;
+@property (nonatomic, weak) id<AuthenticationComplete> authenticationComplete;
 @property (nonatomic, strong) ASIFormDataRequest *request;
 @end
 
@@ -24,13 +24,14 @@
 @synthesize networkQueue;
 @synthesize authenticatedUser = _authenticatedUser;
 @synthesize request =_request;
-@synthesize authenticationCompleteDelegate = _authenticationCompleteDelegate;
+@synthesize authenticationComplete = _authenticationComplete;
 
 
 #pragma mark - Object initializers
+
 - (id)initWithCallbackDelegate:(id)delegate
 {
-    self.authenticationCompleteDelegate = delegate;
+    self.authenticationComplete = delegate;
     
     return self;
 }
@@ -45,9 +46,8 @@
     
     if([jsonObject isKindOfClass:[NSDictionary class]])
     {
-        NSDictionary* userJson = [jsonObject objectForKey:@"Model"];
-        userJson = [userJson objectForKey:@"User"];
-        self.authenticatedUser = [[UserModel alloc]initWithJsonBlob:userJson];
+        NSDictionary* userJson = [[jsonObject objectForKey:@"Model"] objectForKey:@"User"];
+        self.authenticatedUser = [[UserModel alloc]initWithJson:userJson];
     }
     
     NSHTTPCookie* authenticatedCookie;
@@ -67,9 +67,9 @@
     // save the returned cookie (or work out how ASI does it)
     // call a delegate to tell the UI to proceed
 
-    if([self.authenticationCompleteDelegate respondsToSelector:@selector(UserAuthenticated:)])
+    if([self.authenticationComplete respondsToSelector:@selector(UserAuthenticated:)])
     {
-        [self.authenticationCompleteDelegate UserAuthenticated:self.authenticatedUser];
+        [self.authenticationComplete UserAuthenticated:self.authenticatedUser];
     }
 }
 
@@ -138,9 +138,9 @@
     
     self.authenticatedUser = user;
     
-    if([self.authenticationCompleteDelegate respondsToSelector:@selector(UserAuthenticated:)])
+    if([self.authenticationComplete respondsToSelector:@selector(UserAuthenticated:)])
     {
-        [self.authenticationCompleteDelegate UserAuthenticated:user];
+        [self.authenticationComplete UserAuthenticated:user];
     }
 }
 

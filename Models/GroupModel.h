@@ -17,10 +17,6 @@
 @property (nonatomic, strong) NSString *groupType;
 @property (nonatomic, strong) GroupModel *parentGroup;
 @property (nonatomic, strong) NSArray *childGroups;
-@property (nonatomic, strong) NSDictionary* avatars;
-
--(void)setAvatars:(NSDictionary *)avatars;
-
--(void)addAvatar:(AvatarModel *)avatar;
+@property (nonatomic, strong) AvatarModel* avatar;
 
 @end

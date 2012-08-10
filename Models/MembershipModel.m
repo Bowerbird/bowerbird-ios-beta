@@ -15,12 +15,12 @@
 @synthesize permissions = _permissions;
 @synthesize roleIds = _roleIds;
 
--(id)initWithJsonBlob:(NSDictionary*)jsonBlob
+-(id)initWithJson:(NSDictionary*)dictionary
 {
-    self.groupId = [jsonBlob objectForKey:@"GroupId"];
-    self.groupType = @"GroupType";
-    self.permissions = [jsonBlob objectForKey:@"PermissionIds"];
-    self.roleIds = [jsonBlob objectForKey:@"RoleIds"];
+    self.groupId = [dictionary objectForKey:@"GroupId"];
+    self.groupType = [dictionary objectForKey:@"GroupType"];
+    self.permissions = [dictionary objectForKey:@"PermissionIds"];
+    self.roleIds = [dictionary objectForKey:@"RoleIds"];
 
     return self;
 }

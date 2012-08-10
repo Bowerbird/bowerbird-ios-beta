@@ -16,6 +16,8 @@
 
 +(NSString *)RootUriString;
 
++(NSURL *)ActivityUrl;
+
 +(NSURL *)ProjectsUrl;
 
 +(NSURL *)AccountLoginUrl;
@@ -26,7 +28,7 @@
 
 +(NSArray*)AvatarTypes;
 
-+(NSString *)ProjectDisplayAvatarName;
++(NSString *)NameOfAvatarImageThatGetsDisplayed;
 
 +(NSString *)BowerbirdCookieName;
 

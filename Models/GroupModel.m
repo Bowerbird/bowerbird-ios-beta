@@ -16,27 +16,6 @@
 @synthesize groupType = _groupType;
 @synthesize parentGroup = _parentGroup;
 @synthesize childGroups = _childGroups;
-@synthesize avatars = _avatars;
-
--(NSDictionary *) avatars
-{
-    if(! _avatars)
-    {
-        _avatars = [[NSDictionary alloc]init];
-    }
-    return _avatars;
-}
--(void)setAvatars:(NSDictionary *)avatars
-{
-    _avatars = avatars;
-}
- 
--(void) addAvatar:(AvatarModel *)avatar
-{
-    NSMutableDictionary* projectAvatars = [NSMutableDictionary dictionaryWithDictionary:self.avatars];
-    [projectAvatars setObject:avatar forKey:avatar.imageDimensionName];
-    
-    [self setAvatars:[NSDictionary dictionaryWithDictionary: projectAvatars]];
-}
+@synthesize avatar = _avatar;
 
 @end

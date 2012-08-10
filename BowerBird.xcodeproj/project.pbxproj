@@ -92,12 +92,12 @@
 		1CDF725815D3417300BE72C1 /* RegisterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterModel.m; sourceTree = "<group>"; };
 		1CDF725B15D3417300BE72C1 /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
 		1CDF725C15D3417300BE72C1 /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
-		1CDF725E15D3417300BE72C1 /* AuthenticationCompleteDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationCompleteDelegate.h; sourceTree = "<group>"; };
-		1CDF725F15D3417300BE72C1 /* AvatarImageLoadCompleteDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvatarImageLoadCompleteDelegate.h; sourceTree = "<group>"; };
+		1CDF725E15D3417300BE72C1 /* AuthenticationComplete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationComplete.h; sourceTree = "<group>"; };
+		1CDF725F15D3417300BE72C1 /* AvatarImageLoaded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvatarImageLoaded.h; sourceTree = "<group>"; };
 		1CDF726015D3417300BE72C1 /* PostDataToServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostDataToServer.h; sourceTree = "<group>"; };
-		1CDF726115D3417300BE72C1 /* ProjectLoadCompleteDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectLoadCompleteDelegate.h; sourceTree = "<group>"; };
+		1CDF726115D3417300BE72C1 /* ProjectLoaded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectLoaded.h; sourceTree = "<group>"; };
 		1CDF726215D3417300BE72C1 /* RequestDataFromServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestDataFromServer.h; sourceTree = "<group>"; };
-		1CDF726315D3417300BE72C1 /* UserLoadCompleteDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserLoadCompleteDelegate.h; sourceTree = "<group>"; };
+		1CDF726315D3417300BE72C1 /* UserLoaded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserLoaded.h; sourceTree = "<group>"; };
 		1CDF726E15D3417D00BE72C1 /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		1CDF726F15D3417D00BE72C1 /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		1CDF727015D3417D00BE72C1 /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
@@ -154,7 +154,7 @@
 		1CDF72CE15D3A8CA00BE72C1 /* MembershipModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MembershipModel.m; sourceTree = "<group>"; };
 		1CDF72D015D3AE6300BE72C1 /* CollectionHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionHelper.h; sourceTree = "<group>"; };
 		1CDF72D115D3AE6300BE72C1 /* CollectionHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionHelper.m; sourceTree = "<group>"; };
-		1CDF72D315D3BC1300BE72C1 /* AuthenticatedUserModelLoadCompleteDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticatedUserModelLoadCompleteDelegate.h; sourceTree = "<group>"; };
+		1CDF72D315D3BC1300BE72C1 /* AuthenticatedUserLoaded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticatedUserLoaded.h; sourceTree = "<group>"; };
 		1CFA7F7615C89B340051CFA1 /* BowerBird.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BowerBird.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CFA7F7A15C89B340051CFA1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1CFA7F7C15C89B340051CFA1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -232,13 +232,13 @@
 		1CDF725D15D3417300BE72C1 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				1CDF725E15D3417300BE72C1 /* AuthenticationCompleteDelegate.h */,
-				1CDF725F15D3417300BE72C1 /* AvatarImageLoadCompleteDelegate.h */,
+				1CDF725E15D3417300BE72C1 /* AuthenticationComplete.h */,
+				1CDF725F15D3417300BE72C1 /* AvatarImageLoaded.h */,
 				1CDF726015D3417300BE72C1 /* PostDataToServer.h */,
-				1CDF726115D3417300BE72C1 /* ProjectLoadCompleteDelegate.h */,
+				1CDF726115D3417300BE72C1 /* ProjectLoaded.h */,
 				1CDF726215D3417300BE72C1 /* RequestDataFromServer.h */,
-				1CDF726315D3417300BE72C1 /* UserLoadCompleteDelegate.h */,
-				1CDF72D315D3BC1300BE72C1 /* AuthenticatedUserModelLoadCompleteDelegate.h */,
+				1CDF726315D3417300BE72C1 /* UserLoaded.h */,
+				1CDF72D315D3BC1300BE72C1 /* AuthenticatedUserLoaded.h */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";

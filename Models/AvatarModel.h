@@ -1,10 +1,11 @@
-//
-//  AvatarModel.h
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 7/08/12.
-//  Copyright (c) 2012 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import <Foundation/Foundation.h>
 #import "NSNumber+ConvertMethods.h"
@@ -13,12 +14,12 @@
 #import "ASINetworkQueue.h"
 #import "ASIHTTPRequest.h"
 #import "ASIFormDataRequest.h"
-#import "AvatarImageLoadCompleteDelegate.h"
+#import "AvatarImageLoaded.h"
+
 
 @interface AvatarModel : NSObject <RequestDataFromServer>
 
 @property (retain) ASINetworkQueue *networkQueue;
-
 @property (nonatomic,strong) NSString* identifier;
 @property (nonatomic,strong) NSString* imageDimensionName;
 @property (nonatomic,strong) NSString* fileName;
@@ -27,16 +28,8 @@
 @property (nonatomic,strong) NSNumber* width;
 @property (nonatomic,strong) NSNumber* height;
 @property (nonatomic,strong) NSString* extension;
-@property (nonatomic,strong) id avatarOwner;
-
-// the binary image data to be displayed for this avatar
 @property (nonatomic,strong) UIImage* image;
 
--(id)initWithJsonBlob:(NSDictionary *)jsonBlob;
-
-+(NSDictionary *)buildManyFromJson:(NSDictionary *)properties;
-
-// any object having an avatar can call this method to load it's image
--(void)loadImage:(id) withDelegate forAvatarOwner:(id) avatarOwner;
+-(id)initWithJson:(NSDictionary *)dictionary andNotifyImageDownloadComplete:(id)delegate;
 
 @end

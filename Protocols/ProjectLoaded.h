@@ -4,12 +4,18 @@
  Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
+ 
+ *> Use this protocol for notifying calling objects when the project has finished loading
+ 
  -----------------------------------------------------------------------------------------------*/
 
-#import <UIKit/UIKit.h>
-#import "AuthenticatedUserModel.h"
-#import "BowerBirdConstants.h"
+#import <Foundation/Foundation.h>
+#import "ProjectModel.h"
 
-@interface HomeViewController : UIViewController <AuthenticatedUserLoaded>
+@class ProjectModel;
+
+@protocol ProjectLoaded <NSObject>
+
+-(void)ProjectLoaded:(ProjectModel*)project;
 
 @end

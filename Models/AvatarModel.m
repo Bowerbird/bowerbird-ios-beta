@@ -4,14 +4,20 @@
  Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
+ *> This class is called to parse avatar data and load avatar images
+ 
  -----------------------------------------------------------------------------------------------*/
 
 
 #import "AvatarModel.h"
 
 @interface AvatarModel()
-@property (nonatomic, weak) id<AvatarImageLoadCompleteDelegate> imageLoadDelegate;
+
+@property (nonatomic, weak) id<AvatarImageLoaded> imageLoadDelegate;
+@property (nonatomic,strong) AvatarModel* avatarModel;
+
 @end
+
 
 @implementation AvatarModel
 
@@ -25,47 +31,30 @@
 @synthesize height = _height;
 @synthesize extension = _extension;
 @synthesize image = _image;
-@synthesize avatarOwner = _avatarOwner;
-
+@synthesize avatarModel = _avatarModel;
 
 #pragma mark - Class methods for iterating JSON blobs.
 
--(id)initWithJsonBlob:(NSDictionary *)jsonBlob;
+-(id)initWithJson:(NSDictionary *)dictionary andNotifyImageDownloadComplete:(id)delegate
 {
-    AvatarModel* model = [[AvatarModel alloc]init];
+    self.imageLoadDelegate = delegate;
     
-    model.identifier = [jsonBlob objectForKey:@"Id"];
-    model.fileName = [jsonBlob objectForKey:@"FileName"];
-    model.relativeUri = [jsonBlob objectForKey:@"RelativeUri"];
-    model.format = [jsonBlob objectForKey:@"Format"];
-    model.width = [NSNumber ConvertFromString:[jsonBlob objectForKey:@"Width"]];
-    model.height = [NSNumber ConvertFromString:[jsonBlob objectForKey:@"Height"]];
-    model.extension = [jsonBlob objectForKey:@"Extension"];
+    //AvatarModel* model = [[AvatarModel alloc]init];
     
+    //model.identifier = [dictionary objectForKey:@"Id"];
+    self.fileName = [dictionary objectForKey:@"FileName"];
+    self.relativeUri = [dictionary objectForKey:@"RelativeUri"];
+    self.format = [dictionary objectForKey:@"Format"];
+    self.width = [NSNumber ConvertFromString:[dictionary objectForKey:@"Width"]];
+    self.height = [NSNumber ConvertFromString:[dictionary objectForKey:@"Height"]];
+    self.extension = [dictionary objectForKey:@"Extension"];
+    self.imageDimensionName = [BowerBirdConstants NameOfAvatarImageThatGetsDisplayed];
+    
+    //self.avatarModel = model;
+        
+    [self doGetRequest:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [BowerBirdConstants RootUriString], self.relativeUri]]];
+        
     return self;
-}
-
-
-// needs to be passed dictionary of Json object of Avatar Images
-// then extracts them with known avatar image property names
-+(NSDictionary *)buildManyFromJson:(NSDictionary *)properties
-{
-    NSMutableDictionary* avatarList;
-    
-    if(properties)
-    {
-        avatarList = [[NSMutableDictionary alloc]init];
-
-        for (NSString* avatarType in [BowerBirdConstants AvatarTypes])
-        {
-            NSDictionary* avatarJson = [properties objectForKey:avatarType];
-            AvatarModel* avatar = [[AvatarModel alloc]initWithJsonBlob:avatarJson];
-            avatar.imageDimensionName = avatarType;
-            [avatarList setObject:(avatar) forKey:avatar.imageDimensionName];
-        }
-    }
-    
-    return avatarList;
 }
 
 
@@ -85,7 +74,6 @@
 	[[self networkQueue] go];
 }
 
-// grab projects from server then display in table
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
 	if ([[self networkQueue] requestsCount] == 0) {
@@ -94,10 +82,9 @@
     
     self.image = [UIImage imageWithData:[request responseData]];
 
-    if([self.imageLoadDelegate respondsToSelector:@selector(ImageFinishedLoading:forAvatarOwner:)])
+    if([self.imageLoadDelegate respondsToSelector:@selector(ImageFinishedLoading:)])
     {
-        [self.imageLoadDelegate ImageFinishedLoading:(self.imageDimensionName)
-                                      forAvatarOwner:(self.avatarOwner)];
+        [self.imageLoadDelegate ImageFinishedLoading:self];
     }
 }
 
@@ -116,21 +103,5 @@
 		[self setNetworkQueue:nil];
 	}
 }
-
-
-#pragma mark - Callback methods to this and methods setting this as delegate
- 
-
-// set up the calling object having an avatar as the delegate to notify when the
-// image for the avatar has been loaded
--(void)loadImage:(id)withDelegate
-    forAvatarOwner:(id)avatarOwner
-{
-    self.imageLoadDelegate = withDelegate;
-    self.avatarOwner = avatarOwner;
-    
-    [self doGetRequest:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", [BowerBirdConstants RootUriString], self.relativeUri]]];
-}
-
 
 @end

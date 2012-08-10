@@ -17,6 +17,6 @@
 @property (nonatomic, strong) NSArray* permissions;
 @property (nonatomic, strong) NSArray* roleIds;
 
--(id)initWithJsonBlob:(NSDictionary*)jsonBlob;
+-(id)initWithJson:(NSDictionary*)dictionary;
 
 @end

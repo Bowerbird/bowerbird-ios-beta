@@ -11,18 +11,18 @@
 #import "GroupModel.h"
 #import "ProjectModel.h"
 #import "RequestDataFromServer.h"
-#import "AvatarImageLoadCompleteDelegate.h"
-#import "ProjectLoadCompleteDelegate.h"
+#import "AvatarImageLoaded.h"
+#import "ProjectLoaded.h"
 #import "BowerBirdConstants.h"
 
-@interface ProjectModel : GroupModel <RequestDataFromServer, AvatarImageLoadCompleteDelegate>
+@interface ProjectModel : GroupModel <RequestDataFromServer, AvatarImageLoaded>
 
 @property (retain) ASINetworkQueue *networkQueue;
 
-+(NSArray *)loadProjectsFromResponseString:(NSString *)responseString;
+-(id)initWithJson:(NSDictionary *)dictionary;
 
--(id)initWithJsonBlob:(NSDictionary *)jsonBlob;
+-(NSDictionary *)loadProjectsFromResponseString:(NSString *)responseString;
 
--(void)loadProjectsCallingBackToDelegate:(id)delegate;
+-(void)loadAndNotifyDelegate:(id)delegate;
 
 @end

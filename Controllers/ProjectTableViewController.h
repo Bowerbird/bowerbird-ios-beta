@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "ProjectModel.h"
-#import "ProjectLoadCompleteDelegate.h"
+#import "ProjectLoaded.h"
 #import "BowerBirdConstants.h"
 #import "ProjectsView.h"
 
 @interface ProjectTableViewController : UITableViewController
-<ProjectLoadCompleteDelegate, UITableViewDelegate, UITableViewDataSource>
+<ProjectLoaded, UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) NSArray* projects;
 

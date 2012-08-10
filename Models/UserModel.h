@@ -1,35 +1,29 @@
-//
-//  User.h
-//  Bowerbird-iOS
-//
-//  Created by Hamish Crittenden on 26/07/12.
-//  Copyright (c) 2012 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import <Foundation/Foundation.h>
 #import "AvatarModel.h"
 #import "SBJSON.h"
-#import "AvatarImageLoadCompleteDelegate.h"
+#import "AvatarImageLoaded.h"
 #import "RequestDataFromServer.h"
 #import "BowerBirdConstants.h"
-#import "UserLoadCompleteDelegate.h"
+#import "UserLoaded.h"
 
 
-@interface UserModel : NSObject <AvatarImageLoadCompleteDelegate>
+@interface UserModel : NSObject <AvatarImageLoaded>
 
 @property (nonatomic, strong) NSString *identifier;
 @property (nonatomic, strong) NSString *firstName;
 @property (nonatomic, strong) NSString *lastName;
 @property (nonatomic, strong) NSString *email;
-@property (nonatomic, strong) NSDictionary* avatars;
-@property (nonatomic) BOOL isLoggedIn;
+@property (nonatomic, strong) AvatarModel* avatar;
 
-+(NSArray *)loadUserFromResponseString:(NSString *)responseString;
-
--(id)initWithJsonBlob:(NSDictionary*)jsonBlob;
-
--(void)setAvatars:(NSDictionary *)avatars;
-
--(void)addAvatar:(AvatarModel *)avatar;
+-(id)initWithJson:(NSDictionary*)dictionary;
 
 @end

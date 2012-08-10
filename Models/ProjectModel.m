@@ -6,65 +6,53 @@
  
  -----------------------------------------------------------------------------------------------*/
 
+
 #import "ProjectModel.h"
 
 @interface ProjectModel()
--(void)loadAvatarImages;
-@property (nonatomic, strong) NSArray* projects;
-@property (nonatomic, weak) id<ProjectLoadCompleteDelegate> projectLoadCompleteDelegate;
+
+@property (nonatomic, strong) NSDictionary* projects;
+@property (nonatomic, weak) id<ProjectLoaded> delegate;
+
 @end
 
 @implementation ProjectModel
 
 @synthesize networkQueue;
 @synthesize projects = _projects;
-@synthesize projectLoadCompleteDelegate = _projectLoadCompleteDelegate;
+@synthesize delegate = _delegate;
 
 
+#pragma mark - Class methods for iterating response strings and JSON blobs.
 
-#pragma mark - Class methods for iterating JSON blobs.
- 
-+(NSArray *)loadProjectsFromResponseString:(NSString *)responseString
+-(id)initWithJson:(NSDictionary *)dictionary
 {
-    SBJSON *parser = [[SBJSON alloc] init];
-       
-    NSMutableArray* projects = [[NSMutableArray alloc]init];
+    self.identifier = [dictionary objectForKey:@"Id"];
+    self.groupType = @"project";
+    self.name = [dictionary objectForKey:@"Name"];
+    self.description = [dictionary objectForKey:@"Description"];
     
-    id jsonObject = [parser objectWithString:responseString error:nil];
-        
-    if([jsonObject isKindOfClass:[NSDictionary class]])
-    {
-        /*
-         TODO: There is a better way to load via Dictionary Key in
-         one hit but it aint working for me at the moment hence the
-         manual drill down
-         */
-        NSDictionary* model = [jsonObject objectForKey:@"Model"];
-        NSDictionary* projectModel = [model objectForKey:@"Projects"];
-        NSArray* projectList = [projectModel objectForKey:@"PagedListItems"];
-        
-        for (id projectProperties in projectList) {
-            [projects addObject:([[ProjectModel alloc]initWithJsonBlob:projectProperties])];
-        }
-    }
-    
-    return projects;
-}
-
--(id)initWithJsonBlob:(NSDictionary *)jsonBlob
-{
-    ProjectModel* model = [[ProjectModel alloc]init];
-    
-    model.identifier = [jsonBlob objectForKey:@"Id"];
-    model.groupType = @"project";
-    model.name = [jsonBlob objectForKey:@"Name"];
-    model.description = [jsonBlob objectForKey:@"Description"];
-    
-    NSDictionary* avatarJson = [jsonBlob objectForKey:@"Avatar"];
-    NSDictionary* imageJson = [avatarJson objectForKey:@"Image"];
-    model.avatars = [AvatarModel buildManyFromJson:imageJson];
+    NSDictionary* avatarJson = [[[dictionary objectForKey:@"Avatar"] objectForKey:@"Image"] objectForKey:[BowerBirdConstants NameOfAvatarImageThatGetsDisplayed]];
+    self.avatar = [[AvatarModel alloc]initWithJson:avatarJson andNotifyImageDownloadComplete:self];
     
     return self;
+}
+
+-(NSDictionary *)loadProjectsFromResponseString:(NSString *)responseString
+{
+    SBJSON *parser = [[SBJSON alloc] init];
+    NSDictionary* projectsJson = [parser objectWithString:responseString error:nil];
+    projectsJson = [[[projectsJson objectForKey:@"Model"] objectForKey:@"Projects"] objectForKey:@"PagedListItems"];
+    
+    NSMutableDictionary* projects = [[NSMutableDictionary alloc]init];
+    for (id projectDictionary in projectsJson) {
+        ProjectModel* newProject = [self initWithJson:projectDictionary];
+        if(newProject){
+            [projects setObject:newProject forKey: newProject.identifier];
+        }
+    }
+
+    return [[NSDictionary alloc]initWithDictionary:projects];
 }
 
 
@@ -90,17 +78,10 @@
 
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
-    NSLog(@"Request Finished");
-	if ([[self networkQueue] requestsCount] == 0)
-    {
+	if ([[self networkQueue] requestsCount] == 0){
 		[self setNetworkQueue:nil];
 	}
-    
-    // now we have JSON string loaded, parse the ProjectModel object from it's properties
-    self.projects = [ProjectModel loadProjectsFromResponseString:[request responseString]];
-    
-    // now that we have avatar urls, load the project's avatar's images
-    [self loadAvatarImages];
+    self.projects = [self loadProjectsFromResponseString:[request responseString]];
 }
 
 - (void)requestFailed:(ASIHTTPRequest *)request
@@ -119,48 +100,24 @@
 }
 
 
-
 #pragma mark - Callback methods to this and methods setting this as delegate
 
 // call network opertaions to load projects and set caller delegate
-- (void)loadProjectsCallingBackToDelegate:(id)delegate
+- (void)loadAndNotifyDelegate:(id)delegate
 {
-    self.projectLoadCompleteDelegate = delegate;
+    self.delegate = delegate;
     
 	[self doGetRequest:[BowerBirdConstants ProjectsUrl]];
-}
-
-// loads the project images from Avatar, and sets this class as callback for
-// the 'job done' message. delegates to ImageFinishedLoading below..
--(void)loadAvatarImages
-{
-    for (ProjectModel *project in self.projects) {
-        for(id avatar in project.avatars)
-        {
-            AvatarModel* avatarModel = [project.avatars objectForKey:avatar];
-            if([avatarModel isKindOfClass:[AvatarModel class]]
-               && avatarModel.imageDimensionName == [BowerBirdConstants ProjectDisplayAvatarName])
-            {
-                // we are passing this object as a callback delegate
-                // so we are notified when the avatar image has loaded for the project
-                [avatarModel loadImage:(self) forAvatarOwner:(project)];
-            }
-        }
-    }
 }
 
 // this method is called back via the protocol delegate in
 // the AvatarModel when it's image has loaded from network call.
 // If this image is of the projectDisplayImage type, the project is ready to display
--(void)ImageFinishedLoading:(NSString *)imageDimensionName
-             forAvatarOwner:(id)avatarOwner
+-(void)ImageFinishedLoading:(AvatarModel*)forAvatar;
 {
-    if(imageDimensionName == [BowerBirdConstants ProjectDisplayAvatarName])
+    if([self.delegate respondsToSelector:@selector(ProjectLoaded:)])
     {
-        ProjectModel* projectModel = [self.projects objectAtIndex:[self.projects indexOfObject:(avatarOwner)]];
-        
-        // notify this object's delegate that project is successfully loaded
-        [self.projectLoadCompleteDelegate ProjectLoaded:projectModel];
+        [self.delegate ProjectLoaded:self];
     }
 }
 

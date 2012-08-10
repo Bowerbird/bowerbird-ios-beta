@@ -6,10 +6,12 @@
  
  -----------------------------------------------------------------------------------------------*/
 
-#import <UIKit/UIKit.h>
-#import "AuthenticatedUserModel.h"
-#import "BowerBirdConstants.h"
+#import <Foundation/Foundation.h>
 
-@interface HomeViewController : UIViewController <AuthenticatedUserLoaded>
+@class AuthenticatedUserModel;
+
+@protocol AuthenticatedUserLoaded <NSObject>
+
+-(void)AuthenticatedUserLoaded:(AuthenticatedUserModel*)authenticatedUser;
 
 @end

@@ -14,7 +14,6 @@
 
 @implementation ProjectTableViewController
 
-//@synthesize projectsView = _projectsView;
 @synthesize projects = _projects;
 @synthesize projectModel = _projectModel;
 
@@ -41,7 +40,7 @@
 {
     [super viewDidLoad];  
     self.projectModel = [[ProjectModel alloc]init];
-    [self.projectModel loadProjectsCallingBackToDelegate:(self)];
+    [self.projectModel loadAndNotifyDelegate:(self)];
 }
 
 - (void)viewDidUnload
@@ -68,10 +67,7 @@
     ProjectModel* project = [self.projects objectAtIndex:indexPath.row];
     cell.textLabel.text = project.name;
     cell.detailTextLabel.text = project.description;
-
-    AvatarModel* avatar = [project.avatars objectForKey:([BowerBirdConstants ProjectDisplayAvatarName])];
-    
-    cell.imageView.image = avatar.image;
+    cell.imageView.image = project.avatar.image;
     
     return cell;
 }

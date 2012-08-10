@@ -12,28 +12,27 @@
 #import "BowerBirdConstants.h"
 #import "UserModel.h"
 #import "SBJSON.h"
-#import "AvatarImageLoadCompleteDelegate.h"
+#import "AvatarImageLoaded.h"
 #import "ProjectModel.h"
 #import "MembershipModel.h"
 #import "CollectionHelper.h"
-#import "AuthenticatedUserModelLoadCompleteDelegate.h"
+#import "AuthenticatedUserLoaded.h"
 #import "CookieHelper.h"
 
-@interface AuthenticatedUserModel : NSObject <RequestDataFromServer, AvatarImageLoadCompleteDelegate>
+@interface AuthenticatedUserModel : NSObject <RequestDataFromServer, AvatarImageLoaded>
 
 @property (retain) ASINetworkQueue *networkQueue;
-
 @property (nonatomic,strong) UserModel* user;
 @property (nonatomic,strong) NSArray* categories;
-@property (nonatomic, strong) NSArray* projects;
-@property (nonatomic, strong) NSArray* teams;
-@property (nonatomic, strong) NSArray* organisations;
-@property (nonatomic, strong) NSArray* userProjects;
+@property (nonatomic, strong) NSDictionary* projects;
+@property (nonatomic, strong) NSDictionary* teams;
+@property (nonatomic, strong) NSDictionary* organisations;
+@property (nonatomic, strong) NSDictionary* userProjects;
 @property (nonatomic, strong) NSArray* memberships;
 @property (nonatomic, strong) NSString* defaultLicence;
 
-+(AuthenticatedUserModel*)loadAuthenticatedUserModelFromResponseString:(NSString *)responseString;
+-(id)initWithJson:(NSDictionary*)dictionary;
 
-- (void)doGetRequest:(NSURL *)withUrl;
+-(void)loadAndNotifyDelegate:(id)delegate;
 
 @end

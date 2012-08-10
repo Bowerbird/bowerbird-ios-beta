@@ -37,6 +37,12 @@
     return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [self RootUriString], @"/projects"]];
 }
 
+// restful segments
++(NSURL *)ActivityUrl
+{
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [self RootUriString], @"/account/activity"]];
+}
+
 +(NSURL *)AccountLoginUrl
 {
     return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [self RootUriString], @"/account/login"]];
@@ -57,7 +63,7 @@
     return [NSArray arrayWithObjects: @"Original", @"Square42", @"Square100", @"Square200", nil];
 }
 
-+(NSString *)ProjectDisplayAvatarName
++(NSString *)NameOfAvatarImageThatGetsDisplayed
 {
     return @"Square200";
 }

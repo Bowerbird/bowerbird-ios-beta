@@ -4,12 +4,17 @@
  Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
+ 
+ *> Use this protocol for notifying calling objects when their avatars have finished loading
+ 
  -----------------------------------------------------------------------------------------------*/
 
-#import <UIKit/UIKit.h>
-#import "AuthenticatedUserModel.h"
-#import "BowerBirdConstants.h"
+#import <Foundation/Foundation.h>
 
-@interface HomeViewController : UIViewController <AuthenticatedUserLoaded>
+@protocol AvatarImageLoaded <NSObject>
+
+@optional
+
+-(void)ImageFinishedLoading:(id)forAvatar;
 
 @end

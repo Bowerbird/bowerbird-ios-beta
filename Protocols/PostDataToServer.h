@@ -11,7 +11,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "UserModel.h"
+#import "User.h"
 #import "LoginView.h"
 #import "ASIFormDataRequest.h"
 #import "BowerBirdConstants.h"

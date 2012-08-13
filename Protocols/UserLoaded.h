@@ -11,10 +11,10 @@
 
 #import <Foundation/Foundation.h>
 
-@class UserModel;
+@class User;
 
 @protocol UserLoaded <NSObject>
 
--(void)UserLoaded:(UserModel*)user;
+-(void)UserLoaded:(User*)user;
 
 @end

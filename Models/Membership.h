@@ -4,17 +4,22 @@
  Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
- 
- *> Use this protocol for notifying calling objects when the project has finished loading
- 
  -----------------------------------------------------------------------------------------------*/
 
 #import <Foundation/Foundation.h>
+#import "SBJSON.h"
+#import "CollectionHelper.h"
+#import "BowerBirdConstants.h"
 
-@class Project;
+@interface Membership : NSObject
 
-@protocol ProjectLoaded <NSObject>
+@property (nonatomic, strong) NSString* groupId;
+@property (nonatomic, strong) NSString* groupType;
+@property (nonatomic, strong) NSArray* permissions;
+@property (nonatomic, strong) NSArray* roleIds;
 
--(void)ProjectHasFinishedLoading:(Project*)project;
+-(id)initWithJson:(NSDictionary*)dictionary;
+
++(NSArray*)loadTheseMembershipsFromJson:(NSArray*)array;
 
 @end

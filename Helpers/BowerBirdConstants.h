@@ -1,14 +1,18 @@
-//
-//  BowerBirdUIConstants.h
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 1/08/12.
-//  Copyright (c) 2012 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ *> Use this class for static global variables
+ 
+ -----------------------------------------------------------------------------------------------*/
 
 #import <Foundation/Foundation.h>
 
 @interface BowerBirdConstants : NSObject
+
++(BOOL) Trace;
 
 +(NSString *)BowerbirdBlueHexString;
 

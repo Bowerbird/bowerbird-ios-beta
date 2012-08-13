@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "AuthenticationComplete.h"
-#import "UserModel.h"
+#import "User.h"
 #import "LoginView.h"
 #import "ASIHTTPRequest.h"
 #import "ASIFormDataRequest.h"
@@ -16,9 +16,10 @@
 #import "SBJSON.h"
 #import "ASINetworkQueue.h"
 #import "CookieHelper.h"
+#import "Authentication.h"
 
-#define EMAIL "email";
-#define PASSWORD "password";
+#define EMAIL @"email";
+#define PASSWORD @"password";
 
 @interface LoginViewController : UIViewController <AuthenticationComplete>
 

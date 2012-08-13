@@ -33,7 +33,7 @@
                     <navigationItem key="navigationItem" id="2YV-6e-dzc"/>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="2454" y="-743"/>
+            <point key="canvasLocation" x="2448" y="-1375"/>
         </scene>
         <!--Register View Controller - Register-->
         <scene sceneID="HmO-pf-2NY">
@@ -158,7 +158,7 @@
                     </connections>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="1953" y="-743"/>
+            <point key="canvasLocation" x="1955" y="-1375"/>
         </scene>
         <!--Login View Controller - Login-->
         <scene sceneID="6Ja-wv-aGG">

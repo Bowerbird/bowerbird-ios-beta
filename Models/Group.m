@@ -4,17 +4,18 @@
  Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
- 
- *> Use this protocol for notifying calling objects when the project has finished loading
- 
  -----------------------------------------------------------------------------------------------*/
 
-#import <Foundation/Foundation.h>
+#import "Group.h"
 
-@class Project;
+@implementation Group
 
-@protocol ProjectLoaded <NSObject>
-
--(void)ProjectHasFinishedLoading:(Project*)project;
+@synthesize identifier = _identifier;
+@synthesize name = _name;
+@synthesize description = _description;
+@synthesize groupType = _groupType;
+@synthesize parentGroup = _parentGroup;
+@synthesize childGroups = _childGroups;
+@synthesize avatar = _avatar;
 
 @end

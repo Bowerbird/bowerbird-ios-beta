@@ -7,13 +7,12 @@
  -----------------------------------------------------------------------------------------------*/
 
 #import <UIKit/UIKit.h>
-#import "ProjectModel.h"
+#import "Project.h"
 #import "ProjectLoaded.h"
 #import "BowerBirdConstants.h"
 #import "ProjectsView.h"
 
-@interface ProjectTableViewController : UITableViewController
-<ProjectLoaded, UITableViewDelegate, UITableViewDataSource>
+@interface ProjectTableViewController : UITableViewController <ProjectLoaded, UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) NSArray* projects;
 

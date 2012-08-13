@@ -9,13 +9,13 @@
 #import "ProjectTableViewController.h"
 
 @interface ProjectTableViewController ()
-@property (nonatomic, strong) ProjectModel* projectModel;
+@property (nonatomic, strong) Project* project;
 @end
 
 @implementation ProjectTableViewController
 
 @synthesize projects = _projects;
-@synthesize projectModel = _projectModel;
+@synthesize project = _project;
 
 #pragma mark - Set up dataSource and delegate
 
@@ -39,8 +39,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];  
-    self.projectModel = [[ProjectModel alloc]init];
-    [self.projectModel loadAndNotifyDelegate:(self)];
+    self.project = [[Project alloc]init];
+    [self.project loadAllProjectsAndNotifyDelegate:(self)];
 }
 
 - (void)viewDidUnload
@@ -64,7 +64,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
-    ProjectModel* project = [self.projects objectAtIndex:indexPath.row];
+    Project* project = [self.projects objectAtIndex:indexPath.row];
     cell.textLabel.text = project.name;
     cell.detailTextLabel.text = project.description;
     cell.imageView.image = project.avatar.image;
@@ -87,7 +87,7 @@
 #pragma mark - Delegate and Callback Methods
 
 // delegate method, called on completion of project loading by ProjectModel
--(void)ProjectLoaded:(ProjectModel*)project
+-(void)ProjectHasFinishedLoading:(Project *)project
 {
     NSMutableArray * array = [NSMutableArray arrayWithArray:self.projects];
     

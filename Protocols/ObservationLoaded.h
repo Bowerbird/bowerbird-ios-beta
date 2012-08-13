@@ -5,16 +5,16 @@
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
  
- *> Use this protocol for notifying calling objects when the project has finished loading
+ *> Use this protocol for notifying calling objects when the observation has finished loading
  
  -----------------------------------------------------------------------------------------------*/
 
 #import <Foundation/Foundation.h>
 
-@class Project;
+@class Observation;
 
-@protocol ProjectLoaded <NSObject>
+@protocol ObservationLoaded <NSObject>
 
--(void)ProjectHasFinishedLoading:(Project*)project;
+-(void)ObservationHasFinishedLoading:(Observation*)observaiton;
 
 @end

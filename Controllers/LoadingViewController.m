@@ -14,16 +14,15 @@
 #define BOWERBIRD_PREFS "BowerBird.Cookie.Prefs"
 
 @interface LoadingViewController ()
--(BOOL)applicationRequiresLoginOrRegistration;
+
+- (BOOL)applicationRequiresLoginOrRegistration;
 - (void)segueToLogin;
 - (void)segueToHome;
 - (void)startRotation;
-- (void)rotateImage:(UIImageView *)image
-           duration:(NSTimeInterval)duration
-              curve:(int)curve
-            degrees:(CGFloat)degrees;
+- (void)rotateImage:(UIImageView *)image duration:(NSTimeInterval)duration curve:(int)curve degrees:(CGFloat)degrees;
 @property (nonatomic, strong) UIImageView *imageToMove;
 @property (nonatomic, strong) NSFileManager *filemgr;
+
 @end
 
 @implementation LoadingViewController
@@ -32,11 +31,12 @@
 @synthesize filemgr = _filemgr;
 
 
-
 #pragma mark - Initialize the Application and Segue
 
 -(BOOL)applicationRequiresLoginOrRegistration
 {
+    if([BowerBirdConstants Trace]) NSLog(@"LoadingViewController.applicationRequiresLoginOrRegistration");
+    
     NSHTTPCookie* cookie = [CookieHelper grabCookieForUrl:[BowerBirdConstants RootUri] withName:[BowerBirdConstants BowerbirdCookieName]];
     
     return cookie == nil;
@@ -44,16 +44,22 @@
 
 -(void)segueToLogin
 {
+    if([BowerBirdConstants Trace]) NSLog(@"LoadingViewController.segueToLogin");
+    
     [self performSegueWithIdentifier:@"Login" sender:nil];
 }
 
 -(void)segueToHome
 {
+    if([BowerBirdConstants Trace]) NSLog(@"LoadingViewController.segueToHome");
+    
     [self performSegueWithIdentifier:@"Home" sender:nil];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    if([BowerBirdConstants Trace]) NSLog(@"LoadingViewController.prepareForSegue:sender:");
+    
     if([segue.identifier isEqualToString:@"Login"])
     {
         //[segue.destinationViewController]
@@ -73,12 +79,16 @@
 
 -(void) viewWillAppear:(BOOL)animated
 {
+    if([BowerBirdConstants Trace]) NSLog(@"LoadingViewController.viewWillAppear:");
+    
     [self startRotation];
 }
 
 
 - (void) viewDidAppear:(BOOL) animated
 {
+    if([BowerBirdConstants Trace]) NSLog(@"LoadingViewController.viewDidAppear:");
+    
     [self startRotation];
     
     if([self applicationRequiresLoginOrRegistration])
@@ -96,6 +106,8 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
+    if([BowerBirdConstants Trace]) NSLog(@"LoadingViewController.shouldAutorotateToInterfaceOrientation:");
+    
     return YES;
 }
 
@@ -108,6 +120,8 @@
               curve:(int)curve
             degrees:(CGFloat)degrees
 {
+    if([BowerBirdConstants Trace]) NSLog(@"LoadingViewController.rotateImage:duration:curve:degrees");
+    
     // Setup the animation
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:duration];
@@ -126,10 +140,11 @@
 
 - (void)startRotation
 {
+    if([BowerBirdConstants Trace]) NSLog(@"LoadingViewController.startRotation");
+    
     if(!self.imageToMove)
     {
-        self.imageToMove =
-        [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"loader.png"]];
+        self.imageToMove = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"loader.png"]];
         self.imageToMove.frame = CGRectMake(100, 100, 100, 100);
         [self.view addSubview:self.imageToMove];
         

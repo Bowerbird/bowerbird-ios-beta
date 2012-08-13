@@ -5,16 +5,16 @@
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
  
- *> Use this protocol for notifying calling objects when the project has finished loading
+ *> Use this protocol for notifying calling objects when their avatars have finished loading
  
  -----------------------------------------------------------------------------------------------*/
 
 #import <Foundation/Foundation.h>
 
-@class Project;
+@protocol ImageLoaded <NSObject>
 
-@protocol ProjectLoaded <NSObject>
+@optional
 
--(void)ProjectHasFinishedLoading:(Project*)project;
+-(void)ImageFinishedLoading:(id)forOwner;
 
 @end

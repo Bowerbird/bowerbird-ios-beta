@@ -16,6 +16,11 @@
     return @"#16255B";
 }
 
++(BOOL) Trace
+{
+    return YES;
+}
+
 // url
 +(NSURL *)RootUri
 {
@@ -61,6 +66,11 @@
 +(NSArray*)AvatarTypes
 {
     return [NSArray arrayWithObjects: @"Original", @"Square42", @"Square100", @"Square200", nil];
+}
+
++(NSArray*)MediaImageTypes
+{
+    return [NSArray arrayWithObjects:@"Original",@"Square42", @"Square100", @"Square200",@"Full480",@"Full768",@"Full1024", nil];
 }
 
 +(NSString *)NameOfAvatarImageThatGetsDisplayed

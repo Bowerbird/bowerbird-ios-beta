@@ -4,17 +4,19 @@
  Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
- 
- *> Use this protocol for notifying calling objects when the project has finished loading
- 
  -----------------------------------------------------------------------------------------------*/
 
 #import <Foundation/Foundation.h>
+#import "Image.h"
 
-@class Project;
+@interface Group : NSObject
 
-@protocol ProjectLoaded <NSObject>
-
--(void)ProjectHasFinishedLoading:(Project*)project;
+@property (nonatomic, strong) NSString *identifier;
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *description;
+@property (nonatomic, strong) NSString *groupType;
+@property (nonatomic, strong) Group *parentGroup;
+@property (nonatomic, strong) NSArray *childGroups;
+@property (nonatomic, strong) Image* avatar;
 
 @end

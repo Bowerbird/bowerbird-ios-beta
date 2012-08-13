@@ -7,7 +7,7 @@
  -----------------------------------------------------------------------------------------------*/
 
 #import <UIKit/UIKit.h>
-#import "AuthenticatedUserModel.h"
+#import "AuthenticatedUser.h"
 #import "BowerBirdConstants.h"
 
 @interface HomeViewController : UIViewController <AuthenticatedUserLoaded>

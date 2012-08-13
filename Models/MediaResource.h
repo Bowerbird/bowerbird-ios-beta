@@ -4,18 +4,20 @@
  Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
- 
- *> Use this protocol for notifying UI that Authentication Request has been processed
- 
  -----------------------------------------------------------------------------------------------*/
 
 
 #import <Foundation/Foundation.h>
+#import "User.h"
 
-@class User;
+@interface MediaResource : NSObject
 
-@protocol AuthenticationComplete <NSObject>
-
--(void)UserAuthenticated:(User*)user;
+@property (nonatomic,strong) NSString* mediaType;
+@property (nonatomic,strong) NSDate* uploadedOn;
+@property (nonatomic,strong) NSDictionary* metaData;
+@property (nonatomic,strong) NSDictionary* images;
+@property (nonatomic,strong) User* user;
+@property (nonatomic,strong) NSString* description;
+@property (nonatomic,strong) NSString* licence;
 
 @end

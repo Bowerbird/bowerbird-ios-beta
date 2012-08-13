@@ -10,15 +10,19 @@
 #import "HomeViewController.h"
 
 @interface HomeViewController ()
-@property (nonatomic, strong) AuthenticatedUserModel* authenticatedUserModel;
+
+@property (nonatomic, strong) AuthenticatedUser* authenticatedUser;
+
 @end
 
 @implementation HomeViewController
 
-@synthesize authenticatedUserModel = _authenticatedUserModel;
+@synthesize authenticatedUser = _authenticatedUser;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
+    if([BowerBirdConstants Trace]) NSLog(@"HomeViewController.initWithNibName:bundle:");
+    
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -28,30 +32,29 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    // load the authenticatedUser:
-    self.authenticatedUserModel = [[AuthenticatedUserModel alloc]init];
+    if([BowerBirdConstants Trace]) NSLog(@"HomeViewController.viewWillAppear:");
+        
+    self.authenticatedUser = [[AuthenticatedUser alloc]init];
     
-    [self.authenticatedUserModel loadAndNotifyDelegate:self];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
+    [self.authenticatedUser loadAndNotifyDelegate:self];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
+    if([BowerBirdConstants Trace]) NSLog(@"HomeViewController.shouldAutorotateToInterfaceOrientation:");
+    
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 
--(void)AuthenticatedUserLoaded:(AuthenticatedUserModel *)authenticatedUser
+-(void)authenticatedUserLoaded:(AuthenticatedUser *)authenticatedUser
 {
-    self.authenticatedUserModel = authenticatedUser;
+    if([BowerBirdConstants Trace]) NSLog(@"HomeViewController.AuthenticatedUserLoaded:");
     
-    NSLog(@"AuthenticationUserModel has been loaded");
-    // do some rendering
+    self.authenticatedUser = authenticatedUser;
+
+    // this is where we can re-render the view if required with newly updated model.
+    // most likely, we will update the models in the view's components.
 }
 
 @end

@@ -4,17 +4,11 @@
  Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
- 
- *> Use this protocol for notifying calling objects when the project has finished loading
- 
  -----------------------------------------------------------------------------------------------*/
+
 
 #import <Foundation/Foundation.h>
 
-@class Project;
-
-@protocol ProjectLoaded <NSObject>
-
--(void)ProjectHasFinishedLoading:(Project*)project;
+@interface Post : NSObject
 
 @end

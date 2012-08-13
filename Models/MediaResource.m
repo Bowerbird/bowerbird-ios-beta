@@ -4,17 +4,19 @@
  Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
- 
- *> Use this protocol for notifying calling objects when the project has finished loading
- 
  -----------------------------------------------------------------------------------------------*/
 
-#import <Foundation/Foundation.h>
 
-@class Project;
+#import "MediaResource.h"
 
-@protocol ProjectLoaded <NSObject>
+@implementation MediaResource
 
--(void)ProjectHasFinishedLoading:(Project*)project;
+@synthesize mediaType = _mediaType;
+@synthesize uploadedOn = _uploadedOn;
+@synthesize metaData = _metaData;
+@synthesize images = _images;
+@synthesize user = _user;
+@synthesize description = _description;
+@synthesize licence = _licence;
 
 @end

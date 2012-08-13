@@ -4,17 +4,18 @@
  Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
- 
- *> Use this protocol for notifying calling objects when the project has finished loading
- 
  -----------------------------------------------------------------------------------------------*/
 
 #import <Foundation/Foundation.h>
+#import "User.h"
 
-@class Project;
+@interface Register : NSObject
 
-@protocol ProjectLoaded <NSObject>
+@property (nonatomic, strong) NSString *firstName;
+@property (nonatomic, strong) NSString *lastName;
+@property (nonatomic, strong) NSString *email;
+@property (nonatomic, strong) NSString *password;
 
--(void)ProjectHasFinishedLoading:(Project*)project;
+-(User *)registerUser: (Register *)registration;
 
 @end

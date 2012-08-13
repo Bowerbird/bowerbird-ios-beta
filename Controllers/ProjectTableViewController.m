@@ -21,6 +21,8 @@
 
 -(void)setProjects:(NSArray *)projects
 {
+    if([BowerBirdConstants Trace]) NSLog(@"ProjectTableViewController.setProjects");
+    
     _projects = projects;
     [self.tableView reloadData];
 }
@@ -89,6 +91,8 @@
 // delegate method, called on completion of project loading by ProjectModel
 -(void)ProjectHasFinishedLoading:(Project *)project
 {
+    if([BowerBirdConstants Trace]) NSLog(@"ProjectTableViewController.ProjectHasFinishedLoading");
+    
     NSMutableArray * array = [NSMutableArray arrayWithArray:self.projects];
     
     [array addObject:project];

@@ -16,6 +16,11 @@
     return @"#16255B";
 }
 
++(NSString *)BowerbirdPurpleHexString
+{
+    return @"#606a85";
+}
+
 +(BOOL) Trace
 {
     return YES;

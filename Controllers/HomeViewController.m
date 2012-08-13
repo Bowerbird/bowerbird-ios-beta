@@ -11,8 +11,6 @@
 
 @interface HomeViewController ()
 
-@property (nonatomic, strong) AuthenticatedUser* authenticatedUser;
-
 @end
 
 @implementation HomeViewController
@@ -34,9 +32,10 @@
 {
     if([BowerBirdConstants Trace]) NSLog(@"HomeViewController.viewWillAppear:");
         
-    self.authenticatedUser = [[AuthenticatedUser alloc]init];
+    //self.authenticatedUser = [[AuthenticatedUser alloc]init];
     
-    [self.authenticatedUser loadAndNotifyDelegate:self];
+    //[self.authenticatedUser loadAndNotifyDelegate:self];
+    NSLog(@"HomeViewController created with: %@", self.authenticatedUser.user.firstName);
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

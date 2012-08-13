@@ -16,6 +16,8 @@
 
 +(NSString *)BowerbirdBlueHexString;
 
++(NSString *)BowerbirdPurpleHexString;
+
 +(NSURL *)RootUri;
 
 +(NSString *)RootUriString;

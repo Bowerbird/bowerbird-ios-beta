@@ -6,10 +6,13 @@
  
  -----------------------------------------------------------------------------------------------*/
 
+
 #import <UIKit/UIKit.h>
 #import "AuthenticatedUser.h"
 #import "BowerBirdConstants.h"
 
 @interface HomeViewController : UIViewController <AuthenticatedUserLoaded>
+
+@property (nonatomic, strong) AuthenticatedUser* authenticatedUser;
 
 @end

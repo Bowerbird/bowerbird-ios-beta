@@ -59,6 +59,12 @@
 		1CF0173415D8B92700027554 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0173315D8B92700027554 /* Comment.m */; };
 		1CF0173915D8E42600027554 /* NSDate+ConvertMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0173815D8E42600027554 /* NSDate+ConvertMethods.m */; };
 		1CF0173F15D8EA2B00027554 /* NSString+ConvertMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0173E15D8EA2B00027554 /* NSString+ConvertMethods.m */; };
+		1CF0174615D930E500027554 /* chats.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CF0174115D930E500027554 /* chats.png */; };
+		1CF0174715D930E500027554 /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CF0174215D930E500027554 /* home.png */; };
+		1CF0174815D930E500027554 /* projects.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CF0174315D930E500027554 /* projects.png */; };
+		1CF0174915D930E500027554 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CF0174415D930E500027554 /* settings.png */; };
+		1CF0174A15D930E500027554 /* sighting.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CF0174515D930E500027554 /* sighting.png */; };
+		1CF0174D15D9390400027554 /* ActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF0174C15D9390400027554 /* ActivityViewController.m */; };
 		1CFA7F7B15C89B340051CFA1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CFA7F7A15C89B340051CFA1 /* UIKit.framework */; };
 		1CFA7F7D15C89B340051CFA1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CFA7F7C15C89B340051CFA1 /* Foundation.framework */; };
 		1CFA7F7F15C89B340051CFA1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CFA7F7E15C89B340051CFA1 /* CoreGraphics.framework */; };
@@ -181,6 +187,13 @@
 		1CF0173815D8E42600027554 /* NSDate+ConvertMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+ConvertMethods.m"; sourceTree = "<group>"; };
 		1CF0173D15D8EA2A00027554 /* NSString+ConvertMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ConvertMethods.h"; sourceTree = "<group>"; };
 		1CF0173E15D8EA2B00027554 /* NSString+ConvertMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ConvertMethods.m"; sourceTree = "<group>"; };
+		1CF0174115D930E500027554 /* chats.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chats.png; sourceTree = "<group>"; };
+		1CF0174215D930E500027554 /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
+		1CF0174315D930E500027554 /* projects.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = projects.png; sourceTree = "<group>"; };
+		1CF0174415D930E500027554 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
+		1CF0174515D930E500027554 /* sighting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sighting.png; sourceTree = "<group>"; };
+		1CF0174B15D9390400027554 /* ActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityViewController.h; sourceTree = "<group>"; };
+		1CF0174C15D9390400027554 /* ActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityViewController.m; sourceTree = "<group>"; };
 		1CFA7F7615C89B340051CFA1 /* BowerBird.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BowerBird.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CFA7F7A15C89B340051CFA1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1CFA7F7C15C89B340051CFA1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -340,6 +353,8 @@
 				1CDF729C15D3418C00BE72C1 /* RegisterViewController.m */,
 				1CDF72C715D39D2B00BE72C1 /* HomeViewController.h */,
 				1CDF72C815D39D2C00BE72C1 /* HomeViewController.m */,
+				1CF0174B15D9390400027554 /* ActivityViewController.h */,
+				1CF0174C15D9390400027554 /* ActivityViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -372,6 +387,18 @@
 				1CDF72BC15D341A700BE72C1 /* RegisterView.m */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		1CF0174015D930E500027554 /* icons */ = {
+			isa = PBXGroup;
+			children = (
+				1CF0174115D930E500027554 /* chats.png */,
+				1CF0174215D930E500027554 /* home.png */,
+				1CF0174315D930E500027554 /* projects.png */,
+				1CF0174415D930E500027554 /* settings.png */,
+				1CF0174515D930E500027554 /* sighting.png */,
+			);
+			path = icons;
 			sourceTree = "<group>";
 		};
 		1CFA7F6B15C89B330051CFA1 = {
@@ -416,6 +443,7 @@
 		1CFA7F8015C89B340051CFA1 /* BowerBird */ = {
 			isa = PBXGroup;
 			children = (
+				1CF0174015D930E500027554 /* icons */,
 				1CFA7F8915C89B340051CFA1 /* BowerBirdAppDelegate.h */,
 				1CFA7F8A15C89B340051CFA1 /* BowerBirdAppDelegate.m */,
 				1CFA7F8C15C89B340051CFA1 /* iPhone.storyboard */,
@@ -493,6 +521,11 @@
 				1CFA7F8E15C89B340051CFA1 /* iPhone.storyboard in Resources */,
 				1C71F21315C903D40069EEB2 /* bowerbird-logo.png in Resources */,
 				1C71F21515C904790069EEB2 /* loader.png in Resources */,
+				1CF0174615D930E500027554 /* chats.png in Resources */,
+				1CF0174715D930E500027554 /* home.png in Resources */,
+				1CF0174815D930E500027554 /* projects.png in Resources */,
+				1CF0174915D930E500027554 /* settings.png in Resources */,
+				1CF0174A15D930E500027554 /* sighting.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -551,6 +584,7 @@
 				1CF0173415D8B92700027554 /* Comment.m in Sources */,
 				1CF0173915D8E42600027554 /* NSDate+ConvertMethods.m in Sources */,
 				1CF0173F15D8EA2B00027554 /* NSString+ConvertMethods.m in Sources */,
+				1CF0174D15D9390400027554 /* ActivityViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

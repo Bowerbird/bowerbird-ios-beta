@@ -6,6 +6,7 @@
  
  -----------------------------------------------------------------------------------------------*/
 
+
 #import "LoadingViewController.h"
 #import <UIKit/UIKit.h>
 
@@ -22,6 +23,7 @@
 - (void)rotateImage:(UIImageView *)image duration:(NSTimeInterval)duration curve:(int)curve degrees:(CGFloat)degrees;
 @property (nonatomic, strong) UIImageView *imageToMove;
 @property (nonatomic, strong) NSFileManager *filemgr;
+@property (nonatomic, strong) UIActivityIndicatorView* aSpinner;
 
 @end
 
@@ -29,7 +31,8 @@
 
 @synthesize imageToMove = _imageToMove;
 @synthesize filemgr = _filemgr;
-
+@synthesize authenticatedUser = _authenticatedUser;
+@synthesize aSpinner = _aSpinner;
 
 #pragma mark - Initialize the Application and Segue
 
@@ -46,14 +49,14 @@
 {
     if([BowerBirdConstants Trace]) NSLog(@"LoadingViewController.segueToLogin");
     
-    [self performSegueWithIdentifier:@"Login" sender:nil];
+    [self performSegueWithIdentifier:@"Login" sender:self];
 }
 
 -(void)segueToHome
 {
     if([BowerBirdConstants Trace]) NSLog(@"LoadingViewController.segueToHome");
     
-    [self performSegueWithIdentifier:@"Home" sender:nil];
+    [self performSegueWithIdentifier:@"Home" sender:self];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -68,11 +71,18 @@
     }
     else if([segue.identifier isEqualToString:@"Home"])
     {
-        // now we need to load the latest user data from account/profile,
-        // parse it and pass it to the home screen.
+
     }
 }
 
+-(void)authenticatedUserLoaded:(AuthenticatedUser *)authenticatedUser
+{
+    if([BowerBirdConstants Trace]) NSLog(@"LoadingViewController.AuthenticatedUserLoaded:");
+    
+    self.authenticatedUser = authenticatedUser;
+    
+    [self performSelector:@selector(segueToHome)withObject:self];
+}
 
 
 #pragma mark - View Display logic
@@ -81,7 +91,7 @@
 {
     if([BowerBirdConstants Trace]) NSLog(@"LoadingViewController.viewWillAppear:");
     
-    [self startRotation];
+    //[self startRotation];
 }
 
 
@@ -89,7 +99,16 @@
 {
     if([BowerBirdConstants Trace]) NSLog(@"LoadingViewController.viewDidAppear:");
     
-    [self startRotation];
+    //[self startRotation];
+    
+    UIActivityIndicatorView *tempSpinner = [[UIActivityIndicatorView alloc]  initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    self.aSpinner = tempSpinner;
+    //[tempSpinner release];
+    
+    [self.view addSubview:self.aSpinner];
+    [self.aSpinner startAnimating];
+    
+    
     
     if([self applicationRequiresLoginOrRegistration])
     {
@@ -97,7 +116,9 @@
     }
     else
     {
-        [self performSelector:@selector(segueToHome)withObject:self afterDelay:1];
+        self.authenticatedUser = [[AuthenticatedUser alloc]init];
+        
+        [self.authenticatedUser loadAndNotifyDelegate:self];
     }
     
     [super viewDidLoad];
@@ -109,6 +130,12 @@
     if([BowerBirdConstants Trace]) NSLog(@"LoadingViewController.shouldAutorotateToInterfaceOrientation:");
     
     return YES;
+}
+
+-(void)viewDidUnload
+{
+    self.imageToMove = nil;
+    self.filemgr = nil;
 }
 
 

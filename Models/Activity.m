@@ -124,6 +124,8 @@
 -(void)ImageFinishedLoading:(id)forOwner
 {
     if([BowerBirdConstants Trace]) NSLog(@"Activity.ImageFinishedLoading:");
+    
+    // notify delegate that activity loaded
 }
 
 @end

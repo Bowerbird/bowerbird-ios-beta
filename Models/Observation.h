@@ -8,6 +8,8 @@
 
 
 #import <Foundation/Foundation.h>
+#import "NSDate+ConvertMethods.h"
+#import "NSNumber+ConvertMethods.h"
 #import "User.h"
 #import "Project.h"
 #import "Image.h"
@@ -31,5 +33,7 @@
 @property (nonatomic,strong) MediaResource* primaryMedia;
 @property (nonatomic,strong) User* user;
 @property (nonatomic,strong) NSDictionary* comments;
+@property (nonatomic,strong) NSArray* projects;
+
 
 @end

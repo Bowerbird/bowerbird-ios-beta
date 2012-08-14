@@ -36,7 +36,9 @@
     self.groupType = @"project";
     self.name = [dictionary objectForKey:@"Name"];
     self.description = [dictionary objectForKey:@"Description"];
-    self.avatar = [[Image alloc]initWithJson:[[[dictionary objectForKey:@"Avatar"] objectForKey:@"Image"] objectForKey:[BowerBirdConstants NameOfAvatarImageThatGetsDisplayed]] andNotifyImageDownloadComplete:self];
+    self.avatar = [[Image alloc]initWithJson:[[[dictionary objectForKey:@"Avatar"] objectForKey:@"Image"] objectForKey:[BowerBirdConstants NameOfAvatarDisplayImage]]
+              havingImageName:[BowerBirdConstants NameOfAvatarDisplayImage]
+              andNotifyImageDownloadComplete:self];
     
     return self;
 }

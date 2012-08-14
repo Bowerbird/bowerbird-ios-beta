@@ -16,4 +16,18 @@
 @synthesize message = _message;
 @synthesize comments = _comments;
 
+-(Comment*)initWithJson:(NSDictionary*)dictionary
+{
+    self = [self init];
+    
+    self.message = [dictionary objectForKey:@"Message"];
+    
+    return self;
+}
+
+-(void)loadCommentsFromJson:(NSArray*)array
+{
+    // don't quite know the structure yet...
+}
+
 @end

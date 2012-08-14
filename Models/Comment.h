@@ -17,4 +17,8 @@
 @property (nonatomic,strong) NSString* message;
 @property (nonatomic,strong) NSDictionary* comments;
 
+-(Comment*)initWithJson:(NSDictionary*)comment;
+
+-(void)loadCommentsFromJson:(NSArray*)array;
+
 @end

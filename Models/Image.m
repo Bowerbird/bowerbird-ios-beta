@@ -35,7 +35,7 @@
 
 #pragma mark - Initializers and JSON parsing methods
 
--(id)initWithJson:(NSDictionary *)dictionary andNotifyImageDownloadComplete:(id)delegate
+-(id)initWithJson:(NSDictionary *)dictionary havingImageName:(NSString*)imageName andNotifyImageDownloadComplete:(id)delegate
 {
     self = [self init];
     
@@ -45,10 +45,10 @@
     self.fileName = [dictionary objectForKey:@"FileName"];
     self.relativeUri = [dictionary objectForKey:@"RelativeUri"];
     self.format = [dictionary objectForKey:@"Format"];
-    self.width = [NSNumber ConvertFromString:[dictionary objectForKey:@"Width"]];
-    self.height = [NSNumber ConvertFromString:[dictionary objectForKey:@"Height"]];
+    self.width = [NSNumber ConvertFromStringToInteger:[dictionary objectForKey:@"Width"]];
+    self.height = [NSNumber ConvertFromStringToInteger:[dictionary objectForKey:@"Height"]];
     self.extension = [dictionary objectForKey:@"Extension"];
-    self.imageDimensionName = [BowerBirdConstants NameOfAvatarImageThatGetsDisplayed];
+    self.imageDimensionName = imageName;
 
     [self doGetRequest:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [BowerBirdConstants RootUriString], self.relativeUri]]];
         

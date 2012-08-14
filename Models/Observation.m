@@ -30,26 +30,35 @@
 @synthesize primaryMedia = _primaryMedia;
 @synthesize user = _user;
 @synthesize comments = _comments;
-
+@synthesize projects = _projects;
 
 #pragma mark - Initializers and JSON readers
 
 -(id)initWithJson:(NSDictionary *)dictionary andNotifyDelegate:(id)delegate
 {
-    self = [self init];
-    
     if([BowerBirdConstants Trace]) NSLog(@"Activity.initWithJson:");
+    
+    self = [self init];
     
     self.delegate = delegate;
     self.identifier = [dictionary objectForKey:@"Id"];
-       
-    
+    self.title = [dictionary objectForKey:@"Title"];
+    self.observedOnDate = [NSDate ConvertFromJsonDate:[dictionary objectForKey:@"ObservedOnDate"]];
+    // not grabbing time at this point
+    self.address = [dictionary objectForKey:@"Address"];
+    self.latitude = [[dictionary objectForKey:@"Latitude"] floatValue];
+    self.longitude = [[dictionary objectForKey:@"Longitude"] floatValue];
+    self.category = [dictionary objectForKey:@"Category"];
+    self.isIdentificationRequired = [[dictionary objectForKey:@"IsIdentificationRequired"] boolValue];
+    self.anonymiseLocation = [[dictionary objectForKey:@"AnonymiseLocation"] boolValue];
+    MediaResource* mediaResourceReader = [[MediaResource alloc]init];
+    [mediaResourceReader loadMediaFromJson:[dictionary objectForKey:@"Media"]];
+    self.media = mediaResourceReader.mediaResources;
+    self.primaryMedia = [[MediaResource alloc]initWithJson:[dictionary objectForKey:@"PrimaryMedia"] andNotifyDelegate:self];
     self.user = [[User alloc]initWithJson:([dictionary objectForKey:@"User"]) andNotifyProjectLoaded:self];
+    self.projects = [dictionary objectForKey:@"Projects"];
     
     return self;
 }
-
-
-
 
 @end

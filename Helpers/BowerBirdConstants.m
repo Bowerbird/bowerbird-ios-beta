@@ -23,7 +23,7 @@
 
 +(BOOL) Trace
 {
-    return YES;
+    return NO;
 }
 
 // url
@@ -78,9 +78,14 @@
     return [NSArray arrayWithObjects:@"Original",@"Square42", @"Square100", @"Square200",@"Full480",@"Full768",@"Full1024", nil];
 }
 
-+(NSString *)NameOfAvatarImageThatGetsDisplayed
++(NSString *)NameOfAvatarDisplayImage
 {
     return @"Square200";
+}
+
++(NSString*)NameOfMediaResourceDisplayImage
+{
+    return @"Full768";
 }
 
 +(NSString *)BowerbirdCookieName

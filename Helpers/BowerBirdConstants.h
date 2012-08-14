@@ -34,7 +34,9 @@
 
 +(NSArray*)AvatarTypes;
 
-+(NSString *)NameOfAvatarImageThatGetsDisplayed;
++(NSString *)NameOfAvatarDisplayImage;
+
++(NSString*)NameOfMediaResourceDisplayImage;
 
 +(NSString *)BowerbirdCookieName;
 

@@ -10,9 +10,14 @@
 
 @implementation NSNumber (ConvertMethods)
 
-+(NSNumber *)ConvertFromString: (NSString *)stringNumber
++(NSNumber *)ConvertFromStringToInteger: (NSString *)stringNumber
 {
     return [NSNumber numberWithInteger:[stringNumber integerValue]];
+}
+
++(NSNumber*) ConvertFromStringToFloat:(NSString *)stringNumber
+{
+    return [NSNumber numberWithFloat:[stringNumber floatValue]];
 }
 
 @end

@@ -10,6 +10,8 @@
 
 @interface NSNumber (ConvertMethods)
 
-+(NSNumber *)ConvertFromString: (NSString *)stringNumber;
++(NSNumber *)ConvertFromStringToInteger: (NSString *)stringNumber;
+
++(NSNumber*) ConvertFromStringToFloat:(NSString *)stringNumber;
 
 @end

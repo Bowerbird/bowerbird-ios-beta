@@ -31,6 +31,8 @@
 
 - (id)initWithCallbackDelegate:(id)delegate
 {
+    self = [self init];
+    
     if([BowerBirdConstants Trace]) NSLog(@"Authentication.initWithCallbackDelegate:");
     
     self.authenticationComplete = delegate;

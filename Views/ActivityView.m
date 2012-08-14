@@ -1,16 +1,14 @@
 //
-//  ProjectsView.m
+//  ActivityView.m
 //  BowerBird
 //
-//  Created by Hamish Crittenden on 4/08/12.
+//  Created by Hamish Crittenden on 14/08/12.
 //  Copyright (c) 2012 Museum Victoria. All rights reserved.
 //
 
-#import "ProjectsView.h"
+#import "ActivityView.h"
 
-@implementation ProjectsView
-
-//@synthesize projects = _projects;
+@implementation ActivityView
 
 - (id)initWithFrame:(CGRect)frame
 {

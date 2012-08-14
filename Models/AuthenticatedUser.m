@@ -37,6 +37,8 @@
 
 -(id)initWithJson:(NSDictionary *)dictionary
 {
+    self = [self init];
+    
     if([BowerBirdConstants Trace]) NSLog(@"AuthenticatedUser.initWithJson:");
     
     self.defaultLicence = [dictionary objectForKey:@"DefaultLicence"];
@@ -81,11 +83,17 @@
     {
 		[self setNetworkQueue:nil];
 	}
+    
     SBJSON *parser = [[SBJSON alloc] init];
     id jsonObject = [parser objectWithString:request.responseString error:nil];
     NSDictionary* jsonBlob = [[jsonObject objectForKey:@"Model"] objectForKey:@"AuthenticatedUser"];
     
     self.authenticatedUser = [self initWithJson:jsonBlob];
+
+    if([self.authenticatedUserLoaded respondsToSelector:@selector(authenticatedUserLoaded:)])
+    {
+        [self.authenticatedUserLoaded authenticatedUserLoaded:self];
+    }
 }
             
 - (void)requestFailed:(ASIHTTPRequest *)request
@@ -113,7 +121,7 @@
 // call network opertaions to load projects and set caller delegate
 - (void)loadAndNotifyDelegate:(id)delegate
 {
-    if([BowerBirdConstants Trace]) NSLog(@"AuthenticatedeUser.loadAndNotifyDelegate:");
+    if([BowerBirdConstants Trace]) NSLog(@"AuthenticatedUser.loadAndNotifyDelegate:");
     
     self.authenticatedUserLoaded = delegate;
     
@@ -131,12 +139,25 @@
     
     self.projects = [[NSDictionary alloc]initWithDictionary:projects];
     
+    // this happens each time a project is loaded for a user.
+//    if([self.authenticatedUserLoaded respondsToSelector:@selector(authenticatedUserLoaded:)])
+//    {
+//        [self.authenticatedUserLoaded authenticatedUserLoaded:self];
+//    }
+    
+    NSLog(@"Project loaded: %@", project.identifier);
+}
+
+-(void)UserLoaded:(User*)user
+{
+    if([BowerBirdConstants Trace]) NSLog(@"AuthenticatedUser.UserLoaded:");
+    
+    self.authenticatedUser.user = user;
+    
     if([self.authenticatedUserLoaded respondsToSelector:@selector(authenticatedUserLoaded:)])
     {
         [self.authenticatedUserLoaded authenticatedUserLoaded:self];
     }
-    
-    NSLog(@"Project loaded: %@", project.identifier);
 }
 
 @end

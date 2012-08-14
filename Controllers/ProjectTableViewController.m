@@ -8,8 +8,10 @@
 
 #import "ProjectTableViewController.h"
 
-@interface ProjectTableViewController ()
+@interface ProjectTableViewController ()// <ProjectTableDataSource>
+
 @property (nonatomic, strong) Project* project;
+
 @end
 
 @implementation ProjectTableViewController

@@ -8,11 +8,9 @@
 
 
 #import <UIKit/UIKit.h>
-#import "AuthenticatedUser.h"
+#import "ApplicationData.h"
 #import "BowerBirdConstants.h"
 
-@interface HomeViewController : UIViewController <AuthenticatedUserLoaded>
-
-@property (nonatomic, strong) AuthenticatedUser* authenticatedUser;
+@interface HomeViewController : UIViewController
 
 @end

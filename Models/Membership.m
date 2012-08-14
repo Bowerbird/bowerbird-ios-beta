@@ -17,6 +17,8 @@
 
 -(id)initWithJson:(NSDictionary*)dictionary
 {
+    self = [self init];
+    
     if([BowerBirdConstants Trace]) NSLog(@"Membership.initWithJson:");
     
     self.groupId = [dictionary objectForKey:@"GroupId"];

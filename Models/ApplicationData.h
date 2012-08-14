@@ -6,22 +6,20 @@
  
  -----------------------------------------------------------------------------------------------*/
 
+#import <Foundation/Foundation.h>
+#import "AuthenticatedUser.h"
+#import "Authentication.h"
 
-#import "HomeViewController.h"
+@interface ApplicationData : NSObject
 
+@property (nonatomic, retain) AuthenticatedUser* authenticatedUser;
 
-@implementation HomeViewController
+@property (nonatomic, retain) Authentication* authentication;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    if([BowerBirdConstants Trace]) NSLog(@"HomeViewController.initWithNibName:bundle:");
-    
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+@property (nonatomic, retain) User* user;
 
+@property (nonatomic, retain) NSArray* categories;
+
++(id)sharedInstance;
 
 @end

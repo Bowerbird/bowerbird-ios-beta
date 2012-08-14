@@ -29,13 +29,15 @@
 
 -(id)initWithJson:(NSDictionary*)dictionary andNotifyProjectLoaded:(id)delegate
 {
+    self = [self init];
+    
     if([BowerBirdConstants Trace]) NSLog(@"User.initWithJson:andNotifiyProjectLoaded:");
     
     self.userLoaded = delegate;
     self.identifier = [dictionary objectForKey:@"Id"];
     self.firstName = [dictionary objectForKey:@"FirstName"];
     self.lastName = [dictionary objectForKey:@"LastName"];
-    self.avatar = [[Image alloc]initWithJson:[[[dictionary objectForKey:@"Avatar"] objectForKey:@"Image"] objectForKey:([BowerBirdConstants NameOfAvatarImageThatGetsDisplayed])] andNotifyImageDownloadComplete:self];
+    //self.avatar = [[Image alloc]initWithJson:[[[dictionary objectForKey:@"Avatar"] objectForKey:@"Image"] objectForKey:([BowerBirdConstants NameOfAvatarImageThatGetsDisplayed])] andNotifyImageDownloadComplete:self];
     
     return self;
 }

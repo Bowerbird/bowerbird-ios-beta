@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ApplicationData.h"
 #import "AuthenticationComplete.h"
 #import "User.h"
 #import "LoginView.h"
@@ -18,9 +19,6 @@
 #import "CookieHelper.h"
 #import "Authentication.h"
 
-#define EMAIL @"email";
-#define PASSWORD @"password";
-
-@interface LoginViewController : UIViewController <AuthenticationComplete>
+@interface LoginViewController : UIViewController <AuthenticationComplete, AuthenticatedUserLoaded>
 
 @end

@@ -10,28 +10,18 @@
 #import "LoadingViewController.h"
 #import <UIKit/UIKit.h>
 
-#define M_PI   3.14159265358979323846264338327950288   /* pi */
-#define DEGREES_TO_RADIANS(angle) (angle / 180.0 * M_PI) // Our conversion definition
-#define BOWERBIRD_PREFS "BowerBird.Cookie.Prefs"
 
 @interface LoadingViewController ()
 
 - (BOOL)applicationRequiresLoginOrRegistration;
 - (void)segueToLogin;
 - (void)segueToHome;
-- (void)startRotation;
-- (void)rotateImage:(UIImageView *)image duration:(NSTimeInterval)duration curve:(int)curve degrees:(CGFloat)degrees;
-@property (nonatomic, strong) UIImageView *imageToMove;
-@property (nonatomic, strong) NSFileManager *filemgr;
 @property (nonatomic, strong) UIActivityIndicatorView* aSpinner;
 
 @end
 
 @implementation LoadingViewController
 
-@synthesize imageToMove = _imageToMove;
-@synthesize filemgr = _filemgr;
-@synthesize authenticatedUser = _authenticatedUser;
 @synthesize aSpinner = _aSpinner;
 
 #pragma mark - Initialize the Application and Segue
@@ -59,66 +49,67 @@
     [self performSegueWithIdentifier:@"Home" sender:self];
 }
 
+-(void)segueToActivity
+{
+    if([BowerBirdConstants Trace]) NSLog(@"LoadingViewController.segueToHome");
+    
+    [self performSegueWithIdentifier:@"LoadActivity" sender:self];
+}
+
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if([BowerBirdConstants Trace]) NSLog(@"LoadingViewController.prepareForSegue:sender:");
     
     if([segue.identifier isEqualToString:@"Login"])
     {
-        //[segue.destinationViewController]
-        //RegisterOrLoginViewController *registerOrLoginViewController = segue.destinationViewController;
-        // we can now pass to a delegate within the view controller, some data..
+        
     }
     else if([segue.identifier isEqualToString:@"Home"])
     {
 
     }
-}
-
--(void)authenticatedUserLoaded:(AuthenticatedUser *)authenticatedUser
-{
-    if([BowerBirdConstants Trace]) NSLog(@"LoadingViewController.AuthenticatedUserLoaded:");
-    
-    self.authenticatedUser = authenticatedUser;
-    
-    [self performSelector:@selector(segueToHome)withObject:self];
+    else if([segue.identifier isEqualToString:@"LoadActivity"])
+    {
+        
+    }
 }
 
 
 #pragma mark - View Display logic
 
--(void) viewWillAppear:(BOOL)animated
+-(void) displaySpinner
 {
-    if([BowerBirdConstants Trace]) NSLog(@"LoadingViewController.viewWillAppear:");
+    if([BowerBirdConstants Trace]) NSLog(@"LoadingViewController.displaySpinner");
     
-    //[self startRotation];
+    UIActivityIndicatorView *tempSpinner = [[UIActivityIndicatorView alloc]  initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    [tempSpinner setCenter:CGPointMake(100,100)];
+    self.aSpinner = tempSpinner;
+    
+    [self.view addSubview:self.aSpinner];
+    [self.aSpinner startAnimating];
 }
-
 
 - (void) viewDidAppear:(BOOL) animated
 {
     if([BowerBirdConstants Trace]) NSLog(@"LoadingViewController.viewDidAppear:");
     
-    //[self startRotation];
-    
-    UIActivityIndicatorView *tempSpinner = [[UIActivityIndicatorView alloc]  initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    self.aSpinner = tempSpinner;
-    //[tempSpinner release];
-    
-    [self.view addSubview:self.aSpinner];
-    [self.aSpinner startAnimating];
-    
-    
-    
+    [self displaySpinner];
+       
     if([self applicationRequiresLoginOrRegistration])
     {
         [self performSelector:@selector(segueToLogin)withObject:self afterDelay:1];
     }
+    else if([[ApplicationData sharedInstance] authenticatedUser] == nil)
+    {
+        ApplicationData* appData = [ApplicationData sharedInstance];
+        
+        appData.authenticatedUser = [[AuthenticatedUser alloc]init];
+        
+        [appData.authenticatedUser loadAndNotifyDelegate:self];
+    }
     else
     {
-        self.authenticatedUser = [[AuthenticatedUser alloc]init];
-        
-        [self.authenticatedUser loadAndNotifyDelegate:self];
+        [self performSelector:@selector(segueToActivity)withObject:self];
     }
     
     [super viewDidLoad];
@@ -132,55 +123,21 @@
     return YES;
 }
 
--(void)viewDidUnload
+
+#pragma mark - Delegate methods and callbacks
+
+-(void)authenticatedUserLoaded:(AuthenticatedUser *)authenticatedUser
 {
-    self.imageToMove = nil;
-    self.filemgr = nil;
+    if([BowerBirdConstants Trace]) NSLog(@"LoadingViewController.AuthenticatedUserLoaded:");
+    
+    [self.aSpinner stopAnimating];
+    [self.aSpinner removeFromSuperview];
+    
+    ApplicationData* appData = [ApplicationData sharedInstance];
+    
+    appData.authenticatedUser = authenticatedUser;
+    
+    [self performSelector:@selector(segueToActivity)withObject:self];
 }
-
-
-
-#pragma mark - Loading screen animation
-
-- (void)rotateImage:(UIImageView *)image
-           duration:(NSTimeInterval)duration
-              curve:(int)curve
-            degrees:(CGFloat)degrees
-{
-    if([BowerBirdConstants Trace]) NSLog(@"LoadingViewController.rotateImage:duration:curve:degrees");
-    
-    // Setup the animation
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:duration];
-    [UIView setAnimationCurve:curve];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    
-    // The transform matrix
-    CGAffineTransform transform =
-    CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(degrees));
-    image.transform = transform;
-    
-    // Commit the changes
-    [UIView commitAnimations];
-}
-
-
-- (void)startRotation
-{
-    if([BowerBirdConstants Trace]) NSLog(@"LoadingViewController.startRotation");
-    
-    if(!self.imageToMove)
-    {
-        self.imageToMove = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"loader.png"]];
-        self.imageToMove.frame = CGRectMake(100, 100, 100, 100);
-        [self.view addSubview:self.imageToMove];
-        
-    }
-    
-    [self rotateImage:self.imageToMove duration:1.0
-                curve:UIViewAnimationCurveLinear
-              degrees:180];
-}
-
 
 @end

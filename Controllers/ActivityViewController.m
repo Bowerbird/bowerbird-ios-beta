@@ -11,4 +11,30 @@
 
 @implementation ActivityViewController
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    if([BowerBirdConstants Trace]) NSLog(@"ActivityViewController.initWithNibName:bundle:");
+    
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+        self.tabBarItem.title = @"Activity";
+    }
+    return self;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    if([BowerBirdConstants Trace]) NSLog(@"ActivityViewController.viewWillAppear:");
+    
+    NSLog(@"ActivityViewController created with: %@", [[ApplicationData sharedInstance] authenticatedUser].user.firstName);
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    if([BowerBirdConstants Trace]) NSLog(@"ActivityViewController.shouldAutorotateToInterfaceOrientation:");
+    
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
 @end

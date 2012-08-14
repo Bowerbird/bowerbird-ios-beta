@@ -37,6 +37,8 @@
 
 -(id)initWithJson:(NSDictionary *)dictionary andNotifyDelegate:(id)delegate
 {
+    self = [self init];
+    
     if([BowerBirdConstants Trace]) NSLog(@"Activity.initWithJson:");
     
     self.delegate = delegate;

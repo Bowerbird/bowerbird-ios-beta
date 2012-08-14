@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@class ProjectsView;
+
+@protocol ProjectTableDataSource
+
+-(NSDictionary *)projectsForProjectTable:(ProjectsView*)sender;
+
+@end
+
 @interface ProjectsView : UITableView
+
+//@property (nonatomic, weak) id<ProjectTableDataSource> projects;
 
 @end

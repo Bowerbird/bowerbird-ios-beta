@@ -27,6 +27,8 @@
 
 -(id)initWithJson:(NSDictionary *)dictionary andNotifyDelegate:(id)delegate
 {
+    self = [self init];
+    
     if([BowerBirdConstants Trace]) NSLog(@"Project.initWithJson:");
     
     self.delegate = delegate;
@@ -39,7 +41,7 @@
     return self;
 }
 
--(NSDictionary *)loadProjectsFromJson:(NSArray *)array
+-(void)loadProjectsFromJson:(NSArray *)array
 {
     if([BowerBirdConstants Trace]) NSLog(@"Project.loadProjectsFromJson:");
     
@@ -51,9 +53,8 @@
         }
     }
     
-    return projects;
+    self.projects = [[NSDictionary alloc]initWithDictionary:projects];
 }
-
 
 #pragma mark - Network methods for loading Projects
  
@@ -107,7 +108,6 @@
 }
 
 
-
 #pragma mark - Callback methods to this and methods setting this as delegate
 
 // called to load all the projects (probably needs some paging parameters)
@@ -127,7 +127,7 @@
     
     self.delegate = delegate;
     
-    self.projects = [self loadProjectsFromJson:projects];
+    [self loadProjectsFromJson:projects];
 }
 
 -(void)loadThisProject:(NSDictionary*)project andNotifiyDelegate:(id)delegate

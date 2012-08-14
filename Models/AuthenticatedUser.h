@@ -19,17 +19,17 @@
 #import "AuthenticatedUserLoaded.h"
 #import "CookieHelper.h"
 
-@interface AuthenticatedUser : NSObject <RequestDataFromServer, ProjectLoaded>
+@interface AuthenticatedUser : NSObject <RequestDataFromServer, ProjectLoaded, UserLoaded>
 
 @property (retain) ASINetworkQueue *networkQueue;
-@property (nonatomic,strong) User* user;
-@property (nonatomic,strong) NSArray* categories;
-@property (nonatomic, strong) NSDictionary* projects;
-@property (nonatomic, strong) NSDictionary* teams;
-@property (nonatomic, strong) NSDictionary* organisations;
-@property (nonatomic, strong) NSDictionary* userProjects;
-@property (nonatomic, strong) NSArray* memberships;
-@property (nonatomic, strong) NSString* defaultLicence;
+@property (nonatomic, retain) User* user;
+@property (nonatomic, retain) NSArray* categories;
+@property (nonatomic, retain) NSDictionary* projects;
+@property (nonatomic, retain) NSDictionary* teams;
+@property (nonatomic, retain) NSDictionary* organisations;
+@property (nonatomic, retain) NSDictionary* userProjects;
+@property (nonatomic, retain) NSArray* memberships;
+@property (nonatomic, retain) NSString* defaultLicence;
 
 -(id)initWithJson:(NSDictionary*)dictionary;
 

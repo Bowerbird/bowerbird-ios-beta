@@ -13,6 +13,13 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    // create an instance of our AuthenticatedUser object which is a global variable to hold:
+    // User that is authenticated
+    // User's Projects, Teams, Organisations, UserProjects, DefaultLicence
+    // Application's Categories for submitting new enquiries
+    
+    
     return YES;
 }
 							

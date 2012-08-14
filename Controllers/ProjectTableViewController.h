@@ -12,6 +12,7 @@
 #import "BowerBirdConstants.h"
 #import "ProjectsView.h"
 
+
 @interface ProjectTableViewController : UITableViewController <ProjectLoaded, UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) NSArray* projects;

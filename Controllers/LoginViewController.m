@@ -12,8 +12,6 @@
 
 @property (nonatomic, strong) NSString* email;
 @property (nonatomic, strong) NSString* password;
-@property (nonatomic, strong) User* authenticatedUser;
-@property (nonatomic, strong) Authentication* authentication;
 
 @end
 
@@ -21,8 +19,6 @@
 
 @synthesize email = _email;
 @synthesize password = _password;
-@synthesize authenticatedUser = _authenticatedUser;
-@synthesize authentication = _authentication;
 
 
 #pragma mark - Wire up UI Actions
@@ -47,9 +43,11 @@
 {
     if([BowerBirdConstants Trace]) NSLog(@"LoginViewController.logUserIn:");
     
-    self.authentication = [[Authentication alloc]initWithCallbackDelegate:(self)];
+    ApplicationData* appData = [ApplicationData sharedInstance];
+
+    appData.authentication = [[Authentication alloc]initWithCallbackDelegate:(self)];
     
-    [self.authentication doPostRequest:[BowerBirdConstants AccountLoginUrl] withParameters:[NSDictionary dictionaryWithObjectsAndKeys:self.email, @"email", self.password, @"password", nil]];
+    [appData.authentication doPostRequest:[BowerBirdConstants AccountLoginUrl] withParameters:[NSDictionary dictionaryWithObjectsAndKeys:self.email, @"email", self.password, @"password", nil]];
 }
 
 
@@ -59,7 +57,7 @@
 {
     if([BowerBirdConstants Trace]) NSLog(@"LoginViewController.segueToHome");
     
-    [self performSegueWithIdentifier:@"Home" sender:nil];
+    [self performSegueWithIdentifier:@"Home" sender:self];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -72,21 +70,12 @@
     }
 }
 
-// if we return with a user object, set current user
--(void)setCurrentUser:(User *)currentUser
-{
-    if([BowerBirdConstants Trace]) NSLog(@"LoginViewController.setCurrentUser:");
-    
-    self.currentUser = currentUser;
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     if([BowerBirdConstants Trace]) NSLog(@"LoginViewController.shouldAutoRotateToInterfaceOrientation:");
     
     return YES;
 }
-
 
 
 #pragma mark - Callback methods to this and methods setting this as delegate
@@ -98,14 +87,29 @@
     
     if(user)
     {
-        self.authenticatedUser = user;
+        ApplicationData* appData = [ApplicationData sharedInstance];
         
-        [self performSelector:@selector(segueToHome)withObject:self];
+        appData.user = user;
+            
+        appData.authenticatedUser = [[AuthenticatedUser alloc]init];
+        
+        [appData.authenticatedUser loadAndNotifyDelegate:self];
     }
     else
     {
         // there was a problem. display a message
     }
+}
+
+-(void)authenticatedUserLoaded:(AuthenticatedUser *)authenticatedUser
+{
+    if([BowerBirdConstants Trace]) NSLog(@"LoginViewController.AuthenticatedUserLoadedUser");
+    
+    ApplicationData* appData = [ApplicationData sharedInstance];
+    
+    appData.authenticatedUser = authenticatedUser;
+    
+    [self performSelector:@selector(segueToHome)withObject:self];
 }
 
 @end

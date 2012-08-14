@@ -37,6 +37,8 @@
 
 -(id)initWithJson:(NSDictionary *)dictionary andNotifyImageDownloadComplete:(id)delegate
 {
+    self = [self init];
+    
     if([BowerBirdConstants Trace]) NSLog(@"Image.initWithJson:andNotifiyImageDownloadComplete:");
     
     self.imageLoadDelegate = delegate;
@@ -79,11 +81,22 @@
 		[self setNetworkQueue:nil];
 	}
     
-    self.image = [UIImage imageWithData:[request responseData]];
-
-    if([self.imageLoadDelegate respondsToSelector:@selector(ImageFinishedLoading:)])
+    @try
     {
-        [self.imageLoadDelegate ImageFinishedLoading:self];
+        self.image = [UIImage imageWithData:[request responseData]];
+
+        if(self.imageLoadDelegate && [self.imageLoadDelegate respondsToSelector:@selector(ImageFinishedLoading:)])
+        {
+            [self.imageLoadDelegate ImageFinishedLoading:self.image];
+        }
+    }
+    @catch (NSException *e)
+    {
+        NSLog(@"Exception: %@", e);
+    }
+    @finally
+    {
+        
     }
 }
 

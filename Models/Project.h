@@ -19,14 +19,14 @@
 
 @property (retain) ASINetworkQueue *networkQueue;
 
+@property (nonatomic, strong) NSDictionary* projects;
+
 -(id)initWithJson:(NSDictionary *)dictionary andNotifyDelegate:(id)delegate;
 
 -(void)loadAllProjectsAndNotifyDelegate:(id)delegate;
 
 -(void)loadTheseProjects:(NSArray*)projects andNotifyDelegate:(id)delegate;
 
--(NSDictionary *)loadProjectsFromJson:(NSArray *)array;
-
-@property (nonatomic, strong) NSDictionary* projects;
+-(void)loadProjectsFromJson:(NSArray *)array;
 
 @end

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C0B979715DA074300BEFBDD /* ApplicationData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C0B979615DA074300BEFBDD /* ApplicationData.m */; };
 		1C71F21315C903D40069EEB2 /* bowerbird-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C71F21215C903D40069EEB2 /* bowerbird-logo.png */; };
 		1C71F21515C904790069EEB2 /* loader.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C71F21415C904790069EEB2 /* loader.png */; };
 		1C9547DF15C99B83008A6A10 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C9547DD15C99B59008A6A10 /* CFNetwork.framework */; };
@@ -19,6 +20,8 @@
 		1C9B4EFB15CB9DA70034269C /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C9B4EF315CB9DA70034269C /* SBJsonBase.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1C9B4EFC15CB9DA70034269C /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C9B4EF515CB9DA70034269C /* SBJsonParser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1C9B4EFD15CB9DA70034269C /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C9B4EF715CB9DA70034269C /* SBJsonWriter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		1CB1EF8915DA35300054493D /* ActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB1EF8815DA35300054493D /* ActivityView.m */; };
+		1CB1EF8D15DA3DC00054493D /* ProjectsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB1EF8C15DA3DC00054493D /* ProjectsViewController.m */; };
 		1CDF726415D3417300BE72C1 /* Authentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF724C15D3417300BE72C1 /* Authentication.m */; };
 		1CDF726515D3417300BE72C1 /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF724E15D3417300BE72C1 /* Image.m */; };
 		1CDF726715D3417300BE72C1 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF725215D3417300BE72C1 /* Group.m */; };
@@ -75,6 +78,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C0B979515DA074200BEFBDD /* ApplicationData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationData.h; sourceTree = "<group>"; };
+		1C0B979615DA074300BEFBDD /* ApplicationData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationData.m; sourceTree = "<group>"; };
 		1C71F21215C903D40069EEB2 /* bowerbird-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bowerbird-logo.png"; sourceTree = "<group>"; };
 		1C71F21415C904790069EEB2 /* loader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loader.png; sourceTree = "<group>"; };
 		1C9547DD15C99B59008A6A10 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -94,6 +99,10 @@
 		1C9B4EF515CB9DA70034269C /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
 		1C9B4EF615CB9DA70034269C /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		1C9B4EF715CB9DA70034269C /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		1CB1EF8715DA35300054493D /* ActivityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityView.h; sourceTree = "<group>"; };
+		1CB1EF8815DA35300054493D /* ActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityView.m; sourceTree = "<group>"; };
+		1CB1EF8B15DA3DC00054493D /* ProjectsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectsViewController.h; sourceTree = "<group>"; };
+		1CB1EF8C15DA3DC00054493D /* ProjectsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectsViewController.m; sourceTree = "<group>"; };
 		1CDF724B15D3417300BE72C1 /* Authentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Authentication.h; sourceTree = "<group>"; };
 		1CDF724C15D3417300BE72C1 /* Authentication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Authentication.m; sourceTree = "<group>"; };
 		1CDF724D15D3417300BE72C1 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
@@ -276,6 +285,8 @@
 				1CF0173015D8B81300027554 /* ObservationNote.m */,
 				1CF0173215D8B92600027554 /* Comment.h */,
 				1CF0173315D8B92700027554 /* Comment.m */,
+				1C0B979515DA074200BEFBDD /* ApplicationData.h */,
+				1C0B979615DA074300BEFBDD /* ApplicationData.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -355,6 +366,8 @@
 				1CDF72C815D39D2C00BE72C1 /* HomeViewController.m */,
 				1CF0174B15D9390400027554 /* ActivityViewController.h */,
 				1CF0174C15D9390400027554 /* ActivityViewController.m */,
+				1CB1EF8B15DA3DC00054493D /* ProjectsViewController.h */,
+				1CB1EF8C15DA3DC00054493D /* ProjectsViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -385,6 +398,8 @@
 				1CDF72BA15D341A700BE72C1 /* ProjectsView.m */,
 				1CDF72BB15D341A700BE72C1 /* RegisterView.h */,
 				1CDF72BC15D341A700BE72C1 /* RegisterView.m */,
+				1CB1EF8715DA35300054493D /* ActivityView.h */,
+				1CB1EF8815DA35300054493D /* ActivityView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -585,6 +600,9 @@
 				1CF0173915D8E42600027554 /* NSDate+ConvertMethods.m in Sources */,
 				1CF0173F15D8EA2B00027554 /* NSString+ConvertMethods.m in Sources */,
 				1CF0174D15D9390400027554 /* ActivityViewController.m in Sources */,
+				1C0B979715DA074300BEFBDD /* ApplicationData.m in Sources */,
+				1CB1EF8915DA35300054493D /* ActivityView.m in Sources */,
+				1CB1EF8D15DA3DC00054493D /* ProjectsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

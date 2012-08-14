@@ -7,13 +7,12 @@
  -----------------------------------------------------------------------------------------------*/
 
 #import <UIKit/UIKit.h>
+#import "ApplicationData.h"
 #import "BowerBirdConstants.h"
 #import "CookieHelper.h"
 #import "AuthenticatedUser.h"
 #import "HomeViewController.h"
 
 @interface LoadingViewController : UIViewController <AuthenticatedUserLoaded>
-
-@property (nonatomic,strong) AuthenticatedUser* authenticatedUser;
 
 @end

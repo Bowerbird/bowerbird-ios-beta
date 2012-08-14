@@ -6,6 +6,8 @@
  
  -----------------------------------------------------------------------------------------------*/
 
+/// set this puppy up to hit the Account/Activity URL for a download of latest activity
+
 
 #import "ActivityViewController.h"
 
@@ -21,6 +23,11 @@
         self.tabBarItem.title = @"Activity";
     }
     return self;
+}
+
+-(void)viewDidLoad
+{
+    [self.navigationController setNavigationBarHidden:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated

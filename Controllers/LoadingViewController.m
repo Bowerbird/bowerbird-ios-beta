@@ -82,7 +82,7 @@
     if([BowerBirdConstants Trace]) NSLog(@"LoadingViewController.displaySpinner");
     
     UIActivityIndicatorView *tempSpinner = [[UIActivityIndicatorView alloc]  initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    [tempSpinner setCenter:CGPointMake(100,100)];
+    [tempSpinner setCenter:CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2)];
     self.aSpinner = tempSpinner;
     
     [self.view addSubview:self.aSpinner];

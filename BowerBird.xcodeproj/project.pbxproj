@@ -22,6 +22,7 @@
 		1C9B4EFD15CB9DA70034269C /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C9B4EF715CB9DA70034269C /* SBJsonWriter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1CB1EF8915DA35300054493D /* ActivityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB1EF8815DA35300054493D /* ActivityView.m */; };
 		1CB1EF8D15DA3DC00054493D /* ProjectsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB1EF8C15DA3DC00054493D /* ProjectsViewController.m */; };
+		1CB1EF9815DA44A10054493D /* MyProjects.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB1EF9715DA44A10054493D /* MyProjects.m */; };
 		1CDF726415D3417300BE72C1 /* Authentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF724C15D3417300BE72C1 /* Authentication.m */; };
 		1CDF726515D3417300BE72C1 /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF724E15D3417300BE72C1 /* Image.m */; };
 		1CDF726715D3417300BE72C1 /* Group.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF725215D3417300BE72C1 /* Group.m */; };
@@ -103,6 +104,8 @@
 		1CB1EF8815DA35300054493D /* ActivityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityView.m; sourceTree = "<group>"; };
 		1CB1EF8B15DA3DC00054493D /* ProjectsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectsViewController.h; sourceTree = "<group>"; };
 		1CB1EF8C15DA3DC00054493D /* ProjectsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectsViewController.m; sourceTree = "<group>"; };
+		1CB1EF9615DA44A10054493D /* MyProjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyProjects.h; sourceTree = "<group>"; };
+		1CB1EF9715DA44A10054493D /* MyProjects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyProjects.m; sourceTree = "<group>"; };
 		1CDF724B15D3417300BE72C1 /* Authentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Authentication.h; sourceTree = "<group>"; };
 		1CDF724C15D3417300BE72C1 /* Authentication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Authentication.m; sourceTree = "<group>"; };
 		1CDF724D15D3417300BE72C1 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
@@ -400,6 +403,8 @@
 				1CDF72BC15D341A700BE72C1 /* RegisterView.m */,
 				1CB1EF8715DA35300054493D /* ActivityView.h */,
 				1CB1EF8815DA35300054493D /* ActivityView.m */,
+				1CB1EF9615DA44A10054493D /* MyProjects.h */,
+				1CB1EF9715DA44A10054493D /* MyProjects.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -603,6 +608,7 @@
 				1C0B979715DA074300BEFBDD /* ApplicationData.m in Sources */,
 				1CB1EF8915DA35300054493D /* ActivityView.m in Sources */,
 				1CB1EF8D15DA3DC00054493D /* ProjectsViewController.m in Sources */,
+				1CB1EF9815DA44A10054493D /* MyProjects.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

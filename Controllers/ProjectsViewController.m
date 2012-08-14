@@ -42,14 +42,17 @@
     }
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
+    if([BowerBirdConstants Trace]) NSLog(@"ProjectsViewController.viewDidLoad");
+    
     [super viewDidLoad];
-    
-    UIBarButtonItem *browseProjectsButton = [[UIBarButtonItem alloc] initWithTitle:@"Browse"
+        
+    UIBarButtonItem *browseProjectsButton = [[UIBarButtonItem alloc] initWithTitle:@"Browse >"
                                                                              style:UIBarButtonItemStylePlain
-                                                                            target:nil
-                                                                            action:@selector(segueToBrowseProjects:)];
-    
+                                                                            target:self
+                                                                            action:@selector(segueToBrowseProjects)];
+    self.navigationItem.title = @"My Projects";
     self.navigationItem.rightBarButtonItem = browseProjectsButton;
 }
 

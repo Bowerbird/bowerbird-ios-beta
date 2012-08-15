@@ -92,7 +92,7 @@
     }
     @catch (NSException *e)
     {
-        NSLog(@"Exception: %@", e);
+        if([BowerBirdConstants Trace]) NSLog(@"Exception: %@", e);
     }
     @finally
     {
@@ -107,7 +107,7 @@
 	if ([[self networkQueue] requestsCount] == 0) {
 		[self setNetworkQueue:nil];
 	}
-	NSLog(@"Request failed: %@", [[request error] localizedDescription]);
+	if([BowerBirdConstants Trace]) NSLog(@"Request failed: %@", [[request error] localizedDescription]);
 }
 
 - (void)queueFinished:(ASINetworkQueue *)queue

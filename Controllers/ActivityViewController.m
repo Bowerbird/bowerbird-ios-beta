@@ -34,7 +34,7 @@
 {
     if([BowerBirdConstants Trace]) NSLog(@"ActivityViewController.viewWillAppear:");
     
-    NSLog(@"ActivityViewController created with: %@", [[ApplicationData sharedInstance] authenticatedUser].user.firstName);
+    if([BowerBirdConstants Trace]) NSLog(@"ActivityViewController created with: %@", [[ApplicationData sharedInstance] authenticatedUser].user.firstName);
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

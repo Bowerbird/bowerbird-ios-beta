@@ -28,14 +28,16 @@
     if([BowerBirdConstants Trace]) NSLog(@"LoginViewController.userEmailAddress:");
     
     self.email = sender.text;
-    NSLog(@"User entered email: %@", self.email);
+    
+    if([BowerBirdConstants Trace]) NSLog(@"User entered email: %@", self.email);
 }
 - (IBAction)userPassword:(UITextField *)sender
 {
     if([BowerBirdConstants Trace]) NSLog(@"LoginViewController.userPassword:");
     
     self.password = sender.text;
-    NSLog(@"User entered email: %@", self.password);
+    
+    if([BowerBirdConstants Trace]) NSLog(@"User entered email: %@", self.password);
 }
 
 // when user presses login, make the request to the server

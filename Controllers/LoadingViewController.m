@@ -123,6 +123,11 @@
     return YES;
 }
 
+-(void)viewDidLoad
+{
+    [self.navigationController setNavigationBarHidden:YES];
+}
+
 
 #pragma mark - Delegate methods and callbacks
 

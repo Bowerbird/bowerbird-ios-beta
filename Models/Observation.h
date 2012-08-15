@@ -33,7 +33,7 @@
 @property (nonatomic,strong) MediaResource* primaryMedia;
 @property (nonatomic,strong) User* user;
 @property (nonatomic,strong) NSDictionary* comments;
-@property (nonatomic,strong) NSArray* projects;
+@property (nonatomic,strong) NSArray* projectIds;
 
 
 @end

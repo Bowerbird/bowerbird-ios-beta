@@ -37,8 +37,9 @@
     self.name = [dictionary objectForKey:@"Name"];
     self.description = [dictionary objectForKey:@"Description"];
     self.avatar = [[Image alloc]initWithJson:[[[dictionary objectForKey:@"Avatar"] objectForKey:@"Image"] objectForKey:[BowerBirdConstants NameOfAvatarDisplayImage]]
-              havingImageName:[BowerBirdConstants NameOfAvatarDisplayImage]
-              andNotifyImageDownloadComplete:self];
+                             havingImageName:[BowerBirdConstants NameOfAvatarDisplayImage]
+                            fetchingImageNow:YES
+                              notifyComplete:self];
     
     return self;
 }

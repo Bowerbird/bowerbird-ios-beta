@@ -29,6 +29,9 @@
 @property (nonatomic,strong) NSString* extension;
 @property (nonatomic,strong) UIImage* image;
 
--(id)initWithJson:(NSDictionary *)dictionary havingImageName:(NSString*)imageName andNotifyImageDownloadComplete:(id)delegate;
+-(id)initWithJson:(NSDictionary *)dictionary
+  havingImageName:(NSString*)imageName
+ fetchingImageNow:(BOOL)fetchImageNow
+   notifyComplete:(id)delegate;
 
 @end

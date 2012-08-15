@@ -23,6 +23,11 @@
 
 #pragma mark - Wire up UI Actions
 
+-(void)viewDidLoad
+{
+    [self.navigationController setNavigationBarHidden:YES];
+}
+
 - (IBAction)userEmailAddress:(UITextField *)sender
 {
     if([BowerBirdConstants Trace]) NSLog(@"LoginViewController.userEmailAddress:");

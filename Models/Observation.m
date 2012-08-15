@@ -30,7 +30,7 @@
 @synthesize primaryMedia = _primaryMedia;
 @synthesize user = _user;
 @synthesize comments = _comments;
-@synthesize projects = _projects;
+@synthesize projectIds = _projectIds;
 
 #pragma mark - Initializers and JSON readers
 
@@ -43,8 +43,7 @@
     self.delegate = delegate;
     self.identifier = [dictionary objectForKey:@"Id"];
     self.title = [dictionary objectForKey:@"Title"];
-    self.observedOnDate = [NSDate ConvertFromJsonDate:[dictionary objectForKey:@"ObservedOnDate"]];
-    // not grabbing time at this point
+    self.observedOnDate = [NSDate ConvertFromJsonDate:[dictionary objectForKey:@"ObservedOnDate"]]; // not grabbing time yet..
     self.address = [dictionary objectForKey:@"Address"];
     self.latitude = [[dictionary objectForKey:@"Latitude"] floatValue];
     self.longitude = [[dictionary objectForKey:@"Longitude"] floatValue];
@@ -52,8 +51,7 @@
     self.isIdentificationRequired = [[dictionary objectForKey:@"IsIdentificationRequired"] boolValue];
     self.anonymiseLocation = [[dictionary objectForKey:@"AnonymiseLocation"] boolValue];
     self.user = [[User alloc]initWithJson:([dictionary objectForKey:@"User"]) andNotifyProjectLoaded:self];
-    self.projects = [dictionary objectForKey:@"Projects"];
-    
+    self.projectIds = [dictionary objectForKey:@"Projects"];
     
     MediaResource* mediaResourceReader = [[MediaResource alloc]init];
     [mediaResourceReader loadMediaFromJson:[dictionary objectForKey:@"Media"]];

@@ -51,7 +51,8 @@
     self.description = [dictionary objectForKey:@"Description"];
     self.image = [[Image alloc]initWithJson:[[[dictionary objectForKey:@"MediaResource"] objectForKey:@"Image"]objectForKey:[BowerBirdConstants NameOfMediaResourceDisplayImage]]
                             havingImageName:[BowerBirdConstants NameOfMediaResourceDisplayImage]
-             andNotifyImageDownloadComplete:self];
+                           fetchingImageNow:NO
+                             notifyComplete:self];
     
     return self;
 }

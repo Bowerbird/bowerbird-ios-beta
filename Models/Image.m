@@ -35,13 +35,16 @@
 
 #pragma mark - Initializers and JSON parsing methods
 
--(id)initWithJson:(NSDictionary *)dictionary havingImageName:(NSString*)imageName andNotifyImageDownloadComplete:(id)delegate
+
+-(id)initWithJson:(NSDictionary *)dictionary
+  havingImageName:(NSString*)imageName
+ fetchingImageNow:(BOOL)fetchImageNow
+   notifyComplete:(id)delegate;
 {
     self = [self init];
     
     if([BowerBirdConstants Trace]) NSLog(@"Image.initWithJson:andNotifiyImageDownloadComplete:");
     
-    self.imageLoadDelegate = delegate;
     self.fileName = [dictionary objectForKey:@"FileName"];
     self.relativeUri = [dictionary objectForKey:@"RelativeUri"];
     self.format = [dictionary objectForKey:@"Format"];
@@ -50,9 +53,19 @@
     self.extension = [dictionary objectForKey:@"Extension"];
     self.imageDimensionName = imageName;
 
-    [self doGetRequest:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [BowerBirdConstants RootUriString], self.relativeUri]]];
-        
+    if(fetchImageNow)
+    {
+        [self loadMyImageAndNotifyDownloadComplete:delegate];
+    }
+    
     return self;
+}
+
+-(void)loadMyImageAndNotifyDownloadComplete:(id)delegate
+{
+    self.imageLoadDelegate = delegate;
+    
+    [self doGetRequest:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [BowerBirdConstants RootUriString], self.relativeUri]]];
 }
 
 

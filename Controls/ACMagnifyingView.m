@@ -1,10 +1,8 @@
 //
-//  ACMagnifyingView.m
+//  ACMagnifyingGlass.m
 //  MagnifyingGlass
 //
-//  Created by Arnaud Coomans on 30/12/11.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
-//
+//  https://github.com/acoomans/iOS-MagnifyingGlass
 
 #import "ACMagnifyingView.h"
 #import "ACMagnifyingGlass.h"

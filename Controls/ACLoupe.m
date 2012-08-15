@@ -1,10 +1,8 @@
 //
-//  ACLoupe.m
-//  MagnifyingGlassDemo
+//  ACMagnifyingGlass.m
+//  MagnifyingGlass
 //
-//  Created by Arnaud Coomans on 18/02/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
-//
+//  https://github.com/acoomans/iOS-MagnifyingGlass
 
 #import "ACLoupe.h"
 #import <QuartzCore/QuartzCore.h>

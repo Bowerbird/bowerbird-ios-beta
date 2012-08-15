@@ -1,7 +1,8 @@
 //
-//  ACMagnifyingGlass.h
+//  ACMagnifyingGlass.m
 //  MagnifyingGlass
 //
+//  https://github.com/acoomans/iOS-MagnifyingGlass
 
 // doc: http://coffeeshopped.com/2010/03/a-simpler-magnifying-glass-loupe-view-for-the-iphone
 

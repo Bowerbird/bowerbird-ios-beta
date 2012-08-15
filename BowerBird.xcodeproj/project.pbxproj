@@ -10,6 +10,11 @@
 		1C0B979715DA074300BEFBDD /* ApplicationData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C0B979615DA074300BEFBDD /* ApplicationData.m */; };
 		1C71F21315C903D40069EEB2 /* bowerbird-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C71F21215C903D40069EEB2 /* bowerbird-logo.png */; };
 		1C71F21515C904790069EEB2 /* loader.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C71F21415C904790069EEB2 /* loader.png */; };
+		1C78892315DB8863000E0041 /* MGBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C78891915DB8863000E0041 /* MGBox.m */; };
+		1C78892415DB8863000E0041 /* MGBoxLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C78891B15DB8863000E0041 /* MGBoxLine.m */; };
+		1C78892515DB8863000E0041 /* MGButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C78891E15DB8863000E0041 /* MGButton.m */; };
+		1C78892615DB8863000E0041 /* MGScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C78892015DB8863000E0041 /* MGScrollView.m */; };
+		1C78892715DB8863000E0041 /* MGStyledBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C78892215DB8863000E0041 /* MGStyledBox.m */; };
 		1C9547DF15C99B83008A6A10 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C9547DD15C99B59008A6A10 /* CFNetwork.framework */; };
 		1C9547E215C99BA9008A6A10 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C9547E015C99B98008A6A10 /* SystemConfiguration.framework */; };
 		1C9547E415C99BD5008A6A10 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C9547E315C99BD5008A6A10 /* libz.dylib */; };
@@ -103,6 +108,17 @@
 		1C0B979615DA074300BEFBDD /* ApplicationData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationData.m; sourceTree = "<group>"; };
 		1C71F21215C903D40069EEB2 /* bowerbird-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bowerbird-logo.png"; sourceTree = "<group>"; };
 		1C71F21415C904790069EEB2 /* loader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loader.png; sourceTree = "<group>"; };
+		1C78891815DB8863000E0041 /* MGBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGBox.h; path = "../../3rd Party iOS controls/MGBox/MGBox Demo/MGBox/MGBox.h"; sourceTree = "<group>"; };
+		1C78891915DB8863000E0041 /* MGBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGBox.m; path = "../../3rd Party iOS controls/MGBox/MGBox Demo/MGBox/MGBox.m"; sourceTree = "<group>"; };
+		1C78891A15DB8863000E0041 /* MGBoxLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGBoxLine.h; path = "../../3rd Party iOS controls/MGBox/MGBox Demo/MGBox/MGBoxLine.h"; sourceTree = "<group>"; };
+		1C78891B15DB8863000E0041 /* MGBoxLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGBoxLine.m; path = "../../3rd Party iOS controls/MGBox/MGBox Demo/MGBox/MGBoxLine.m"; sourceTree = "<group>"; };
+		1C78891C15DB8863000E0041 /* MGBoxProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGBoxProtocol.h; path = "../../3rd Party iOS controls/MGBox/MGBox Demo/MGBox/MGBoxProtocol.h"; sourceTree = "<group>"; };
+		1C78891D15DB8863000E0041 /* MGButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGButton.h; path = "../../3rd Party iOS controls/MGBox/MGBox Demo/MGBox/MGButton.h"; sourceTree = "<group>"; };
+		1C78891E15DB8863000E0041 /* MGButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGButton.m; path = "../../3rd Party iOS controls/MGBox/MGBox Demo/MGBox/MGButton.m"; sourceTree = "<group>"; };
+		1C78891F15DB8863000E0041 /* MGScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGScrollView.h; path = "../../3rd Party iOS controls/MGBox/MGBox Demo/MGBox/MGScrollView.h"; sourceTree = "<group>"; };
+		1C78892015DB8863000E0041 /* MGScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGScrollView.m; path = "../../3rd Party iOS controls/MGBox/MGBox Demo/MGBox/MGScrollView.m"; sourceTree = "<group>"; };
+		1C78892115DB8863000E0041 /* MGStyledBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MGStyledBox.h; path = "../../3rd Party iOS controls/MGBox/MGBox Demo/MGBox/MGStyledBox.h"; sourceTree = "<group>"; };
+		1C78892215DB8863000E0041 /* MGStyledBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MGStyledBox.m; path = "../../3rd Party iOS controls/MGBox/MGBox Demo/MGBox/MGStyledBox.m"; sourceTree = "<group>"; };
 		1C9547DD15C99B59008A6A10 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		1C9547E015C99B98008A6A10 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		1C9547E315C99BD5008A6A10 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -110,8 +126,8 @@
 		1C95A7B515DB829A002470D5 /* SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPullToRefresh.h; sourceTree = "<group>"; };
 		1C95A7B615DB829A002470D5 /* SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVPullToRefresh.m; sourceTree = "<group>"; };
 		1C95A7B915DB835E002470D5 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
-		1C95A7BE15DB83A5002470D5 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
-		1C95A7BF15DB83A5002470D5 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		1C95A7BE15DB83A5002470D5 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSONKit.h; path = ../Controls/JSONKit.h; sourceTree = "<group>"; };
+		1C95A7BF15DB83A5002470D5 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSONKit.m; path = ../Controls/JSONKit.m; sourceTree = "<group>"; };
 		1C95A7C115DB840A002470D5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		1C9B4EEB15CB9DA70034269C /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		1C9B4EEC15CB9DA70034269C /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
@@ -292,6 +308,8 @@
 		1C9B4EEA15CB9DA70034269C /* JSON */ = {
 			isa = PBXGroup;
 			children = (
+				1C95A7BE15DB83A5002470D5 /* JSONKit.h */,
+				1C95A7BF15DB83A5002470D5 /* JSONKit.m */,
 				1C9B4EEB15CB9DA70034269C /* JSON.h */,
 				1C9B4EEC15CB9DA70034269C /* NSObject+SBJSON.h */,
 				1C9B4EED15CB9DA70034269C /* NSObject+SBJSON.m */,
@@ -312,8 +330,17 @@
 		1CADF9E715DB74CE0088555D /* Controls */ = {
 			isa = PBXGroup;
 			children = (
-				1C95A7BE15DB83A5002470D5 /* JSONKit.h */,
-				1C95A7BF15DB83A5002470D5 /* JSONKit.m */,
+				1C78891815DB8863000E0041 /* MGBox.h */,
+				1C78891915DB8863000E0041 /* MGBox.m */,
+				1C78891A15DB8863000E0041 /* MGBoxLine.h */,
+				1C78891B15DB8863000E0041 /* MGBoxLine.m */,
+				1C78891C15DB8863000E0041 /* MGBoxProtocol.h */,
+				1C78891D15DB8863000E0041 /* MGButton.h */,
+				1C78891E15DB8863000E0041 /* MGButton.m */,
+				1C78891F15DB8863000E0041 /* MGScrollView.h */,
+				1C78892015DB8863000E0041 /* MGScrollView.m */,
+				1C78892115DB8863000E0041 /* MGStyledBox.h */,
+				1C78892215DB8863000E0041 /* MGStyledBox.m */,
 				1C95A7B515DB829A002470D5 /* SVPullToRefresh.h */,
 				1C95A7B615DB829A002470D5 /* SVPullToRefresh.m */,
 				1CADFF8915DB7B570088555D /* JCMSegmentPageController.h */,
@@ -718,6 +745,11 @@
 				1CADFF9515DB7BAF0088555D /* LBYouTubePlayerViewController.m in Sources */,
 				1C95A7B715DB829A002470D5 /* SVPullToRefresh.m in Sources */,
 				1C95A7C015DB83A5002470D5 /* JSONKit.m in Sources */,
+				1C78892315DB8863000E0041 /* MGBox.m in Sources */,
+				1C78892415DB8863000E0041 /* MGBoxLine.m in Sources */,
+				1C78892515DB8863000E0041 /* MGButton.m in Sources */,
+				1C78892615DB8863000E0041 /* MGScrollView.m in Sources */,
+				1C78892715DB8863000E0041 /* MGStyledBox.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

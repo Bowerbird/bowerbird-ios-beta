@@ -1,9 +1,11 @@
 //
-//  LBYouTubePlayerController.m
+//  LBYouTubePlayerController.h
 //  LBYouTubeView
 //
 //  Created by Laurin Brandner on 29.06.12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//
+//  https://github.com/larcus94/LBYouTubeView
 //
 
 #import "LBYouTubePlayerController.h"

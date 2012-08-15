@@ -5,34 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1498"/>
     </dependencies>
     <scenes>
-        <!--Activity View Controller - Activity-->
-        <scene sceneID="Xzh-6u-079">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Bvf-VO-CKj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController title="Activity" id="xhB-rM-MMG" customClass="ActivityViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Og0-xt-fh2">
-                        <rect key="frame" x="0.0" y="64" width="320" height="372"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" id="G0d-cw-cJD" customClass="ActivityView">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="372"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Activity" image="home.png" id="VcA-pa-u3e"/>
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Home" id="9C6-xG-tem"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="view" destination="G0d-cw-cJD" id="fqx-1Z-VTr"/>
-                    </connections>
-                </viewController>
-            </objects>
-            <point key="canvasLocation" x="-666" y="-767"/>
-        </scene>
         <!--View Controller - Settings-->
         <scene sceneID="w2h-LV-Lh6">
             <objects>
@@ -43,7 +15,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Settings" id="bvV-lW-ReI"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="settings.png" id="bvV-lW-ReI"/>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="-133" y="6"/>
@@ -77,7 +49,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Chat" id="0Bv-wq-Mmj"/>
+                    <tabBarItem key="tabBarItem" title="Chat" image="chats.png" id="0Bv-wq-Mmj"/>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="-133" y="-594"/>
@@ -92,7 +64,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Activity" id="g0Q-FM-MBy"/>
+                    <tabBarItem key="tabBarItem" title="Activity" image="home.png" id="g0Q-FM-MBy"/>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="-133" y="-2444"/>
@@ -107,7 +79,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="New Sighting" id="RRo-Ct-Z2m"/>
+                    <tabBarItem key="tabBarItem" title="New Sighting" image="sighting.png" id="RRo-Ct-Z2m"/>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="-133" y="-1197"/>
@@ -133,7 +105,7 @@
                     </connections>
                 </tabBarController>
             </objects>
-            <point key="canvasLocation" x="-671" y="-2130"/>
+            <point key="canvasLocation" x="-673" y="-767"/>
         </scene>
         <!--Register View Controller - Register-->
         <scene sceneID="HmO-pf-2NY">
@@ -200,7 +172,7 @@
                     <navigationItem key="navigationItem" title="Register" id="LKI-DN-ArJ"/>
                     <connections>
                         <outlet property="view" destination="jRj-CL-lJB" id="hLN-xU-ddX"/>
-                        <segue destination="xhB-rM-MMG" kind="push" identifier="Home" id="IsT-5d-nu2"/>
+                        <segue destination="xI5-7h-s6a" kind="push" identifier="Home" id="ZQw-rW-rtc"/>
                     </connections>
                 </viewController>
             </objects>
@@ -359,7 +331,7 @@
                     <navigationItem key="navigationItem" title="Login" id="faA-D7-LtC"/>
                     <connections>
                         <outlet property="view" destination="7jq-of-KFW" id="xDj-c8-una"/>
-                        <segue destination="xhB-rM-MMG" kind="push" identifier="Home" id="tsW-P8-tCZ"/>
+                        <segue destination="xI5-7h-s6a" kind="push" identifier="Home" id="qNW-6H-hbn"/>
                     </connections>
                 </viewController>
             </objects>
@@ -385,7 +357,6 @@
                     <connections>
                         <outlet property="view" destination="onp-dr-Sfi" id="MmA-w8-iaL"/>
                         <segue destination="ptA-zz-fvE" kind="push" identifier="Login" id="ski-J0-Grc"/>
-                        <segue destination="xhB-rM-MMG" kind="push" identifier="Home" id="ajW-69-I8W"/>
                         <segue destination="xI5-7h-s6a" kind="push" identifier="LoadActivity" id="hci-YP-IVd"/>
                     </connections>
                 </viewController>
@@ -415,7 +386,7 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o7p-7M-fYd" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="MFX-TK-Qpr" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Projects" id="Txe-E9-09Q"/>
+                    <tabBarItem key="tabBarItem" title="Projects" image="projects.png" id="Txe-E9-09Q"/>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="pmY-2A-UTE">
@@ -433,8 +404,12 @@
     </scenes>
     <resources>
         <image name="bowerbird-logo.png" width="169" height="39"/>
+        <image name="chats.png" width="50" height="50"/>
         <image name="home.png" width="50" height="50"/>
         <image name="loader.png" width="128" height="128"/>
+        <image name="projects.png" width="50" height="50"/>
+        <image name="settings.png" width="50" height="37"/>
+        <image name="sighting.png" width="50" height="50"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -442,7 +417,7 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="ajW-69-I8W"/>
+        <segue reference="ZQw-rW-rtc"/>
         <segue reference="qSA-gg-OFX"/>
     </inferredMetricsTieBreakers>
 </document>

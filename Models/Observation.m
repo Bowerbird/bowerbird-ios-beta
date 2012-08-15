@@ -51,12 +51,14 @@
     self.category = [dictionary objectForKey:@"Category"];
     self.isIdentificationRequired = [[dictionary objectForKey:@"IsIdentificationRequired"] boolValue];
     self.anonymiseLocation = [[dictionary objectForKey:@"AnonymiseLocation"] boolValue];
+    self.user = [[User alloc]initWithJson:([dictionary objectForKey:@"User"]) andNotifyProjectLoaded:self];
+    self.projects = [dictionary objectForKey:@"Projects"];
+    
+    
     MediaResource* mediaResourceReader = [[MediaResource alloc]init];
     [mediaResourceReader loadMediaFromJson:[dictionary objectForKey:@"Media"]];
     self.media = mediaResourceReader.mediaResources;
     self.primaryMedia = [[MediaResource alloc]initWithJson:[dictionary objectForKey:@"PrimaryMedia"] andNotifyDelegate:self];
-    self.user = [[User alloc]initWithJson:([dictionary objectForKey:@"User"]) andNotifyProjectLoaded:self];
-    self.projects = [dictionary objectForKey:@"Projects"];
     
     return self;
 }

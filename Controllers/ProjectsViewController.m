@@ -48,7 +48,7 @@
     
     [super viewDidLoad];
         
-    UIBarButtonItem *browseProjectsButton = [[UIBarButtonItem alloc] initWithTitle:@"Browse >"
+    UIBarButtonItem *browseProjectsButton = [[UIBarButtonItem alloc] initWithTitle:@"Browse All"
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:self
                                                                             action:@selector(segueToBrowseProjects)];

@@ -42,4 +42,6 @@
 
 +(NSDictionary*)AjaxRequestParams;
 
++(NSString*)AjaxQuerystring;
+
 @end

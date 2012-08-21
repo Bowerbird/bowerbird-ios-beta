@@ -20,18 +20,24 @@
             </objects>
             <point key="canvasLocation" x="-133" y="6"/>
         </scene>
-        <!--Projects View Controller-->
+        <!--Projects View Controller - My Projects-->
         <scene sceneID="BTc-oL-XGy">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NJY-nL-Iby" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="rX5-TH-vfY" customClass="ProjectsViewController" sceneMemberID="viewController">
+                <viewController id="rX5-TH-vfY" customClass="BBProjectsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5ZK-PK-MDx" customClass="BBMyProjects">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="Vcx-ss-IRw"/>
+                    <navigationItem key="navigationItem" title="My Projects" id="Vcx-ss-IRw">
+                        <barButtonItem key="rightBarButtonItem" title="Browse" id="Rij-hV-POq">
+                            <connections>
+                                <segue destination="bxR-X8-Dwd" kind="push" id="2dH-Vl-1L3"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="bxR-X8-Dwd" kind="push" identifier="BrowseProjects" id="qSA-gg-OFX"/>
                     </connections>
@@ -411,41 +417,6 @@
         <image name="settings.png" width="50" height="37"/>
         <image name="sighting.png" width="50" height="50"/>
     </resources>
-    <classes>
-        <class className="BBHomeViewController" superclassName="JCMSegmentPageController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BBHomeViewController.h"/>
-        </class>
-        <class className="BBLoadingView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BBLoadingView.h"/>
-        </class>
-        <class className="BBLoadingViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BBLoadingViewController.h"/>
-        </class>
-        <class className="BBLoginView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BBLoginView.h"/>
-        </class>
-        <class className="BBLoginViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BBLoginViewController.h"/>
-        </class>
-        <class className="BBMyProjects" superclassName="UITableView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BBMyProjects.h"/>
-        </class>
-        <class className="BBProjectTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BBProjectTableViewController.h"/>
-        </class>
-        <class className="BBProjectsTableView" superclassName="UITableView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BBProjectsTableView.h"/>
-        </class>
-        <class className="BBRegisterView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BBRegisterView.h"/>
-        </class>
-        <class className="BBRegisterViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BBRegisterViewController.h"/>
-        </class>
-        <class className="JCMSegmentPageController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/JCMSegmentPageController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

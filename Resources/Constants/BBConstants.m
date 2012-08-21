@@ -95,7 +95,12 @@
 
 +(NSDictionary*)AjaxRequestParams
 {
-    return [[NSDictionary alloc]initWithObjectsAndKeys:@"XMLHttpRequest",@"X-Requested-With", nil];
+    return [[NSDictionary alloc]initWithObjectsAndKeys:@"XMLHttpRequest",@"X-Requested-With", @"Content-Type", @"application/x-www-form-urlencoded", nil];
+}
+
++(NSString*)AjaxQuerystring
+{
+    return @"X-Requested-With=XMLHttpRequest&Content-Type=application%2Fx-www-form-urlencoded";
 }
 
 @end

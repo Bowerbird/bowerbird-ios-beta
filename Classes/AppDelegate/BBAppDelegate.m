@@ -7,6 +7,7 @@
  -----------------------------------------------------------------------------------------------*/
 
 #import "BBAppDelegate.h"
+#import "BBRequests.h"
 
 @implementation BBAppDelegate
 
@@ -16,6 +17,8 @@
     [RKClient clientWithBaseURLString:[BBConstants RootUriString]];
     
     RKObjectManager* restKitManager = [RKObjectManager objectManagerWithBaseURL:[BBConstants RootUri]];
+    
+    [restKitManager.router routeClass:[BBLoginRequest class] toResourcePath:[NSString stringWithFormat:@"/account/login?%@", [BBConstants AjaxQuerystring]] forMethod:RKRequestMethodPOST];
     
     // call and load up the mappings
     BBMappings* mapper = [[BBMappings alloc]init];

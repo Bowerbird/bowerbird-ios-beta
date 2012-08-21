@@ -49,6 +49,15 @@
     [manager.mappingProvider setMapping:userMapping forKeyPath:@"User"];
     
     
+    // Map the user's memberships
+    RKObjectMapping *membership = [RKObjectMapping mappingForClass:[BBMembership class]];
+    [membership mapKeyPath:@"GroupId" toAttribute:@"groupId"];
+    [membership mapKeyPath:@"GroupType" toAttribute:@"groupType"];
+    [membership mapKeyPath:@"PermissionIds" toAttribute:@"permissions"];
+    [membership mapKeyPath:@"RoleIds" toAttribute:@"roleIds"];
+    [manager.mappingProvider setMapping:membership forKeyPath:@"Memberships"];
+    
+    
     // Project has an avatar
     RKObjectMapping *projectMapping = [RKObjectMapping mappingForClass:[BBProject class]];
     [projectMapping mapKeyPath:@"Id" toAttribute:@"identifier"];
@@ -60,7 +69,7 @@
     [manager.mappingProvider setMapping:projectMapping forKeyPath:@"Project"];
 
     
-    // This does not seem likely to work. Does it require these drill downs? How to retreive the PagedListItems... via Delegate?
+    // Map a paged project list
     RKObjectMapping *projectsPagination = [RKObjectMapping mappingForClass:[BBProjectPaginator class]];
     projectsPagination.rootKeyPath = @"Model.Projects";
     [projectsPagination mapKeyPath:@"Page" toAttribute:@"currentPage"];
@@ -70,9 +79,54 @@
     [manager.mappingProvider setMapping:projectsPagination forKeyPath:@"Model.Projects"];
     
     
-    // This is for the base model responder for all the ajax crapsky..
-//    RKObjectMapping *modelMapping = [RKObjectMapping mappingForClass:[BBBaseModel class]];
-//    [manager.mappingProvider setMapping:modelMapping forKeyPath:@""];
+    // Map the Authenticated user
+    RKObjectMapping *authenticatedUser = [RKObjectMapping mappingForClass:[BBAuthenticatedUser class]];
+    authenticatedUser.rootKeyPath = @"Model";
+    [authenticatedUser mapKeyPath:@"User" toRelationship:@"user" withMapping:userMapping];
+    [authenticatedUser mapKeyPath:@"AppRoot.Categories" toAttribute:@"categories"];
+    [authenticatedUser mapKeyPath:@"Projects" toRelationship:@"projects" withMapping:projectMapping];
+    [authenticatedUser mapKeyPath:@"Memberships" toRelationship:@"memberships" withMapping:membership];
+    [manager.mappingProvider setMapping:authenticatedUser forKeyPath:@"Model.AuthenticatedUser"];
+    [manager.mappingProvider setSerializationMapping:authenticatedUser forClass:[BBAuthenticatedUser class]];
+    
+    
+    // Map the Observation
+    RKObjectMapping *observation = [RKObjectMapping mappingForClass:[BBObservation class]];
+    [manager.mappingProvider setMapping:observation forKeyPath:@"ObservationAdded"];
+    [manager.mappingProvider setSerializationMapping:observation forClass:[BBObservation class]];
+    
+    
+    // Map the Authentication response
+    RKObjectMapping *authentication = [RKObjectMapping mappingForClass:[BBAuthentication class]];
+    authentication.rootKeyPath = @"Model";
+    [authentication mapKeyPath:@"User" toRelationship:@"authenticatedUser" withMapping:userMapping];
+    [manager.mappingProvider setMapping:authentication forKeyPath:@"Model.User"];
+    [manager.mappingProvider setSerializationMapping:authentication forClass:[BBAuthentication class]];
+    
+    
+    // Map the Login Request
+    RKObjectMapping *loginRequest = [RKObjectMapping mappingForClass:[BBLoginRequest class]];
+    [loginRequest mapKeyPath:@"email" toAttribute:@"email"];
+    [loginRequest mapKeyPath:@"password" toAttribute:@"password"];
+    [manager.mappingProvider setMapping:loginRequest forKeyPath:@"Login"];
+    
+    
+    // Map the Activity
+    RKObjectMapping *activityMapping = [RKObjectMapping mappingForClass:[BBActivity class]];
+    
+    [manager.mappingProvider setMapping:activityMapping forKeyPath:@"Activities"];
+    [manager.mappingProvider setSerializationMapping:activityMapping forClass:[BBActivity class]];
+    
+    
+    // Map the Activity paginator
+    RKObjectMapping *activityPagination = [RKObjectMapping mappingForClass:[BBActivityPaginator class]];
+    activityPagination.rootKeyPath = @"Model.Activities";
+    [activityPagination mapKeyPath:@"Page" toAttribute:@"currentPage"];
+    [activityPagination mapKeyPath:@"PageSize" toAttribute:@"perPage"];
+    [activityPagination mapKeyPath:@"TotalResultCount" toAttribute:@"objectCount"];
+    [activityPagination mapKeyPath:@"PagedListItems" toRelationship:@"activities" withMapping:activityMapping];
+    [manager.mappingProvider setSerializationMapping:activityPagination forClass:[BBActivityPaginator class]];
+    
 }
 
 @end

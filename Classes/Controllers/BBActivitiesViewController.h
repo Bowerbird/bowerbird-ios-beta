@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import <RestKit/RestKit.h>
 #import "BBModels.h"
+#import "BBProtocols.h"
+#import "BBHelpers.h"
 
-@interface BBActivitiesViewController : UITableViewController<UITableViewDelegate,UITableViewDataSource>
+@interface BBActivitiesViewController : UITableViewController<UITableViewDelegate,UITableViewDataSource, RKObjectLoaderDelegate>
 
 @property (nonatomic, strong) NSDictionary* activities;
 //@property (nonatomic,strong) IBOutlet UITableView *tableView;

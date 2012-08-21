@@ -6,12 +6,11 @@
  
  -----------------------------------------------------------------------------------------------*/
 
-#import <UIKit/UIKit.h>
-#import <RestKit/RestKit.h>
+#import <Foundation/Foundation.h>
 #import "BBModels.h"
-#import "BBProtocols.h"
-#import "BBRequests.h"
 
-@interface BBLoginViewController : UIViewController <RKObjectLoaderDelegate, RKRequestDelegate>
+@interface BBActivityPaginator : RKObjectPaginator
+
+@property (nonatomic,retain) NSArray* activities;
 
 @end

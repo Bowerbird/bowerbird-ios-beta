@@ -9,7 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <RestKit/RestKit.h>
 #import "BBModels.h"
+#import "UIImageView+WebCache.h"
 
-@interface BBProjectsViewController : UITableViewController
+@interface BBProjectsViewController : UITableViewController<UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic, strong) NSArray* projects;
+
+- (NSInteger)tableView:(UITableView *)sender numberOfRowsInSection:(NSInteger)section;
 
 @end

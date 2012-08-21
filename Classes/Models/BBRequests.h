@@ -6,12 +6,4 @@
  
  -----------------------------------------------------------------------------------------------*/
 
-#import <UIKit/UIKit.h>
-#import <RestKit/RestKit.h>
-#import "BBModels.h"
-#import "BBProtocols.h"
-#import "BBRequests.h"
-
-@interface BBLoginViewController : UIViewController <RKObjectLoaderDelegate, RKRequestDelegate>
-
-@end
+#import "BBLoginRequest.h"

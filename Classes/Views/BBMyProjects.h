@@ -7,6 +7,15 @@
  -----------------------------------------------------------------------------------------------*/
 
 #import <UIKit/UIKit.h>
+#import "SVPullToRefresh.h"
+
+@class BBMyProjects;
+
+@protocol ProjectTableDataSource
+
+-(NSArray *)projectsForProjectTable:(BBMyProjects*)sender;
+
+@end
 
 @interface BBMyProjects : UITableView
 

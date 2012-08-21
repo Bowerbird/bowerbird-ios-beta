@@ -6,12 +6,14 @@
  
  -----------------------------------------------------------------------------------------------*/
 
-#import <UIKit/UIKit.h>
-#import <RestKit/RestKit.h>
+#import <Foundation/Foundation.h>
 #import "BBModels.h"
-#import "BBProtocols.h"
-#import "BBRequests.h"
 
-@interface BBLoginViewController : UIViewController <RKObjectLoaderDelegate, RKRequestDelegate>
+@interface BBMembership : NSObject
+
+@property (nonatomic, strong) NSString* groupId;
+@property (nonatomic, strong) NSString* groupType;
+@property (nonatomic, strong) NSArray* permissions;
+@property (nonatomic, strong) NSArray* roleIds;
 
 @end

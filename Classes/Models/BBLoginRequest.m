@@ -6,12 +6,31 @@
  
  -----------------------------------------------------------------------------------------------*/
 
-#import <UIKit/UIKit.h>
-#import <RestKit/RestKit.h>
-#import "BBModels.h"
-#import "BBProtocols.h"
-#import "BBRequests.h"
+#import "BBLoginRequest.h"
 
-@interface BBLoginViewController : UIViewController <RKObjectLoaderDelegate, RKRequestDelegate>
+@implementation BBLoginRequest
+
+@synthesize     email = _email,
+             password = _password;
+
+
+-(void)setEmail:(NSString *)email
+{
+    _email = email;
+}
+-(NSString*)email
+{
+    return _email;
+}
+
+
+-(void)setPassword:(NSString *)password
+{
+    _password = password;
+}
+-(NSString*)password
+{
+    return _password;
+}
 
 @end

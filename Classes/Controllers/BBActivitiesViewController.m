@@ -6,8 +6,13 @@
  
  -----------------------------------------------------------------------------------------------*/
 
-
 #import "BBActivitiesViewController.h"
+
+@interface BBActivitiesViewController()
+
+-(void)loadActivity;
+
+@end
 
 @implementation BBActivitiesViewController
 
@@ -52,6 +57,8 @@
     
     // trigger the refresh manually at the end of viewDidLoad
     //[self.tableView.pullToRefreshView triggerRefresh];
+    
+    [self loadActivity];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -61,6 +68,15 @@
     //if([BBConstants Trace]) NSLog(@"ActivitiesViewController created with: %@", [[BBApplicationData sharedInstance] authenticatedUser].user.firstName);
     
     [self.tableView reloadData];
+}
+
+-(void)loadActivity
+{
+    if([BBConstants Trace])NSLog(@"BBLoadingViewController.loadProjects");
+    
+    NSString* url = [NSString stringWithFormat:@"%@?%@",[BBConstants ActivityUrl], [BBConstants AjaxQuerystring]];
+    
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:url delegate:self];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -95,24 +111,38 @@
 	return cell;
 }
 
-#pragma mark - UITableViewDelegate
+#pragma mark - RKObjectLoaderDelegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void) objectLoader:(RKObjectLoader*)objectLoader didLoadObject:(id)object
 {
-    if([BBConstants Trace]) NSLog(@"ActivitiesViewController.tableView:didSelectRowAtIndexPath:");
+    if([BBConstants Trace])NSLog(@"Object Response: %@", object);
     
-	if([BBConstants Trace]) NSLog(@"%@, parent is %@", self.title, self.parentViewController);
-    
-	[tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-	//self.view = [[ActivityTableView alloc]init];
-    [self viewDidLoad];
+    if([object isKindOfClass:[BBAuthenticatedUser class]])
+    {
+        BBApplicationData* appData = [BBApplicationData sharedInstance];
+        
+        appData.authenticatedUser = (BBAuthenticatedUser*)object;
+        
+        [self performSelector:@selector(segueToActivity)withObject:self afterDelay:1];
+    }
 }
 
-- (IBAction)dismissModalScreen:(id)sender
+- (void) objectLoader:(RKObjectLoader*)objectLoader didLoadObjects:(NSArray *)objects
 {
-	[self dismissViewControllerAnimated:YES completion:nil];
+    if([BBConstants Trace])NSLog(@"Objects Response: %@", objects);
+    
 }
+
+-(void) objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error
+{
+    if([BBConstants Trace])NSLog(@"Error Response: %@", [error localizedDescription]);
+}
+
+- (void)objectLoaderDidLoadUnexpectedResponse:(RKObjectLoader *)objectLoader
+{
+    if([BBConstants Trace])NSLog(@"Unexpected Response: %@", objectLoader.response.bodyAsString);
+}
+
 
 
 @end

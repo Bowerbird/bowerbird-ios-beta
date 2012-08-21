@@ -6,12 +6,11 @@
  
  -----------------------------------------------------------------------------------------------*/
 
-#import <UIKit/UIKit.h>
-#import <RestKit/RestKit.h>
-#import "BBModels.h"
-#import "BBProtocols.h"
-#import "BBRequests.h"
+#import <Foundation/Foundation.h>
 
-@interface BBLoginViewController : UIViewController <RKObjectLoaderDelegate, RKRequestDelegate>
+@interface BBLoginRequest : NSObject
+
+@property (nonatomic,retain) NSString* email;
+@property (nonatomic,retain) NSString* password;
 
 @end

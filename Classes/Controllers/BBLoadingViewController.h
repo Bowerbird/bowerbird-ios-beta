@@ -12,6 +12,6 @@
 #import "BBProtocols.h"
 #import "BBHelpers.h"
 
-@interface BBLoadingViewController : UIViewController <BBAuthenticatedUserLoaded>
+@interface BBLoadingViewController : UIViewController <RKObjectLoaderDelegate>
 
 @end

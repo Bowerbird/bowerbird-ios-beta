@@ -10,6 +10,19 @@
 
 @implementation BBProjectsViewController
 
+@synthesize projects = _projects;
+
+#pragma mark - Set up dataSource and delegate
+
+-(void)setProjects:(NSArray *)projects
+{
+    if([BBConstants Trace]) NSLog(@"ProjectTableViewController.setProjects");
+    
+    _projects = projects;
+    
+    [self.tableView reloadData];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     if([BBConstants Trace]) NSLog(@"ProjectsViewController.initWithNibName:bundle:");
@@ -54,6 +67,48 @@
                                                                             action:@selector(segueToBrowseProjects)];
     self.navigationItem.title = @"My Projects";
     self.navigationItem.rightBarButtonItem = browseProjectsButton;
+    
+    BBApplicationData* appData = [BBApplicationData sharedInstance];
+    
+    self.projects = [appData.authenticatedUser.projects allValues];
+}
+
+#pragma mark - Table Rendering Methods
+
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"Project Detail";
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    // Configure the cell...
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    }
+    
+    BBProject* project = [self.projects objectAtIndex:indexPath.row];
+    //BBImage* projectImage = [project.avatar.media objectForKey:[BBConstants NameOfAvatarDisplayImage]];
+    
+    // this is a hack because it's a BBImage but should be a dictionary as above...
+    
+    BBImage* projectImage = (BBImage*)project.avatar.media;
+    
+    cell.textLabel.text = project.name;
+    cell.detailTextLabel.text = project.description;
+    [cell.imageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [BBConstants RootUriString],projectImage.relativeUri]] placeholderImage:[UIImage imageNamed:@"loader.png"]];
+    
+    return cell;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section
+{
+    return [self.projects count];
+}
+
+- (void)tableView:(UITableView *)sender didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
 }
 
 @end

@@ -24,3 +24,5 @@
 #import "BBAuthentication.h"
 #import "BBAuthenticatedUser.h"
 #import "BBApplicationData.h"
+#import "BBMembership.h"
+#import "BBActivityPaginator.h"

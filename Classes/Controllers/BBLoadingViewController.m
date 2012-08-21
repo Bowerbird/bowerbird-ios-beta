@@ -15,6 +15,7 @@
 - (BOOL)applicationRequiresLoginOrRegistration;
 - (void)segueToLogin;
 - (void)segueToActivity;
+-(void)loadAuthenticatedUser;
 @property (nonatomic, strong) UIActivityIndicatorView* aSpinner;
 
 @end
@@ -89,13 +90,7 @@
     }
     else if([[BBApplicationData sharedInstance] authenticatedUser] == nil)
     {
-        BBApplicationData* appData = [BBApplicationData sharedInstance];
-        
-        appData.authenticatedUser = [[BBAuthenticatedUser alloc]init];
-        
-        //[appData.authenticatedUser loadAndNotifyDelegate:self];
-        
-        [self performSelector:@selector(segueToLogin)withObject:self afterDelay:1];
+        [self loadAuthenticatedUser];
     }
     else
     {
@@ -105,6 +100,44 @@
     [super viewDidLoad];
 }
 
+-(void)loadAuthenticatedUser
+{
+    if([BBConstants Trace])NSLog(@"BBLoadingViewController.loadProjects");
+    
+    NSString* url = [NSString stringWithFormat:@"%@?%@",[BBConstants AuthenticatedUserProfileUrl], [BBConstants AjaxQuerystring]];
+    
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:url delegate:self];
+}
+
+- (void) objectLoader:(RKObjectLoader*)objectLoader didLoadObject:(id)object
+{
+    if([BBConstants Trace])NSLog(@"Object Response: %@", object);
+    
+    if([object isKindOfClass:[BBAuthenticatedUser class]])
+    {
+        BBApplicationData* appData = [BBApplicationData sharedInstance];
+        
+        appData.authenticatedUser = (BBAuthenticatedUser*)object;
+        
+        [self performSelector:@selector(segueToActivity)withObject:self afterDelay:1];
+    }
+}
+
+- (void) objectLoader:(RKObjectLoader*)objectLoader didLoadObjects:(NSArray *)objects
+{
+    if([BBConstants Trace])NSLog(@"Objects Response: %@", objects);
+    
+}
+
+-(void) objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error
+{
+    if([BBConstants Trace])NSLog(@"Error Response: %@", [error localizedDescription]);
+}
+
+- (void)objectLoaderDidLoadUnexpectedResponse:(RKObjectLoader *)objectLoader
+{
+    if([BBConstants Trace])NSLog(@"Unexpected Response: %@", objectLoader.response.bodyAsString);
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -116,23 +149,6 @@
 -(void)viewDidLoad
 {
     [self.navigationController setNavigationBarHidden:YES];
-}
-
-
-#pragma mark - Delegate methods and callbacks
-
--(void)authenticatedUserLoaded:(BBAuthenticatedUser *)authenticatedUser
-{
-    if([BBConstants Trace]) NSLog(@"LoadingViewController.AuthenticatedUserLoaded:");
-    
-    [self.aSpinner stopAnimating];
-    [self.aSpinner removeFromSuperview];
-    
-    BBApplicationData* appData = [BBApplicationData sharedInstance];
-    
-    appData.authenticatedUser = authenticatedUser;
-    
-    [self performSelector:@selector(segueToActivity)withObject:self];
 }
 
 @end

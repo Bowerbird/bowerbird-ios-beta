@@ -87,6 +87,9 @@
 		1C9D7BB115E2A942002D9425 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C9D7BB015E2A942002D9425 /* ImageIO.framework */; };
 		1C9D7BB315E2A952002D9425 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C9D7BB215E2A952002D9425 /* CoreImage.framework */; };
 		1C9D7BB515E2A9B6002D9425 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C9D7BB415E2A9B6002D9425 /* MapKit.framework */; };
+		1C9D7BC615E32096002D9425 /* BBMembership.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C9D7BC515E32096002D9425 /* BBMembership.m */; };
+		1C9D7BCA15E335E5002D9425 /* BBLoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C9D7BC915E335E5002D9425 /* BBLoginRequest.m */; };
+		1C9D7BD315E36857002D9425 /* BBActivityPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C9D7BD215E36857002D9425 /* BBActivityPaginator.m */; };
 		1CC2E82D15E1D6940064FECA /* BBComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CC2E82C15E1D6930064FECA /* BBComment.m */; };
 		1CC2E83015E1DD530064FECA /* BBProjectTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CC2E82F15E1DD530064FECA /* BBProjectTableViewController.m */; };
 		1CC2E83315E1E5490064FECA /* BBMappings.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CC2E83215E1E5490064FECA /* BBMappings.m */; };
@@ -288,6 +291,13 @@
 		1C9D7BB015E2A942002D9425 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		1C9D7BB215E2A952002D9425 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		1C9D7BB415E2A9B6002D9425 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		1C9D7BC415E32096002D9425 /* BBMembership.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMembership.h; sourceTree = "<group>"; };
+		1C9D7BC515E32096002D9425 /* BBMembership.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMembership.m; sourceTree = "<group>"; };
+		1C9D7BC815E335E5002D9425 /* BBLoginRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoginRequest.h; sourceTree = "<group>"; };
+		1C9D7BC915E335E5002D9425 /* BBLoginRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoginRequest.m; sourceTree = "<group>"; };
+		1C9D7BCB15E336D0002D9425 /* BBRequests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBRequests.h; sourceTree = "<group>"; };
+		1C9D7BD115E36856002D9425 /* BBActivityPaginator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBActivityPaginator.h; sourceTree = "<group>"; };
+		1C9D7BD215E36857002D9425 /* BBActivityPaginator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBActivityPaginator.m; sourceTree = "<group>"; };
 		1CC2E82B15E1D6930064FECA /* BBComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBComment.h; sourceTree = "<group>"; };
 		1CC2E82C15E1D6930064FECA /* BBComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBComment.m; sourceTree = "<group>"; };
 		1CC2E82F15E1DD530064FECA /* BBProjectTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBProjectTableViewController.m; sourceTree = "<group>"; };
@@ -512,7 +522,10 @@
 		1C9A857115DDEC6A00D98F40 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1C9D7BC715E335D5002D9425 /* Requests */,
 				1C31AF2115DE1FE900A602BE /* BBModels.h */,
+				1C9D7BC415E32096002D9425 /* BBMembership.h */,
+				1C9D7BC515E32096002D9425 /* BBMembership.m */,
 				1C4D8CD415E2862E000DED07 /* BBApplicationData.h */,
 				1C4D8CB015E2805C000DED07 /* BBApplicationData.m */,
 				1C4D8CD515E2862F000DED07 /* BBAuthenticatedUser.h */,
@@ -543,6 +556,8 @@
 				1C676A3615E2593C0030063E /* BBProjectPaginator.m */,
 				1C676A3815E263140030063E /* BBBaseModel.h */,
 				1C676A3915E263140030063E /* BBBaseModel.m */,
+				1C9D7BD115E36856002D9425 /* BBActivityPaginator.h */,
+				1C9D7BD215E36857002D9425 /* BBActivityPaginator.m */,
 				1CC2E83115E1E5490064FECA /* BBMappings.h */,
 				1CC2E83215E1E5490064FECA /* BBMappings.m */,
 			);
@@ -663,6 +678,16 @@
 				1C31AED615DE1B2100A602BE /* RestKit.xcodeproj */,
 			);
 			name = XProjects;
+			sourceTree = "<group>";
+		};
+		1C9D7BC715E335D5002D9425 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				1C9D7BCB15E336D0002D9425 /* BBRequests.h */,
+				1C9D7BC815E335E5002D9425 /* BBLoginRequest.h */,
+				1C9D7BC915E335E5002D9425 /* BBLoginRequest.m */,
+			);
+			name = Requests;
 			sourceTree = "<group>";
 		};
 		1CC2E83415E1FFD90064FECA /* Views */ = {
@@ -873,6 +898,9 @@
 				1C4D8CF515E2A03E000DED07 /* SDWebImagePrefetcher.m in Sources */,
 				1C4D8CF615E2A03E000DED07 /* UIButton+WebCache.m in Sources */,
 				1C4D8CF715E2A03E000DED07 /* UIImageView+WebCache.m in Sources */,
+				1C9D7BC615E32096002D9425 /* BBMembership.m in Sources */,
+				1C9D7BCA15E335E5002D9425 /* BBLoginRequest.m in Sources */,
+				1C9D7BD315E36857002D9425 /* BBActivityPaginator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

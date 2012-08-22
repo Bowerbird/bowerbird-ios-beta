@@ -12,7 +12,7 @@
 
 @synthesize projects = _projects;
 
-#pragma mark - Set up dataSource and delegate
+#pragma mark - Datasource and Data Loading methods
 
 -(void)setProjects:(NSArray *)projects
 {
@@ -70,7 +70,7 @@
     
     BBApplicationData* appData = [BBApplicationData sharedInstance];
     
-    self.projects = [appData.authenticatedUser.projects allValues];
+    self.projects = appData.authenticatedUser.projects;
 }
 
 #pragma mark - Table Rendering Methods
@@ -87,11 +87,7 @@
     }
     
     BBProject* project = [self.projects objectAtIndex:indexPath.row];
-    //BBImage* projectImage = [project.avatar.media objectForKey:[BBConstants NameOfAvatarDisplayImage]];
-    
-    // this is a hack because it's a BBImage but should be a dictionary as above...
-    
-    BBImage* projectImage = (BBImage*)project.avatar.media;
+    BBImage* projectImage = [project.avatar.media objectAtIndex:(project.avatar.media.count - 1)];
     
     cell.textLabel.text = project.name;
     cell.detailTextLabel.text = project.description;

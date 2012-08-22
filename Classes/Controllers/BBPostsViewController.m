@@ -8,75 +8,76 @@
 
 #import "BBPostsViewController.h"
 
-@interface BBPostsViewController ()
-
-@end
-
 @implementation BBPostsViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+@synthesize activities = _activities;
+
+#pragma mark - Datasource and Data Loading methods
+
+-(void)SetPostActivities:(NSArray*)activities
 {
-    if([BBConstants Trace]) NSLog(@"PostsViewController.initWithNibName:bundle:");
+    if([BBConstants Trace]) NSLog(@"BBActivitiesViewController.setActivities:");
     
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    _activities = activities;
+    
+    [self.tableView reloadData];
 }
 
 
-#pragma mark - UITableViewDataSource
+#pragma mark - Table View Methods
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return 20;
-}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if([BBConstants Trace]) NSLog(@"PostsViewController.tableView:cellForRowAtIndexPath:");
-    
 	static NSString *CellIdentifier = @"Post Cell";
     
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil)
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     
-	cell.selectionStyle = UITableViewCellSelectionStyleGray;
-	cell.textLabel.text = [NSString stringWithFormat:@"Page %@ - Row %d", self.title, indexPath.row];
+    BBActivity* activity = [self.activities objectAtIndex:indexPath.row];
+    BBImage* activityUserImage = [activity.user.avatar.media objectAtIndex:(activity.user.avatar.media.count - 1)];
+    
+    cell.textLabel.text = activity.user.firstName;
+    cell.detailTextLabel.text = activity.description;
+	
+    [cell.imageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [BBConstants RootUriString],activityUserImage.relativeUri]] placeholderImage:[UIImage imageNamed:@"loader.png"]];
+    
+    if([BBConstants Trace])NSLog(@"text: %@ detail: %@", activity.user.firstName, activity.description);
     
 	return cell;
 }
 
-#pragma mark - UITableViewDelegate
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+	return self.activities.count;
+}
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSLog(@"%@, parent is %@", self.title, self.parentViewController);
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"%@, parent is %@", self.title, self.parentViewController);
     
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
     
 	// do something....
 }
 
-- (IBAction)dismissModalScreen:(id)sender {
-	[self dismissViewControllerAnimated:YES completion:nil];
+
+#pragma mark - View Rendering Methods
+
+- (id)initWithStyle:(UITableViewStyle)style
+{
+    self = [super initWithStyle:style];
+    if (self) {
+        // Custom initialization
+        if([BBConstants Trace])NSLog(@"BBPostsViewController.initWithStyle");
+    }
+    return self;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 

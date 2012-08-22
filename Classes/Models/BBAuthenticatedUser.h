@@ -15,7 +15,7 @@
 
 @property (nonatomic, retain) BBUser* user;
 @property (nonatomic, retain) NSArray* categories;
-@property (nonatomic, retain) NSDictionary* projects;
+@property (nonatomic, retain) NSArray* projects;
 @property (nonatomic, retain) NSDictionary* teams;
 @property (nonatomic, retain) NSDictionary* organisations;
 @property (nonatomic, retain) NSDictionary* userProjects;

@@ -11,10 +11,10 @@
 #import "BBModels.h"
 #import "BBProtocols.h"
 #import "BBHelpers.h"
+#import "UIImageView+WebCache.h"
 
-@interface BBActivitiesViewController : UITableViewController<UITableViewDelegate,UITableViewDataSource, RKObjectLoaderDelegate>
+@interface BBActivitiesViewController : UITableViewController<UITableViewDelegate,UITableViewDataSource, BBActivityLoaded>
 
-@property (nonatomic, strong) NSDictionary* activities;
-//@property (nonatomic,strong) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) NSArray* activities;
 
 @end

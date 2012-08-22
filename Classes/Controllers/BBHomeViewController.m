@@ -8,19 +8,67 @@
 
 #import "BBHomeViewController.h"
 
-@interface BBHomeViewController()
-
-@end
-
 @implementation BBHomeViewController
 
-@synthesize activity = _activity;
 @synthesize activities = _activities;
 
--(void)setActivities:(NSDictionary *)activities
+#pragma mark - Datasource and Data Loading methods
+
+-(void)setActivities:(NSArray *)activities
 {
-    if([BBConstants Trace]) NSLog(@"ActivitiesViewController.setActivities:");
-        _activities = activities;
+    if([BBConstants Trace]) NSLog(@"BBActivitiesViewController.setActivities:");
+    
+    _activities = activities;
+    
+    for(id viewController in self.viewControllers)
+    {
+        if([viewController respondsToSelector:@selector(SetActivities:)])
+        {
+            [viewController SetActivities:activities];
+        }
+        if([viewController respondsToSelector:@selector(SetObservationActivities:)])
+        {
+            [viewController SetObservationActivities:activities];
+        }
+        if([viewController respondsToSelector:@selector(SetPostActivities:)])
+        {
+            [viewController setActivities:activities];
+        }
+    }
+}
+
+-(void)loadActivities
+{
+    if([BBConstants Trace])NSLog(@"BBLoadingViewController.loadProjects");
+    
+    NSString* url = [NSString stringWithFormat:@"%@?%@",[BBConstants ActivityUrl], [BBConstants AjaxQuerystring]];
+    
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:url delegate:self];
+}
+
+- (void) objectLoader:(RKObjectLoader*)objectLoader didLoadObject:(id)object
+{
+    if([BBConstants Trace])NSLog(@"Object Response: %@", object);
+    
+    if([object isKindOfClass:[BBActivityPaginator class]])
+    {
+        self.activities = ((BBActivityPaginator*)object).activities;
+    }
+}
+
+- (void) objectLoader:(RKObjectLoader*)objectLoader didLoadObjects:(NSArray *)objects
+{
+    if([BBConstants Trace])NSLog(@"Objects Response: %@", objects);
+}
+
+-(void) objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error
+{
+    if([BBConstants Trace])NSLog(@"Error Response: %@", [error localizedDescription]);
+}
+
+- (void)objectLoaderDidLoadUnexpectedResponse:(RKObjectLoader *)objectLoader
+{
+    if([BBConstants Trace])NSLog(@"Unexpected Response: %@", objectLoader.response.bodyAsString);
 }
 
 - (void)viewDidLoad
@@ -28,13 +76,14 @@
     if([BBConstants Trace]) NSLog(@"HomeViewController.viewDidLoad:");
         
     BBActivitiesViewController *activitiesViewController = [[BBActivitiesViewController alloc] initWithStyle:UITableViewStylePlain];
-//    ActivitiesViewController *activitiesViewController = [[ActivitiesViewController alloc] init];
     BBObservationsViewController *observationsViewController = [[BBObservationsViewController alloc] initWithStyle:UITableViewStylePlain];
     BBPostsViewController *postsViewController = [[BBPostsViewController alloc] initWithStyle:UITableViewStylePlain];
     
     activitiesViewController.title = @"All Activity";
     observationsViewController.title = @"Observations";
     postsViewController.title = @"Posts";
+    
+    [self loadActivities];
     
     self.delegate = self;
     self.viewControllers = [NSArray arrayWithObjects:activitiesViewController, observationsViewController, postsViewController, nil];
@@ -50,8 +99,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         //
-        self.activity = [[BBActivity alloc]init];
-        //[self.activity loadActivitiesForUrl:[BBConstants ActivityUrl] andNotifyDelegate:self];
     }
     return self;
 }
@@ -71,21 +118,6 @@
     if([BBConstants Trace]) NSLog(@"HomeViewController.segmentedPageController:didSelectViewController:atIndex:");
     
 	if([BBConstants Trace]) NSLog(@"segmentPageController %@ didSelectViewController %@ at index %u", segmentPageController, viewController, index);
-}
-
-
--(void)ActivityHasFinishedLoading:(BBActivity*)activity
-{
-    if([BBConstants Trace]) NSLog(@"HomeViewController.ActivityHasFinishedLoading:");
-    
-    NSMutableDictionary* activities = [[NSMutableDictionary alloc]initWithDictionary:self.activities];
-    
-    [activities setObject:activity forKey:activity.identifier];
-    
-    self.activities = [[NSDictionary alloc]initWithDictionary:activities];
-    
-    BBActivitiesViewController* activitiesViewController = [self.viewControllers objectAtIndex:0];
-    activitiesViewController.activities = self.activities;
 }
 
 @end

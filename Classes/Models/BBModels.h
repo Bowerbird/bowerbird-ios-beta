@@ -10,8 +10,8 @@
 #import <RestKit/RestKit.h>
 #import "BBResources.h"
 #import "BBImage.h"
-#import "BBUser.h"
 #import "BBMediaResource.h"
+#import "BBUser.h"
 #import "BBObservation.h"
 #import "BBPost.h"
 #import "BBObservationNote.h"

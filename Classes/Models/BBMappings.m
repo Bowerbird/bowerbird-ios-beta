@@ -15,6 +15,7 @@
     
     // Image mapping
     RKObjectMapping *imageMapping = [RKObjectMapping mappingForClass:[BBImage class]];
+    //imageMapping.forceCollectionMapping = YES;
     [imageMapping mapKeyOfNestedDictionaryToAttribute:@"imageDimensionName"];
     [imageMapping mapKeyPath:@"(imageDimensionName).FileName" toAttribute:@"fileName"];
     [imageMapping mapKeyPath:@"(imageDimensionName).RelativeUri" toAttribute:@"relativeUri"];
@@ -44,7 +45,7 @@
     [userMapping mapKeyPath:@"Id" toAttribute:@"identifier"];
     [userMapping mapKeyPath:@"FirstName" toAttribute:@"firstName"];
     [userMapping mapKeyPath:@"LastName" toAttribute:@"lastName"];
-    [userMapping mapKeyPath:@"Name" toAttribute:@"name"];
+    //[userMapping mapKeyPath:@"Name" toAttribute:@"name"];
     [userMapping mapKeyPath:@"Avatar" toRelationship:@"avatar" withMapping:mediaResourceMapping];
     [manager.mappingProvider setMapping:userMapping forKeyPath:@"User"];
     
@@ -86,13 +87,14 @@
     [authenticatedUser mapKeyPath:@"AppRoot.Categories" toAttribute:@"categories"];
     [authenticatedUser mapKeyPath:@"Projects" toRelationship:@"projects" withMapping:projectMapping];
     [authenticatedUser mapKeyPath:@"Memberships" toRelationship:@"memberships" withMapping:membership];
+    [authenticatedUser mapKeyPath:@"DefaultLicence" toAttribute:@"defaultLicence"];
     [manager.mappingProvider setMapping:authenticatedUser forKeyPath:@"Model.AuthenticatedUser"];
     [manager.mappingProvider setSerializationMapping:authenticatedUser forClass:[BBAuthenticatedUser class]];
     
     
     // Map the Observation
     RKObjectMapping *observation = [RKObjectMapping mappingForClass:[BBObservation class]];
-    [manager.mappingProvider setMapping:observation forKeyPath:@"ObservationAdded"];
+    [manager.mappingProvider setMapping:observation forKeyPath:@"Observation"];
     [manager.mappingProvider setSerializationMapping:observation forClass:[BBObservation class]];
     
     
@@ -113,8 +115,15 @@
     
     // Map the Activity
     RKObjectMapping *activityMapping = [RKObjectMapping mappingForClass:[BBActivity class]];
-    
-    [manager.mappingProvider setMapping:activityMapping forKeyPath:@"Activities"];
+    [activityMapping mapKeyPath:@"Id" toAttribute:@"identifier"];
+    [activityMapping mapKeyPath:@"CreatedDateTime" toAttribute:@"createdOn"];
+    [activityMapping mapKeyPath:@"Description" toAttribute:@"description"];
+    [activityMapping mapKeyPath:@"CreatedDateTimeOrder" toAttribute:@"order"];
+    [activityMapping mapKeyPath:@"Type" toAttribute:@"type"];
+    [activityMapping mapKeyPath:@"User" toRelationship:@"user" withMapping:userMapping];
+    //[activityMapping mapKeyPath:@"ObservationAdded.Observation" toRelationship:@"observation" withMapping:observation];
+    // no groups mapping yet..
+    //[manager.mappingProvider setMapping:activityMapping forKeyPath:@"Activities"];
     [manager.mappingProvider setSerializationMapping:activityMapping forClass:[BBActivity class]];
     
     
@@ -125,6 +134,7 @@
     [activityPagination mapKeyPath:@"PageSize" toAttribute:@"perPage"];
     [activityPagination mapKeyPath:@"TotalResultCount" toAttribute:@"objectCount"];
     [activityPagination mapKeyPath:@"PagedListItems" toRelationship:@"activities" withMapping:activityMapping];
+    [manager.mappingProvider setMapping:activityPagination forKeyPath:@"Model.Activities"];
     [manager.mappingProvider setSerializationMapping:activityPagination forClass:[BBActivityPaginator class]];
     
 }

@@ -6,7 +6,7 @@
  
  -----------------------------------------------------------------------------------------------*/
 
-#import "BBMediaResource.h"
+#import "BBModels.h"
 
 @implementation BBMediaResource
 
@@ -16,7 +16,7 @@
                   metaData = _metaData,
                    //image = _image,
                      media = _media,
-                      user = _user,
+                      //user = _user,
                description = _description,
                    licence = _licence,
                        key = _key,
@@ -76,26 +76,22 @@
 }
 
 
--(void)setMedia:(NSDictionary *)media
+-(void)setMedia:(NSArray *)media
 {
     _media = media;
 }
--(NSDictionary*)media
+-(NSArray*)media
 {
-    if(!_media)_media = [[NSDictionary alloc]init];
+    if(!_media)_media = [[NSArray alloc]init];
     return _media;
 }
 -(NSUInteger)countOfMedia
 {
     return [self.media count];
 }
--(NSEnumerator*)enumeratorOfMedia
+-(id)objectInMediaAtIndex:(NSUInteger)index
 {
-    return [self.media objectEnumerator];
-}
--(NSString*)memberOfMedia:(NSString *)object
-{
-    return [self.media objectForKey:object];
+    return [self.media objectAtIndex:index];
 }
 
 
@@ -109,14 +105,14 @@
 //}
 
 
--(void)setUser:(BBUser *)user
-{
-    _user = user;
-}
--(BBUser*)user
-{
-    return _user;
-}
+//-(void)setUser:(BBUser *)user
+//{
+//    _user = user;
+//}
+//-(BBUser*)user
+//{
+//    return _user;
+//}
 
 
 -(void)setDescription:(NSString *)description

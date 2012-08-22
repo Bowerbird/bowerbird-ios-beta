@@ -90,6 +90,13 @@
 		1C9D7BC615E32096002D9425 /* BBMembership.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C9D7BC515E32096002D9425 /* BBMembership.m */; };
 		1C9D7BCA15E335E5002D9425 /* BBLoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C9D7BC915E335E5002D9425 /* BBLoginRequest.m */; };
 		1C9D7BD315E36857002D9425 /* BBActivityPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C9D7BD215E36857002D9425 /* BBActivityPaginator.m */; };
+		1C9D7BE515E4B8E6002D9425 /* BBImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C9D7BE415E4B8E5002D9425 /* BBImagePickerViewController.m */; };
+		1C9D7BE815E4BB50002D9425 /* BBImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C9D7BE715E4BB50002D9425 /* BBImagePicker.m */; };
+		1C9D7BF415E4F3FE002D9425 /* MGBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C9D7BEA15E4F3FE002D9425 /* MGBox.m */; };
+		1C9D7BF515E4F3FE002D9425 /* MGBoxLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C9D7BEC15E4F3FE002D9425 /* MGBoxLine.m */; };
+		1C9D7BF615E4F3FE002D9425 /* MGButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C9D7BEF15E4F3FE002D9425 /* MGButton.m */; };
+		1C9D7BF715E4F3FE002D9425 /* MGScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C9D7BF115E4F3FE002D9425 /* MGScrollView.m */; };
+		1C9D7BF815E4F3FE002D9425 /* MGStyledBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C9D7BF315E4F3FE002D9425 /* MGStyledBox.m */; };
 		1CC2E82D15E1D6940064FECA /* BBComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CC2E82C15E1D6930064FECA /* BBComment.m */; };
 		1CC2E83015E1DD530064FECA /* BBProjectTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CC2E82F15E1DD530064FECA /* BBProjectTableViewController.m */; };
 		1CC2E83315E1E5490064FECA /* BBMappings.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CC2E83215E1E5490064FECA /* BBMappings.m */; };
@@ -298,6 +305,21 @@
 		1C9D7BCB15E336D0002D9425 /* BBRequests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBRequests.h; sourceTree = "<group>"; };
 		1C9D7BD115E36856002D9425 /* BBActivityPaginator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBActivityPaginator.h; sourceTree = "<group>"; };
 		1C9D7BD215E36857002D9425 /* BBActivityPaginator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBActivityPaginator.m; sourceTree = "<group>"; };
+		1C9D7BE315E4B8E5002D9425 /* BBImagePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBImagePickerViewController.h; sourceTree = "<group>"; };
+		1C9D7BE415E4B8E5002D9425 /* BBImagePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBImagePickerViewController.m; sourceTree = "<group>"; };
+		1C9D7BE615E4BB50002D9425 /* BBImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBImagePicker.h; sourceTree = "<group>"; };
+		1C9D7BE715E4BB50002D9425 /* BBImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBImagePicker.m; sourceTree = "<group>"; };
+		1C9D7BE915E4F3FE002D9425 /* MGBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGBox.h; sourceTree = "<group>"; };
+		1C9D7BEA15E4F3FE002D9425 /* MGBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGBox.m; sourceTree = "<group>"; };
+		1C9D7BEB15E4F3FE002D9425 /* MGBoxLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGBoxLine.h; sourceTree = "<group>"; };
+		1C9D7BEC15E4F3FE002D9425 /* MGBoxLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGBoxLine.m; sourceTree = "<group>"; };
+		1C9D7BED15E4F3FE002D9425 /* MGBoxProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGBoxProtocol.h; sourceTree = "<group>"; };
+		1C9D7BEE15E4F3FE002D9425 /* MGButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGButton.h; sourceTree = "<group>"; };
+		1C9D7BEF15E4F3FE002D9425 /* MGButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGButton.m; sourceTree = "<group>"; };
+		1C9D7BF015E4F3FE002D9425 /* MGScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGScrollView.h; sourceTree = "<group>"; };
+		1C9D7BF115E4F3FE002D9425 /* MGScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGScrollView.m; sourceTree = "<group>"; };
+		1C9D7BF215E4F3FE002D9425 /* MGStyledBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGStyledBox.h; sourceTree = "<group>"; };
+		1C9D7BF315E4F3FE002D9425 /* MGStyledBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGStyledBox.m; sourceTree = "<group>"; };
 		1CC2E82B15E1D6930064FECA /* BBComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBComment.h; sourceTree = "<group>"; };
 		1CC2E82C15E1D6930064FECA /* BBComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBComment.m; sourceTree = "<group>"; };
 		1CC2E82F15E1DD530064FECA /* BBProjectTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBProjectTableViewController.m; sourceTree = "<group>"; };
@@ -501,6 +523,8 @@
 				1C4D8C9E15E27E3D000DED07 /* BBObservationsViewController.m */,
 				1C4D8C9F15E27E3D000DED07 /* BBPostsViewController.h */,
 				1C4D8CA015E27E3D000DED07 /* BBPostsViewController.m */,
+				1C9D7BE315E4B8E5002D9425 /* BBImagePickerViewController.h */,
+				1C9D7BE415E4B8E5002D9425 /* BBImagePickerViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -575,6 +599,17 @@
 		1C9A857715DDEC6A00D98F40 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
+				1C9D7BE915E4F3FE002D9425 /* MGBox.h */,
+				1C9D7BEA15E4F3FE002D9425 /* MGBox.m */,
+				1C9D7BEB15E4F3FE002D9425 /* MGBoxLine.h */,
+				1C9D7BEC15E4F3FE002D9425 /* MGBoxLine.m */,
+				1C9D7BED15E4F3FE002D9425 /* MGBoxProtocol.h */,
+				1C9D7BEE15E4F3FE002D9425 /* MGButton.h */,
+				1C9D7BEF15E4F3FE002D9425 /* MGButton.m */,
+				1C9D7BF015E4F3FE002D9425 /* MGScrollView.h */,
+				1C9D7BF115E4F3FE002D9425 /* MGScrollView.m */,
+				1C9D7BF215E4F3FE002D9425 /* MGStyledBox.h */,
+				1C9D7BF315E4F3FE002D9425 /* MGStyledBox.m */,
 				1C4D8CDC15E2A03D000DED07 /* MKAnnotationView+WebCache.h */,
 				1C4D8CDD15E2A03D000DED07 /* MKAnnotationView+WebCache.m */,
 				1C4D8CDE15E2A03D000DED07 /* SDImageCache.h */,
@@ -709,6 +744,8 @@
 				1C4D8C6F15E278A7000DED07 /* BBPostTableView.m */,
 				1CC2E83515E1FFE80064FECA /* BBProjectsTableView.h */,
 				1CC2E83615E1FFE80064FECA /* BBProjectsTableView.m */,
+				1C9D7BE615E4BB50002D9425 /* BBImagePicker.h */,
+				1C9D7BE715E4BB50002D9425 /* BBImagePicker.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -901,6 +938,13 @@
 				1C9D7BC615E32096002D9425 /* BBMembership.m in Sources */,
 				1C9D7BCA15E335E5002D9425 /* BBLoginRequest.m in Sources */,
 				1C9D7BD315E36857002D9425 /* BBActivityPaginator.m in Sources */,
+				1C9D7BE515E4B8E6002D9425 /* BBImagePickerViewController.m in Sources */,
+				1C9D7BE815E4BB50002D9425 /* BBImagePicker.m in Sources */,
+				1C9D7BF415E4F3FE002D9425 /* MGBox.m in Sources */,
+				1C9D7BF515E4F3FE002D9425 /* MGBoxLine.m in Sources */,
+				1C9D7BF615E4F3FE002D9425 /* MGButton.m in Sources */,
+				1C9D7BF715E4F3FE002D9425 /* MGScrollView.m in Sources */,
+				1C9D7BF815E4F3FE002D9425 /* MGStyledBox.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -969,13 +1013,16 @@
 		1C9A856115DDE9B300D98F40 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Hamish Crittenden (86VTBUZG7B)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Hamish Crittenden (86VTBUZG7B)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Other Sources/BowerBird Beta-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Other Sources/BowerBird Beta-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "72FC061E-DB98-4F07-856C-B0F50571B6AB";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "72FC061E-DB98-4F07-856C-B0F50571B6AB";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -983,12 +1030,14 @@
 		1C9A856215DDE9B300D98F40 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Hamish Crittenden (86VTBUZG7B)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Other Sources/BowerBird Beta-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Other Sources/BowerBird Beta-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "72FC061E-DB98-4F07-856C-B0F50571B6AB";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

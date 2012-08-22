@@ -4,25 +4,28 @@
  Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
- 
- *> Use this protocol for notifying calling objects when the activity has finished loading
- 
  -----------------------------------------------------------------------------------------------*/
 
-#import <Foundation/Foundation.h>
+#import "BBImagePicker.h"
 
-@class BBActivity;
+@implementation BBImagePicker
 
-@protocol BBActivityLoaded <NSObject>
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        // Initialization code
+    }
+    return self;
+}
 
-@optional
-
--(void)ActivityHasFinishedLoading:(BBActivity*)activity;
-
--(void)SetActivities:(NSArray*)activities;
-
--(void)SetPostActivities:(NSArray*)activities;
-
--(void)SetObservationActivities:(NSArray*)activities;
+/*
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect
+{
+    // Drawing code
+}
+*/
 
 @end

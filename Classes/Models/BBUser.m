@@ -68,11 +68,11 @@
 }
 
 
--(void)setAvatar:(BBImage *)avatar
+-(void)setAvatar:(BBMediaResource *)avatar
 {
     _avatar = avatar;
 }
--(BBImage*)avatar
+-(BBMediaResource*)avatar
 {
     return _avatar;
 }

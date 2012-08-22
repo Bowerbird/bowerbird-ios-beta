@@ -17,7 +17,7 @@
 @property (nonatomic, retain) BBAuthentication* authentication;
 @property (nonatomic, retain) BBUser* user;
 @property (nonatomic, retain) NSArray* categories;
-@property (nonatomic, retain) NSDictionary* activities;
+@property (nonatomic, retain) NSArray* activities;
 
 +(id)sharedInstance;
 

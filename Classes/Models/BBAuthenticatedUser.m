@@ -49,26 +49,22 @@
 }
 
 
--(void)setProjects:(NSDictionary *)projects
+-(void)setProjects:(NSArray *)projects
 {
     _projects = projects;
 }
--(NSDictionary*)projects
+-(NSArray*)projects
 {
-    if(!_projects)_projects = [[NSDictionary alloc]init];
+    if(!_projects)_projects = [[NSArray alloc]init];
     return _projects;
 }
 -(NSUInteger)countOfProjects
 {
     return [self.projects count];
 }
--(NSEnumerator*)enumeratorOfProjects
+-(id)objectInProjectsAtIndex:(NSUInteger)index
 {
-    return [self.projects objectEnumerator];
-}
--(NSString*)memberOfProjects:(NSString *)object
-{
-    return [self.projects objectForKey:object];
+    return [self.projects objectAtIndex:index];
 }
 
 

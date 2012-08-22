@@ -9,7 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <RestKit/RestKit.h>
 #import "BBModels.h"
+#import "BBProtocols.h"
+#import "BBHelpers.h"
+#import "UIImageView+WebCache.h"
 
-@interface BBPostsViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
+@interface BBPostsViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, BBActivityLoaded>
+
+@property (nonatomic, strong) NSArray* activities;
 
 @end

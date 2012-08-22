@@ -9,12 +9,11 @@
 #import "BBLoadingViewController.h"
 #import <UIKit/UIKit.h>
 
-
 @interface BBLoadingViewController ()
 
-- (BOOL)applicationRequiresLoginOrRegistration;
-- (void)segueToLogin;
-- (void)segueToActivity;
+-(BOOL)applicationRequiresLoginOrRegistration;
+-(void)segueToLogin;
+-(void)segueToActivity;
 -(void)loadAuthenticatedUser;
 @property (nonatomic, strong) UIActivityIndicatorView* aSpinner;
 

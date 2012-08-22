@@ -16,14 +16,14 @@
 {
     _activities = activities;
 }
--(NSArray*)projects
+-(NSArray*)activities
 {
     if(!_activities)_activities = [[NSArray alloc]init];
     return _activities;
 }
 -(NSUInteger)countOfActivities
 {
-    return [self.projects count];
+    return [self.activities count];
 }
 -(id)objectInActivitiesAtIndex:(NSUInteger)index
 {

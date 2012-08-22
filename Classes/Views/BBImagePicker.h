@@ -7,16 +7,7 @@
  -----------------------------------------------------------------------------------------------*/
 
 #import <UIKit/UIKit.h>
-#import <RestKit/RestKit.h>
-#import "BBModels.h"
-#import "BBProtocols.h"
-#import "JCMSegmentPageController.h"
-#import "BBPostsViewController.h"
-#import "BBActivitiesViewController.h"
-#import "BBObservationsViewController.h"
 
-@interface BBHomeViewController : JCMSegmentPageController <JCMSegmentPageControllerDelegate, RKObjectLoaderDelegate>
-
-@property (nonatomic, strong) NSArray* activities;
+@interface BBImagePicker : UIView
 
 @end

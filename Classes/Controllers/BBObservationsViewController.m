@@ -8,68 +8,50 @@
 
 #import "BBObservationsViewController.h"
 
-@interface BBObservationsViewController ()
-
-@end
-
 @implementation BBObservationsViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+@synthesize activities = _activities;
+
+
+#pragma mark - Datasource and Data Loading methods
+
+-(void)SetObservationActivities:(NSArray*)activities;
 {
-    if([BBConstants Trace]) NSLog(@"ObservationsViewController.initWithNibName:bundle:");
+    if([BBConstants Trace]) NSLog(@"BBObservationsViewController.setActivities:");
     
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (void)viewDidLoad
-{
-    if([BBConstants Trace]) NSLog(@"ObservationsViewController.viewDidLoad");
+    _activities = activities;
     
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    [self.tableView reloadData];
 }
 
-- (void)viewDidUnload
-{
-    if([BBConstants Trace]) NSLog(@"ObservationsViewController.viewDidUnload");
-    
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-}
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-#pragma mark - UITableViewDataSource
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-	return 20;
-}
+#pragma mark - Table View Methods
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if([BBConstants Trace]) NSLog(@"ObservationsViewController.tableView:cellForRowAtIndexPath:");
-    
 	static NSString *CellIdentifier = @"Observation Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil)
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     
-	cell.selectionStyle = UITableViewCellSelectionStyleGray;
-	cell.textLabel.text = [NSString stringWithFormat:@"Page %@ - Row %d", self.title, indexPath.row];
+    BBActivity* activity = [self.activities objectAtIndex:indexPath.row];
+    BBImage* activityUserImage = [activity.user.avatar.media objectAtIndex:(activity.user.avatar.media.count - 1)];
+    
+    cell.textLabel.text = activity.user.firstName;
+    cell.detailTextLabel.text = activity.description;
+	
+    [cell.imageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [BBConstants RootUriString],activityUserImage.relativeUri]] placeholderImage:[UIImage imageNamed:@"loader.png"]];
+    
+    if([BBConstants Trace])NSLog(@"text: %@ detail: %@", activity.user.firstName, activity.description);
     
 	return cell;
 }
 
-#pragma mark - UITableViewDelegate
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+	return self.activities.count;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -80,10 +62,22 @@
 	// do something....
 }
 
-- (IBAction)dismissModalScreen:(id)sender
+
+#pragma mark - View Rendering Methods
+
+- (id)initWithStyle:(UITableViewStyle)style
 {
-	[self dismissViewControllerAnimated:YES completion:nil];
+    self = [super initWithStyle:style];
+    if (self) {
+        // Custom initialization
+        if([BBConstants Trace])NSLog(@"BBObservationsViewController.initWithStyle");
+    }
+    return self;
 }
 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
 
 @end

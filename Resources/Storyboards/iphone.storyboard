@@ -45,11 +45,11 @@
             </objects>
             <point key="canvasLocation" x="315" y="-1799"/>
         </scene>
-        <!--View Controller - Chat-->
+        <!--Chat View Controller - Chat-->
         <scene sceneID="EcJ-yW-ZCK">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4kQ-z9-EUh" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="RJ9-lB-jIG" sceneMemberID="viewController">
+                <viewController id="RJ9-lB-jIG" customClass="BBChatViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ymy-Uh-la2">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -465,6 +465,9 @@
         <image name="sighting.png" width="50" height="50"/>
     </resources>
     <classes>
+        <class className="BBChatViewController" superclassName="JCMSegmentPageController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BBChatViewController.h"/>
+        </class>
         <class className="BBHomeViewController" superclassName="JCMSegmentPageController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BBHomeViewController.h"/>
         </class>

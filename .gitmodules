@@ -1,3 +1,6 @@
 [submodule "RestKit"]
 	path = RestKit
 	url = git://github.com/RestKit/RestKit.git
+[submodule "SignalR-ObjC"]
+	path = SignalR-ObjC
+	url = https://github.com/DyKnow/SignalR-ObjC.git

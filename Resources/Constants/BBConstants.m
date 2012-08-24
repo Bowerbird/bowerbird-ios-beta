@@ -35,10 +35,10 @@
 +(NSString *)RootUriString
 {
     // Hamish's PC
-    return @"http://dev.bowerbird.org.au";
+    //return @"http://dev.bowerbird.org.au";
     
     // Bowerbird dev server
-    //return @"http://136.154.22.24:65000";
+    return @"http://136.154.22.24:65000";
 }
 
 // restful segments

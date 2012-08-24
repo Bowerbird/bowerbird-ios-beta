@@ -137,6 +137,23 @@
     [manager.mappingProvider setMapping:activityPagination forKeyPath:@"Model.Activities"];
     [manager.mappingProvider setSerializationMapping:activityPagination forClass:[BBActivityPaginator class]];
     
+    
+//    RKObjectMapping *argsMapping = [RKObjectMapping mappingForClass:[NSArray class]];
+//    [argsMapping hasMany:<#(NSString *)#> withMapping:<#(RKObjectMappingDefinition *)#>]
+    
+    
+    // mapping signalR response payload
+    RKObjectMapping *signalRPayload = [RKObjectMapping mappingForClass:[BBSignalRPayload class]];
+    //signalRPayload.forceCollectionMapping = YES;
+    [signalRPayload mapKeyPath:@"Hub" toAttribute:@"hubName"];
+    [signalRPayload mapKeyPath:@"Args" toAttribute:@"args"];
+    [signalRPayload mapKeyPath:@"Method" toAttribute:@"method"];
+    //[signalRPayload mapKeyPath:@"State" toAttribute:@"state"];
+    signalRPayload.ignoreUnknownKeyPaths = YES;
+    [manager.mappingProvider setMapping:signalRPayload forKeyPath:@""];
+    [manager.mappingProvider setSerializationMapping:signalRPayload forClass:[BBSignalRPayload class]];
+    
+    
 }
 
 @end

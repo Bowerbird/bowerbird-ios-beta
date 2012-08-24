@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSString *lastName;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *email;
+@property (nonatomic, strong) NSString *sessionLatestActivity;
 @property (nonatomic, strong) BBMediaResource* avatar;
 
 @end

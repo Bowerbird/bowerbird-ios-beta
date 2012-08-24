@@ -114,10 +114,14 @@
     
     if([object isKindOfClass:[BBAuthenticatedUser class]])
     {
+        // save our new user
         BBApplicationData* appData = [BBApplicationData sharedInstance];
-        
         appData.authenticatedUser = (BBAuthenticatedUser*)object;
         
+        // connect said user to the user hub for notifications
+        BBUserHubClient* userHub = [BBUserHubClient sharedInstance];
+        [userHub connectToUserHub:appData.authenticatedUser.user.identifier];
+                
         [self performSelector:@selector(segueToActivity)withObject:self afterDelay:1];
     }
 }

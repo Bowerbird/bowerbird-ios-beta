@@ -15,6 +15,7 @@
                   lastName = _lastName,
                       name = _name,
                      email = _email,
+     sessionLatestActivity = _sessionLatestActivity,
                     avatar = _avatar;
 
 
@@ -68,6 +69,16 @@
 }
 
 
+-(void)setSessionLatestActivity:(NSString *)sessionLatestActivity
+{
+    _sessionLatestActivity = sessionLatestActivity;
+}
+-(NSString*)sessionLatestActivity
+{
+    return _sessionLatestActivity;
+}
+
+
 -(void)setAvatar:(BBMediaResource *)avatar
 {
     _avatar = avatar;
@@ -86,6 +97,12 @@
     //    else {
     //        [super setNilValueForKey:theKey];
     //    }
+}
+
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key
+{
+    // Id is the serverside representation of identifier.. had to change because of keyword id.
+    if([key isEqualToString:@"Id"]) self.identifier = value;
 }
 
 @end

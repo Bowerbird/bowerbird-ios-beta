@@ -11,6 +11,10 @@
 
 @implementation BBAppDelegate
 
+
+#pragma mark -
+#pragma mark Application Handlers
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.

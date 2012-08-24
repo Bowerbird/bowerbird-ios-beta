@@ -6,19 +6,13 @@
  
  -----------------------------------------------------------------------------------------------*/
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import "BBHelpers.h"
 #import "BBModels.h"
+#import "UIImageView+WebCache.h"
 
-@class BBAuthenticatedUser,BBAuthentication;
+@interface BBUserChatViewController : UITableViewController
 
-@interface BBApplicationData : NSObject
-
-@property (nonatomic, retain) BBAuthenticatedUser* authenticatedUser;
-@property (nonatomic, retain) BBAuthentication* authentication;
-@property (nonatomic, retain) BBUser* user;
-@property (nonatomic, retain) NSArray* categories;
-@property (nonatomic, retain) NSArray* activities;
-
-+(id)sharedInstance;
+@property (nonatomic, strong) NSArray* onlineUsers;
 
 @end

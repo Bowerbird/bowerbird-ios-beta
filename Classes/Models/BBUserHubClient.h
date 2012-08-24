@@ -8,17 +8,27 @@
 
 #import <Foundation/Foundation.h>
 #import "BBModels.h"
+#import "BBHelpers.h"
+#import "SignalR.h"
 
-@class BBAuthenticatedUser,BBAuthentication;
+@interface BBUserHubClient : NSObject <SRConnectionDelegate>
+{
+    SRHubConnection *connection;
+    SRHubProxy *userHub;
+    NSMutableArray *onlineUsers;
+}
 
-@interface BBApplicationData : NSObject
 
-@property (nonatomic, retain) BBAuthenticatedUser* authenticatedUser;
-@property (nonatomic, retain) BBAuthentication* authentication;
-@property (nonatomic, retain) BBUser* user;
-@property (nonatomic, retain) NSArray* categories;
-@property (nonatomic, retain) NSArray* activities;
+@property (nonatomic, retain) SRHubConnection* connection;
+@property (nonatomic, retain) SRHubProxy* userHub;
+@property (nonatomic, retain) NSMutableSet* onlineUsers;
 
 +(id)sharedInstance;
+
+-(void)connectToUserHub:(NSString*)userId;
+
+-(void)setupOnlineUsers:(id)users;
+
+-(void)userStatusUpdate:(id)user;
 
 @end

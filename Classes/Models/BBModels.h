@@ -26,3 +26,5 @@
 #import "BBApplicationData.h"
 #import "BBMembership.h"
 #import "BBActivityPaginator.h"
+#import "BBUserHubClient.h"
+#import "BBSignalRPayload.h"

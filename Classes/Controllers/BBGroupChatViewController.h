@@ -6,7 +6,9 @@
  
  -----------------------------------------------------------------------------------------------*/
 
-#import "BBCollectionHelper.h"
-#import "BBCookieHelper.h"
-#import "BBGuidGenerator.h"
-#import "Router.h"
+#import <UIKit/UIKit.h>
+#import "SignalR.h"
+
+@interface BBGroupChatViewController : UITableViewController
+
+@end

@@ -7,18 +7,12 @@
  -----------------------------------------------------------------------------------------------*/
 
 #import <Foundation/Foundation.h>
-#import "BBModels.h"
 
-@class BBAuthenticatedUser,BBAuthentication;
+@interface BBSignalRPayload : NSObject
 
-@interface BBApplicationData : NSObject
-
-@property (nonatomic, retain) BBAuthenticatedUser* authenticatedUser;
-@property (nonatomic, retain) BBAuthentication* authentication;
-@property (nonatomic, retain) BBUser* user;
-@property (nonatomic, retain) NSArray* categories;
-@property (nonatomic, retain) NSArray* activities;
-
-+(id)sharedInstance;
+@property (nonatomic,retain) NSString* hubName;
+@property (nonatomic,retain) NSString* method;
+@property (nonatomic,retain) NSMutableArray* args;
+@property (nonatomic,retain) NSMutableDictionary* state;
 
 @end

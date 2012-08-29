@@ -29,12 +29,6 @@
 #import "NSDictionary+QueryString.h"
 #import "NSObject+SRJSON.h"
 
-// Bowerbird Specific code
-#import "NSObject+MapperMethods.h"
-#import "BBMappings.h"
-#import "BBModels.h"
-
-
 @interface SRHubConnection ()
 
 - (NSString *)_getUrl:(NSString *)URL useDefault:(BOOL)useDefault;

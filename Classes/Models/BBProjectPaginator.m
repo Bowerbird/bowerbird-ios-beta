@@ -27,7 +27,7 @@
 }
 -(id)objectInProjectsAtIndex:(NSUInteger)index
 {
-    return [_projects objectAtIndex:index];
+    return [self.projects objectAtIndex:index];
 }
 
 @end

@@ -6,15 +6,11 @@
  
  -----------------------------------------------------------------------------------------------*/
 
-#import <UIKit/UIKit.h>
-#import <RestKit/RestKit.h>
+#import <Foundation/Foundation.h>
 #import "BBModels.h"
-#import "BBProtocols.h"
-#import "JCMSegmentPageController.h"
-#import "BBPostsViewController.h"
-#import "BBActivitiesViewController.h"
-#import "BBSightingsViewController.h"
 
-@interface BBHomeViewController : JCMSegmentPageController <JCMSegmentPageControllerDelegate>
+@interface BBSightingPaginator : RKObjectPaginator
+
+@property (nonatomic,retain) NSArray* sightings;
 
 @end

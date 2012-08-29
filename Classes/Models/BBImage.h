@@ -7,20 +7,13 @@
  -----------------------------------------------------------------------------------------------*/
 
 #import <Foundation/Foundation.h>
-#import "BBModels.h"
 
 @interface BBImage : NSObject
 
-@property (nonatomic,retain) NSString* identifier;
-@property (nonatomic,retain) NSString* imageDimensionName;
-@property (nonatomic,retain) NSString* fileName;
-@property (nonatomic,retain) NSString* relativeUri;
-@property (nonatomic,retain) NSString* format;
+@property (nonatomic,retain) NSString* dimensionName;
+@property (nonatomic,retain) NSString* uri;
+@property (nonatomic,retain) NSString* mimeType;
 @property (nonatomic,retain) NSNumber* width;
 @property (nonatomic,retain) NSNumber* height;
-@property (nonatomic,retain) NSString* extension;
-@property (nonatomic,retain) NSString* originalFileName;
-@property (nonatomic,retain) NSDictionary* exifData;
-@property (nonatomic,retain) UIImage* image;
 
 @end

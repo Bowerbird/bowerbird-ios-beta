@@ -13,7 +13,7 @@
 #import "BBHelpers.h"
 #import "UIImageView+WebCache.h"
 
-@interface BBActivitiesViewController : UITableViewController<UITableViewDelegate,UITableViewDataSource, BBActivityLoaded>
+@interface BBActivitiesViewController : UITableViewController<UITableViewDelegate,UITableViewDataSource, RKObjectLoaderDelegate>
 
 @property (nonatomic, strong) NSArray* activities;
 

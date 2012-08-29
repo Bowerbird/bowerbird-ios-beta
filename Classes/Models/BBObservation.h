@@ -9,23 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "BBModels.h"
 
-@class BBMediaResource;
+@interface BBObservation : BBSighting
 
-@interface BBObservation : NSObject
-
-@property (nonatomic,retain) NSString* identifier;
-@property (nonatomic,retain) NSString* title;
-@property (nonatomic,retain) NSDate* observedOnDate;
-@property (nonatomic,retain) NSString* address;
-@property float latitude;
-@property float longitude;
-@property (nonatomic,retain) NSString* category;
 @property BOOL isIdentificationRequired;
-@property BOOL anonymiseLocation;
 @property (nonatomic,retain) NSSet* media;
 @property (nonatomic,retain) BBMediaResource* primaryMedia;
-@property (nonatomic,retain) BBUser* user;
-@property (nonatomic,retain) NSArray* comments;
-@property (nonatomic,retain) NSSet* projectIds;
 
 @end

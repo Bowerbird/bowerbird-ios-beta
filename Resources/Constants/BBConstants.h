@@ -14,23 +14,31 @@
 
 +(BOOL) Trace;
 
-+(NSString *)BlueHexString;
++(NSString*)BlueHexString;
 
-+(NSString *)PurpleHexString;
++(NSString*)PurpleHexString;
 
-+(NSURL *)RootUri;
++(NSURL*)RootUri;
 
-+(NSString *)RootUriString;
++(NSString*)RootUriString;
 
-+(NSURL *)ActivityUrl;
++(NSURL*)ActivityUrl;
 
-+(NSURL *)ProjectsUrl;
++(NSURL*)ProjectsUrl;
 
-+(NSURL *)AccountLoginUrl;
++(NSURL*)mySightingsUrl;
 
-+(NSURL *)AuthenticatedUserProfileUrl;
++(NSURL*)sightingsUrl;
 
-+(NSString *)AuthCookieName;
++(NSURL*)myPostsUrl;
+
++(NSURL*)postsUrl;
+
++(NSURL*)AccountLoginUrl;
+
++(NSURL*)AuthenticatedUserProfileUrl;
+
++(NSString*)AuthCookieName;
 
 +(NSArray*)AvatarTypes;
 
@@ -38,7 +46,7 @@
 
 +(NSString*)NameOfMediaResourceDisplayImage;
 
-+(NSString *)CookieName;
++(NSString*)CookieName;
 
 +(NSDictionary*)AjaxRequestParams;
 

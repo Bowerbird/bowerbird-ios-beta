@@ -6,15 +6,14 @@
  
  -----------------------------------------------------------------------------------------------*/
 
-#import <UIKit/UIKit.h>
-#import <RestKit/RestKit.h>
-#import "BBModels.h"
-#import "BBProtocols.h"
-#import "JCMSegmentPageController.h"
-#import "BBPostsViewController.h"
-#import "BBActivitiesViewController.h"
-#import "BBSightingsViewController.h"
+#import <Foundation/Foundation.h>
 
-@interface BBHomeViewController : JCMSegmentPageController <JCMSegmentPageControllerDelegate>
+@interface BBAudio : NSObject
+
+@property (nonatomic,retain) NSString* dimensionName;
+@property (nonatomic,retain) NSString* uri;
+@property (nonatomic,retain) NSString* mimeType;
+@property (nonatomic,retain) NSNumber* width;
+@property (nonatomic,retain) NSNumber* height;
 
 @end

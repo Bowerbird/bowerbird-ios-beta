@@ -8,13 +8,13 @@
 
 #import "BBModels.h"
 
-@implementation BBImage
+@implementation BBAudio
 
 @synthesize     dimensionName = _dimensionName,
-                          uri = _uri,
-                        width = _width,
-                       height = _height,
-                     mimeType = _mimeType;
+uri = _uri,
+width = _width,
+height = _height,
+mimeType = _mimeType;
 
 
 -(void)dimensionName:(NSString *)dimensionName
@@ -68,15 +68,14 @@
 
 
 - (void)setNilValueForKey:(NSString *)theKey
-{    
-//    if ([theKey isEqualToString:@"hidden"]) {
-//        [self setValue:@YES forKey:@"hidden"];
-//    }
-//    else {
-//        [super setNilValueForKey:theKey];
-//    }
+{
+    //    if ([theKey isEqualToString:@"hidden"]) {
+    //        [self setValue:@YES forKey:@"hidden"];
+    //    }
+    //    else {
+    //        [super setNilValueForKey:theKey];
+    //    }
 }
-
 
 
 @end

@@ -17,4 +17,6 @@
 
 + (NSHTTPCookie *) grabCookieForUrl:(NSURL *)url withName:(NSString *) name;
 
++(void)deleteCookies;
+
 @end

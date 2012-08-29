@@ -35,16 +35,41 @@
 +(NSString *)RootUriString
 {
     // Hamish's PC
-    //return @"http://dev.bowerbird.org.au";
+    return @"http://dev.bowerbird.org.au";
     
     // Bowerbird dev server
-    return @"http://136.154.22.24:65000";
+    //return @"http://136.154.22.24:65000";
 }
 
 // restful segments
 +(NSURL *)ProjectsUrl
 {
     return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [self RootUriString], @"/projects"]];
+}
+
+// only my sightings url
++(NSURL*)mySightingsUrl
+{
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [self RootUriString], @"/account/mysightings"]];
+}
+
+
+// sightings url
++(NSURL*)sightingsUrl
+{
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [self RootUriString], @"/account/allsightings"]];
+}
+
+// only my posts url
++(NSURL*)myPostsUrl
+{
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [self RootUriString], @"/account/myposts"]];
+}
+
+// posts url
++(NSURL*)postsUrl
+{
+    return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [self RootUriString], @"/account/allposts"]];
 }
 
 // restful segments
@@ -70,12 +95,12 @@
 
 +(NSArray*)AvatarTypes
 {
-    return [NSArray arrayWithObjects: @"Original", @"Square42", @"Square100", @"Square200", nil];
+    return [NSArray arrayWithObjects: @"Original", @"Square50", @"Square100", @"Square200", nil];
 }
 
 +(NSArray*)MediaImageTypes
 {
-    return [NSArray arrayWithObjects:@"Original",@"Square42", @"Square100", @"Square200",@"Full480",@"Full768",@"Full1024", nil];
+    return [NSArray arrayWithObjects:@"Original",@"Constrained240", @"Constrained480", @"Constrained600",@"Full1024",@"Full640",@"Full480", @"Square50", @"Square100", @"Square200", nil];
 }
 
 +(NSString *)NameOfAvatarDisplayImage
@@ -85,7 +110,7 @@
 
 +(NSString*)NameOfMediaResourceDisplayImage
 {
-    return @"Full768";
+    return @"Square200";
 }
 
 +(NSString *)CookieName

@@ -24,7 +24,6 @@
     
     BBUserChatViewController *userChatViewController = [[BBUserChatViewController alloc] initWithStyle:UITableViewStylePlain];
     BBGroupChatViewController *groupChatViewController = [[BBGroupChatViewController alloc] initWithStyle:UITableViewStylePlain];
-
     
     userChatViewController.title = @"Users Online";
     groupChatViewController.title = @"Group Chats";

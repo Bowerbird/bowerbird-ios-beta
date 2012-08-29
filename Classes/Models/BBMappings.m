@@ -15,42 +15,56 @@
     
     // Image mapping
     RKObjectMapping *imageMapping = [RKObjectMapping mappingForClass:[BBImage class]];
-    //imageMapping.forceCollectionMapping = YES;
-    [imageMapping mapKeyOfNestedDictionaryToAttribute:@"imageDimensionName"];
-    [imageMapping mapKeyPath:@"(imageDimensionName).FileName" toAttribute:@"fileName"];
-    [imageMapping mapKeyPath:@"(imageDimensionName).RelativeUri" toAttribute:@"relativeUri"];
-    [imageMapping mapKeyPath:@"(imageDimensionName).Format" toAttribute:@"format"];
-    [imageMapping mapKeyPath:@"(imageDimensionName).Width" toAttribute:@"width"];
-    [imageMapping mapKeyPath:@"(imageDimensionName).Height" toAttribute:@"height"];
-    [imageMapping mapKeyPath:@"(imageDimensionName).Extension" toAttribute:@"extension"];
-    [imageMapping mapKeyPath:@"(imageDimensionName).Size" toAttribute:@"size"];
-    [imageMapping mapKeyPath:@"(imageDimensionName).OriginalFilename" toAttribute:@"originalFileName"];
-    [imageMapping mapKeyPath:@"(imageDimensionName).ExifData" toAttribute:@"ExifData"];
+    [imageMapping mapKeyOfNestedDictionaryToAttribute:@"dimensionName"];
+    [imageMapping mapKeyPath:@"(dimensionName).Uri" toAttribute:@"uri"];
+    [imageMapping mapKeyPath:@"(dimensionName).Width" toAttribute:@"width"];
+    [imageMapping mapKeyPath:@"(dimensionName).Height" toAttribute:@"height"];
+    [imageMapping mapKeyPath:@"(dimensionName).MimeType" toAttribute:@"mimeType"];
     [manager.mappingProvider setMapping:imageMapping forKeyPath:@"Image"];
+
+    
+    // Audio mapping
+    RKObjectMapping *audioMapping = [RKObjectMapping mappingForClass:[BBAudio class]];
+    [audioMapping mapKeyOfNestedDictionaryToAttribute:@"dimensionName"];
+    [audioMapping mapKeyPath:@"(dimensionName).Uri" toAttribute:@"uri"];
+    [audioMapping mapKeyPath:@"(dimensionName).Width" toAttribute:@"width"];
+    [audioMapping mapKeyPath:@"(dimensionName).Height" toAttribute:@"height"];
+    [audioMapping mapKeyPath:@"(dimensionName).MimeType" toAttribute:@"mimeType"];
+    [manager.mappingProvider setMapping:audioMapping forKeyPath:@"Audio"];
  
 
-    // Avatar has a bunch of images
+    // MediaResource mapping
     RKObjectMapping *mediaResourceMapping = [RKObjectMapping mappingForClass:[BBMediaResource class]];
-    [mediaResourceMapping mapKeyPath:@"MediaType" toAttribute:@"mediaType"];
+    [mediaResourceMapping mapKeyPath:@"MediaResourceType" toAttribute:@"mediaType"];
     [mediaResourceMapping mapKeyPath:@"UploadedOn" toAttribute:@"uploadedOn"];
     [mediaResourceMapping mapKeyPath:@"Metadata" toAttribute:@"metaData"];
     [mediaResourceMapping mapKeyPath:@"Key" toAttribute:@"key"];
     [mediaResourceMapping mapKeyPath:@"Id" toAttribute:@"identifier"];
-    [mediaResourceMapping mapKeyPath:@"Image" toRelationship:@"media" withMapping:imageMapping];
+    [mediaResourceMapping mapKeyPath:@"Image" toRelationship:@"imageMedia" withMapping:imageMapping];
+    [mediaResourceMapping mapKeyPath:@"Audio" toRelationship:@"audioMedia" withMapping:audioMapping];
     [manager.mappingProvider setMapping:mediaResourceMapping forKeyPath:@"Avatar"];
     
     
-    // userMapping has an image
+    // Media Mapping (container of MediaResource)
+    RKObjectMapping *mediaMapping = [RKObjectMapping mappingForClass:[BBMedia class]];
+    [mediaMapping mapKeyPath:@"Description" toAttribute:@"description"];
+    [mediaMapping mapKeyPath:@"IsPrimaryMedia" toAttribute:@"isPrimaryMedia"];
+    [mediaMapping mapKeyPath:@"Licence" toAttribute:@"licence"];
+    [mediaMapping mapKeyPath:@"MediaResource" toRelationship:@"mediaResource" withMapping:mediaResourceMapping];
+    [manager.mappingProvider setMapping:mediaMapping forKeyPath:@"Media"];
+    
+    
+    // User Mapping
     RKObjectMapping *userMapping = [RKObjectMapping mappingForClass:[BBUser class]];
     [userMapping mapKeyPath:@"Id" toAttribute:@"identifier"];
     [userMapping mapKeyPath:@"FirstName" toAttribute:@"firstName"];
     [userMapping mapKeyPath:@"LastName" toAttribute:@"lastName"];
-    //[userMapping mapKeyPath:@"Name" toAttribute:@"name"];
+    [userMapping mapKeyPath:@"Name" toAttribute:@"name"];
     [userMapping mapKeyPath:@"Avatar" toRelationship:@"avatar" withMapping:mediaResourceMapping];
     [manager.mappingProvider setMapping:userMapping forKeyPath:@"User"];
     
     
-    // Map the user's memberships
+    // Membership Mapping
     RKObjectMapping *membership = [RKObjectMapping mappingForClass:[BBMembership class]];
     [membership mapKeyPath:@"GroupId" toAttribute:@"groupId"];
     [membership mapKeyPath:@"GroupType" toAttribute:@"groupType"];
@@ -59,7 +73,7 @@
     [manager.mappingProvider setMapping:membership forKeyPath:@"Memberships"];
     
     
-    // Project has an avatar
+    // Project Mapping
     RKObjectMapping *projectMapping = [RKObjectMapping mappingForClass:[BBProject class]];
     [projectMapping mapKeyPath:@"Id" toAttribute:@"identifier"];
     [projectMapping mapKeyPath:@"Name" toAttribute:@"name"];
@@ -69,18 +83,8 @@
     [projectMapping mapKeyPath:@"Avatar" toRelationship:@"avatar" withMapping:mediaResourceMapping];
     [manager.mappingProvider setMapping:projectMapping forKeyPath:@"Project"];
 
-    
-    // Map a paged project list
-    RKObjectMapping *projectsPagination = [RKObjectMapping mappingForClass:[BBProjectPaginator class]];
-    projectsPagination.rootKeyPath = @"Model.Projects";
-    [projectsPagination mapKeyPath:@"Page" toAttribute:@"currentPage"];
-    [projectsPagination mapKeyPath:@"PageSize" toAttribute:@"perPage"];
-    [projectsPagination mapKeyPath:@"TotalResultCount" toAttribute:@"objectCount"];
-    [projectsPagination mapKeyPath:@"PagedListItems" toRelationship:@"projects" withMapping:projectMapping];
-    [manager.mappingProvider setMapping:projectsPagination forKeyPath:@"Model.Projects"];
-    
-    
-    // Map the Authenticated user
+
+    // Authenticated User Mapping
     RKObjectMapping *authenticatedUser = [RKObjectMapping mappingForClass:[BBAuthenticatedUser class]];
     authenticatedUser.rootKeyPath = @"Model";
     [authenticatedUser mapKeyPath:@"User" toRelationship:@"user" withMapping:userMapping];
@@ -92,13 +96,22 @@
     [manager.mappingProvider setSerializationMapping:authenticatedUser forClass:[BBAuthenticatedUser class]];
     
     
-    // Map the Observation
+    // Observation Mapping
     RKObjectMapping *observation = [RKObjectMapping mappingForClass:[BBObservation class]];
     [manager.mappingProvider setMapping:observation forKeyPath:@"Observation"];
+    [observation mapKeyPath:@"ObservedOn" toAttribute:@"observedOnDate"]; // will need parsing
+    [observation mapKeyPath:@"Title" toAttribute:@"title"];
+    [observation mapKeyPath:@"Address" toAttribute:@"address"];
+    [observation mapKeyPath:@"AnonymiseLocation" toAttribute:@"anonymiseLocation"];
+    [observation mapKeyPath:@"Id" toAttribute:@"identifier"];
+    [observation mapKeyPath:@"IsIdentificationRequired" toAttribute:@"isIdentificationRequired"];
+    [observation mapKeyPath:@"Latitude" toAttribute:@"latitude"];
+    [observation mapKeyPath:@"Longitude" toAttribute:@"longitude"];
+    [observation mapKeyPath:@"Category" toAttribute:@"category"];
     [manager.mappingProvider setSerializationMapping:observation forClass:[BBObservation class]];
     
     
-    // Map the Authentication response
+    // Authentication Response Mapping
     RKObjectMapping *authentication = [RKObjectMapping mappingForClass:[BBAuthentication class]];
     authentication.rootKeyPath = @"Model";
     [authentication mapKeyPath:@"User" toRelationship:@"authenticatedUser" withMapping:userMapping];
@@ -106,14 +119,14 @@
     [manager.mappingProvider setSerializationMapping:authentication forClass:[BBAuthentication class]];
     
     
-    // Map the Login Request
+    // Login Request Mapping (this may be obsolete)
     RKObjectMapping *loginRequest = [RKObjectMapping mappingForClass:[BBLoginRequest class]];
     [loginRequest mapKeyPath:@"email" toAttribute:@"email"];
     [loginRequest mapKeyPath:@"password" toAttribute:@"password"];
     [manager.mappingProvider setMapping:loginRequest forKeyPath:@"Login"];
     
     
-    // Map the Activity
+    // Activity Mapping
     RKObjectMapping *activityMapping = [RKObjectMapping mappingForClass:[BBActivity class]];
     [activityMapping mapKeyPath:@"Id" toAttribute:@"identifier"];
     [activityMapping mapKeyPath:@"CreatedDateTime" toAttribute:@"createdOn"];
@@ -121,12 +134,20 @@
     [activityMapping mapKeyPath:@"CreatedDateTimeOrder" toAttribute:@"order"];
     [activityMapping mapKeyPath:@"Type" toAttribute:@"type"];
     [activityMapping mapKeyPath:@"User" toRelationship:@"user" withMapping:userMapping];
-    //[activityMapping mapKeyPath:@"ObservationAdded.Observation" toRelationship:@"observation" withMapping:observation];
-    // no groups mapping yet..
-    //[manager.mappingProvider setMapping:activityMapping forKeyPath:@"Activities"];
+    [activityMapping mapKeyPath:@"ObservationAdded.Observation" toRelationship:@"observation" withMapping:observation];
     [manager.mappingProvider setSerializationMapping:activityMapping forClass:[BBActivity class]];
     
     
+    // Project Pagination Mapping
+    RKObjectMapping *projectPagination = [RKObjectMapping mappingForClass:[BBProjectPaginator class]];
+    projectPagination.rootKeyPath = @"Model.Projects";
+    [projectPagination mapKeyPath:@"Page" toAttribute:@"currentPage"];
+    [projectPagination mapKeyPath:@"PageSize" toAttribute:@"perPage"];
+    [projectPagination mapKeyPath:@"TotalResultCount" toAttribute:@"objectCount"];
+    [projectPagination mapKeyPath:@"PagedListItems" toRelationship:@"projects" withMapping:projectMapping];
+    [manager.mappingProvider setMapping:projectPagination forKeyPath:@"Model.Projects"];
+    
+        
     // Map the Activity paginator
     RKObjectMapping *activityPagination = [RKObjectMapping mappingForClass:[BBActivityPaginator class]];
     activityPagination.rootKeyPath = @"Model.Activities";
@@ -136,24 +157,17 @@
     [activityPagination mapKeyPath:@"PagedListItems" toRelationship:@"activities" withMapping:activityMapping];
     [manager.mappingProvider setMapping:activityPagination forKeyPath:@"Model.Activities"];
     [manager.mappingProvider setSerializationMapping:activityPagination forClass:[BBActivityPaginator class]];
+
     
-    
-//    RKObjectMapping *argsMapping = [RKObjectMapping mappingForClass:[NSArray class]];
-//    [argsMapping hasMany:<#(NSString *)#> withMapping:<#(RKObjectMappingDefinition *)#>]
-    
-    
-    // mapping signalR response payload
-    RKObjectMapping *signalRPayload = [RKObjectMapping mappingForClass:[BBSignalRPayload class]];
-    //signalRPayload.forceCollectionMapping = YES;
-    [signalRPayload mapKeyPath:@"Hub" toAttribute:@"hubName"];
-    [signalRPayload mapKeyPath:@"Args" toAttribute:@"args"];
-    [signalRPayload mapKeyPath:@"Method" toAttribute:@"method"];
-    //[signalRPayload mapKeyPath:@"State" toAttribute:@"state"];
-    signalRPayload.ignoreUnknownKeyPaths = YES;
-    [manager.mappingProvider setMapping:signalRPayload forKeyPath:@""];
-    [manager.mappingProvider setSerializationMapping:signalRPayload forClass:[BBSignalRPayload class]];
-    
-    
+    // Map the Sightings Paginator
+    RKObjectMapping *sightingPagination = [RKObjectMapping mappingForClass:[BBSightingPaginator class]];
+    sightingPagination.rootKeyPath = @"Model.Sightings";
+    [sightingPagination mapKeyPath:@"Page" toAttribute:@"currentPage"];
+    [sightingPagination mapKeyPath:@"PageSize" toAttribute:@"perPage"];
+    [sightingPagination mapKeyPath:@"TotalResultCount" toAttribute:@"objectCount"];
+    // TODO: make this a dynamic mapping to map to either observation or record depending on id
+    [sightingPagination mapKeyPath:@"PagedListItems" toRelationship:@"sightings" withMapping:observation];
+
 }
 
 @end

@@ -7,14 +7,9 @@
  -----------------------------------------------------------------------------------------------*/
 
 #import <UIKit/UIKit.h>
-#import <RestKit/RestKit.h>
+#import "BBHelpers.h"
 #import "BBModels.h"
-#import "BBProtocols.h"
-#import "JCMSegmentPageController.h"
-#import "BBPostsViewController.h"
-#import "BBActivitiesViewController.h"
-#import "BBSightingsViewController.h"
 
-@interface BBHomeViewController : JCMSegmentPageController <JCMSegmentPageControllerDelegate>
+@interface BBSettingsViewController : UIViewController
 
 @end

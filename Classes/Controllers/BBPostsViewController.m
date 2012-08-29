@@ -36,12 +36,12 @@
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     
     BBActivity* activity = [self.activities objectAtIndex:indexPath.row];
-    BBImage* activityUserImage = [activity.user.avatar.media objectAtIndex:(activity.user.avatar.media.count - 1)];
+    BBImage* activityUserImage = [activity.user.avatar.imageMedia objectAtIndex:(activity.user.avatar.imageMedia.count - 1)];
     
     cell.textLabel.text = activity.user.firstName;
     cell.detailTextLabel.text = activity.description;
 	
-    [cell.imageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [BBConstants RootUriString],activityUserImage.relativeUri]] placeholderImage:[UIImage imageNamed:@"loader.png"]];
+    [cell.imageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [BBConstants RootUriString],activityUserImage.uri]] placeholderImage:[UIImage imageNamed:@"loader.png"]];
     
     if([BBConstants Trace])NSLog(@"text: %@ detail: %@", activity.user.firstName, activity.description);
     

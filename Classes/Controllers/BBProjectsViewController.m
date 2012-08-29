@@ -87,11 +87,11 @@
     }
     
     BBProject* project = [self.projects objectAtIndex:indexPath.row];
-    BBImage* projectImage = [project.avatar.media objectAtIndex:(project.avatar.media.count - 1)];
+    BBImage* projectImage = [project.avatar.imageMedia objectAtIndex:(project.avatar.imageMedia.count - 1)];
     
     cell.textLabel.text = project.name;
     cell.detailTextLabel.text = project.description;
-    [cell.imageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [BBConstants RootUriString],projectImage.relativeUri]] placeholderImage:[UIImage imageNamed:@"loader.png"]];
+    [cell.imageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [BBConstants RootUriString],projectImage.uri]] placeholderImage:[UIImage imageNamed:@"loader.png"]];
     
     return cell;
 }

@@ -10,11 +10,12 @@
 #import <RestKit/RestKit.h>
 #import "BBModels.h"
 #import "BBProtocols.h"
-#import "JCMSegmentPageController.h"
-#import "BBPostsViewController.h"
-#import "BBActivitiesViewController.h"
-#import "BBSightingsViewController.h"
+#import "BBHelpers.h"
+#import "UIImageView+WebCache.h"
 
-@interface BBHomeViewController : JCMSegmentPageController <JCMSegmentPageControllerDelegate>
+@interface BBSightingsViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, RKObjectLoaderDelegate>
+
+// this should really be an NSSet
+@property (nonatomic, strong) NSArray* sightings;
 
 @end

@@ -6,28 +6,29 @@
  
  -----------------------------------------------------------------------------------------------*/
 
-#import "BBProjectTableViewController.h"
+#import "BBSightingsViewController.h"
 
-@implementation BBProjectTableViewController
+@implementation BBSightingsViewController
 
-@synthesize projects = _projects;
+@synthesize sightings = _sightings;
+
 
 #pragma mark - Datasource and Data Loading methods
 
--(void)setProjects:(NSArray *)projects
+-(void)setSightings:(NSArray *)sightings
 {
-    if([BBConstants Trace]) NSLog(@"BBProjectTableViewController.setProjects");
+    if([BBConstants Trace]) NSLog(@"BBObservationsViewController.setObservations:");
     
-    _projects = projects;
+    _sightings = sightings;
     
     [self.tableView reloadData];
 }
- 
--(void)loadProjects
+
+-(void)loadSightings
 {
-    if([BBConstants Trace])NSLog(@"ProjectTableViewController.loadProjects");
+    if([BBConstants Trace])NSLog(@"BBObservationsViewController.loadObservations");
     
-    NSString* url = [NSString stringWithFormat:@"%@?%@",[BBConstants ProjectsUrl], [BBConstants AjaxQuerystring]];
+    NSString* url = [NSString stringWithFormat:@"%@?%@",[BBConstants sightingsUrl], [BBConstants AjaxQuerystring]];
     
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:url delegate:self];
 }
@@ -36,9 +37,9 @@
 {
     if([BBConstants Trace])NSLog(@"Object Response: %@", object);
     
-    if([object isKindOfClass:[BBProjectPaginator class]])
+    if([object isKindOfClass:[BBSightingPaginator class]])
     {
-        self.projects = ((BBProjectPaginator*)object).projects;
+        self.sightings = ((BBSightingPaginator*)object).sightings;
     }
 }
 
@@ -62,32 +63,35 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Project Detail";
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	static NSString *CellIdentifier = @"Observation Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-    }
+	if (cell == nil)
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     
-    BBProject* project = [self.projects objectAtIndex:indexPath.row];
-    BBImage* projectImage = [project.avatar.imageMedia objectAtIndex:(project.avatar.imageMedia.count - 1)];
+    BBSighting* sighting = [self.sightings objectAtIndex:indexPath.row];
     
-    cell.textLabel.text = project.name;
-    cell.detailTextLabel.text = project.description;
-    
-    [cell.imageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [BBConstants RootUriString],projectImage.uri]] placeholderImage:[UIImage imageNamed:@"loader.png"]];
-    
-    return cell;
+    cell.textLabel.text = sighting.user.firstName;
+    cell.detailTextLabel.text = sighting.description;
+	
+    // need to drill down to new property for the uri of the primary media.
+    //[cell.imageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [BBConstants RootUriString], [[observation.primaryMedia.media objectAtIndex:0] url??]]] placeholderImage:[UIImage imageNamed:@"loader.png"]];
+
+	return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.projects count];
+	return self.sightings.count;
 }
 
-- (void)tableView:(UITableView *)sender didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+	NSLog(@"%@, parent is %@", self.title, self.parentViewController);
     
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+	// do something....
 }
 
 
@@ -98,24 +102,13 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
-        if([BBConstants Trace])NSLog(@"BBProjectTableViewController.initWithStyle");
-        
-        [self loadProjects];
+        if([BBConstants Trace])NSLog(@"BBObservationsViewController.initWithStyle");
     }
     return self;
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    [self loadProjects];
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    if([BBConstants Trace]) NSLog(@"BBProjectTableViewController.shouldAutorotateToInterfaceOrientation:");
-    
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 

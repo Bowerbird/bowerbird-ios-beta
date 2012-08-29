@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "BBModels.h"
 
+@class BBMediaResource;
+
 @interface BBUser : NSObject
 
 @property (nonatomic, strong) NSString *identifier;

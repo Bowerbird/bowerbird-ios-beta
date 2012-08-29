@@ -14,9 +14,8 @@
                  mediaType = _mediaType,
                 uploadedOn = _uploadedOn,
                   metaData = _metaData,
-                   //image = _image,
-                     media = _media,
-                      //user = _user,
+                imageMedia = _imageMedia,
+                audioMedia = _audioMedia,
                description = _description,
                    licence = _licence,
                        key = _key,
@@ -76,22 +75,41 @@
 }
 
 
--(void)setMedia:(NSArray *)media
+-(void)setImageMedia:(NSArray *)imageMedia
 {
-    _media = media;
+    _imageMedia = imageMedia;
 }
--(NSArray*)media
+-(NSArray*)imageMedia
 {
-    if(!_media)_media = [[NSArray alloc]init];
-    return _media;
+    if(!_imageMedia)_imageMedia = [[NSArray alloc]init];
+    return _imageMedia;
 }
--(NSUInteger)countOfMedia
+-(NSUInteger)countOfImageMedia
 {
-    return [self.media count];
+    return [self.imageMedia count];
 }
--(id)objectInMediaAtIndex:(NSUInteger)index
+-(id)objectInImageMediaAtIndex:(NSUInteger)index
 {
-    return [self.media objectAtIndex:index];
+    return [self.imageMedia objectAtIndex:index];
+}
+
+
+-(void)setAudioMedia:(NSArray *)audioMedia
+{
+    _audioMedia = audioMedia;
+}
+-(NSArray*)audioMedia
+{
+    if(!_audioMedia)_audioMedia = [[NSArray alloc]init];
+    return _audioMedia;
+}
+-(NSUInteger)countOfAudioMedia
+{
+    return [self.audioMedia count];
+}
+-(id)objectInAudioMediaAtIndex:(NSUInteger)index
+{
+    return [self.audioMedia objectAtIndex:index];
 }
 
 
@@ -155,5 +173,10 @@
     }
 }
 
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key
+{
+    // Id is the serverside representation of identifier.. had to change because of keyword id.
+    if([key isEqualToString:@"Id"]) self.identifier = value;
+}
 
 @end

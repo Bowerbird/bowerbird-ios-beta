@@ -12,11 +12,11 @@
 #import "SignalR.h"
 
 @interface BBUserHubClient : NSObject <SRConnectionDelegate>
-{
-    SRHubConnection *connection;
-    SRHubProxy *userHub;
-    NSMutableArray *onlineUsers;
-}
+//{
+//    SRHubConnection *connection;
+//    SRHubProxy *userHub;
+//    NSMutableSet *onlineUsers;
+//}
 
 
 @property (nonatomic, retain) SRHubConnection* connection;

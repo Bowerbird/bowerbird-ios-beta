@@ -9,17 +9,18 @@
 #import <Foundation/Foundation.h>
 #import "BBModels.h"
 
-@interface BBMediaResource : NSObject
+@interface BBSighting : NSObject
 
 @property (nonatomic,retain) NSString* identifier;
-@property (nonatomic,retain) NSString* mediaType;
-@property (nonatomic,retain) NSDate* uploadedOn;
-@property (nonatomic,retain) NSDictionary* metaData;
-@property (nonatomic,retain) NSArray* imageMedia;
-@property (nonatomic,retain) NSArray* audioMedia;
-@property (nonatomic,retain) NSString* description;
-@property (nonatomic,retain) NSString* licence;
-@property (nonatomic,retain) NSString* key;
-@property BOOL isPrimaryMedia;
+@property (nonatomic,retain) NSString* title;
+@property (nonatomic,retain) NSDate* observedOnDate;
+@property (nonatomic,retain) NSString* address;
+@property float latitude;
+@property float longitude;
+@property BOOL anonymiseLocation;
+@property (nonatomic,retain) NSString* category;
+@property (nonatomic,retain) BBUser* user;
+@property (nonatomic,retain) NSArray* comments;
+@property (nonatomic,retain) NSSet* projectIds;
 
 @end

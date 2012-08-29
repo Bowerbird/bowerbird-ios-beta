@@ -27,7 +27,7 @@
 }
 -(id)objectInActivitiesAtIndex:(NSUInteger)index
 {
-    return [_activities objectAtIndex:index];
+    return [self.activities objectAtIndex:index];
 }
 
 @end

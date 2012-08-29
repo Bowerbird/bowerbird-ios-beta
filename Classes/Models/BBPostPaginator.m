@@ -6,15 +6,28 @@
  
  -----------------------------------------------------------------------------------------------*/
 
-#import <UIKit/UIKit.h>
-#import <RestKit/RestKit.h>
-#import "BBModels.h"
-#import "BBProtocols.h"
-#import "JCMSegmentPageController.h"
-#import "BBPostsViewController.h"
-#import "BBActivitiesViewController.h"
-#import "BBSightingsViewController.h"
+#import "BBPostPaginator.h"
 
-@interface BBHomeViewController : JCMSegmentPageController <JCMSegmentPageControllerDelegate>
+@implementation BBPostPaginator
+
+@synthesize posts = _posts;
+
+-(void)setPosts:(NSArray *)posts
+{
+    _posts  = posts;
+}
+-(NSArray*)posts
+{
+    if(!_posts)_posts = [[NSArray alloc]init];
+    return _posts;
+}
+-(NSUInteger)countOfPosts
+{
+    return [self.posts count];
+}
+-(id)objectInPostsAtIndex:(NSUInteger)index
+{
+    return [self.posts objectAtIndex:index];
+}
 
 @end

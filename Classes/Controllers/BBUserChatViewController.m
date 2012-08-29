@@ -41,11 +41,11 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-
     BBUserHubClient* userHub = [BBUserHubClient sharedInstance];
     
     self.onlineUsers = [[NSArray alloc]initWithObjects:userHub.onlineUsers, nil];
+    
+    [super viewDidLoad];
 }
 
 - (void)viewDidUnload
@@ -81,12 +81,12 @@
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     
     BBUser* user = [self.onlineUsers objectAtIndex:indexPath.row];
-    BBImage* activityUserImage = [user.avatar.media objectAtIndex:(user.avatar.media.count - 1)];
+    //BBImage* activityUserImage = [user.avatar.media objectAtIndex:(user.avatar.media.count - 1)];
     
     cell.textLabel.text = user.name;
     cell.detailTextLabel.text = @"(online)";
 	
-    [cell.imageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [BBConstants RootUriString],activityUserImage.relativeUri]] placeholderImage:[UIImage imageNamed:@"loader.png"]];
+    //[cell.imageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [BBConstants RootUriString],activityUserImage.relativeUri]] placeholderImage:[UIImage imageNamed:@"loader.png"]];
     
 	return cell;
 }

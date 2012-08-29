@@ -31,18 +31,18 @@ static BBUserHubClient* bowerbirdUserHubClient = nil;
     if([BBConstants Trace])NSLog(@"BBUserHubClient.connectToUserHub with: %@", userId);
     
     NSString *server = [BBConstants RootUriString];
-    connection = [SRHubConnection connectionWithURL:server];
-    userHub = [connection createProxy:@"UserHub"];
+    self.connection = [SRHubConnection connectionWithURL:server];
+    self.userHub = [self.connection createProxy:@"UserHub"];
     
-    [userHub on:@"setupOnlineUsers" perform:self selector:@selector(setupOnlineUsers:)];
-    [userHub on:@"userStatusUpdate" perform:self selector:@selector(userStatusUpdate:)];
+    [self.userHub on:@"setupOnlineUsers" perform:self selector:@selector(setupOnlineUsers:)];
+    [self.userHub on:@"userStatusUpdate" perform:self selector:@selector(userStatusUpdate:)];
     
-    [connection setDelegate:self];
-    [connection start];
+    [self.connection setDelegate:self];
+    [self.connection start];
     
-    if(onlineUsers == nil)
+    if(self.onlineUsers == nil)
     {
-        onlineUsers = [[NSMutableArray alloc] init];
+        self.onlineUsers = [[NSMutableSet alloc] init];
     }
 }
 
@@ -50,10 +50,10 @@ static BBUserHubClient* bowerbirdUserHubClient = nil;
 {
     abort();
     
-    [connection stop];
-    userHub = nil;
-    connection.delegate = nil;
-    connection = nil;
+    [self.connection stop];
+    self.userHub = nil;
+    self.connection.delegate = nil;
+    self.connection = nil;
 }
 
 
@@ -109,7 +109,7 @@ static BBUserHubClient* bowerbirdUserHubClient = nil;
     
     BBApplicationData* appData = [BBApplicationData sharedInstance];
         
-    [userHub invoke:@"RegisterUserClient" withArgs:[NSArray arrayWithObjects:appData.authenticatedUser.user.identifier, nil]];
+    [self.userHub invoke:@"RegisterUserClient" withArgs:[NSArray arrayWithObjects:appData.authenticatedUser.user.identifier, nil]];
 }
 
 - (void)SRConnection:(SRConnection *)connection didReceiveData:(NSString *)data

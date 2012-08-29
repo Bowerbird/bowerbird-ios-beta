@@ -61,4 +61,17 @@
     return nil;
 }
 
++(void)deleteCookies
+{
+    NSHTTPCookieStorage *sharedHTTPCookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    NSArray *cookies = [sharedHTTPCookieStorage cookiesForURL:[BBConstants RootUri]];
+    
+    NSEnumerator *enumerator = [cookies objectEnumerator];
+    NSHTTPCookie *cookie;
+    while (cookie = [enumerator nextObject])
+    {
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
+    }
+}
+
 @end

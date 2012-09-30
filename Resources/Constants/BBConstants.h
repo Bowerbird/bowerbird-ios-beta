@@ -52,4 +52,10 @@
 
 +(NSString*)AjaxQuerystring;
 
++(int)AwaySeconds;
+
++(int)OfflineSeconds;
+
++(int)DisappearSeconds;
+
 @end

@@ -6,13 +6,12 @@
  
  -----------------------------------------------------------------------------------------------*/
 
-#import <UIKit/UIKit.h>
-#import "BBHelpers.h"
-#import "BBModels.h"
-#import "UIImageView+WebCache.h"
+#import <Foundation/Foundation.h>
 
-@interface BBUserChatViewController : UITableViewController
+@interface BBLog : NSObject
 
-@property (nonatomic, strong) NSMutableArray* onlineUsers;
++(void)Log:(id)message;
+
++(void)LogStringArray:(NSArray*)params;
 
 @end

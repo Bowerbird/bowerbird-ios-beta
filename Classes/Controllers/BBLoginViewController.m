@@ -9,10 +9,8 @@
 #import "BBLoginViewController.h"
 
 @interface BBLoginViewController ()
-
 @property (nonatomic, strong) NSString* email;
 @property (nonatomic, strong) NSString* password;
-
 @end
 
 @implementation BBLoginViewController
@@ -21,7 +19,8 @@
 @synthesize password = _password;
 
 
-#pragma mark - Wire up UI Actions
+#pragma mark -
+#pragma mark - UI Activity
 
 -(void)viewDidLoad
 {
@@ -36,6 +35,7 @@
     
     if([BBConstants Trace]) NSLog(@"User entered email: %@", self.email);
 }
+
 - (IBAction)userPassword:(UITextField *)sender
 {
     if([BBConstants Trace]) NSLog(@"LoginViewController.userPassword:");
@@ -45,13 +45,12 @@
     if([BBConstants Trace]) NSLog(@"User entered email: %@", self.password);
 }
 
-// when user presses login, make the request to the server
 - (IBAction)logUserIn:(id)sender
 {
     if([BBConstants Trace]) NSLog(@"LoginViewController.logUserIn:");
     
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
-                                   
+    
     [params setObject:self.email forKey:@"email"];
     [params setObject:self.password forKey:@"password"];
     [params setObject:@"true" forKey:@"rememberme"];
@@ -60,9 +59,13 @@
     [[RKClient sharedClient] post:@"/account/login" params:params delegate:self];
 }
 
+
+#pragma mark -
+#pragma mark - RESTful Activity
+
 - (void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response
 {
-    if ([request isGET])
+    if ([request isGET]) // Load Profile
     {
         if ([response isOK] && [response isJSON])
         {
@@ -84,9 +87,8 @@
         
         }
     }
-    else if ([request isPOST])
+    else if ([request isPOST]) // Login Attempt
     {
-        // Handling POST /other.json
         if ([response isOK] && [response isJSON])
         {   
             NSError* error = nil;
@@ -104,19 +106,9 @@
                 
                 appData.user = auth.authenticatedUser;
                 
-                NSString* url = [NSString stringWithFormat:@"%@?%@",[BBConstants AuthenticatedUserProfileUrl], [BBConstants AjaxQuerystring]];
-                
-                [[RKObjectManager sharedManager] loadObjectsAtResourcePath:url delegate:self];
+                [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"%@?%@",[BBConstants AuthenticatedUserProfileUrl], [BBConstants AjaxQuerystring]]
+                                                                  delegate:self];
             }
-            
-            NSLog(@"Got a JSON response back from our POST!");
-        }
-    }
-    else if ([request isDELETE])
-    {
-        // Handling DELETE /missing_resource.txt
-        if ([response isNotFound]) {
-            NSLog(@"The resource path '%@' was not found.", [request resourcePath]);
         }
     }
 }
@@ -130,10 +122,9 @@
         BBApplicationData* appData = [BBApplicationData sharedInstance];
         
         appData.user = (BBUser*)object;
-        
-        NSString* url = [NSString stringWithFormat:@"%@?%@",[BBConstants AuthenticatedUserProfileUrl], [BBConstants AjaxQuerystring]];
-        
-        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:url delegate:self];
+
+        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"%@?%@",[BBConstants AuthenticatedUserProfileUrl], [BBConstants AjaxQuerystring]]
+                                                          delegate:self];
     }
     
     if([object isKindOfClass:[BBAuthenticatedUser class]])
@@ -141,6 +132,10 @@
         BBApplicationData* appData = [BBApplicationData sharedInstance];
         
         appData.authenticatedUser = (BBAuthenticatedUser*)object;
+        
+        // connect said user to the user hub for notifications
+        BBUserHubClient* userHub = [BBUserHubClient sharedInstance];
+        [userHub connectToUserHub:appData.authenticatedUser.user.identifier];
         
         [self performSelector:@selector(segueToLoadActivity)withObject:self afterDelay:1];
     }
@@ -161,6 +156,11 @@
 {
     if([BBConstants Trace])NSLog(@"Unexpected Response: %@", objectLoader.response.bodyAsString);
 }
+
+
+
+#pragma mark -
+#pragma mark - Navigation Activity
 
 -(void)segueToLoadActivity
 {

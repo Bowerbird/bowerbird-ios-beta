@@ -10,17 +10,17 @@
 
 @interface BBUserChatViewController ()
 
+-(void)handleUserStatusChanged;
+
 @end
 
 @implementation BBUserChatViewController
 
-
 @synthesize onlineUsers = _onlineUsers;
-
 
 #pragma mark - Datasource and Data Loading methods
 
--(void)setOnlineUsers:(NSArray *)onlineUsers
+-(void)setOnlineUsers:(NSMutableArray *)onlineUsers
 {
     if([BBConstants Trace]) NSLog(@"BBActivitiesViewController.setActivities:");
     
@@ -29,6 +29,10 @@
     [self.tableView reloadData];
 }
 
+-(void)handleUserStatusChanged
+{
+    [self.tableView reloadData];
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -43,7 +47,18 @@
 {
     BBUserHubClient* userHub = [BBUserHubClient sharedInstance];
     
-    self.onlineUsers = [[NSArray alloc]initWithObjects:userHub.onlineUsers, nil];
+    self.onlineUsers = userHub.onlineUsers;
+    
+    // http://www.idev101.com/code/Cocoa/Notifications.html
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleUserStatusChanged)
+                                                 name:@"userStatusChanged"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleUserStatusChanged)
+                                                 name:@"userAdded"
+                                               object:nil];
     
     [super viewDidLoad];
 }
@@ -52,7 +67,7 @@
 {
     [super viewDidUnload];
     // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -78,57 +93,18 @@
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	
     if (cell == nil)
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
     
     BBUser* user = [self.onlineUsers objectAtIndex:indexPath.row];
-    //BBImage* activityUserImage = [user.avatar.media objectAtIndex:(user.avatar.media.count - 1)];
     
+    cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
     cell.textLabel.text = user.name;
-    cell.detailTextLabel.text = @"(online)";
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"(%@)", [BBEnumHelper onlineStatus:user.userStatus]];
 	
     //[cell.imageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [BBConstants RootUriString],activityUserImage.relativeUri]] placeholderImage:[UIImage imageNamed:@"loader.png"]];
     
 	return cell;
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 

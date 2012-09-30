@@ -6,13 +6,8 @@
  
  -----------------------------------------------------------------------------------------------*/
 
-#import <UIKit/UIKit.h>
-#import "BBHelpers.h"
-#import "BBModels.h"
-#import "UIImageView+WebCache.h"
+#import <Foundation/Foundation.h>
 
-@interface BBUserChatViewController : UITableViewController
-
-@property (nonatomic, strong) NSMutableArray* onlineUsers;
+@interface BBPrivateChatController : NSObject
 
 @end

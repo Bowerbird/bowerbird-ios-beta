@@ -13,7 +13,7 @@
 
 @interface BBProjectTableViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, RKObjectLoaderDelegate>
 
-@property (nonatomic, strong) NSArray* projects;
+@property (nonatomic, strong) NSMutableArray* projects;
 
 - (NSInteger)tableView:(UITableView *)sender numberOfRowsInSection:(NSInteger)section;
 

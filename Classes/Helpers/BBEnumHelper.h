@@ -6,13 +6,12 @@
  
  -----------------------------------------------------------------------------------------------*/
 
-#import <UIKit/UIKit.h>
-#import "BBHelpers.h"
-#import "BBModels.h"
-#import "UIImageView+WebCache.h"
+#import <Foundation/Foundation.h>
 
-@interface BBUserChatViewController : UITableViewController
+@interface BBEnumHelper : NSObject
 
-@property (nonatomic, strong) NSMutableArray* onlineUsers;
+typedef enum { online, away, offline } UserStatus;
+
++(NSString*)onlineStatus:(UserStatus)status;
 
 @end

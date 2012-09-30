@@ -99,15 +99,15 @@
     [super viewDidLoad];
 }
 
+// load up the logged in user's profile (projects et al)
 -(void)loadAuthenticatedUser
 {
     if([BBConstants Trace])NSLog(@"BBLoadingViewController.loadProjects");
     
-    NSString* url = [NSString stringWithFormat:@"%@?%@",[BBConstants AuthenticatedUserProfileUrl], [BBConstants AjaxQuerystring]];
-    
-    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:url delegate:self];
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"%@?%@",[BBConstants AuthenticatedUserProfileUrl], [BBConstants AjaxQuerystring]] delegate:self];
 }
 
+// once the user's profile is loaded, connect them to the user hub
 - (void) objectLoader:(RKObjectLoader*)objectLoader didLoadObject:(id)object
 {
     if([BBConstants Trace])NSLog(@"Object Response: %@", object);

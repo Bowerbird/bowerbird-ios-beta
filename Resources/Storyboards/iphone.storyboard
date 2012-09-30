@@ -484,66 +484,6 @@
         <image name="settings.png" width="50" height="37"/>
         <image name="sighting.png" width="50" height="50"/>
     </resources>
-    <classes>
-        <class className="BBChatViewController" superclassName="JCMSegmentPageController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BBChatViewController.h"/>
-        </class>
-        <class className="BBHomeViewController" superclassName="JCMSegmentPageController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BBHomeViewController.h"/>
-        </class>
-        <class className="BBImagePicker" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BBImagePicker.h"/>
-        </class>
-        <class className="BBImagePickerViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BBImagePickerViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="getCameraPicture:"/>
-                <relationship kind="action" name="selectExistingPicture"/>
-                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="selectFromCameraRollButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="takePictureButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="BBLoadingView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BBLoadingView.h"/>
-        </class>
-        <class className="BBLoadingViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BBLoadingViewController.h"/>
-        </class>
-        <class className="BBLoginView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BBLoginView.h"/>
-        </class>
-        <class className="BBLoginViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BBLoginViewController.h"/>
-        </class>
-        <class className="BBMyProjects" superclassName="UITableView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BBMyProjects.h"/>
-        </class>
-        <class className="BBProjectTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BBProjectTableViewController.h"/>
-        </class>
-        <class className="BBProjectsTableView" superclassName="UITableView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BBProjectsTableView.h"/>
-        </class>
-        <class className="BBProjectsViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BBProjectsViewController.h"/>
-        </class>
-        <class className="BBRegisterView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BBRegisterView.h"/>
-        </class>
-        <class className="BBRegisterViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BBRegisterViewController.h"/>
-        </class>
-        <class className="BBSettingsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BBSettingsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="logMeOut:"/>
-            </relationships>
-        </class>
-        <class className="JCMSegmentPageController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/JCMSegmentPageController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

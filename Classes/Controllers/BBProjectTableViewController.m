@@ -14,7 +14,7 @@
 
 #pragma mark - Datasource and Data Loading methods
 
--(void)setProjects:(NSArray *)projects
+-(void)setProjects:(NSMutableArray *)projects
 {
     if([BBConstants Trace]) NSLog(@"BBProjectTableViewController.setProjects");
     
@@ -38,7 +38,7 @@
     
     if([object isKindOfClass:[BBProjectPaginator class]])
     {
-        self.projects = ((BBProjectPaginator*)object).projects;
+        self.projects = [NSMutableArray arrayWithArray:((BBProjectPaginator*)object).projects];
     }
 }
 

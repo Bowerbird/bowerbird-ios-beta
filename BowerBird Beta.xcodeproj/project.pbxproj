@@ -131,6 +131,12 @@
 		1C9D7BF615E4F3FE002D9425 /* MGButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C9D7BEF15E4F3FE002D9425 /* MGButton.m */; };
 		1C9D7BF715E4F3FE002D9425 /* MGScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C9D7BF115E4F3FE002D9425 /* MGScrollView.m */; };
 		1C9D7BF815E4F3FE002D9425 /* MGStyledBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C9D7BF315E4F3FE002D9425 /* MGStyledBox.m */; };
+		1CB0B9711613C188009BCE59 /* BBLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB0B9701613C188009BCE59 /* BBLog.m */; };
+		1CB0B974161523B6009BCE59 /* BBHash.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB0B973161523B6009BCE59 /* BBHash.m */; };
+		1CB0B9771615290F009BCE59 /* BBPrivateChatController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB0B9761615290F009BCE59 /* BBPrivateChatController.m */; };
+		1CB0B97A16152A26009BCE59 /* BBChatHubClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB0B97916152A26009BCE59 /* BBChatHubClient.m */; };
+		1CB0B97D16153554009BCE59 /* BBChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB0B97C16153554009BCE59 /* BBChat.m */; };
+		1CB0B98416155E09009BCE59 /* BBChatMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB0B98316155E09009BCE59 /* BBChatMessage.m */; };
 		1CC2E82D15E1D6940064FECA /* BBComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CC2E82C15E1D6930064FECA /* BBComment.m */; };
 		1CC2E83015E1DD530064FECA /* BBProjectTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CC2E82F15E1DD530064FECA /* BBProjectTableViewController.m */; };
 		1CC2E83315E1E5490064FECA /* BBMappings.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CC2E83215E1E5490064FECA /* BBMappings.m */; };
@@ -142,6 +148,8 @@
 		1CCD848315EDA0D800E7ECE5 /* BBMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CCD848215EDA0D700E7ECE5 /* BBMedia.m */; };
 		1CCD848615EDA4F200E7ECE5 /* BBAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CCD848515EDA4F200E7ECE5 /* BBAudio.m */; };
 		1CCD849515EDEBB000E7ECE5 /* BBSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CCD849415EDEBB000E7ECE5 /* BBSettingsViewController.m */; };
+		1CCE64AE1615702A00E638C7 /* BBChatUserTyping.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CCE64AD1615702A00E638C7 /* BBChatUserTyping.m */; };
+		1CCE64B1161577C700E638C7 /* BBGroupHubClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CCE64B0161577C700E638C7 /* BBGroupHubClient.m */; };
 		1CDF2DBC15E1B79900415318 /* BBGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF2DBB15E1B79900415318 /* BBGroup.m */; };
 		1CDF2DBF15E1B7D900415318 /* BBImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF2DBE15E1B7D900415318 /* BBImage.m */; };
 		1CDF2DC115E1B7E900415318 /* BBProject.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF2DC015E1B7E900415318 /* BBProject.m */; };
@@ -151,6 +159,7 @@
 		1CDF2DCD15E1BB2800415318 /* BBMediaResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF2DCC15E1BB2800415318 /* BBMediaResource.m */; };
 		1CDF2DD015E1BBCC00415318 /* BBPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF2DCF15E1BBCC00415318 /* BBPost.m */; };
 		1CDF2DD315E1BC1B00415318 /* BBObservationNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CDF2DD215E1BC1B00415318 /* BBObservationNote.m */; };
+		1CEE0EA71609914A00E2A8C4 /* BBEnumHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CEE0EA61609914A00E2A8C4 /* BBEnumHelper.m */; };
 		1CFE5D5615E6243A00953262 /* SRHubConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFE5D4615E6243A00953262 /* SRHubConnection.m */; };
 		1CFE5D5715E6243A00953262 /* SRHubInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFE5D4815E6243A00953262 /* SRHubInvocation.m */; };
 		1CFE5D5815E6243A00953262 /* SRHubProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFE5D4A15E6243A00953262 /* SRHubProxy.m */; };
@@ -405,7 +414,7 @@
 		1C78E28F15E5176E00620EF7 /* Environments.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Environments.plist; sourceTree = "<group>"; };
 		1C78E29915E5A1C800620EF7 /* BBUserChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBUserChatViewController.h; sourceTree = "<group>"; };
 		1C78E29A15E5A1C800620EF7 /* BBUserChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBUserChatViewController.m; sourceTree = "<group>"; };
-		1C9A854215DDE9B300D98F40 /* BowerBird Beta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BowerBird Beta.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C9A854215DDE9B300D98F40 /* BowerBird.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BowerBird.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C9A854615DDE9B300D98F40 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1C9A854815DDE9B300D98F40 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1C9A854A15DDE9B300D98F40 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -449,6 +458,18 @@
 		1C9D7BF115E4F3FE002D9425 /* MGScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGScrollView.m; sourceTree = "<group>"; };
 		1C9D7BF215E4F3FE002D9425 /* MGStyledBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGStyledBox.h; sourceTree = "<group>"; };
 		1C9D7BF315E4F3FE002D9425 /* MGStyledBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGStyledBox.m; sourceTree = "<group>"; };
+		1CB0B96F1613C188009BCE59 /* BBLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLog.h; sourceTree = "<group>"; };
+		1CB0B9701613C188009BCE59 /* BBLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLog.m; sourceTree = "<group>"; };
+		1CB0B972161523B6009BCE59 /* BBHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBHash.h; sourceTree = "<group>"; };
+		1CB0B973161523B6009BCE59 /* BBHash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBHash.m; sourceTree = "<group>"; };
+		1CB0B9751615290F009BCE59 /* BBPrivateChatController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBPrivateChatController.h; sourceTree = "<group>"; };
+		1CB0B9761615290F009BCE59 /* BBPrivateChatController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBPrivateChatController.m; sourceTree = "<group>"; };
+		1CB0B97816152A26009BCE59 /* BBChatHubClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBChatHubClient.h; sourceTree = "<group>"; };
+		1CB0B97916152A26009BCE59 /* BBChatHubClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBChatHubClient.m; sourceTree = "<group>"; };
+		1CB0B97B16153554009BCE59 /* BBChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBChat.h; sourceTree = "<group>"; };
+		1CB0B97C16153554009BCE59 /* BBChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBChat.m; sourceTree = "<group>"; };
+		1CB0B98216155E09009BCE59 /* BBChatMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBChatMessage.h; sourceTree = "<group>"; };
+		1CB0B98316155E09009BCE59 /* BBChatMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBChatMessage.m; sourceTree = "<group>"; };
 		1CC2E82B15E1D6930064FECA /* BBComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBComment.h; sourceTree = "<group>"; };
 		1CC2E82C15E1D6930064FECA /* BBComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBComment.m; sourceTree = "<group>"; };
 		1CC2E82F15E1DD530064FECA /* BBProjectTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBProjectTableViewController.m; sourceTree = "<group>"; };
@@ -471,6 +492,10 @@
 		1CCD848515EDA4F200E7ECE5 /* BBAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBAudio.m; sourceTree = "<group>"; };
 		1CCD849315EDEBB000E7ECE5 /* BBSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSettingsViewController.h; sourceTree = "<group>"; };
 		1CCD849415EDEBB000E7ECE5 /* BBSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSettingsViewController.m; sourceTree = "<group>"; };
+		1CCE64AC1615702A00E638C7 /* BBChatUserTyping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBChatUserTyping.h; sourceTree = "<group>"; };
+		1CCE64AD1615702A00E638C7 /* BBChatUserTyping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBChatUserTyping.m; sourceTree = "<group>"; };
+		1CCE64AF161577C700E638C7 /* BBGroupHubClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBGroupHubClient.h; sourceTree = "<group>"; };
+		1CCE64B0161577C700E638C7 /* BBGroupHubClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBGroupHubClient.m; sourceTree = "<group>"; };
 		1CDF2DBA15E1B79900415318 /* BBGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBGroup.h; sourceTree = "<group>"; };
 		1CDF2DBB15E1B79900415318 /* BBGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBGroup.m; sourceTree = "<group>"; };
 		1CDF2DBD15E1B7D900415318 /* BBImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBImage.h; sourceTree = "<group>"; };
@@ -488,6 +513,8 @@
 		1CDF2DCF15E1BBCC00415318 /* BBPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBPost.m; sourceTree = "<group>"; };
 		1CDF2DD115E1BC1B00415318 /* BBObservationNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBObservationNote.h; sourceTree = "<group>"; };
 		1CDF2DD215E1BC1B00415318 /* BBObservationNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBObservationNote.m; sourceTree = "<group>"; };
+		1CEE0EA51609914A00E2A8C4 /* BBEnumHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBEnumHelper.h; sourceTree = "<group>"; };
+		1CEE0EA61609914A00E2A8C4 /* BBEnumHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBEnumHelper.m; sourceTree = "<group>"; };
 		1CFE5D4515E6243A00953262 /* SRHubConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRHubConnection.h; sourceTree = "<group>"; };
 		1CFE5D4615E6243A00953262 /* SRHubConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRHubConnection.m; sourceTree = "<group>"; };
 		1CFE5D4715E6243A00953262 /* SRHubInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRHubInvocation.h; sourceTree = "<group>"; };
@@ -756,7 +783,7 @@
 		1C9A854315DDE9B300D98F40 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1C9A854215DDE9B300D98F40 /* BowerBird Beta.app */,
+				1C9A854215DDE9B300D98F40 /* BowerBird.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -838,6 +865,8 @@
 				1C26EA9115E5B1B500EE9A1E /* BBGroupChatViewController.m */,
 				1CCD849315EDEBB000E7ECE5 /* BBSettingsViewController.h */,
 				1CCD849415EDEBB000E7ECE5 /* BBSettingsViewController.m */,
+				1CB0B9751615290F009BCE59 /* BBPrivateChatController.h */,
+				1CB0B9761615290F009BCE59 /* BBPrivateChatController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -845,15 +874,21 @@
 		1C9A856E15DDEC6A00D98F40 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				1C4D8CCF15E283E0000DED07 /* BBHelpers.h */,
 				1C78E28C15E5174D00620EF7 /* Router.h */,
 				1C78E28D15E5174D00620EF7 /* Router.m */,
-				1C4D8CCF15E283E0000DED07 /* BBHelpers.h */,
 				1C4D8CC615E28320000DED07 /* BBCollectionHelper.h */,
 				1C4D8CC715E28320000DED07 /* BBCollectionHelper.m */,
 				1C4D8CC815E28320000DED07 /* BBCookieHelper.h */,
 				1C4D8CC915E28320000DED07 /* BBCookieHelper.m */,
 				1C4D8CCA15E28320000DED07 /* BBGuidGenerator.h */,
 				1C4D8CCB15E28320000DED07 /* BBGuidGenerator.m */,
+				1CEE0EA51609914A00E2A8C4 /* BBEnumHelper.h */,
+				1CEE0EA61609914A00E2A8C4 /* BBEnumHelper.m */,
+				1CB0B96F1613C188009BCE59 /* BBLog.h */,
+				1CB0B9701613C188009BCE59 /* BBLog.m */,
+				1CB0B972161523B6009BCE59 /* BBHash.h */,
+				1CB0B973161523B6009BCE59 /* BBHash.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -861,6 +896,8 @@
 		1C9A857115DDEC6A00D98F40 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1C31AF2115DE1FE900A602BE /* BBModels.h */,
+				1CB0B97E1615556B009BCE59 /* Chat */,
 				1CCD848D15EDACE900E7ECE5 /* Member */,
 				1CCD848C15EDACCE00E7ECE5 /* Hub */,
 				1CCD848B15EDACC700E7ECE5 /* Group */,
@@ -869,7 +906,6 @@
 				1CCD848815EDAC4900E7ECE5 /* Paginator */,
 				1CCD848715EDAC1D00E7ECE5 /* Authentication */,
 				1C9D7BC715E335D5002D9425 /* Request */,
-				1C31AF2115DE1FE900A602BE /* BBModels.h */,
 				1C4D8CD415E2862E000DED07 /* BBApplicationData.h */,
 				1C4D8CB015E2805C000DED07 /* BBApplicationData.m */,
 				1CC2E83115E1E5490064FECA /* BBMappings.h */,
@@ -1017,6 +1053,19 @@
 			name = Request;
 			sourceTree = "<group>";
 		};
+		1CB0B97E1615556B009BCE59 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				1CB0B97B16153554009BCE59 /* BBChat.h */,
+				1CB0B97C16153554009BCE59 /* BBChat.m */,
+				1CB0B98216155E09009BCE59 /* BBChatMessage.h */,
+				1CB0B98316155E09009BCE59 /* BBChatMessage.m */,
+				1CCE64AC1615702A00E638C7 /* BBChatUserTyping.h */,
+				1CCE64AD1615702A00E638C7 /* BBChatUserTyping.m */,
+			);
+			name = Chat;
+			sourceTree = "<group>";
+		};
 		1CC2E83415E1FFD90064FECA /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -1120,6 +1169,10 @@
 			children = (
 				1C26EA9415E5D5D900EE9A1E /* BBUserHubClient.h */,
 				1C26EA9515E5D5D900EE9A1E /* BBUserHubClient.m */,
+				1CB0B97816152A26009BCE59 /* BBChatHubClient.h */,
+				1CB0B97916152A26009BCE59 /* BBChatHubClient.m */,
+				1CCE64AF161577C700E638C7 /* BBGroupHubClient.h */,
+				1CCE64B0161577C700E638C7 /* BBGroupHubClient.m */,
 			);
 			name = Hub;
 			sourceTree = "<group>";
@@ -1152,7 +1205,7 @@
 			);
 			name = "BowerBird Beta";
 			productName = "BowerBird Beta";
-			productReference = 1C9A854215DDE9B300D98F40 /* BowerBird Beta.app */;
+			productReference = 1C9A854215DDE9B300D98F40 /* BowerBird.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1379,6 +1432,15 @@
 				1CCD848315EDA0D800E7ECE5 /* BBMedia.m in Sources */,
 				1CCD848615EDA4F200E7ECE5 /* BBAudio.m in Sources */,
 				1CCD849515EDEBB000E7ECE5 /* BBSettingsViewController.m in Sources */,
+				1CEE0EA71609914A00E2A8C4 /* BBEnumHelper.m in Sources */,
+				1CB0B9711613C188009BCE59 /* BBLog.m in Sources */,
+				1CB0B974161523B6009BCE59 /* BBHash.m in Sources */,
+				1CB0B9771615290F009BCE59 /* BBPrivateChatController.m in Sources */,
+				1CB0B97A16152A26009BCE59 /* BBChatHubClient.m in Sources */,
+				1CB0B97D16153554009BCE59 /* BBChat.m in Sources */,
+				1CB0B98416155E09009BCE59 /* BBChatMessage.m in Sources */,
+				1CCE64AE1615702A00E638C7 /* BBChatUserTyping.m in Sources */,
+				1CCE64B1161577C700E638C7 /* BBGroupHubClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1414,6 +1476,7 @@
 					"-all_load",
 				);
 				SDKROOT = iphoneos;
+				VALID_ARCHS = armv7;
 			};
 			name = Debug;
 		};
@@ -1441,6 +1504,7 @@
 				);
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = armv7;
 			};
 			name = Release;
 		};
@@ -1454,9 +1518,10 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Other Sources/BowerBird Beta-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = BowerBird;
 				PROVISIONING_PROFILE = "72FC061E-DB98-4F07-856C-B0F50571B6AB";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "72FC061E-DB98-4F07-856C-B0F50571B6AB";
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1470,8 +1535,9 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Other Sources/BowerBird Beta-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = BowerBird;
 				PROVISIONING_PROFILE = "72FC061E-DB98-4F07-856C-B0F50571B6AB";
+				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

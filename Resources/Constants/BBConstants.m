@@ -34,11 +34,11 @@
 
 +(NSString *)RootUriString
 {
-    // Hamish's PC
-    return @"http://dev.bowerbird.org.au";
+    // dev.bowerbird.org.au
+    // return @"http://dev.bowerbird.org.au";
     
-    // Bowerbird dev server
-    //return @"http://136.154.22.24:65000";
+    // Hamish's PC
+    return @"http://136.154.22.24:65000";
 }
 
 // restful segments
@@ -126,6 +126,21 @@
 +(NSString*)AjaxQuerystring
 {
     return @"X-Requested-With=XMLHttpRequest&Content-Type=application%2Fx-www-form-urlencoded";
+}
+
++(int)AwaySeconds
+{
+    return 180;
+}
+
++(int)OfflineSeconds
+{
+    return 360;
+}
+
++(int)DisappearSeconds
+{
+    return 720;
 }
 
 @end

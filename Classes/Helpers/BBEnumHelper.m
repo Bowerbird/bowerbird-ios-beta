@@ -6,13 +6,24 @@
  
  -----------------------------------------------------------------------------------------------*/
 
-#import <UIKit/UIKit.h>
-#import "BBHelpers.h"
-#import "BBModels.h"
-#import "UIImageView+WebCache.h"
+#import "BBEnumHelper.h"
 
-@interface BBUserChatViewController : UITableViewController
+@implementation BBEnumHelper
 
-@property (nonatomic, strong) NSMutableArray* onlineUsers;
++(NSString*)onlineStatus:(UserStatus)status
+{
+    switch (status) {
+        case online:
+            return @"Online";
+            
+        case away:
+            return @"Away";
+            
+        case offline:
+        default:
+            
+            return @"Offline";
+    }
+}
 
 @end

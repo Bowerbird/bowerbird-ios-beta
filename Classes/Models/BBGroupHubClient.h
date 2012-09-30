@@ -11,24 +11,14 @@
 #import "BBHelpers.h"
 #import "SignalR.h"
 
-@interface BBUserHubClient : NSObject <SRConnectionDelegate>
+@interface BBGroupHubClient : NSObject <SRConnectionDelegate>
 
 @property (nonatomic, retain) SRHubConnection* connection;
-@property (nonatomic, retain) SRHubProxy* userHub;
-@property (nonatomic, retain) NSMutableArray* onlineUsers;
+@property (nonatomic, retain) SRHubProxy* groupHub;
 
 +(id)sharedInstance;
 
-// calls from Client to Server
--(void)connectToUserHub:(NSString*)userId;
-
--(void)updateUserStatus:(NSString*)identifier
-           withActivity:(NSDate*)latestActivity
-          withHeartbeat:(NSDate*)latestHeartbeat;
-
 // calls from Server to Client
--(void)setupOnlineUsers:(id)users;
-
--(void)userStatusUpdate:(id)user;
+-(void)newActivity:(id)payload;
 
 @end

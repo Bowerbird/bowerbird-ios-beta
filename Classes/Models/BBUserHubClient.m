@@ -8,6 +8,12 @@
 
 #import "BBUserHubClient.h"
 
+@interface BBUserHubClient()
+
+- (void)insertOrUpdateUser:(id)user;
+
+@end
+
 @implementation BBUserHubClient
 
 @synthesize     userHub = _userHub,
@@ -26,24 +32,151 @@ static BBUserHubClient* bowerbirdUserHubClient = nil;
     return bowerbirdUserHubClient;
 }
 
+
+#pragma mark -
+#pragma mark - Calls from Client to Server
+
 -(void)connectToUserHub:(NSString*)userId
 {
-    if([BBConstants Trace])NSLog(@"BBUserHubClient.connectToUserHub with: %@", userId);
+    [BBLog Log:[NSString stringWithFormat:@"BBUserHubClient.connectToUserHub with: %@", userId]];
     
-    NSString *server = [BBConstants RootUriString];
-    self.connection = [SRHubConnection connectionWithURL:server];
+    self.connection = [SRHubConnection connectionWithURL:[BBConstants RootUriString]];
     self.userHub = [self.connection createProxy:@"UserHub"];
     
-    [self.userHub on:@"setupOnlineUsers" perform:self selector:@selector(setupOnlineUsers:)];
-    [self.userHub on:@"userStatusUpdate" perform:self selector:@selector(userStatusUpdate:)];
+    [self.userHub on:@"setupOnlineUsers"
+             perform:self
+            selector:@selector(setupOnlineUsers:)];
+    
+    [self.userHub on:@"userStatusUpdate"
+             perform:self
+            selector:@selector(userStatusUpdate:)];
     
     [self.connection setDelegate:self];
     [self.connection start];
     
-    if(self.onlineUsers == nil)
+    self.onlineUsers = [[NSMutableArray alloc] init];
+}
+
+
+-(void)updateUserStatus:(NSString*)identifier withActivity:(NSDate *)latestActivity withHeartbeat:(NSDate *)latestHeartbeat
+{
+    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
+    
+    NSDateFormatter* dFormatter = [[NSDateFormatter alloc]init];
+    [dFormatter setTimeZone:timeZone];
+    [dFormatter setDateFormat: @"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+    
+    NSString* activityString = [dFormatter stringFromDate:latestActivity];
+    NSString* heartbeatString = [dFormatter stringFromDate:latestHeartbeat];
+    
+    [self.userHub invoke:@"UpdateUserClientStatus"
+                withArgs:[NSArray arrayWithObjects:identifier, activityString, heartbeatString, nil]];
+    
+    [BBLog Log:[NSString stringWithFormat:@"updateUserStatus: %@ %@ %@", identifier, activityString, heartbeatString]];
+}
+
+
+#pragma mark -
+#pragma mark - Calls from Server to Client
+
+-(void)setupOnlineUsers:(id)users
+{ 
+    if([BBConstants Trace])NSLog(@"BBUserHubClient.setupOnlineUsers");
+    
+    if([users isKindOfClass:[NSArray class]])
     {
-        self.onlineUsers = [[NSMutableSet alloc] init];
+        if([users count] > 0)
+        {
+            for (id user in users)
+            {
+                if([BBConstants Trace])NSLog(@"user online: %@", user);
+                
+                [self insertOrUpdateUser:user];
+            }
+        }
     }
+}
+
+
+-(void)userStatusUpdate:(id)user
+{
+    if([BBConstants Trace])NSLog(@"BBUserHubClient.userStatusUpdate");
+    
+    if([user isKindOfClass:[NSDictionary class]])
+    {
+        if([BBConstants Trace])NSLog(@"user online: %@", user);
+        
+        id uid = [user objectForKey:@"User"];
+        
+        [self insertOrUpdateUser:uid];
+    }
+}
+
+
+- (void)insertOrUpdateUser:(id)user
+{
+    __block BBUser* insertUpdateUser;
+    [self.onlineUsers enumerateObjectsUsingBlock:^(BBUser* item, NSUInteger idx, BOOL *stop)
+     {
+         if([item.identifier isEqualToString:[user objectForKey:@"Id"]])
+         {
+             insertUpdateUser = item;
+         }
+     }];
+    
+    if(insertUpdateUser)
+    {
+        [insertUpdateUser updateLatestActivity:[user objectForKey:@"LatestActivity"]];
+    }
+    else
+    {
+        insertUpdateUser = [[BBUser alloc] initWithObject:user];
+        
+        if(insertUpdateUser)
+        {
+            [self.onlineUsers addObject:insertUpdateUser];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"userStatusChanged" object:self];
+        }
+    }
+    
+    // set the global user to point to the instance of the updating, polling, ticking, user if it hasn't been set
+    BBApplicationData* appData = [BBApplicationData sharedInstance];
+    if(!appData.user)
+    {
+        if([insertUpdateUser.identifier isEqualToString:appData.authenticatedUser.user.identifier])
+        {
+            appData.user = insertUpdateUser;
+        }
+    }
+}
+
+
+#pragma mark -
+#pragma mark SRConnection Delegate
+
+- (void)SRConnectionDidOpen:(SRConnection *)clientConnection
+{
+    [BBLog Log:([NSString stringWithFormat:@"BBUserHubClient.SRConnectionDidOpen with ConnectionId: %@", clientConnection.connectionId])];
+    
+    BBApplicationData* appData = [BBApplicationData sharedInstance];
+        
+    [self.userHub invoke:@"RegisterUserClient" withArgs:[NSArray arrayWithObjects:appData.authenticatedUser.user.identifier, nil]];
+}
+
+- (void)SRConnection:(SRConnection *)connection didReceiveData:(NSString *)data
+{
+    [BBLog Log:([NSString stringWithFormat:@"BBUserHubClient.SRConnection didReceiveData: %@", data])];
+}
+
+- (void)SRConnectionDidClose:(SRConnection *)connection
+{
+    [BBLog Log:(@"BBUserHubClient.SRConnection didClose: %@")];
+}
+
+- (void)SRConnection:(SRConnection *)connection didReceiveError:(NSError *)error
+{
+    [BBLog Log:(@"BBUserHubClient.SRConnection:didReceiveError")];
+    [BBLog Log:([NSString stringWithFormat:@"Error: %@", error.localizedDescription])];
 }
 
 - (void)dealloc
@@ -54,82 +187,6 @@ static BBUserHubClient* bowerbirdUserHubClient = nil;
     self.userHub = nil;
     self.connection.delegate = nil;
     self.connection = nil;
-}
-
-
-#pragma mark -
-#pragma mark Chat Sample Project
-
--(void)setupOnlineUsers:(id)users
-{ 
-    if([BBConstants Trace])NSLog(@"BBUserHubClient.setupOnlineUsers");
-    
-    if([users isKindOfClass:[NSArray class]])
-    {
-        if([users count] == 0)
-        {
-            //[self addMessage:[NSString stringWithFormat:@"No rooms available"] type:@"notification"];
-        }
-        else
-        {
-            for (id user in users)
-            {
-                if([BBConstants Trace])NSLog(@"user online: %@", user);
-                
-                BBUser* newUser = [[BBUser alloc] init];
-                [newUser setValuesForKeysWithDictionary:user];
-                
-                [self.onlineUsers addObject:newUser];
-            }
-        }
-    }
-}
-
--(void)userStatusUpdate:(id)user
-{
-    if([BBConstants Trace])NSLog(@"BBUserHubClient.setupOnlineUsers");
-    
-    if([user isKindOfClass:[NSDictionary class]])
-    {
-        if([BBConstants Trace])NSLog(@"user online: %@", user);
-                
-        BBUser* newUser = [[BBUser alloc] init];
-        [newUser setValuesForKeysWithDictionary:[user objectForKey:@"User"]];
-        
-        [self.onlineUsers addObject:newUser];
-    }
-}
-
-#pragma mark -
-#pragma mark SRConnection Delegate
-
-- (void)SRConnectionDidOpen:(SRConnection *)clientConnection
-{
-    if([BBConstants Trace])NSLog(@"BBUserHubClient.SRConnectionDidOpen with ConnectionId: %@", clientConnection.connectionId);
-    
-    BBApplicationData* appData = [BBApplicationData sharedInstance];
-        
-    [self.userHub invoke:@"RegisterUserClient" withArgs:[NSArray arrayWithObjects:appData.authenticatedUser.user.identifier, nil]];
-}
-
-- (void)SRConnection:(SRConnection *)connection didReceiveData:(NSString *)data
-{
-    //[messagesReceived insertObject:data atIndex:0];
-    //[messageTable reloadData];
-    
-}
-
-- (void)SRConnectionDidClose:(SRConnection *)connection
-{
-    //[messagesReceived insertObject:@"Connection Closed" atIndex:0];
-    //[messageTable reloadData];
-}
-
-- (void)SRConnection:(SRConnection *)connection didReceiveError:(NSError *)error
-{
-    if([BBConstants Trace])NSLog(@"BBUserHubClient.SRConnection:didReceiveError");
-    
-    if([BBConstants Trace])NSLog(@"Error: %@", error.localizedDescription);
 }
 
 @end

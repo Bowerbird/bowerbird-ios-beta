@@ -11,24 +11,31 @@
 #import "BBHelpers.h"
 #import "SignalR.h"
 
-@interface BBUserHubClient : NSObject <SRConnectionDelegate>
+@interface BBChatHubClient : NSObject <SRConnectionDelegate>
 
 @property (nonatomic, retain) SRHubConnection* connection;
+@property (nonatomic, retain) SRHubProxy* chatHub;
 @property (nonatomic, retain) SRHubProxy* userHub;
-@property (nonatomic, retain) NSMutableArray* onlineUsers;
+@property (nonatomic, retain) NSMutableArray* chats;
+
 
 +(id)sharedInstance;
 
 // calls from Client to Server
--(void)connectToUserHub:(NSString*)userId;
+-(void)startPrivateChat:(NSString*)chatId;
 
--(void)updateUserStatus:(NSString*)identifier
-           withActivity:(NSDate*)latestActivity
-          withHeartbeat:(NSDate*)latestHeartbeat;
+-(void)joinGroupChat:(NSString*)groupId;
+
+-(void)sendTypingStatus:(NSString*)chatId
+               isTyping:(BOOL)typing;
+
+-(void)sendChatMessage:(BBChatMessage*)chatMessage;
+
 
 // calls from Server to Client
--(void)setupOnlineUsers:(id)users;
-
--(void)userStatusUpdate:(id)user;
+-(void)userJoinedChat:(id)payload;
+-(void)userExitedChat:(id)payload;
+-(void)newChatMessage:(id)payload;
+-(void)userIsTyping:(id)payload;
 
 @end

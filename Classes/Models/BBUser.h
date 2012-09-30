@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "BBModels.h"
+#import "BBHelpers.h"
 
 @class BBMediaResource;
 
@@ -18,7 +19,13 @@
 @property (nonatomic, strong) NSString *lastName;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *email;
-@property (nonatomic, strong) NSString *sessionLatestActivity;
+@property (nonatomic, strong) NSDate *latestActivity;
+@property (nonatomic, strong) NSDate *latestHeartbeat;
 @property (nonatomic, strong) BBMediaResource* avatar;
+@property UserStatus userStatus;
+
+-(BBUser*)initWithObject:(id)user;
+
+-(void)updateLatestActivity:(NSString*)latestActivity;
 
 @end

@@ -22,4 +22,6 @@
 @property (nonatomic,retain) NSString* key;
 @property BOOL isPrimaryMedia;
 
+-(BBMediaResource*)initWithAvatarObject:(id)avatar;
+
 @end

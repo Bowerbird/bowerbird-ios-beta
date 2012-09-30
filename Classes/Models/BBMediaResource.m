@@ -22,6 +22,18 @@
             isPrimaryMedia = _isPrimaryMedia;
 
 
+
+-(BBMediaResource*)initWithAvatarObject:(id)avatar
+{
+    BBMediaResource* newAvatar = [[BBMediaResource alloc]init];
+    
+    // loop through images and add BBImage to images...
+    
+    
+    
+    return newAvatar;
+}
+
 -(void)setIdentifier:(NSString *)identifier
 {
     _identifier = identifier;

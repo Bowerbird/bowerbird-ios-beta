@@ -17,6 +17,18 @@
                      mimeType = _mimeType;
 
 
+-(BBImage*)initWithObject:(id)image havingName:(NSString*)name
+{
+    BBImage* newImage = [[BBImage alloc]init];
+    
+    newImage.dimensionName = name;
+    newImage.uri = [image objectForKey:@"Uri"];
+    newImage.height = [image objectForKey:@"Height"];
+    newImage.width = [image objectForKey:@"Width"];
+    
+    return newImage;
+}
+
 -(void)dimensionName:(NSString *)dimensionName
 {
     _dimensionName = dimensionName;

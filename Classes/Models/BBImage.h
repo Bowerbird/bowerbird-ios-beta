@@ -16,4 +16,6 @@
 @property (nonatomic,retain) NSNumber* width;
 @property (nonatomic,retain) NSNumber* height;
 
+-(BBImage*)initWithObject:(id)image havingName:(NSString*)name;
+
 @end

@@ -12,4 +12,6 @@
 
 +(NSString*)GenerateHash:(NSString*)value;
 
++(NSString*)GenerateHashFromArray:(NSArray*)array;
+
 @end

@@ -7,18 +7,18 @@
  -----------------------------------------------------------------------------------------------*/
 
 #import <Foundation/Foundation.h>
+#import <RestKit/RestKit.h>
+#import "ISO8601DateFormatter.h"
 #import "BBModels.h"
 #import "BBHelpers.h"
+#import "BBEnumHelper.h"
 
 @class BBMediaResource;
 
 @interface BBUser : NSObject
 
 @property (nonatomic, strong) NSString *identifier;
-@property (nonatomic, strong) NSString *firstName;
-@property (nonatomic, strong) NSString *lastName;
 @property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSString *email;
 @property (nonatomic, strong) NSDate *latestActivity;
 @property (nonatomic, strong) NSDate *latestHeartbeat;
 @property (nonatomic, strong) BBMediaResource* avatar;

@@ -15,7 +15,8 @@
 @property (nonatomic,retain) NSString* mimeType;
 @property (nonatomic,retain) NSNumber* width;
 @property (nonatomic,retain) NSNumber* height;
+@property (nonatomic,retain) NSMutableDictionary* original;
 
--(BBImage*)initWithObject:(id)image havingName:(NSString*)name;
+//d-(BBImage*)initWithObject:(id)image havingName:(NSString*)name;
 
 @end

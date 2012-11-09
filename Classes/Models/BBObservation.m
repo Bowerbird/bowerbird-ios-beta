@@ -6,7 +6,7 @@
  
  -----------------------------------------------------------------------------------------------*/
 
-#import "BBModels.h"
+#import "BBObservation.h"
 
 @implementation BBObservation
 
@@ -25,13 +25,14 @@
 }
 
 
--(void)setMedia:(NSSet *)media
+// change from an NSSet to an NSArray
+-(void)setMedia:(NSArray *)media
 {
     _media = media;
 }
--(NSSet*)media
+-(NSArray*)media
 {
-    if(!_media)_media = [[NSSet alloc]init];
+    if(!_media)_media = [[NSArray alloc]init];
     return _media;
 }
 -(NSUInteger)countOfMedia
@@ -42,17 +43,17 @@
 {
     return [self.media objectEnumerator];
 }
--(BBMediaResource*)memberOfMedia:(BBMediaResource *)object
-{
-    return [self.media member:object];
-}
+//-(BBMediaResource*)memberOfMedia:(BBMediaResource *)object
+//{
+//    return [self.media member:object];
+//}
 
 
--(void)setPrimaryMedia:(BBMediaResource *)primaryMedia
+-(void)setPrimaryMedia:(BBMedia *)primaryMedia
 {
     _primaryMedia = primaryMedia;
 }
--(BBMediaResource*)primaryMedia
+-(BBMedia*)primaryMedia
 {
     return _primaryMedia;
 }

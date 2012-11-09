@@ -10,4 +10,15 @@
 
 @implementation BBProject
 
+@synthesize observationCount = _observationCount;
+
+-(void)setObservationCount:(int)observationCount
+{
+    _observationCount  = observationCount;
+}
+-(int)observationCount
+{
+    return _observationCount;
+}
+
 @end

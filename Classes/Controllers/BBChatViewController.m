@@ -19,9 +19,7 @@
 }
 
 - (void)viewDidLoad
-{
-    if([BBConstants Trace]) NSLog(@"BBChatViewController.viewDidLoad:");
-    
+{   
     BBUserChatViewController *userChatViewController = [[BBUserChatViewController alloc] initWithStyle:UITableViewStylePlain];
     BBGroupChatViewController *groupChatViewController = [[BBGroupChatViewController alloc] initWithStyle:UITableViewStylePlain];
     
@@ -36,9 +34,7 @@
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    if([BBConstants Trace]) NSLog(@"BBChatViewController.initWithNibName:bundle:");
-    
+{ 
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         //
@@ -49,18 +45,11 @@
 
 - (BOOL)segmentPageController:(JCMSegmentPageController *)segmentPageController shouldSelectViewController:(UIViewController *)viewController atIndex:(NSUInteger)index
 {
-    if([BBConstants Trace]) NSLog(@"BBChatViewController.segmentedPageController:shouldSelectViewController:atIndex:");
-    
-	if([BBConstants Trace]) NSLog(@"segmentPageController %@ shouldSelectViewController %@ at index %u", segmentPageController, viewController, index);
-    
 	return YES;
 }
 
 - (void)segmentPageController:(JCMSegmentPageController *)segmentPageController didSelectViewController:(UIViewController *)viewController atIndex:(NSUInteger)index
 {
-    if([BBConstants Trace]) NSLog(@"BBChatViewController.segmentedPageController:didSelectViewController:atIndex:");
-    
-	if([BBConstants Trace]) NSLog(@"segmentPageController %@ didSelectViewController %@ at index %u", segmentPageController, viewController, index);
 }
 
 @end

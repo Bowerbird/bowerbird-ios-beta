@@ -105,6 +105,16 @@
 }
 
 
+-(void)setObservation:(BBObservation *)observation
+{
+    _observation = observation;
+}
+-(BBObservation*)observation
+{
+    return _observation;
+}
+
+
 - (void)setNilValueForKey:(NSString *)theKey
 {
     //    if ([theKey isEqualToString:@"hidden"]) {

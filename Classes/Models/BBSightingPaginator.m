@@ -10,24 +10,24 @@
 
 @implementation BBSightingPaginator
 
-@synthesize sightings = _sightings;
+@synthesize activities = _activities;
 
--(void)setSightings:(NSArray *)sightings
+-(void)setActivities:(NSArray *)activities
 {
-    _sightings  = sightings;
+    _activities  = activities;
 }
--(NSArray*)sightings
+-(NSArray*)activities
 {
-    if(!_sightings)_sightings = [[NSArray alloc]init];
-    return _sightings;
+    if(!_activities)_activities = [[NSArray alloc]init];
+    return _activities;
 }
--(NSUInteger)countOfSightings
+-(NSUInteger)countOfActivities
 {
-    return [self.sightings count];
+    return [self.activities count];
 }
--(id)objectInSightingsAtIndex:(NSUInteger)index
+-(id)objectInActivitiesAtIndex:(NSUInteger)index
 {
-    return [self.sightings objectAtIndex:index];
+    return [self.activities objectAtIndex:index];
 }
 
 @end

@@ -19,10 +19,7 @@
 @implementation BBUser
 
 @synthesize     identifier = _identifier,
-                 firstName = _firstName,
-                  lastName = _lastName,
                       name = _name,
-                     email = _email,
             latestActivity = _latestActivity,
            latestHeartbeat = _latestHeartbeat,
                     avatar = _avatar,
@@ -35,8 +32,6 @@
     self = [self init];
 
     self.identifier = [user objectForKey:@"Id"];
-    self.firstName = [user objectForKey:@"FirstName"];
-    self.lastName = [user objectForKey:@"LastName"];
     self.name = [user objectForKey:@"Name"];
     self.userStatus = online;
     [self updateLatestActivity:[user objectForKey:@"LatestActivity"]];
@@ -61,30 +56,6 @@
 }
 
 
--(void)setFirstName:(NSString *)firstName
-{
-    _firstName = firstName;
-}
-
-
--(NSString*)firstName
-{
-    return _firstName;
-}
-
-
--(void)setLastName:(NSString *)lastName
-{
-    _lastName = lastName;
-}
-
-
--(NSString*)lastName
-{
-    return _lastName;
-}
-
-
 -(void)setName:(NSString *)name
 {
     _name = name;
@@ -94,18 +65,6 @@
 -(NSString*)name
 {
     return _name;
-}
-
-
--(void)setEmail:(NSString *)email
-{
-    _email = email;
-}
-
-
--(NSString*)email
-{
-    return _email;
 }
 
 
@@ -227,10 +186,10 @@
     }
     
     // call back to the mothership
-    BBApplicationData* appData = [BBApplicationData sharedInstance];
-    if([appData.authenticatedUser.user.identifier isEqualToString:self.identifier])
+    BBApplication* appData = [BBApplication sharedInstance];
+    if([appData.user.identifier isEqualToString:self.identifier])
     {
-        [[BBUserHubClient sharedInstance] updateUserStatus:self.identifier withActivity:self.latestActivity withHeartbeat:self.latestHeartbeat];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"authenticatedUserStatusChanged" object:self];
     }
 }
 

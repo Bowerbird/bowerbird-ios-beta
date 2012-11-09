@@ -18,12 +18,11 @@
 
 @synthesize onlineUsers = _onlineUsers;
 
+#pragma mark - 
 #pragma mark - Datasource and Data Loading methods
 
 -(void)setOnlineUsers:(NSMutableArray *)onlineUsers
 {
-    if([BBConstants Trace]) NSLog(@"BBActivitiesViewController.setActivities:");
-    
     _onlineUsers = onlineUsers;
     
     [self.tableView reloadData];
@@ -45,9 +44,8 @@
 
 - (void)viewDidLoad
 {
-    BBUserHubClient* userHub = [BBUserHubClient sharedInstance];
-    
-    self.onlineUsers = userHub.onlineUsers;
+    BBApplication* app = [BBApplication sharedInstance];
+    self.onlineUsers = app.onlineUsers;
     
     // http://www.idev101.com/code/Cocoa/Notifications.html
     [[NSNotificationCenter defaultCenter] addObserver:self

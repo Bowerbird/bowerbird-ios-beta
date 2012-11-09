@@ -31,15 +31,11 @@
 
 -(void)segueToLogout
 {
-    if([BBConstants Trace]) NSLog(@"LoadingViewController.segueToHome");
-    
     [self performSegueWithIdentifier:@"Logout" sender:self];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if([BBConstants Trace]) NSLog(@"LoadingViewController.prepareForSegue:sender:");
-    
     if([segue.identifier isEqualToString:@"Logout"])
     {
         

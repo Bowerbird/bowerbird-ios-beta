@@ -15,8 +15,8 @@
 @property (nonatomic,retain) NSString *name;
 @property (nonatomic,retain) NSString *description;
 @property (nonatomic,retain) NSString *groupType;
-@property (nonatomic,retain) NSNumber *memberCount;
-@property (nonatomic,retain) NSNumber *postCount;
+@property int memberCount;
+@property int postCount;
 @property (nonatomic,retain) BBMediaResource* avatar;
 
 @end

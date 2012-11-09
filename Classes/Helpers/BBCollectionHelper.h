@@ -7,9 +7,15 @@
  -----------------------------------------------------------------------------------------------*/
 
 #import <Foundation/Foundation.h>
+#import "BBImage.h"
+#import "BBApplication.h"
 
 @interface BBCollectionHelper : NSObject
 
 +(NSArray*)populateArrayFromDictionary:(NSDictionary*)dictionary;
+
++(BBImage*)getImageWithDimension:(NSString*)dimensionName fromArrayOf:(NSArray*)images;
+
++(NSArray*)getUserProjects:(NSArray*)withIdentifiers inYesNotInNo:(BOOL)yesOrNo;
 
 @end

@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "BBHelpers.h"
 #import "BBModels.h"
-#import "BBProtocols.h"
 #import "JCMSegmentPageController.h"
 #import "BBUserChatViewController.h"
 #import "BBGroupChatViewController.h"

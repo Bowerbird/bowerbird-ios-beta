@@ -59,21 +59,21 @@
 }
 
 
--(void)setMemberCount:(NSNumber *)memberCount
+-(void)setMemberCount:(int)memberCount
 {
     _memberCount = memberCount;
 }
--(NSNumber*)memberCount
+-(int)memberCount
 {
     return _memberCount;
 }
 
 
--(void)setPostCount:(NSNumber *)postCount
+-(void)setPostCount:(int)postCount
 {
     _postCount = postCount;
 }
--(NSNumber*)postCount
+-(int)postCount
 {
     return _postCount;
 }

@@ -26,4 +26,20 @@
     return [[NSNumber numberWithLong:hash] stringValue];
 }
 
++(NSString*)GenerateHashFromArray:(NSArray *)array
+{
+    NSMutableArray* sortableArray = [NSMutableArray arrayWithArray:array];
+    
+    NSArray* sortedIds = [sortableArray sortedArrayUsingSelector:@selector(compare:)];
+    
+    __block NSString* joinedIds;
+    [sortedIds enumerateObjectsUsingBlock:^(NSString* obj, NSUInteger idx, BOOL *stop) {
+        joinedIds = [joinedIds stringByAppendingString:obj];
+    }];
+    
+    NSString* hashedId = [BBHash GenerateHash:joinedIds];
+    
+    return hashedId;
+}
+
 @end

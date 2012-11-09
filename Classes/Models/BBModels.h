@@ -9,38 +9,35 @@
 #import <Foundation/Foundation.h>
 #import <RestKit/RestKit.h>
 
-#import "BBResources.h"
-
 #import "BBImage.h"
 #import "BBAudio.h"
 #import "BBMediaResource.h"
 #import "BBMedia.h"
-
 #import "BBUser.h"
-
 #import "BBSighting.h"
 #import "BBRecord.h"
 #import "BBObservation.h"
 #import "BBPost.h"
 #import "BBObservationNote.h"
 #import "BBActivity.h"
-
 #import "BBGroup.h"
 #import "BBProject.h"
 #import "BBChat.h"
 #import "BBChatMessage.h"
 #import "BBChatUserTyping.h"
+#import "BBCategory.h"
 
 #import "BBAuthentication.h"
 #import "BBAuthenticatedUser.h"
-#import "BBApplicationData.h"
+#import "BBApplication.h"
 #import "BBMembership.h"
-#import "BBUserHubClient.h"
 
 #import "BBActivityPaginator.h"
 #import "BBSightingPaginator.h"
 #import "BBPostPaginator.h"
 #import "BBProjectPaginator.h"
+#import "BBMediaEdit.h"
+#import "BBSightingEdit.h"
 
 #import "BBMappings.h"
 #import "BBHelpers.h"

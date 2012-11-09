@@ -11,6 +11,6 @@
 
 @interface BBSightingPaginator : RKObjectPaginator
 
-@property (nonatomic,retain) NSArray* sightings;
+@property (nonatomic,retain) NSArray* activities;
 
 @end

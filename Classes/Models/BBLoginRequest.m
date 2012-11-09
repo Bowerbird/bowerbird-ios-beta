@@ -10,8 +10,10 @@
 
 @implementation BBLoginRequest
 
+
 @synthesize     email = _email,
-             password = _password;
+             password = _password,
+           rememberme = _rememberme;
 
 
 -(void)setEmail:(NSString *)email
@@ -32,5 +34,16 @@
 {
     return _password;
 }
+
+
+-(void)setRememberme:(BOOL)rememberme
+{
+    _rememberme = rememberme;
+}
+-(BOOL)rememberme
+{
+    return _rememberme;
+}
+
 
 @end

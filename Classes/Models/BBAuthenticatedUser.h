@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "BBModels.h"
-#import "BBProtocols.h"
 #import "BBHelpers.h"
 
 @interface BBAuthenticatedUser : NSObject
@@ -16,9 +15,8 @@
 @property (nonatomic, retain) BBUser* user;
 @property (nonatomic, retain) NSArray* categories;
 @property (nonatomic, retain) NSArray* projects;
-@property (nonatomic, retain) NSDictionary* teams;
-@property (nonatomic, retain) NSDictionary* organisations;
-@property (nonatomic, retain) NSDictionary* userProjects;
+@property (nonatomic, retain) NSArray* organisations;
+@property (nonatomic, retain) NSArray* userProjects;
 @property (nonatomic, retain) NSArray* memberships;
 @property (nonatomic, retain) NSString* defaultLicence;
 

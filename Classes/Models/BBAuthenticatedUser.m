@@ -13,7 +13,6 @@
 @synthesize     user = _user,
           categories = _categories,
             projects = _projects,
-               teams = _teams,
        organisations = _organisations,
         userProjects = _userProjects,
          memberships = _memberships,
@@ -68,72 +67,41 @@
 }
 
 
--(void)setTeams:(NSDictionary *)teams
-{
-    _teams = teams;
-}
--(NSDictionary*)teams
-{
-    if(!_teams)_teams = [[NSDictionary alloc]init];
-    return _teams;
-}
--(NSUInteger)countOfTeams
-{
-    return [self.teams count];
-}
--(NSEnumerator*)enumeratorOfTeams
-{
-    return [self.teams objectEnumerator];
-}
--(NSString*)memberOfTeams:(NSString *)object
-{
-    return [self.teams objectForKey:object];
-}
-
-
--(void)setOrganisations:(NSDictionary *)organisations
+-(void)setOrganisations:(NSArray *)organisations
 {
     _organisations = organisations;
 }
--(NSDictionary*)organisations
+-(NSArray*)organisations
 {
-    if(!_organisations)_organisations = [[NSDictionary alloc]init];
+    if(!_organisations)_organisations = [[NSArray alloc]init];
     return _organisations;
 }
 -(NSUInteger)countOfOrganisations
 {
     return [self.organisations count];
 }
--(NSEnumerator*)enumeratorOfOrganisations
+-(id)objectInOrganisationsAtIndex:(NSUInteger)index
 {
-    return [self.organisations objectEnumerator];
-}
--(NSString*)memberOfOrganisations:(NSString *)object
-{
-    return [self.organisations objectForKey:object];
+    return [self.organisations objectAtIndex:index];
 }
 
 
--(void)setUserProjects:(NSDictionary *)userProjects
+-(void)setUserProjects:(NSArray *)userProjects
 {
     _userProjects = userProjects;
 }
--(NSDictionary*)userProjects
+-(NSArray*)userProjects
 {
-    if(!_userProjects)_userProjects = [[NSDictionary alloc]init];
+    if(!_userProjects)_userProjects = [[NSArray alloc]init];
     return _userProjects;
 }
 -(NSUInteger)countOfUserProjects
 {
     return [self.userProjects count];
 }
--(NSEnumerator*)enumeratorOfUserProjects
+-(id)objectInUserProjectsAtIndex:(NSUInteger)index
 {
-    return [self.projects objectEnumerator];
-}
--(NSString*)memberOfUserProjects:(NSString *)object
-{
-    return [self.userProjects objectForKey:object];
+    return [self.userProjects objectAtIndex:index];
 }
 
 

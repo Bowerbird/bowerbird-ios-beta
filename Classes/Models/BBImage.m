@@ -14,20 +14,21 @@
                           uri = _uri,
                         width = _width,
                        height = _height,
-                     mimeType = _mimeType;
+                     mimeType = _mimeType,
+                     original = _original;
 
 
--(BBImage*)initWithObject:(id)image havingName:(NSString*)name
-{
-    BBImage* newImage = [[BBImage alloc]init];
-    
-    newImage.dimensionName = name;
-    newImage.uri = [image objectForKey:@"Uri"];
-    newImage.height = [image objectForKey:@"Height"];
-    newImage.width = [image objectForKey:@"Width"];
-    
-    return newImage;
-}
+//-(BBImage*)initWithObject:(id)image havingName:(NSString*)name
+//{
+//    BBImage* newImage = [[BBImage alloc]init];
+//    
+//    newImage.dimensionName = name;
+//    newImage.uri = [image objectForKey:@"Uri"];
+//    newImage.height = [image objectForKey:@"Height"];
+//    newImage.width = [image objectForKey:@"Width"];
+//    
+//    return newImage;
+//}
 
 -(void)dimensionName:(NSString *)dimensionName
 {
@@ -76,6 +77,27 @@
 -(NSString*)mimeType
 {
     return _mimeType;
+}
+
+-(void)setOriginal:(NSMutableDictionary *)original
+{
+    _original = original;
+}
+-(NSMutableDictionary*)original
+{
+    return _original;
+}
+-(NSUInteger)countOfOriginal
+{
+    return [self.original count];
+}
+-(NSEnumerator*)enumeratorOfOriginal
+{
+    return [self.original objectEnumerator];
+}
+-(NSString*)memberOfOriginal:(NSString *)object
+{
+    return [self.original objectForKey:object];
 }
 
 

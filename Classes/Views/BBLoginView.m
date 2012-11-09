@@ -1,24 +1,23 @@
-/*-----------------------------------------------------------------------------------------------
- 
- BowerBird V1 - Licensed under MIT 1.1 Public License
- Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
- Project Manager: Ken Walker : kwalker@museum.vic.gov.au
- 
- -----------------------------------------------------------------------------------------------*/
+//
+//  BBLoginView.m
+//  BowerBird
+//
+//  Created by Hamish Crittenden on 9/10/12.
+//  Copyright (c) 2012 BowerBird. All rights reserved.
+//
 
 #import "BBLoginView.h"
 
 @implementation BBLoginView
 
-@synthesize emailTextbox = _emailTextbox;
-@synthesize passwordTextbox = _passwordTextbox;
-
-- (id)initWithFrame:(CGRect)frame
+-(BBLoginView *)initWithSize:(CGSize)size
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
+    [BBLog Log:@"BBLoginView.initWithSize:"];
+
+    self = [MGScrollView scrollerWithSize:size];
+    self.contentLayoutMode = MGLayoutTableStyle;
+    self.backgroundColor = [UIColor colorWithRed:0.74 green:0.74 blue:0.75 alpha:1];
+    
     return self;
 }
 

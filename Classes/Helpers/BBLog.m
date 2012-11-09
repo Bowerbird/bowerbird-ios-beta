@@ -13,7 +13,23 @@
 
 +(void)Log:(id)message
 {
-    if([BBConstants Trace])
+    if([BBConstants TraceLog])
+    {
+        NSLog(@"%@", message);
+    }
+}
+
++(void)Error:(id)message
+{
+    if([BBConstants TraceError])
+    {
+        NSLog(@"%@", message);
+    }
+}
+
++(void)Debug:(id)payload withMessage:(NSString*)message
+{
+    if([BBConstants TraceDebug])
     {
         NSLog(@"%@", message);
     }
@@ -21,7 +37,7 @@
 
 +(void)LogStringArray:(NSArray*)params
 {
-    if([BBConstants Trace])
+    if([BBConstants TraceLog])
     {
         __block NSString* message;
         [params enumerateObjectsUsingBlock:^(NSString* param, NSUInteger idx, BOOL *stop)

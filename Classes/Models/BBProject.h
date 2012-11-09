@@ -11,6 +11,6 @@
 
 @interface BBProject : BBGroup
 
-
+@property int observationCount;
 
 @end

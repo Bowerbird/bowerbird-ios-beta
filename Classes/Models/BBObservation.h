@@ -9,10 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "BBModels.h"
 
+
+// WTF? Forward reference required for lack of compilation
+@class BBMedia;
+
 @interface BBObservation : BBSighting
 
 @property BOOL isIdentificationRequired;
-@property (nonatomic,retain) NSSet* media;
-@property (nonatomic,retain) BBMediaResource* primaryMedia;
+@property (nonatomic,retain) BBMedia* primaryMedia;
+@property (nonatomic,retain) NSArray* media;
+
 
 @end

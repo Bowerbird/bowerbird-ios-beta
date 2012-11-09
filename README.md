@@ -17,3 +17,5 @@ with thanks to
 Matt Greenfield - http://www.bigpaua.com/ - creator of MGBox2 which is used extensively for the UI
 
 The RestKit project - https://github.com/restkit - which is used for Server Communication
+
+Alex Billingsley - https://github.com/DyKnow/SignalR-ObjC - creator of SignalR-objC, a port of SignalR to Objective-C used for server to app callbacks

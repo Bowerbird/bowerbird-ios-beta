@@ -13,9 +13,6 @@
 +(MGTableBox*)BowerBirdLogoHeading {
     
     MGTableBox *bbLogoBox = [MGTableBox boxWithSize:CGSizeMake(300, 100)];
-    
-//    UIImageView *bowerbirdImage = [[UIImageView alloc]initWithFrame:CGRectMake(10, 0, 288,54)];
-//    bowerbirdImage.image =[UIImage imageNamed:@"logo-negative.png"];
 
     UIImageView *bowerbirdImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"logo-negative.png"]];
     MGLine *bowerbirdLogo = [MGLine lineWithLeft:bowerbirdImage right:nil size:CGSizeMake(300,100)];

@@ -15,7 +15,7 @@
 @end
 
 @implementation BBMenuController {
-    BBMenuView *menuView;
+    MGScrollView *menuView;
     UIImage *arrow;
 }
 
@@ -29,9 +29,11 @@
 -(void)loadView {
     [BBLog Log:@"BBMenuController.loadView"];
     
-    self.view = [[BBMenuView alloc]initWithSize:[UIScreen mainScreen].bounds.size];
+    self.view = [MGScrollView scrollerWithSize:[self screenSize]];
+    self.view.backgroundColor = [self backgroundColor];
+    ((MGScrollView*)self.view).contentLayoutMode = MGLayoutTableStyle;
     arrow = [UIImage imageNamed:@"arrow.png"];
-    menuView = (BBMenuView*)self.view;
+    menuView = (MGScrollView*)self.view;
     self.app = (BBAppDelegate *)[UIApplication sharedApplication].delegate;
 }
 

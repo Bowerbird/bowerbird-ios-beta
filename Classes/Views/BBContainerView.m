@@ -36,8 +36,10 @@
     return self;
 }
 
-- (void)rotateImage:(UIImageView *)image duration:(NSTimeInterval)duration
-              curve:(int)curve degrees:(CGFloat)degrees
+- (void)rotateImage:(UIImageView *)image
+           duration:(NSTimeInterval)duration
+              curve:(int)curve
+            degrees:(CGFloat)degrees
 {
     // Setup the animation
     [UIView beginAnimations:nil context:NULL];

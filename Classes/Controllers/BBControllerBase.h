@@ -19,4 +19,8 @@
 
 -(BBProject*)getProjectWithIdentifier:(NSString*)identifier fromArrayOf:(NSArray*)projects;
 
+-(CGSize)screenSize;
+
+-(UIColor*)backgroundColor;
+
 @end

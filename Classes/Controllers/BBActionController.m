@@ -9,7 +9,7 @@
 #import "BBActionController.h"
 
 @implementation BBActionController {
-    BBActionView *actionView;
+    MGBox *actionView;
     UIImage *arrow;
 }
 
@@ -21,9 +21,12 @@
 -(void)loadView{
     [BBLog Log:@"BBActionController.loadView"];
     
-    self.view = [[BBActionView alloc]initWithSize:[UIScreen mainScreen].bounds.size];
+    self.view = [MGBox boxWithSize:[self screenSize]];
+    self.view.backgroundColor =
+    self.view.backgroundColor = [self backgroundColor];
+    
     arrow = [UIImage imageNamed:@"arrow.png"];
-    actionView = (BBActionView*)self.view;
+    actionView = (MGBox*)self.view;
     self.app = (BBAppDelegate *)[UIApplication sharedApplication].delegate;
 }
 

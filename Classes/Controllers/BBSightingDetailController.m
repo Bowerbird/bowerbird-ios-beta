@@ -15,7 +15,7 @@
 @end
 
 @implementation BBSightingDetailController {
-    BBSightingView* sightingView;
+    MGScrollView* sightingView;
     UIImage *arrow, *back;
     PhotoBox *fullSizeImage;
 }
@@ -37,7 +37,10 @@
 -(void)loadView {
     [BBLog Log:@"BBSightingDetailController.loadView"];
     
-    self.view = [[BBSightingView alloc]initWithFrame:IPHONE_STREAM_FRAME];
+    self.view = [MGScrollView scrollerWithSize:[self screenSize]];
+    self.view.backgroundColor = [self backgroundColor];
+    ((MGScrollView*)self.view).contentLayoutMode = MGLayoutTableStyle;
+    sightingView = (MGScrollView*)self.view;
     self.app = (BBAppDelegate *)[UIApplication sharedApplication].delegate;
     self.mapView = [[MKMapView alloc]init];
 }
@@ -48,7 +51,6 @@
     
     [super viewDidLoad];
     self.app.navController.navigationBarHidden = YES;
-    sightingView = (BBSightingView*)self.view;
     back = [UIImage imageNamed:@"back.png"];
     
     UISwipeGestureRecognizer *rightRecognizer;

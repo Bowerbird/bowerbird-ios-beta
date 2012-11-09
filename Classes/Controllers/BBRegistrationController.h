@@ -9,12 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "BBControllerBase.h"
 #import "BBUIControlHelper.h"
-#import "BBRegistrationView.h"
 #import "BBStyles.h"
+#import "BSKeyboardControls.h"
 
 @interface BBRegistrationController : BBControllerBase <
      UITextFieldDelegate
     ,RKObjectLoaderDelegate
+    ,BSKeyboardControlsDelegate
 >
 
 @end

@@ -10,7 +10,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "BBControllerBase.h"
 #import "BBDeviceUIProtocol.h"
-#import "BBActionView.h"
+#import "MGHelpers.h"
 
 @interface BBActionController : BBControllerBase <UIGestureRecognizerDelegate>
 

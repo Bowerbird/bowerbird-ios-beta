@@ -71,32 +71,5 @@ typedef void (^ActionBlock)();
     [self.controller cancelMediaEdit];
 }
 
-#pragma mark -
-#pragma mark - Utilities and Helpers
-
--(UITextField *)createTextFieldWithFrame:(CGRect)frame andPlaceholder:(NSString*)text {
-    UITextField *textField = [[UITextField alloc] initWithFrame:frame];
-    textField.borderStyle = UITextBorderStyleRoundedRect;
-    textField.font = [UIFont systemFontOfSize:15];
-    textField.placeholder = text;
-    textField.autocorrectionType = UITextAutocorrectionTypeNo;
-    textField.keyboardType = UIKeyboardTypeDefault;
-    textField.returnKeyType = UIReturnKeyDone;
-    textField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    textField.delegate = self;
-    
-    return textField;
-}
-
--(CoolMGButton *)createButtonWithFrame:(CGRect)frame andTitle:(NSString*)text withBlock:(ActionBlock)block {
-    CoolMGButton *button = [[CoolMGButton alloc]initWithFrame:frame];
-    //button.frame = frame;
-    [button setTitle:text forState:UIControlStateNormal];
-    [button setButtonColor:[UIColor colorWithRed:232 green:228 blue:219 alpha:1]];
-    [button onControlEvent:UIControlEventTouchUpInside do:block];
-    
-    return button;
-}
 
 @end

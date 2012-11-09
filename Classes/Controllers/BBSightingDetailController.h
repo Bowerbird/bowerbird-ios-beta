@@ -8,13 +8,15 @@
 
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
-#import "BBControllerBase.h"
-#import "BBSightingView.h"
+#import "BBControllerBase.h"\
 #import "BBActivity.h"
 #import "MGHelpers.h"
 #import "PhotoBox.h"
 
-@interface BBSightingDetailController : BBControllerBase <UIGestureRecognizerDelegate, MKMapViewDelegate>
+@interface BBSightingDetailController : BBControllerBase <
+     UIGestureRecognizerDelegate
+    ,MKMapViewDelegate
+>
 
 @property (nonatomic,retain) BBActivity* activity;
 @property (strong, nonatomic) MKMapView *mapView;

@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "BBControllerBase.h"
-#import "BBStreamView.h"
 #import "BBMediaResource.h"
 #import "MGHelpers.h"
 #import "PhotoBox.h"

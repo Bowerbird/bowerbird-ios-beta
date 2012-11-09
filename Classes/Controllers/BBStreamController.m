@@ -22,7 +22,7 @@
     
     self.app = (BBAppDelegate *)[UIApplication sharedApplication].delegate;
     
-    self.view = [[BBStreamView alloc]initWithFrame:IPHONE_STREAM_FRAME];
+    self.view = [MGScrollView scrollerWithSize:[self screenSize]];
 }
 
 
@@ -61,10 +61,10 @@
     {
         MGLine *description = [MGLine multilineWithText:@"No Activity yet!" font:HEADER_FONT width:300 padding:UIEdgeInsetsMake(150, 50, 0, 0)];
         
-        [((BBStreamView*)self.view).boxes addObject:description];
+        [((MGScrollView*)self.view).boxes addObject:description];
     }
     
-    [(BBStreamView*)self.view layoutWithSpeed:0.3 completion:nil];
+    [(MGScrollView*)self.view layoutWithSpeed:0.3 completion:nil];
 }
 
 
@@ -84,10 +84,10 @@
     {
         MGLine *description = [MGLine multilineWithText:@"No Activity yet!" font:HEADER_FONT width:300 padding:UIEdgeInsetsMake(150, 50, 0, 0)];
         
-        [((BBStreamView*)self.view).boxes addObject:description];
+        [((MGScrollView*)self.view).boxes addObject:description];
     }
     
-    [(BBStreamView*)self.view layoutWithSpeed:0.3 completion:nil];
+    [(MGScrollView*)self.view layoutWithSpeed:0.3 completion:nil];
 }
 
 
@@ -95,7 +95,7 @@
 {
     [BBLog Log:@"BBStreamController.addObservation"];
     
-    BBStreamView *streamView = (BBStreamView*)self.view;
+    MGScrollView *streamView = (MGScrollView*)self.view;
     
     // this gets used to display the observation:
     BBImage *primaryMediaImage = [activity.observation.primaryMedia.mediaResource.imageMedia objectAtIndex:0];

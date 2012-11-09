@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "BBControllerBase.h"
-#import "BBOriginalImageView.h"
 #import "BBMedia.h"
 #import "BBImage.h"
 

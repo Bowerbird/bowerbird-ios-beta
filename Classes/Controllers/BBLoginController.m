@@ -12,12 +12,27 @@
 #define TEXT_FIELD_SIZE             (CGSize){50, 30}
 #define BTN_SIZE                    (CGSize){50, 30}
 
+
+@interface BBLoginController()
+
+@property (nonatomic, strong) BSKeyboardControls *keyboardControls;
+@property (nonatomic, weak) UITextField *emailField, *passwordField;
+
+-(void)scrollViewToTextField:(id)textField;
+
+@end
+
+
 @implementation BBLoginController {
-    UITextField *emailField, *passwordField;
     BBAuthenticatedUser *authenticatedUser;
     BBAuthentication* auth;
-    BBLoginView *loginView;
+    MGScrollView *loginView;
 }
+
+
+@synthesize  keyboardControls = _keyboardControls,
+                   emailField = _emailField,
+                passwordField = _passwordField;
 
 
 #pragma mark -
@@ -27,8 +42,10 @@
 -(void)loadView {
     [BBLog Log:@"BBLoginController.loadView"];
     
-    self.view = [[BBLoginView alloc]initWithSize:[UIScreen mainScreen].bounds.size];
-    loginView = (BBLoginView*)self.view;
+    self.view = [MGScrollView scrollerWithSize:[self screenSize]];
+    self.view.backgroundColor = [self backgroundColor];
+    ((MGScrollView*)self.view).contentLayoutMode = MGLayoutTableStyle;
+    loginView = (MGScrollView*)self.view;
     
     self.app = (BBAppDelegate *)[UIApplication sharedApplication].delegate;
 }
@@ -40,6 +57,7 @@
     [super viewDidLoad];
     
     [self displayViewControls];
+    [self setupKeyboardResponder];
 }
 
 
@@ -66,24 +84,24 @@
     [loginTable.topLines addObject:loginTableHeading];
     
     // email
-    emailField = [BBUIControlHelper createTextFieldWithFrame:CGRectMake(0, 0, 280, 40)
+    _emailField = [BBUIControlHelper createTextFieldWithFrame:CGRectMake(0, 0, 280, 40)
                                               andPlaceholder:@"Email address"
                                                  andDelegate:self];
-    emailField.keyboardType = UIKeyboardTypeEmailAddress;
+    _emailField.keyboardType = UIKeyboardTypeEmailAddress;
     
     MGLine *emailLine = [MGLine lineWithSize:CGSizeMake(280, 60)];
-    [emailLine.middleItems addObject:emailField];
+    [emailLine.middleItems addObject:_emailField];
     emailLine.padding = UIEdgeInsetsMake(10, 0, 10, 0);
     [loginTable.middleLines addObject:emailLine];
     
     // password
-    passwordField = [BBUIControlHelper createTextFieldWithFrame:CGRectMake(0, 0, 280, 40)
+    _passwordField = [BBUIControlHelper createTextFieldWithFrame:CGRectMake(0, 0, 280, 40)
                                                  andPlaceholder:@"Password"
                                                     andDelegate:self];
     
-    passwordField.secureTextEntry = YES;
+    _passwordField.secureTextEntry = YES;
     MGLine *passwordLine = [MGLine lineWithSize:CGSizeMake(280, 60)];
-    [passwordLine.middleItems addObject:passwordField];
+    [passwordLine.middleItems addObject:_passwordField];
     [loginTable.middleLines addObject:passwordLine];
     
     
@@ -96,15 +114,15 @@
     [loginTable.bottomLines addObject:buttonLine];
     
     [loginView.boxes addObject:loginTable];
-    [(BBLoginView*)self.view layoutWithSpeed:0.3 completion:nil];
+    [(MGScrollView*)self.view layoutWithSpeed:0.3 completion:nil];
 }
 
 
 -(void)signIn {
     [BBLog Log:@"BBLoginController.signIn"];
     
-    NSString* email = emailField.text;
-    NSString* password = passwordField.text;
+    NSString* email = _emailField.text;
+    NSString* password = _passwordField.text;
     
     [BBLog Log:[NSString stringWithFormat:@"Attempting login with email: %@ and password %@", email, password]];
     
@@ -123,6 +141,69 @@
     [BBLog Log:@"BBLoginController.cancelSignIn"];
     
     [self.navigationController popViewControllerAnimated:NO];
+}
+
+
+#pragma mark -
+#pragma mark BSKeyboardControls Delegate
+
+-(void)setupKeyboardResponder {
+    
+    // Initialize the keyboard controls
+    self.keyboardControls = [[BSKeyboardControls alloc] init];
+    
+    // Set the delegate of the keyboard controls
+    self.keyboardControls.delegate = self;
+    
+    // Add all text fields you want to be able to skip between to the keyboard controls
+    // The order of thise text fields are important. The order is used when pressing "Previous" or "Next"
+    self.keyboardControls.textFields = [NSArray arrayWithObjects:
+                                        _emailField,
+                                        _passwordField,
+                                        nil];
+    
+    // Add the keyboard control as accessory view for all of the text fields
+    // Add the keyboard control as accessory view for all of the text fields
+    // Also set the delegate of all the text fields to self
+    for (id textField in self.keyboardControls.textFields)
+    {
+        if ([textField isKindOfClass:[UITextField class]])
+        {
+            ((UITextField *) textField).inputAccessoryView = self.keyboardControls;
+            ((UITextField *) textField).delegate = self;
+        }
+    }
+    
+    // Also set the delegate of all the text fields to self
+    [self.keyboardControls reloadTextFields];
+}
+
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if ([self.keyboardControls.textFields containsObject:textField])
+        self.keyboardControls.activeTextField = textField;
+}
+
+
+- (void)keyboardControlsDonePressed:(BSKeyboardControls *)controls
+{
+    [controls.activeTextField resignFirstResponder];
+}
+
+
+- (void)keyboardControlsPreviousNextPressed:(BSKeyboardControls *)controls withDirection:(KeyboardControlsDirection)direction andActiveTextField:(id)textField
+{
+    [textField becomeFirstResponder];
+    [self scrollViewToTextField:textField];
+}
+
+
+- (void)scrollViewToTextField:(id)textField
+{
+    MGLine *textFieldLine = (MGLine*)((UITextField*)textField).superview;
+    
+    [((MGScrollView*)self.view) scrollToView:textFieldLine withMargin:8];
 }
 
 

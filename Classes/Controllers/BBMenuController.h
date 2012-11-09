@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "BBControllerBase.h"
 #import "BBDeviceUIProtocol.h"
-#import "BBMenuView.h"
 #import "PhotoBox.h"
 #import "BBStyles.h"
 

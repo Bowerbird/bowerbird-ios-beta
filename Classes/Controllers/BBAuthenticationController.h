@@ -10,7 +10,6 @@
 #import "BBControllerBase.h"
 #import "BBRegistrationController.h"
 #import "BBLoginController.h"
-#import "BBAuthenticationView.h"
 #import "BBAuthenticatedUser.h"
 #import "BBAppDelegate.h"
 #import "MGHelpers.h"

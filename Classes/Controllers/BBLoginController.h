@@ -8,15 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import "BBControllerBase.h"
-#import "BBLoginView.h"
 #import "BBAuthenticatedUser.h"
 #import "BBAppDelegate.h"
 #import "BBUIControlHelper.h"
 #import "BBStyles.h"
+#import "BSKeyboardControls.h"
 
 @interface BBLoginController : BBControllerBase <
      UITextFieldDelegate
     ,RKObjectLoaderDelegate
+    ,BSKeyboardControlsDelegate
 >
 
 @end

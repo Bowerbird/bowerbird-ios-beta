@@ -47,4 +47,14 @@
 }
 
 
+-(CGSize)screenSize {
+    return [UIScreen mainScreen].bounds.size;
+}
+
+
+-(UIColor*)backgroundColor {
+    return [UIColor colorWithRed:0.74 green:0.74 blue:0.75 alpha:1];
+}
+
+
 @end

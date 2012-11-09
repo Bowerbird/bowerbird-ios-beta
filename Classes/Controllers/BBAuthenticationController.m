@@ -9,7 +9,7 @@
 #import "BBAuthenticationController.h"
 
 @implementation BBAuthenticationController {
-    BBAuthenticationView *authenticationView;
+    MGScrollView *authenticationView;
 }
 
 
@@ -20,8 +20,10 @@
 -(void)loadView {
     [BBLog Log:@"BBAuthenticationController.loadView"];
     
-    self.view = [[BBAuthenticationView alloc]initWithSize:[UIScreen mainScreen].bounds.size];
-    authenticationView = (BBAuthenticationView*)self.view;
+    self.view = [MGScrollView scrollerWithSize:[self screenSize]];
+    ((MGScrollView*)self.view).contentLayoutMode = MGLayoutTableStyle;
+    self.view.backgroundColor = [self backgroundColor];
+    authenticationView = (MGScrollView*)self.view;
     
     self.app = (BBAppDelegate *)[UIApplication sharedApplication].delegate;
 }
@@ -129,7 +131,7 @@
     [authenticationView.boxes addObject:registerTable];
     //[authenticationView.boxes addObject:browseTable];
     
-    [(BBAuthenticationView*)self.view layoutWithSpeed:0.3 completion:nil];
+    [(MGScrollView*)self.view layoutWithSpeed:0.3 completion:nil];
 }
 
 
@@ -179,10 +181,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
-#pragma mark -
-#pragma mark - Delegation and Event Handling
 
 
 @end

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "BBModels.h"
 #import "SignalR.h"
+#import "SRConnection.h"
 
 @class BBAuthenticatedUser,BBAuthentication, BBUser, BBChatMessage;
 

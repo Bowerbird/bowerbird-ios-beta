@@ -11,7 +11,6 @@
 #import "BBLog.h"
 #import "BBStyles.h"
 #import "BBControllerBase.h"
-#import "BBProjectSelectView.h"
 #import "BBCollectionHelper.h"
 #import "BBUIControlHelper.h"
 
@@ -20,7 +19,6 @@
 -(id)initWithDelegate:(id<BBProjectSelectDelegateProtocol>)delegate;
 
 @property (nonatomic,retain) id controller; // parent controller
-@property (nonatomic,strong) BBProjectSelectView *projectSelectView; // da view
 @property (nonatomic,strong) NSArray *projects;
 
 -(NSArray*)getUsersProjects;

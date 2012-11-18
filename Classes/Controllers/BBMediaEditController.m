@@ -29,7 +29,6 @@
 -(void)loadView {
     [BBLog Log:@"BBMediaEditController.loadView"];
     
-    self.app = (BBAppDelegate *)[UIApplication sharedApplication].delegate;
     self.mediaEditView = [[BBMediaEditView alloc]initWithDelegate:self
                                                          andImage:self.media.image];
     
@@ -44,11 +43,13 @@
 #pragma mark - Utilities and Helpers
 
 -(NSArray*)getLicences {
-    return self.app.appData.licences;
+    BBApplication *appData = [BBApplication sharedInstance];
+    return appData.licences;
 }
 
 -(NSString*)getUserDefaultLicence {
-    return self.app.appData.authenticatedUser.defaultLicence;
+    BBApplication *appData = [BBApplication sharedInstance];
+    return appData.authenticatedUser.defaultLicence;
 }
 
 -(void)updateLicence:(NSString*)licence {

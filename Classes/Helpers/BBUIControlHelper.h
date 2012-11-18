@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "MGHelpers.h"
+#import "BBStyles.h"
 #import "CoolMGButton.h"
 #import "PhotoBox.h"
 #import "UIView+MGEasyFrame.h"
@@ -21,5 +22,7 @@ typedef void (^ActionBlock)();
 +(CoolMGButton *)createButtonWithFrame:(CGRect)frame andTitle:(NSString*)text withBlock:(ActionBlock)block;
 
 +(MGTableBoxStyled *)createMGTableBoxStyledWithSize:(CGSize)size andBGColor:(UIColor *)color andHeading:(NSString*)heading andPadding:(UIEdgeInsets)padding;
+
++(MGTableBox *)createMGTableBoxWithSize:(CGSize)size andBGColor:(UIColor *)color andHeading:(NSString*)heading andPadding:(UIEdgeInsets)padding;
 
 @end

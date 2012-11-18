@@ -34,7 +34,6 @@
     ((MGScrollView*)self.view).contentLayoutMode = MGLayoutTableStyle;
     arrow = [UIImage imageNamed:@"arrow.png"];
     menuView = (MGScrollView*)self.view;
-    self.app = (BBAppDelegate *)[UIApplication sharedApplication].delegate;
 }
 
 
@@ -55,6 +54,7 @@
     [[self view] addGestureRecognizer:leftRecognizer];
     
     [self populateMenu];
+    self.view.alpha = 0;
 }
 
 

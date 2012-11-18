@@ -16,6 +16,7 @@
 @synthesize headerController = _headerController;
 @synthesize menuController = _menuController;
 @synthesize streamController = _streamController;
+@synthesize stream = _stream;
 
 
 #pragma mark -
@@ -25,8 +26,7 @@
 -(void)loadView {
     [BBLog Log:@"BBHomeController.loadView"];
     
-    self.app = (BBAppDelegate *)[UIApplication sharedApplication].delegate;
-    self.app.navController.navigationBarHidden = YES;
+    ((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController.navigationBarHidden = YES;
     
     self.view = [self setupHomeView:[[BBHomeView alloc]initWithSize:HOME_SIZE]];
 }
@@ -54,22 +54,22 @@
     [BBLog Log:@"BBHomeController.setupHomeView:withView"];
     
     self.headerController = [[BBHeaderController alloc]init];
-    [self addChildViewController:self.headerController];
-    [withView addSubview:self.headerController.view];
+    //[self addChildViewController:self.headerController];
+    //[withView addSubview:self.headerController.view];
     
     self.menuController = [[BBMenuController alloc]init];
-    [self addChildViewController:self.menuController];
-    [withView addSubview:self.menuController.view];
+    //[self addChildViewController:self.menuController];
+    //[withView addSubview:self.menuController.view];
     
     self.actionController = [[BBActionController alloc]init];
-    [self addChildViewController:self.actionController];
-    [withView addSubview:self.actionController.view];
+    //[self addChildViewController:self.actionController];
+    //[withView addSubview:self.actionController.view];
     
     // all devices and orientations have the same header height
     self.menuController.view.y = IPHONE_HEADER_PORTRAIT.height;
-    self.menuController.view.x = self.menuController.view.width * -1;
+    self.menuController.view.x = [self screenSize].width * -1;
     
-    self.actionController.view.y = IPHONE_HEADER_PORTRAIT.height + self.actionController.view.height;
+    self.actionController.view.y = [self screenSize].height;
     self.actionController.view.x = 0;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showMenu) name:@"menuTapped" object:nil];
@@ -104,7 +104,8 @@
     {
         [BBLog Debug:object withMessage:@"### BBUser Loaded"];
         
-        self.app.appData.user = (BBUser*)object;
+        BBApplication *appData = [BBApplication sharedInstance];
+        appData.user = (BBUser*)object;
         [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"%@?%@",[BBConstants AuthenticatedUserProfileUrl], [BBConstants AjaxQuerystring]]
                                                           delegate:self];
     }
@@ -113,8 +114,8 @@
     {
         [BBLog Debug:object withMessage:@"### BBAuthenticatedUser Loaded"];
         
-        self.app.appData.authenticatedUser = (BBAuthenticatedUser*)object;
-        [self.app.appData.connection start];
+        BBApplication *appData = [BBApplication sharedInstance];
+        [appData.connection start];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"userProfileLoaded" object:nil];
     }
@@ -126,6 +127,7 @@
         // pass model to stream controller constructor
         self.streamController = [[BBStreamController alloc]init];
         [self.view addSubview:self.streamController.view];
+        self.streamController.view.y += 50;
 
         // append stream's view to this window
         [self.streamController displayActivities:object];
@@ -154,6 +156,7 @@
     [BBLog Log:@"BBHomeController.showMenu"];
     [UIView animateWithDuration:0.15 animations:^{
         self.menuController.view.x = 0;
+        self.menuController.view.alpha = 1;
     }];
     
     [self.view bringSubviewToFront:self.menuController.view];
@@ -164,6 +167,7 @@
     [BBLog Log:@"BBHomeController.hideMenu"];
     [UIView animateWithDuration:0.15 animations:^{
         self.menuController.view.x = self.menuController.view.width * -1;
+        self.menuController.view.alpha = 0;
     }];
 }
 
@@ -173,6 +177,7 @@
     [UIView animateWithDuration:0.15 animations:^{
         // all devices and orientations have the same header height
         self.actionController.view.y = 0;
+        self.actionController.view.alpha = 1;
     }];
     
     [self.view bringSubviewToFront:self.actionController.view];
@@ -183,6 +188,7 @@
     [BBLog Log:@"BBHomeController.hideAction"];
     [UIView animateWithDuration:0.25 animations:^{
         self.actionController.view.y = self.view.height;
+        self.actionController.view.alpha = 0;
     }];
 }
 
@@ -198,8 +204,8 @@
 
 -(void)loadUserStream {
     [BBLog Log:@"BBHomeController.loadUserStream"];
-    
-    // load up the user's activity
+
+    [self clearStreamViews];
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"%@?%@",[BBConstants ActivityUrl], [BBConstants AjaxQuerystring]]
                                                       delegate:self];
     
@@ -220,6 +226,7 @@
 -(void)loadGroupStream:(NSNotification *) notification {
     [BBLog Log:@"BBHomeController.loadGroupStream"];
     
+    [self clearStreamViews];
     NSDictionary* userInfo = [notification userInfo];
     BBApplication *app = [BBApplication sharedInstance];
     BBProject* project = [self getProjectWithIdentifier:[userInfo objectForKey:@"groupId"] fromArrayOf:app.authenticatedUser.projects];
@@ -233,6 +240,16 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeadingTitle" object:self userInfo:userInfo2];
 }
 
+
+-(void)clearStreamViews {
+    NSArray *viewsToRemove = [self.view subviews];
+    for (UIView *v in viewsToRemove) {
+        [v removeFromSuperview];
+    }
+    [self.view addSubview:self.headerController.view];
+    [self.view addSubview:self.menuController.view];
+    [self.view addSubview:self.actionController.view];
+}
 
 - (void)didReceiveMemoryWarning {
     [BBLog Log:@"MEMORY WARNING! - BBHomeController"];

@@ -39,7 +39,9 @@
 
 +(MGTableBoxStyled *)createMGTableBoxStyledWithSize:(CGSize)size andBGColor:(UIColor *)color andHeading:(NSString*)heading andPadding:(UIEdgeInsets)padding {
     MGTableBoxStyled *styledTable = [MGTableBoxStyled boxWithSize:size];
-    [styledTable.topLines addObject:[MGLine lineWithLeft:heading right:nil size:CGSizeMake(size.width-padding.left-padding.right, size.height-padding.top-padding.bottom)]];
+    MGLine *headingLine = [MGLine lineWithLeft:heading right:nil size:CGSizeMake(size.width-padding.left-padding.right, size.height-padding.top-padding.bottom)];
+    headingLine.font = HEADER_FONT;
+    [styledTable.topLines addObject:headingLine];
     styledTable.backgroundColor = [UIColor whiteColor];
     styledTable.padding = padding;
     styledTable.backgroundColor = color;
@@ -47,5 +49,17 @@
     return styledTable;
 }
 
+
++(MGTableBox *)createMGTableBoxWithSize:(CGSize)size andBGColor:(UIColor *)color andHeading:(NSString*)heading andPadding:(UIEdgeInsets)padding {
+    MGTableBox *styledTable = [MGTableBox boxWithSize:size];
+    MGLine *headingLine = [MGLine lineWithLeft:heading right:nil size:CGSizeMake(size.width-padding.left-padding.right, size.height-padding.top-padding.bottom)];
+    headingLine.font = HEADER_FONT;
+    [styledTable.topLines addObject:headingLine];
+    styledTable.backgroundColor = [UIColor whiteColor];
+    styledTable.padding = padding;
+    styledTable.backgroundColor = color;
+    
+    return styledTable;
+}
 
 @end

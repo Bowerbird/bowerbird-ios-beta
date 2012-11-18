@@ -34,6 +34,8 @@ static BBApplication* bowerbirdApplication = nil;
     if(bowerbirdApplication == nil)
     {
         bowerbirdApplication = [[super allocWithZone:NULL]init];
+        
+        [self setupApplication];
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:bowerbirdApplication
@@ -43,6 +45,12 @@ static BBApplication* bowerbirdApplication = nil;
     
     
     return bowerbirdApplication;
+}
+
++(void)setupApplication {
+    [BBLog Log:@"BBApplication.setupApplication:"];
+    
+    bowerbirdApplication.connection = [SRHubConnection connectionWithURL:[BBConstants RootUriString]];
 }
 
 -(NSString*)action {

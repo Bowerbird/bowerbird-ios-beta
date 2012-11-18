@@ -48,21 +48,46 @@
     
     BBApplication* app = [BBApplication sharedInstance];
     NSArray *userProjects = app.authenticatedUser.projects;
+    
+    __block NSMutableArray *projectsInObservationIds = [[NSMutableArray alloc]init];
+    [withIds enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [projectsInObservationIds addObject:((BBProject*)obj).identifier];
+    }];
+    
     __block NSMutableArray *projects = [[NSMutableArray alloc]init];
     [userProjects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         // if this userProject is to be incuded, add it
-        if(yesOrNo && [withIds containsObject:((BBProject*)obj).identifier])
+        if(yesOrNo && [projectsInObservationIds containsObject:((BBProject*)obj).identifier])
         {
             [projects addObject:obj];
         }
         // if this userProject is not to be included, add it
-        else if(!yesOrNo && ![withIds containsObject:((BBProject*)obj).identifier])
+        else if(!yesOrNo && ![projectsInObservationIds containsObject:((BBProject*)obj).identifier])
         {
             [projects addObject:obj];
         }
     }];
     
-    return userProjects;
+    return projects;
 }
+
+
++(BBProject*)getUserProjectById:(NSString*)identifier {
+    
+    BBApplication* app = [BBApplication sharedInstance];
+    __block BBProject *proj;
+    [app.authenticatedUser.projects enumerateObjectsUsingBlock:^(BBProject* obj, NSUInteger idx, BOOL *stop) {
+        if([((BBProject*)obj).identifier isEqualToString:identifier])
+        {
+            proj = obj;
+            *stop = YES;
+        }
+    }];
+    
+    return proj;
+}
+
+
+
 
 @end

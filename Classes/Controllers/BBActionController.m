@@ -22,13 +22,11 @@
     [BBLog Log:@"BBActionController.loadView"];
     
     self.view = [MGBox boxWithSize:[self screenSize]];
-    self.view.backgroundColor =
     self.view.backgroundColor = [self backgroundColor];
     
     arrow = [UIImage imageNamed:@"arrow.png"];
     actionView = (MGBox*)self.view;
-    self.app = (BBAppDelegate *)[UIApplication sharedApplication].delegate;
-}
+ }
 
 
 - (void)viewDidLoad {
@@ -48,6 +46,7 @@
     [[self view] addGestureRecognizer:downRecognizer];
     
     [self populateAction];
+    self.view.alpha = 0;
 }
 
 

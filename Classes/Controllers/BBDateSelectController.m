@@ -28,7 +28,6 @@
 -(void)loadView {
     [BBLog Log:@"BBDateSelectController.loadView"];
     
-    self.app = (BBAppDelegate *)[UIApplication sharedApplication].delegate;
     self.view = self.dateSelectView;
 }
 

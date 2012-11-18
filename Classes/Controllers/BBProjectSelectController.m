@@ -9,12 +9,11 @@
 #import "BBProjectSelectController.h"
 
 @implementation BBProjectSelectController {
-    BBProjectSelectView *projectSelectView;
+    MGScrollView *projectSelectView;
 }
 
 
 @synthesize controller = _controller;
-@synthesize projectSelectView = _projectSelectView;
 @synthesize projects = _projects;
 
 -(id)initWithDelegate:(id<BBProjectSelectDelegateProtocol>)delegate {
@@ -30,9 +29,10 @@
 -(void)loadView {
     [BBLog Log:@"BBProjectSelectController.loadView"];
     
-    self.view = [[BBProjectSelectView alloc]initWithDelegate:self];
-    projectSelectView = (BBProjectSelectView*)self.view;
-    _projectSelectView.backgroundColor = [UIColor whiteColor];
+    self.view = [MGScrollView scrollerWithSize:[self screenSize]];
+    self.view.backgroundColor = [UIColor whiteColor];
+    ((MGScrollView*)self.view).contentLayoutMode = MGLayoutTableStyle;
+    projectSelectView = (MGScrollView*)self.view;
 }
 
 
@@ -41,7 +41,9 @@
     
     [super viewDidLoad];
     
-    [self displayViewControls];
+    //_projects = [BBCollectionHelper getUserProjects:[_controller getSightingProjects] inYesNotInNo:NO];
+    
+    //[self displayViewControls];
 }
 
 
@@ -49,16 +51,19 @@
     [BBLog Log:@"BBProjectSelectController.viewWillAppear"];
     
     // this may have changed since last view display
-    _projects = [BBCollectionHelper getUserProjects:[_controller getSightingProjects] inYesNotInNo:NO];
+    
+    [self displayViewControls];
 }
 
 
 -(void)displayViewControls {
     [BBLog Log:@"BBProjectSelectController.displayViewControls"];
     
-    MGTableBoxStyled *projectTable = [BBUIControlHelper createMGTableBoxStyledWithSize:CGSizeMake(250, 150)
+    _projects = [BBCollectionHelper getUserProjects:[_controller getSightingProjects] inYesNotInNo:NO];
+    
+    MGTableBox *projectTable = [BBUIControlHelper createMGTableBoxWithSize:CGSizeMake(280, 50)
                                                            andBGColor:[UIColor whiteColor]
-                                                           andHeading:@"Select Projects for Sighting"
+                                                           andHeading:@"Add a Project"
                                                            andPadding:UIEdgeInsetsZero];
     
     for (BBProject *project in _projects) {
@@ -75,16 +80,17 @@
     }
     
     if(_projects.count <= 0) {
-        [projectTable.middleLines addObject:[MGLine lineWithLeft:@"No Projects in Sighting" right:nil size:CGSizeMake(200, 40)]];
+        [projectTable.middleLines addObject:[MGLine lineWithLeft:@"No more to add" right:nil size:CGSizeMake(200, 40)]];
     }
     
-    CoolMGButton *done = [BBUIControlHelper createButtonWithFrame:CGRectMake(0, 0, 200, 40)
+    CoolMGButton *done = [BBUIControlHelper createButtonWithFrame:CGRectMake(0, 0, 100, 40)
                                                          andTitle:@"Done"
                                                         withBlock:^{[_controller stopAddingProjects];}];
     
-    [projectTable.bottomLines addObject:done];
+    [projectTable.bottomLines addObject:[MGLine lineWithLeft:nil right:done size:CGSizeMake(280, 40)]];
     [projectSelectView.boxes addObject:projectTable];
-    [(BBProjectSelectView*)self.view layoutWithSpeed:0.3 completion:nil];
+    //[projectSelectView.boxes addObject:done];
+    [(MGScrollView*)self.view layoutWithSpeed:0.3 completion:nil];
 }
 
 -(NSArray*)getUsersProjects {

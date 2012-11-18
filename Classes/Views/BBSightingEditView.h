@@ -16,6 +16,7 @@
 #import "PhotoBox.h"
 #import "UIView+MGEasyFrame.h"
 #import "BBUIControlHelper.h"
+#import "BBGuidGenerator.h"
 
 #define SIGHTING_TABLE_SIZE     (CGSize){300,40}
 #define EDGE_10_PADDING         (UIEdgeInsets){10,10,10,10}
@@ -49,7 +50,7 @@
                               andTitle:(NSString*)text
                              withBlock:(ActionBlock)block;
 
--(BBSightingEditView*)initWithDelegate:(id<BBSightingEditDelegateProtocol >)delegate;
+-(BBSightingEditView*)initWithDelegate:(id<BBSightingEditDelegateProtocol>)delegate asObservation:(BOOL)isObservation;
 
 -(void)addMediaItem:(BBMediaEdit*)media;
 

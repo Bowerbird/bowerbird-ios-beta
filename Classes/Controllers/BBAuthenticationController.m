@@ -24,8 +24,6 @@
     ((MGScrollView*)self.view).contentLayoutMode = MGLayoutTableStyle;
     self.view.backgroundColor = [self backgroundColor];
     authenticationView = (MGScrollView*)self.view;
-    
-    self.app = (BBAppDelegate *)[UIApplication sharedApplication].delegate;
 }
 
 
@@ -46,7 +44,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [BBLog Log:@"BBAuthenticationController.viewWillAppear"];
     
-    self.app.navController.navigationBarHidden = YES;
+    ((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController.navigationBarHidden = YES;
 }
 
 
@@ -140,7 +138,7 @@
     
     BBLoginController *loginController = [[BBLoginController alloc]init];
     
-    [self.app.navController pushViewController:loginController animated:YES];
+    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:loginController animated:YES];
 }
 
 -(void)registerAuthenticationScreen {
@@ -148,7 +146,7 @@
     
     BBRegistrationController *registrationController = [[BBRegistrationController alloc]init];
     
-    [self.app.navController pushViewController:registrationController animated:YES];
+    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:registrationController animated:YES];
 }
 
 -(void)browseScreen {
@@ -162,9 +160,7 @@
 -(void)authenticatedUserLoaded {
     [BBLog Log:@"BBAuthenticationController.authenticatedUserLoaded"];
     
-    //[[NSNotificationCenter defaultCenter] postNotificationName:@"userHasAuthenticated" object:nil];
-    
-    [self.app.navController popToRootViewControllerAnimated:YES];
+    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popToRootViewControllerAnimated:YES];
 }
 
 

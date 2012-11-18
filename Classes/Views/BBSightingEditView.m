@@ -32,24 +32,26 @@
 #pragma mark -
 #pragma mark - Setup and Config
 
--(BBSightingEditView*)initWithDelegate:(id<BBSightingEditDelegateProtocol>)delegate {
+-(BBSightingEditView*)initWithDelegate:(id<BBSightingEditDelegateProtocol>)delegate asObservation:(BOOL)isObservation {
     [BBLog Log:@"BBSightingEditView.initWithMedia:andDelegate:"];
     
     self = [BBSightingEditView scrollerWithSize:CGSizeMake(320, 480)];
     self.contentLayoutMode = MGLayoutTableStyle;
     _controller = delegate;
     self.backgroundColor = [UIColor colorWithRed:0.74 green:0.74 blue:0.75 alpha:1];
-    [self displayViewControls];
+    [self displayViewControls:isObservation];
     
     return self;
 }
 
--(void)displayViewControls {
+-(void)displayViewControls:(BOOL)forObservation {
     [BBLog Log:@"BBSightingEditView.displayViewControls"];
     
     [self displayTitleTable];
     [self displayObservedOnTable];
-    [self displayMediaTable];
+    if(forObservation) {
+        [self displayMediaTable];
+    }
     [self displayCategoryTable];
     [self displayLocationTable];
     [self displayProjectsTable];
@@ -195,7 +197,7 @@
     UIButton *cancel = [BBUIControlHelper createButtonWithFrame:CGRectMake(0, 0, 100, 40) andTitle:@"Cancel" withBlock:^(void){[self.controller cancel];}];
     UIButton *save = [BBUIControlHelper createButtonWithFrame:CGRectMake(0, 0, 100, 40) andTitle:@"Save" withBlock:^(void){[self.controller save];}];
     MGLine *actionLine = [MGLine lineWithLeft:save right:cancel size:CGSizeMake(280, 60)];
-    [_actionTable.middleLines addObject:actionLine];
+    [_actionTable.bottomLines addObject:actionLine];
     
     [self.boxes addObject:_actionTable];
 }
@@ -213,6 +215,27 @@
 
 #pragma mark -
 #pragma mark - Delegate and Protocol interaction
+
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    [_controller updateTitle];
+}
+
+//- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+//    return YES;
+//}
+
+// if we encounter a newline character return
+//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+//{
+//    // enter closes the keyboard
+//    if ([string isEqualToString:@"\n"])
+//    {
+//        [textField resignFirstResponder];
+//        return NO;
+//    }
+//    return YES;
+//}
 
 // trigger changes to the model via the controller protocols
 -(void)changeTitle:(NSString*)title {

@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "BBImage.h"
 #import "BBApplication.h"
+#import "BBProject.h"
+
+@class BBProject;
 
 @interface BBCollectionHelper : NSObject
 
@@ -17,5 +20,7 @@
 +(BBImage*)getImageWithDimension:(NSString*)dimensionName fromArrayOf:(NSArray*)images;
 
 +(NSArray*)getUserProjects:(NSArray*)withIdentifiers inYesNotInNo:(BOOL)yesOrNo;
+
++(BBProject*)getUserProjectById:(NSString*)identifier;
 
 @end

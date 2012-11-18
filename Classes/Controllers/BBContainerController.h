@@ -14,7 +14,7 @@
 #import "BBContributionController.h"
 #import "BBAppDelegate.h"
 #import "BBApplication.h"
-
+#import "BBUserHubClient.h"
 
 @interface BBContainerController : BBControllerBase <RKObjectLoaderDelegate>
 

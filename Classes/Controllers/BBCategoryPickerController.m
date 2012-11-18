@@ -26,7 +26,6 @@
 -(void)loadView {
     [BBLog Log:@"BBCategoryPickerController.loadView"];
     
-    self.app = (BBAppDelegate *)[UIApplication sharedApplication].delegate;
     self.view = _categoryPickerView;
 }
 

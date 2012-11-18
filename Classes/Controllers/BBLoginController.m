@@ -46,8 +46,6 @@
     self.view.backgroundColor = [self backgroundColor];
     ((MGScrollView*)self.view).contentLayoutMode = MGLayoutTableStyle;
     loginView = (MGScrollView*)self.view;
-    
-    self.app = (BBAppDelegate *)[UIApplication sharedApplication].delegate;
 }
 
 
@@ -63,9 +61,9 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [BBLog Log:@"BBLoginController.viewWillAppear"];
-    
-    self.app.navController.navigationBarHidden = NO;
+
     self.title = @"Sign In";
+    ((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController.navigationBarHidden = NO;
 }
 
 
@@ -271,14 +269,15 @@
     }
 }
 
-
+/*
 // TODO: This is potentially the handler for all RestKit activity
 -(void)objectLoader:(RKObjectLoader*)objectLoader didLoadObject:(id)object {
     [BBLog Log:@"BBLoginController.objectLoader:didLoadObject"];
     
     if([object isKindOfClass:[BBUser class]])
     {
-        self.app.appData.user = (BBUser*)object;
+        BBApplication *appData = [BBApplication sharedInstance];
+        appData.user = (BBUser*)object;
         
         [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"%@?%@",[BBConstants AuthenticatedUserProfileUrl], [BBConstants AjaxQuerystring]]
                                                           delegate:self];
@@ -297,7 +296,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"authenticatedUserLoaded" object:nil];
     }
 }
-
+*/
 
 -(void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     [BBLog Error:[NSString stringWithFormat:@"%@%@", @"BBLoginController.objectLoader:didFailWithError:", [error localizedDescription]]];

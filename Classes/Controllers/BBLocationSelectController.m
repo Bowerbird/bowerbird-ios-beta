@@ -28,9 +28,6 @@
 -(void)loadView {
     [BBLog Log:@"BBLocationSelectController.loadView"];
     
-    self.app = (BBAppDelegate *)[UIApplication sharedApplication].delegate;
-//    [[UIApplication sharedApplication] setStatusBarHidden:YES animated:NO];
-    
     self.view = self.locationSelectView;
 }
 

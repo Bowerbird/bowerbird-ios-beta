@@ -41,7 +41,6 @@
     self.view.backgroundColor = [self backgroundColor];
     ((MGScrollView*)self.view).contentLayoutMode = MGLayoutTableStyle;
     sightingView = (MGScrollView*)self.view;
-    self.app = (BBAppDelegate *)[UIApplication sharedApplication].delegate;
     self.mapView = [[MKMapView alloc]init];
 }
 
@@ -50,7 +49,7 @@
     [BBLog Log:@"BBSightingDetailController.viewDidLoad"];
     
     [super viewDidLoad];
-    self.app.navController.navigationBarHidden = YES;
+    ((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController.navigationBarHidden = YES;
     back = [UIImage imageNamed:@"back.png"];
     
     UISwipeGestureRecognizer *rightRecognizer;
@@ -74,7 +73,9 @@
     MGLine *header = [MGLine lineWithLeft:back right:description size:CGSizeMake(300, 60)];
     header.x +=10;
     [info.topLines addObject:header];
-    header.onTap =^{[self.app.navController popViewControllerAnimated:YES];};
+    header.onTap =^{
+        [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:YES];
+    };
     
     BBImage *fullSize = [self getImageWithDimension:@"Constrained240" fromArrayOf:self.activity.observation.primaryMedia.mediaResource.imageMedia];
     
@@ -83,8 +84,8 @@
     [currentImageBox.boxes addObject:currentPic];
     [info.middleLines addObject:currentImageBox];
     MGBox *thumbs = [MGBox box];//boxWithSize:CGSizeMake(320, 50)];
-    thumbs.parentBox.contentLayoutMode = MGLayoutTableStyle;
-    thumbs.sizingMode = MGResizingShrinkWrap;
+    thumbs.parentBox.contentLayoutMode = MGLayoutGridStyle;
+    //thumbs.sizingMode = MGResizingShrinkWrap;
 
     // add the thumb nails
     if(self.activity.observation.media.count > 1)
@@ -144,7 +145,7 @@
     [BBLog Log:@"BBSightingDetailController.handleSwipeRight:"];
     
     // this is a right swipe so bring in the menu
-    [self.app.navController popViewControllerAnimated:YES];
+    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:YES];
 }
 
 

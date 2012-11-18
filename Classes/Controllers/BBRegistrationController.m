@@ -44,8 +44,6 @@
     ((MGScrollView*)self.view).contentLayoutMode = MGLayoutTableStyle;
     self.view.backgroundColor = [self backgroundColor];
     registrationView = (MGScrollView*)self.view;
-    
-    self.app = (BBAppDelegate *)[UIApplication sharedApplication].delegate;
 }
 
 
@@ -72,7 +70,8 @@
 -(void)viewWillAppear:(BOOL)animated {
     [BBLog Log:@"BBRegistrationController.viewWillAppear"];
 
-    self.app.navController.navigationBarHidden = NO;
+    ((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController.navigationBarHidden = NO;
+    
     self.title = @"Register";
 }
 
@@ -147,7 +146,7 @@
     [registrationTable.bottomLines addObject:buttonLine];
     
     [registrationView.boxes addObject:registrationTable];
-    [(BBRegistrationView*)self.view layoutWithSpeed:0.3 completion:nil];
+    [(MGScrollView*)self.view layoutWithSpeed:0.3 completion:nil];
 }
 
 
@@ -315,7 +314,8 @@
     
     if([object isKindOfClass:[BBUser class]])
     {
-        self.app.appData.user = (BBUser*)object;
+        BBApplication *appData = [BBApplication sharedInstance];
+        appData.user = (BBUser*)object;
         
         [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"%@?%@",[BBConstants AuthenticatedUserProfileUrl], [BBConstants AjaxQuerystring]]
                                                           delegate:self];

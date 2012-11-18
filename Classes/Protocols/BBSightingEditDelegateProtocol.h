@@ -19,6 +19,8 @@
 
 @optional
 
+-(void)updateTitle;
+
 -(void)createdOnStartEdit;
 
 // Usage:

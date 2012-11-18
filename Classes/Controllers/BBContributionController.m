@@ -46,7 +46,6 @@
     [BBLog Log:@"BBContributionController.loadView"];
     
     BBContainerView *container = [[BBContainerView alloc]init];
-    self.app = (BBAppDelegate *)[UIApplication sharedApplication].delegate;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(cancelCreateSighting)
@@ -110,7 +109,8 @@
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
         [alert show];
-        [self.app.navController popViewControllerAnimated:NO];
+        
+        [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:NO];
     }
 }
 
@@ -132,12 +132,17 @@
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
         [alert show];
-        [self.app.navController popViewControllerAnimated:NO];
+        
+        [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:NO];
     }
 }
 
 -(void)showCreateRecord {
     [BBLog Log:@"BBContributionController.showCreateRecord"];
+    
+    BBSightingEditController *observationController = [[BBSightingEditController alloc]initAsRecord];
+    
+    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:observationController animated:NO];
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
@@ -161,22 +166,22 @@
     BBMediaEdit *mediaEdit = [[BBMediaEdit alloc]init];
     mediaEdit.image = image;
     
-    BBObservationEditController *observationController = [[BBObservationEditController alloc]initWithMedia:mediaEdit];
+    BBSightingEditController *observationController = [[BBSightingEditController alloc]initWithMedia:mediaEdit];
     
-    [self.app.navController pushViewController:observationController animated:NO];
+    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:observationController animated:NO];
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [BBLog Log:@"BBContributionController.imagePickerControllerDidCancel"];
     
-    [self.app.navController popViewControllerAnimated:NO];
+    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:NO];
     [picker dismissModalViewControllerAnimated:YES];
 }
 
 -(void)cancelCreateSighting {
     [BBLog Log:@"BBContributionController.cancelCreateSighting"];
     
-    [self.app.navController popViewControllerAnimated:NO];
+    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:NO];
 }
 
 -(void)didReceiveMemoryWarning {

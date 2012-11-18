@@ -13,8 +13,6 @@
 
 @interface BBControllerBase : UIViewController
 
-@property (nonatomic,strong) BBAppDelegate *app;
-
 -(BBImage*)getImageWithDimension:(NSString*)dimensionName fromArrayOf:(NSArray*)images;
 
 -(BBProject*)getProjectWithIdentifier:(NSString*)identifier fromArrayOf:(NSArray*)projects;

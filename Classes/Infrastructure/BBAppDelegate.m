@@ -8,27 +8,23 @@
 
 #import "BBAppDelegate.h"
 #import "BBContainerController.h"
-
+#import "BBObservationCreate.h"
 
 @implementation BBAppDelegate
 
-@synthesize appData = _appData;
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Map Map Mappingggss *********************************************************************************
+    // MAPPINGS
     RKObjectManager* restKitManager = [RKObjectManager objectManagerWithBaseURL:[BBConstants RootUri]];
     [BBMappings mappingsForRKManager:restKitManager];
-     //[RKObjectManager sharedManager].inferMappingsFromObjectTypes = YES;
-    
-    restKitManager.serializationMIMEType = RKMIMETypeJSON;
-    
-    [restKitManager.router routeClass:[BBLoginRequest class] toResourcePath:[NSString stringWithFormat:@"/account/login?%@", [BBConstants AjaxQuerystring]] forMethod:RKRequestMethodPOST];
-    
-    // Navigation Controller setup *************************************************************************
+
+    // possibly push these into the mapper class...?
+    [restKitManager.router routeClass:[BBMediaResourceCreate class] toResourcePath:@"/mediaresources/create" forMethod:RKRequestMethodPOST];
+    [restKitManager.router routeClass:[BBObservationCreate class] toResourcePath:@"/observations/create" forMethod:RKRequestMethodPOST];
+  
+    // UI
     self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
     BBContainerController *container = [[BBContainerController alloc]init];
-
     self.navController = [[UINavigationController alloc] initWithRootViewController:container];
     [self.window addSubview:self.navController.view];
     [self.window makeKeyAndVisible];

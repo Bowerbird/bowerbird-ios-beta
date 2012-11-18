@@ -19,8 +19,7 @@
 -(void)loadView {   
     [BBLog Log:@"BBContainerController.loadView"];
     
-    self.app = (BBAppDelegate *)[UIApplication sharedApplication].delegate;
-    self.app.navController.navigationBarHidden = YES;
+    ((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController.navigationBarHidden = YES;
     
     BBContainerView* container = [[BBContainerView alloc]initWithSize:IPHONE_PORTRAIT];
     
@@ -64,7 +63,7 @@
         [self showAuthenticationView];
     }
     
-    self.app.navController.navigationBarHidden = YES;
+    ((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController.navigationBarHidden = YES;
 }
 
 
@@ -94,7 +93,8 @@
     [BBLog Log:@"BBContainerController.showUserIsAuthenticatedView"];
     
     BBHomeController *homeController = [[BBHomeController alloc]init];
-    [self.app.navController pushViewController:homeController animated:NO];
+    
+    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:homeController animated:NO];
 }
 
 
@@ -102,7 +102,8 @@
     [BBLog Log:@"BBContainerController.showUserIsNotAuthenticatedView"];
     
     BBAuthenticationController *authenticationController = [[BBAuthenticationController alloc]init];
-    [self.app.navController pushViewController:authenticationController animated:NO];
+    
+    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:authenticationController animated:NO];
 }
 
 
@@ -110,8 +111,8 @@
     [BBLog Log:@"BBContainerController.createContributionWithCamera"];
     
     BBContributionController *contributionController = [[BBContributionController alloc]initWithCamera];
-    
-    [self.app.navController pushViewController:contributionController animated:NO];
+
+    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:contributionController animated:NO];
 }
 
 
@@ -120,7 +121,7 @@
     
     BBContributionController *contributionController = [[BBContributionController alloc]initWithLibrary];
     
-    [self.app.navController pushViewController:contributionController animated:NO];
+    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:contributionController animated:NO];
 }
 
 
@@ -129,7 +130,7 @@
     
     BBContributionController *contributionController = [[BBContributionController alloc]initWithRecord];
     
-    [self.app.navController pushViewController:contributionController animated:NO];
+    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:contributionController animated:NO];
 }
 
 
@@ -142,12 +143,14 @@
 
     if([object isKindOfClass:[BBAuthenticatedUser class]])
     {
-        [BBLog Debug:object withMessage:@"### BBAuthenticatedUser Loaded"];
-        
         BBApplication* appData = [BBApplication sharedInstance];
         appData.authenticatedUser = (BBAuthenticatedUser*)object;
+        [appData.connection start];
         
-        [self.app.appData.connection start];
+        // connect said user to the user hub for notifications
+        BBUserHubClient* userHubClient = [BBUserHubClient sharedInstance];
+        [userHubClient connectToUserHub:appData.authenticatedUser.user.identifier];
+        appData.userHub = userHubClient.userHub;
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"userProfileHasLoaded" object:nil];
     }

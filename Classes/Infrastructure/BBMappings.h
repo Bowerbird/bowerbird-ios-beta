@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "BBModels.h"
-#import "BBRequests.h"
 
 @interface BBMappings : NSObject
 

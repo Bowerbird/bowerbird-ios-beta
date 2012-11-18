@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "BBControllerBase.h"
-#import "BBObservationEditController.h"
+#import "BBSightingEditController.h"
 #import "MGHelpers.h"
 #import "BBHelpers.h"
 #import "BBSightingEditView.h"

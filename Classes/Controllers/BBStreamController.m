@@ -20,8 +20,6 @@
 -(void)loadView {
     [BBLog Log:@"BBStreamController.loadView"];
     
-    self.app = (BBAppDelegate *)[UIApplication sharedApplication].delegate;
-    
     self.view = [MGScrollView scrollerWithSize:[self screenSize]];
 }
 
@@ -37,7 +35,8 @@
     rightRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeRight:)];
     [rightRecognizer setDirection: UISwipeGestureRecognizerDirectionRight];
     [[self view] addGestureRecognizer:rightRecognizer];
-    self.app.navController.navigationBarHidden = YES;
+    
+    ((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController.navigationBarHidden = YES;
 }
 
 
@@ -97,8 +96,7 @@
     
     MGScrollView *streamView = (MGScrollView*)self.view;
     
-    // this gets used to display the observation:
-    BBImage *primaryMediaImage = [activity.observation.primaryMedia.mediaResource.imageMedia objectAtIndex:0];
+    BBImage *primaryMediaImage = [self getImageWithDimension:@"Constrained240" fromArrayOf:activity.observation.primaryMedia.mediaResource.imageMedia];
     BBImage *avatarImage = [self getImageWithDimension:@"Square50" fromArrayOf:activity.user.avatar.imageMedia];
     PhotoBox *avatar = [PhotoBox mediaFor:avatarImage.uri size:IPHONE_AVATAR_SIZE];
     MGTableBoxStyled *info = [MGTableBoxStyled boxWithSize:IPHONE_OBSERVATION];
@@ -107,8 +105,12 @@
     MGLine *userDescription = [MGLine lineWithLeft:user right:arrow size:CGSizeMake(280, 60)];
     [info.topLines addObject:userDescription];
     PhotoBox *photo = [PhotoBox mediaFor:primaryMediaImage.uri size:IPHONE_OBSERVATION];
-    photo.onTap = ^{[self.app.navController pushViewController:[[BBSightingDetailController alloc]initWithActivity:activity] animated:YES];};
-    userDescription.onTap = ^{[self.app.navController pushViewController:[[BBSightingDetailController alloc]initWithActivity:activity] animated:YES];};
+    photo.onTap = ^{
+        [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:[[BBSightingDetailController alloc]initWithActivity:activity] animated:YES];
+    };
+    userDescription.onTap = ^{
+        [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:[[BBSightingDetailController alloc]initWithActivity:activity] animated:YES];
+    };
     photo.backgroundColor = [UIColor brownColor];
     MGLine *media = [MGLine lineWithLeft:photo right:nil size:CGSizeMake(300, 270)];
     [info.middleLines addObject:media];

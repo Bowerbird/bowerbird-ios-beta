@@ -31,16 +31,6 @@
     [imageMapping mapKeyPath:@"(dimensionName).MimeType" toAttribute:@"mimeType"];
     [manager.mappingProvider setMapping:imageMapping forKeyPath:@"Image"];
 
-    
-    // Audio mapping *********************************************************************************
-    RKObjectMapping *audioMapping = [RKObjectMapping mappingForClass:[BBAudio class]];
-    [audioMapping mapKeyOfNestedDictionaryToAttribute:@"dimensionName"];
-    [audioMapping mapKeyPath:@"(dimensionName).Uri" toAttribute:@"uri"];
-    [audioMapping mapKeyPath:@"(dimensionName).Width" toAttribute:@"width"];
-    [audioMapping mapKeyPath:@"(dimensionName).Height" toAttribute:@"height"];
-    [audioMapping mapKeyPath:@"(dimensionName).MimeType" toAttribute:@"mimeType"];
-    [manager.mappingProvider setMapping:audioMapping forKeyPath:@"Audio"];
- 
 
     // MediaResource mapping *************************************************************************
     RKObjectMapping *mediaResourceMapping = [RKObjectMapping mappingForClass:[BBMediaResource class]];
@@ -141,13 +131,6 @@
     [manager.mappingProvider setSerializationMapping:authentication forClass:[BBAuthentication class]];
     
     
-    // Login Request Mapping (this may be obsolete) **************************************************
-    RKObjectMapping *loginRequest = [RKObjectMapping mappingForClass:[BBLoginRequest class]];
-    [loginRequest mapKeyPath:@"email" toAttribute:@"email"];
-    [loginRequest mapKeyPath:@"password" toAttribute:@"password"];
-    [manager.mappingProvider setMapping:loginRequest forKeyPath:@"Login"];
-    
-    
     // Activity Mapping ******************************************************************************
     RKObjectMapping *activityMapping = [RKObjectMapping mappingForClass:[BBActivity class]];
     [activityMapping mapKeyPath:@"Id" toAttribute:@"identifier"];
@@ -189,9 +172,48 @@
     [sightingPagination mapKeyPath:@"TotalResultCount" toAttribute:@"objectCount"];
     // TODO: make this a dynamic mapping to map to either observation or record depending on id
     [sightingPagination mapKeyPath:@"Model.PagedListItems" toRelationship:@"activities" withMapping:activityMapping];
-     
-    [manager.mappingProvider setMapping:sightingPagination forKeyPath:@"Model"];
+    //[manager.mappingProvider setMapping:sightingPagination forKeyPath:@"Model"];
 
+    
+    RKObjectMapping *jsonResponseMapping = [RKObjectMapping mappingForClass:[BBJsonResponse class]];
+    //sightingPagination.rootKeyPath = @"Model.Sightings";
+    [jsonResponseMapping mapKeyPath:@"Success" toAttribute:@"success"];
+    [manager.mappingProvider setMapping:jsonResponseMapping forKeyPath:@"Success"];
+    
+    
+    RKObjectMapping *mediaResourceCreateMapping = [RKObjectMapping mappingForClass:[BBMediaResourceCreate class]];
+    [mediaResourceCreateMapping mapKeyPath:@"Key" toAttribute:@"key"];
+    [mediaResourceCreateMapping mapKeyPath:@"Type" toAttribute:@"type"];
+    [mediaResourceCreateMapping mapKeyPath:@"Usage" toAttribute:@"usage"];
+    [mediaResourceCreateMapping mapKeyPath:@"File" toAttribute:@"file"];
+    [mediaResourceCreateMapping mapKeyPath:@"FileName" toAttribute:@"fileName"];
+    [manager.mappingProvider addObjectMapping:mediaResourceCreateMapping];
+    [manager.mappingProvider setSerializationMapping:[mediaResourceCreateMapping inverseMapping] forClass:[BBMediaResourceCreate class]];
+    
+    
+    RKObjectMapping *observationMediaCreateMapping = [RKObjectMapping mappingForClass:[BBObservationMediaCreate class]];
+    observationMediaCreateMapping.rootKeyPath = @"Media";
+    [observationMediaCreateMapping mapKeyPath:@"MediaResourceId" toAttribute:@"mediaResourceId"];
+    [observationMediaCreateMapping mapKeyPath:@"Description" toAttribute:@"description"];
+    [observationMediaCreateMapping mapKeyPath:@"Licence" toAttribute:@"licence"];
+    [observationMediaCreateMapping mapKeyPath:@"IsPrimaryMedia" toAttribute:@"isPrimaryMedia"];
+    [manager.mappingProvider addObjectMapping:observationMediaCreateMapping];
+    [manager.mappingProvider setSerializationMapping:observationMediaCreateMapping forClass:[BBObservationMediaCreate class]];
+    
+    
+    RKObjectMapping *observationCreateMapping = [RKObjectMapping mappingForClass:[BBObservationCreate class]];
+    [observationCreateMapping mapKeyPath:@"Title" toAttribute:@"title"];
+    [observationCreateMapping mapKeyPath:@"ObservedOn" toAttribute:@"observedOn"];
+    [observationCreateMapping mapKeyPath:@"Latitude" toAttribute:@"latitude"];
+    [observationCreateMapping mapKeyPath:@"Longitude" toAttribute:@"longitude"];
+    [observationCreateMapping mapKeyPath:@"Address" toAttribute:@"address"];
+    [observationCreateMapping mapKeyPath:@"IsIdentificationRequired" toAttribute:@"isIdentificationRequired"];
+    [observationCreateMapping mapKeyPath:@"AnonymiseLocation" toAttribute:@"anonymiseLocation"];
+    [observationCreateMapping mapKeyPath:@"Category" toAttribute:@"category"];
+    [observationCreateMapping mapKeyPath:@"Media" toRelationship:@"media" withMapping:observationMediaCreateMapping];
+    [observationCreateMapping mapKeyPath:@"ProjectIds" toAttribute:@"projectIds"];
+    [manager.mappingProvider addObjectMapping:observationCreateMapping];
+    [manager.mappingProvider setSerializationMapping:[observationCreateMapping inverseMapping] forClass:[BBObservationCreate class]];
 }
 
 @end

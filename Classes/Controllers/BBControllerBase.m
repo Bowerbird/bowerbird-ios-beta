@@ -10,8 +10,6 @@
 
 @implementation BBControllerBase
 
-@synthesize app = _app;
-
 
 -(BBImage*)getImageWithDimension:(NSString*)dimensionName fromArrayOf:(NSArray*)images {
     [BBLog Log:@"BBControllerBase.getImageWithDimension:fromArrayOf:"];

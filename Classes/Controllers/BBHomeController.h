@@ -8,17 +8,23 @@
 
 #import <Foundation/Foundation.h>
 #import "BBControllerBase.h"
+#import "BBStreamProtocol.h"
 #import "BBMenuController.h"
 #import "BBActionController.h"
 #import "BBHeaderController.h"
 #import "BBStreamController.h"
 #import "BBHomeView.h"
 
-@interface BBHomeController : BBControllerBase <RKObjectLoaderDelegate, UIGestureRecognizerDelegate>
+@interface BBHomeController : BBControllerBase <
+     RKObjectLoaderDelegate
+    ,UIGestureRecognizerDelegate
+    ,BBStreamProtocol
+>
 
 @property (nonatomic,retain) BBMenuController *menuController;
 @property (nonatomic,retain) BBActionController *actionController;
 @property (nonatomic,retain) BBHeaderController *headerController;
 @property (nonatomic,retain) BBStreamController *streamController;
+@property (nonatomic,weak) id stream;
 
 @end

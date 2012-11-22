@@ -95,7 +95,7 @@
 
     // Authenticated User Mapping ********************************************************************
     RKObjectMapping *authenticatedUser = [RKObjectMapping mappingForClass:[BBAuthenticatedUser class]];
-    authenticatedUser.rootKeyPath = @"Model";
+    authenticatedUser.rootKeyPath = @"Model.AuthenticatedUser";
     [authenticatedUser mapKeyPath:@"User" toRelationship:@"user" withMapping:userMapping];
     [authenticatedUser mapKeyPath:@"AppRoot.Categories" toRelationship:@"categories" withMapping:categoryMapping];
     [authenticatedUser mapKeyPath:@"Projects" toRelationship:@"projects" withMapping:projectMapping];
@@ -170,15 +170,16 @@
     [sightingPagination mapKeyPath:@"Page" toAttribute:@"currentPage"];
     [sightingPagination mapKeyPath:@"PageSize" toAttribute:@"perPage"];
     [sightingPagination mapKeyPath:@"TotalResultCount" toAttribute:@"objectCount"];
-    // TODO: make this a dynamic mapping to map to either observation or record depending on id
     [sightingPagination mapKeyPath:@"Model.PagedListItems" toRelationship:@"activities" withMapping:activityMapping];
     //[manager.mappingProvider setMapping:sightingPagination forKeyPath:@"Model"];
 
     
     RKObjectMapping *jsonResponseMapping = [RKObjectMapping mappingForClass:[BBJsonResponse class]];
-    //sightingPagination.rootKeyPath = @"Model.Sightings";
+    sightingPagination.rootKeyPath = @"Model.JsonResult";
     [jsonResponseMapping mapKeyPath:@"Success" toAttribute:@"success"];
-    [manager.mappingProvider setMapping:jsonResponseMapping forKeyPath:@"Success"];
+    [jsonResponseMapping mapKeyPath:@"Action" toAttribute:@"action"];
+    [manager.mappingProvider setMapping:jsonResponseMapping forKeyPath:@"Model.JsonResult"];
+    
     
     
     RKObjectMapping *mediaResourceCreateMapping = [RKObjectMapping mappingForClass:[BBMediaResourceCreate class]];
@@ -193,12 +194,13 @@
     
     RKObjectMapping *observationMediaCreateMapping = [RKObjectMapping mappingForClass:[BBObservationMediaCreate class]];
     observationMediaCreateMapping.rootKeyPath = @"Media";
+    [observationMediaCreateMapping mapKeyPath:@"Key" toAttribute:@"key"];
     [observationMediaCreateMapping mapKeyPath:@"MediaResourceId" toAttribute:@"mediaResourceId"];
     [observationMediaCreateMapping mapKeyPath:@"Description" toAttribute:@"description"];
     [observationMediaCreateMapping mapKeyPath:@"Licence" toAttribute:@"licence"];
     [observationMediaCreateMapping mapKeyPath:@"IsPrimaryMedia" toAttribute:@"isPrimaryMedia"];
     [manager.mappingProvider addObjectMapping:observationMediaCreateMapping];
-    [manager.mappingProvider setSerializationMapping:observationMediaCreateMapping forClass:[BBObservationMediaCreate class]];
+    [manager.mappingProvider setSerializationMapping:[observationMediaCreateMapping inverseMapping] forClass:[BBObservationMediaCreate class]];
     
     
     RKObjectMapping *observationCreateMapping = [RKObjectMapping mappingForClass:[BBObservationCreate class]];
@@ -214,6 +216,13 @@
     [observationCreateMapping mapKeyPath:@"ProjectIds" toAttribute:@"projectIds"];
     [manager.mappingProvider addObjectMapping:observationCreateMapping];
     [manager.mappingProvider setSerializationMapping:[observationCreateMapping inverseMapping] forClass:[BBObservationCreate class]];
+    
+    
+    RKObjectMapping *modelIdMapping = [RKObjectMapping mappingForClass:[BBModelId class]];
+    [modelIdMapping mapKeyPath:@"Id" toAttribute:@"identifier"];
+    [manager.mappingProvider addObjectMapping:modelIdMapping];
+    [manager.mappingProvider setSerializationMapping:[modelIdMapping inverseMapping] forClass:[BBModelId class]];
+    
 }
 
 @end

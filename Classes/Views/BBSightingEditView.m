@@ -270,7 +270,7 @@
     [self.dataSource removeProject:projectId];
 }
 
--(void)addMediaItem:(BBMediaEdit *)media {
+-(void)addMediaItem:(BBMediaEdit *)media{
     // empty the media table's middle lines and start again:
     NSArray* mediaItems = [self.controller media];
     MGBox *mediaBox = [MGBox boxWithSize:CGSizeMake(280,120)];
@@ -281,6 +281,7 @@
     for (BBMediaEdit* mediaEdit in mediaItems)
     {
         PhotoBox *photo = [PhotoBox mediaForImage:mediaEdit.image size:CGSizeMake(80, 80)];
+        // add an overlay to show that the image is uploading:
         [mediaBox.boxes addObject:photo];
     }
     [_mediaTable.middleLines addObject:mediaBox];

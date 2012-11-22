@@ -10,6 +10,7 @@
 
 @interface BBObservationMediaCreate : NSObject
 
+@property (nonatomic,retain) NSString* key;
 @property (nonatomic,retain) NSString* mediaResourceId;
 @property (nonatomic,retain) NSString* description;
 @property (nonatomic,retain) NSString* licence;

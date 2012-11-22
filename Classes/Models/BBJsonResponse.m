@@ -11,12 +11,20 @@
 @implementation BBJsonResponse
 
 @synthesize success = _success;
+@synthesize action = _action;
 
 -(NSString*)success {
     return _success;
 }
 -(void)setSuccess:(NSString *)success {
     _success = success;
+}
+
+-(NSString*)action {
+    return _action;
+}
+-(void)setAction:(NSString *)action {
+    _action = action;
 }
 
 @end

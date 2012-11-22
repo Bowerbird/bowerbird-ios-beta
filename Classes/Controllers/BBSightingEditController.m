@@ -26,6 +26,7 @@
 @synthesize spinner = _spinner;
 @synthesize currentLocationActivityIndicatorView = _currentLocationActivityIndicatorView;
 @synthesize addedMedia = _addedMedia;
+@synthesize mediaResourceBoxes = _mediaResourceBoxes;
 
 #pragma mark -
 #pragma mark - Setup and Render
@@ -46,6 +47,7 @@
     [_observation addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:NULL];
     [_observation addObserver:self forKeyPath:@"category" options:NSKeyValueObservingOptionNew context:NULL];
     
+    /* -- REMOVING THE DEPENDENCY ON SIGNALR
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(mediaResourceUploaded:)
                                                  name:@"notifyMediaResourceUploaded"
@@ -55,6 +57,8 @@
                                              selector:@selector(mediaResourceUploadFailed:)
                                                  name:@"notifyMediaResourceUploadFailed"
                                                object:nil];
+    
+     */
     
     [self addImageToObservation:observationMedia];
     
@@ -222,7 +226,7 @@
     {
         UIImagePickerController *picker = [[UIImagePickerController alloc] init];
         picker.delegate = self;
-        picker.allowsEditing = YES;
+        picker.allowsEditing = NO;
         picker.sourceType = UIImagePickerControllerSourceTypeCamera;
         [self presentModalViewController:picker animated:YES];
     }
@@ -267,21 +271,10 @@
     
     [picker dismissModalViewControllerAnimated:YES];
     
-    UIImage* image;
-    
-    if(picker.sourceType == UIImagePickerControllerSourceTypePhotoLibrary || picker.sourceType == UIImagePickerControllerSourceTypeSavedPhotosAlbum)
-    {
-        [BBLog Log:@"BBSightingEditController: source is library"];
-        image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    }
-    else
-    {
-        [BBLog Log:@"BBSightingEditController: source is edited image"];
-        image = [info objectForKey:UIImagePickerControllerEditedImage];
-    }
-    
-    BBMediaEdit *mediaEdit = [[BBMediaEdit alloc]init];
-    mediaEdit.image = image;
+    UIImage* image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    [image normalizedImage];
+        
+    BBMediaEdit *mediaEdit = [[BBMediaEdit alloc]initWithImage:image];
     
     [self addImageToObservation:mediaEdit];
 }
@@ -290,15 +283,22 @@
     [BBLog Log:@"BBSightingEditController.addImageToObservation:"];
     
     // now we have an image, we'll upload it setting this object up as a listener for completion:
-    BBMediaResourceCreate *mediaResourceCreate = [[BBMediaResourceCreate alloc]initWithImage:mediaEdit.image forUsage:@"contribution"];
-    [_addedMedia setObject:mediaResourceCreate forKey:mediaResourceCreate.key];
+    BBMediaResourceCreate *mediaResourceCreate = [[BBMediaResourceCreate alloc]initWithMedia:mediaEdit forUsage:@"contribution"];
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
     RKObjectMapping *map = [[manager mappingProvider] serializationMappingForClass:[BBMediaResourceCreate class]];
+    
     manager.serializationMIMEType = RKMIMETypeFormURLEncoded;
 
     [manager.mappingProvider setSerializationMapping:map forClass:[BBMediaResourceCreate class]];
-    //[manager.router routeClass:[BBMediaResourceCreate class] toResourcePath:@"/mediaresources/create" forMethod:RKRequestMethodPOST];
+    
+    /*
+    HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    HUD.mode = MBProgressHUDModeAnnularDeterminate;
+    HUD.delegate = self;
+    HUD.labelText = @"Uploading Media";
+    [HUD show:YES];
+    */
     
     [manager postObject:mediaResourceCreate usingBlock:^(RKObjectLoader *loader){
         RKObjectMapping *serMap = [[[RKObjectManager sharedManager] mappingProvider] serializationMappingForClass:[BBMediaResourceCreate class]];
@@ -308,17 +308,21 @@
         RKParams *p = [RKParams paramsWithDictionary:d];
         [p setData:mediaResourceCreate.file MIMEType:@"image/jpeg" forParam:@"file"];
         loader.params = p;
+
+        
+        [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"Uploading"]];
+        
+        loader.delegate = self;
     }];
 
     // add this to the list of media in our observation model
     [_observation.media addObject:mediaEdit];
-    
-    // view will need to redraw this region
-    [_observationEditView addMediaItem:mediaEdit];
 }
 
+/*
 -(void)mediaResourceUploaded:(NSNotification*)notification {
     [BBLog Log:@"BBSightingEditController.mediaResourceUploaded:"];
+    
     
     NSDictionary *userInfo = notification.userInfo;
     NSString *key = [userInfo objectForKey:@"Key"];
@@ -329,12 +333,25 @@
         [_observation.mediaResourceIds addObject:identifier];
     }
     [_addedMedia removeObjectForKey:key];
+
+    [SVProgressHUD dismiss];
+}
+ */
+
+- (void)objectLoaderDidFinishLoading:(RKObjectLoader *)objectLoader {
+    [BBLog Log:@"BBSightingEditController.objectLoaderDidFinishLoading:"];
+    
+    [SVProgressHUD dismiss];
+    //[HUD show:NO];
+    
+    BBMediaEdit *media = [_observation.media lastObject];
+    [_observationEditView addMediaItem:media];
 }
 
 -(void)mediaResourceUploadFailed:(NSNotification*)notification {
     [BBLog Log:@"BBSightingEditController.mediaResourceUploadFailed:"];
     
-    
+    // display an exclamation mark or something.
     
 }
 
@@ -354,25 +371,6 @@
     // display the action sheet, or somthing of that kind..
 }
 
--(void)editMedia:(BBMediaEdit*)media {
-    [BBLog Log:@"BBSightingEditController.edit"];
-    
-    self.editingMedia = media;
-    
-    BBMediaEditController *mediaEditController = [[BBMediaEditController alloc]initWithDelegate:self
-                                                                                       andMedia:self.editingMedia];
-    
-    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:mediaEditController animated:NO];
-}
-
-// BBMediaEdit is going to require a client side identifier/guid of some sort, or a local tracking variable
--(void)saveMediaEdit {
-    
-}
-
--(void)cancelMediaEdit {
-    
-}
 
 #pragma mark -
 #pragma mark - Category
@@ -627,52 +625,61 @@
     
     int counter = 1;
     NSMutableArray *newMedia = [[NSMutableArray alloc]init];
-    for (NSString* mediaResourceId in _observation.mediaResourceIds) {
+    
+    //for (NSString* mediaResourceId in _observation.mediaResourceIds) {
+    for (BBMediaEdit* media in _observation.media) {
         BBObservationMediaCreate *observationMedia = [[BBObservationMediaCreate alloc]init];
-        observationMedia.mediaResourceId = mediaResourceId;
+        //observationMedia.mediaResourceId = mediaResourceId;
+        observationMedia.key = media.key;
         observationMedia.licence = app.authenticatedUser.defaultLicence;
         observationMedia.isPrimaryMedia = counter == 1;
-        observationMedia.description = @"Observation";
+        observationMedia.description = @"Observed in the field using the BowerBird App";
         [newMedia addObject:observationMedia];
-        //NSMutableDictionary *mediaResource = [[NSMutableDictionary alloc]init];
-        //[mediaResource setObject:mediaResourceId forKey:@"MediaResourceId"];
-        //[mediaResource setObject:@"Description" forKey:@"Description"];
-        //[mediaResource setObject:@"Licence" forKey:@"Licence"];
-        //[mediaResource setObject:@"false" forKey:@"IsPrimaryMedia"];
-        //[newMedia addObject:mediaResource];
         counter ++;
     }
     observation.media = [[NSArray alloc]initWithArray:newMedia];
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
-    RKObjectMapping *map = [[manager mappingProvider] serializationMappingForClass:[BBObservationCreate class]];
+    //RKObjectMapping *map = [[manager mappingProvider] serializationMappingForClass:[BBObservationCreate class]];
     manager.serializationMIMEType = RKMIMETypeJSON;
-    [manager.mappingProvider setSerializationMapping:map forClass:[BBObservationCreate class]];
+    //[manager.mappingProvider setSerializationMapping:map forClass:[BBObservationCreate class]];
     
-    [manager postObject:observation usingBlock:^(RKObjectLoader *loader){
-        RKObjectMapping *serMap = [[[RKObjectManager sharedManager] mappingProvider] serializationMappingForClass:[BBObservationCreate class]];
+    // display HUD..
+    //[SVProgressHUD showWithStatus:[NSString stringWithFormat:@"Saving Observation"]];
+    
+    //NSString *observationCreateUrl = [NSString stringWithFormat:@"%@/%@", [BBConstants RootUriString], @"observations/create"];
+    //[manager sendObject:observation toResourcePath:observationCreateUrl usingBlock:^(RKObjectLoader *loader) {
+    [manager postObject:observation usingBlock:^(RKObjectLoader *loader) {
+        
+        // map native object to dictionary of key values
+        RKObjectMapping *map = [[manager mappingProvider] serializationMappingForClass:[BBObservationCreate class]];
         NSError *error = nil;
-        //change the 'Media' key for the newMedia value:
-        NSDictionary *d = [[RKObjectSerializer serializerWithObject:observation mapping:serMap] serializedObject:&error];
-        //NSMutableDictionary *mutableD = [[NSMutableDictionary alloc]initWithDictionary:d];
-        //[mutableD setObject:newMedia forKey:@"Media"];
+        NSDictionary *d = [[RKObjectSerializer serializerWithObject:observation mapping:map] serializedObject:&error];
         
-        //RKParams *p = [RKParams paramsWithDictionary:[[NSDictionary alloc]initWithDictionary:mutableD]];
-        //RKParams *p = [RKParams paramsWithDictionary:d];
-        //loader.params = p;
-        //if(error){
-        //    [BBLog Log:[NSString stringWithFormat:@"ERROR: %@", error.localizedDescription]];
-        //}
-        
-        
-        //NSDictionary *dict;
+        // convert key value dictionary to json data object
         NSError *e;
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:d options:0 error:&e];
     
+        // convert json data object to a string
         NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         loader.params = [RKRequestSerialization serializationWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding] MIMEType:RKMIMETypeJSON];
-        
     }];
+
+    /*
+    [manager postObject:observation usingBlock:^(RKObjectLoader *loader){
+        RKObjectMapping *serMap = [[[RKObjectManager sharedManager] mappingProvider] serializationMappingForClass:[BBObservationCreate class]];
+        NSError *error = nil;
+
+        NSDictionary *d = [[RKObjectSerializer serializerWithObject:observation mapping:serMap] serializedObject:&error];
+        NSError *e;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:d options:0 error:&e];
+        
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        loader.params = [RKRequestSerialization serializationWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding] MIMEType:RKMIMETypeJSON];
+    }];
+    */
+    
+    //[((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:NO];
 }
 
 -(void)observationSent {
@@ -683,8 +690,9 @@
     [BBLog Log:@"BBSightingEditController.request:didFailLoadWithError:"];
     
     [BBLog Log:[NSString stringWithFormat:@"%@%@", @"ERROR:", error.localizedDescription]];
+    
+    [SVProgressHUD dismiss];
 }
-
 
 -(void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
     [BBLog Log:@"BBSightingEditController.request:didLoadResponse"];
@@ -692,12 +700,23 @@
     [BBLog Log:response.bodyAsString];
 }
 
-- (void)request:(RKRequest *)request didReceiveData:(NSInteger)bytesReceived totalBytesReceived:(NSInteger)totalBytesReceived totalBytesExpectedToReceive:(NSInteger)totalBytesExpectedToReceive {
+-(void)request:(RKRequest *)request didReceiveData:(NSInteger)bytesReceived totalBytesReceived:(NSInteger)totalBytesReceived totalBytesExpectedToReceive:(NSInteger)totalBytesExpectedToReceive {
     [BBLog Log:[NSString stringWithFormat:@"bytes received: %d total received: %d total to receive: %d", bytesReceived, totalBytesReceived, totalBytesExpectedToReceive]];
 }
 
 -(void)request:(RKRequest *)request didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
+    
     [BBLog Log:[NSString stringWithFormat:@"bytes written: %d total written: %d total to send: %d", bytesWritten, totalBytesWritten, totalBytesExpectedToWrite]];
+    
+    double progress = ((double)totalBytesWritten/(double)totalBytesExpectedToWrite)*100;
+    double fileSize = (double)totalBytesExpectedToWrite/10485760;// added additional factor of ten to bytes denomenator in MB as too big by about 10 X
+    
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc]init];
+    [formatter setRoundingMode:NSNumberFormatterRoundUp];
+    [formatter setGeneratesDecimalNumbers:YES];
+    [formatter setMaximumFractionDigits:1];
+    
+    [SVProgressHUD setStatus:[NSString stringWithFormat:@"%@%@%@Mb", [formatter stringFromNumber:[NSNumber numberWithDouble:progress]], @"% of ", [formatter stringFromNumber:[NSNumber numberWithDouble:fileSize]]]];
 }
 
 -(void)cancel {

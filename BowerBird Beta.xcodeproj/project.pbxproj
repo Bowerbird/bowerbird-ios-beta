@@ -9,6 +9,15 @@
 /* Begin PBXBuildFile section */
 		1C2966901655532300B3CC16 /* BBJsonResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C29668F1655532300B3CC16 /* BBJsonResponse.m */; };
 		1C29669316555E7600B3CC16 /* BBObservationMediaCreate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C29669216555E7600B3CC16 /* BBObservationMediaCreate.m */; };
+		1C296699165A06B300B3CC16 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1C296696165A06B300B3CC16 /* SVProgressHUD.bundle */; };
+		1C29669A165A06B300B3CC16 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C296698165A06B300B3CC16 /* SVProgressHUD.m */; };
+		1C2966A1165B0A1400B3CC16 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2966A0165B0A1300B3CC16 /* MBProgressHUD.m */; };
+		1C2966B0165B468900B3CC16 /* BBLocationSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2966AF165B468900B3CC16 /* BBLocationSelectView.m */; };
+		1C2966B3165B469800B3CC16 /* BBLocationSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2966B2165B469600B3CC16 /* BBLocationSelectController.m */; };
+		1C2966D0165DBB0D00B3CC16 /* UIImage+fixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2966CF165DBB0D00B3CC16 /* UIImage+fixOrientation.m */; };
+		1C2966D3165E1D7100B3CC16 /* BBModelId.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2966D2165E1D7000B3CC16 /* BBModelId.m */; };
+		1C2966D5165E2CC000B3CC16 /* project-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C2966D4165E2CC000B3CC16 /* project-icon@2x.png */; };
+		1C2966D7165E2D3000B3CC16 /* project-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C2966D6165E2D3000B3CC16 /* project-icon.png */; };
 		1C31AEEB15DE1B4100A602BE /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C31AEE215DE1B2100A602BE /* libRestKit.a */; };
 		1C78E24D15E512FF00620EF7 /* SRDefaultHttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C78E20515E512FF00620EF7 /* SRDefaultHttpClient.m */; };
 		1C78E24E15E512FF00620EF7 /* SRDefaultHttpHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C78E20715E512FF00620EF7 /* SRDefaultHttpHelper.m */; };
@@ -58,28 +67,19 @@
 		1CAB62AE164C7FB50000D8C3 /* BBActionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB61E3164C7FB50000D8C3 /* BBActionController.m */; };
 		1CAB62AF164C7FB50000D8C3 /* BBAuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB61E5164C7FB50000D8C3 /* BBAuthenticationController.m */; };
 		1CAB62B0164C7FB50000D8C3 /* BBCategoryPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB61E7164C7FB50000D8C3 /* BBCategoryPickerController.m */; };
-		1CAB62B1164C7FB50000D8C3 /* BBChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB61E9164C7FB50000D8C3 /* BBChatViewController.m */; };
 		1CAB62B2164C7FB50000D8C3 /* BBContainerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB61EB164C7FB50000D8C3 /* BBContainerController.m */; };
 		1CAB62B3164C7FB50000D8C3 /* BBContributionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB61ED164C7FB50000D8C3 /* BBContributionController.m */; };
 		1CAB62B4164C7FB50000D8C3 /* BBControllerBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB61EF164C7FB50000D8C3 /* BBControllerBase.m */; };
 		1CAB62B5164C7FB50000D8C3 /* BBDateSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB61F2164C7FB50000D8C3 /* BBDateSelectController.m */; };
-		1CAB62B6164C7FB50000D8C3 /* BBGroupChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB61F4164C7FB50000D8C3 /* BBGroupChatViewController.m */; };
 		1CAB62B7164C7FB50000D8C3 /* BBHeaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB61F6164C7FB50000D8C3 /* BBHeaderController.m */; };
 		1CAB62B8164C7FB50000D8C3 /* BBHomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB61F8164C7FB50000D8C3 /* BBHomeController.m */; };
-		1CAB62B9164C7FB50000D8C3 /* BBImageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB61FA164C7FB50000D8C3 /* BBImageController.m */; };
-		1CAB62BA164C7FB50000D8C3 /* BBLocationSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB61FC164C7FB50000D8C3 /* BBLocationSelectController.m */; };
 		1CAB62BB164C7FB50000D8C3 /* BBLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB61FE164C7FB50000D8C3 /* BBLoginController.m */; };
-		1CAB62BC164C7FB50000D8C3 /* BBMediaEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6200164C7FB50000D8C3 /* BBMediaEditController.m */; };
-		1CAB62BD164C7FB50000D8C3 /* BBMediaSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6202164C7FB50000D8C3 /* BBMediaSelectController.m */; };
 		1CAB62BE164C7FB50000D8C3 /* BBMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6204164C7FB50000D8C3 /* BBMenuController.m */; };
 		1CAB62BF164C7FB50000D8C3 /* BBSightingEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6206164C7FB50000D8C3 /* BBSightingEditController.m */; };
-		1CAB62C0164C7FB50000D8C3 /* BBPrivateChatController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6208164C7FB50000D8C3 /* BBPrivateChatController.m */; };
 		1CAB62C1164C7FB50000D8C3 /* BBProjectSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB620A164C7FB50000D8C3 /* BBProjectSelectController.m */; };
 		1CAB62C2164C7FB50000D8C3 /* BBRegistrationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB620C164C7FB50000D8C3 /* BBRegistrationController.m */; };
-		1CAB62C3164C7FB50000D8C3 /* BBSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB620E164C7FB50000D8C3 /* BBSettingsViewController.m */; };
 		1CAB62C4164C7FB50000D8C3 /* BBSightingDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6210164C7FB50000D8C3 /* BBSightingDetailController.m */; };
 		1CAB62C5164C7FB50000D8C3 /* BBStreamController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6212164C7FB50000D8C3 /* BBStreamController.m */; };
-		1CAB62C6164C7FB50000D8C3 /* BBUserChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6214164C7FB50000D8C3 /* BBUserChatViewController.m */; };
 		1CAB62C7164C7FB50000D8C3 /* BBCollectionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6217164C7FB50000D8C3 /* BBCollectionHelper.m */; };
 		1CAB62C8164C7FB50000D8C3 /* BBConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6219164C7FB50000D8C3 /* BBConstants.m */; };
 		1CAB62CA164C7FB50000D8C3 /* BBCookieHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB621D164C7FB50000D8C3 /* BBCookieHelper.m */; };
@@ -128,8 +128,6 @@
 		1CAB62F9164C7FB50000D8C3 /* BBContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB628F164C7FB50000D8C3 /* BBContainerView.m */; };
 		1CAB62FA164C7FB50000D8C3 /* BBDateSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6291164C7FB50000D8C3 /* BBDateSelectView.m */; };
 		1CAB62FB164C7FB50000D8C3 /* BBHomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6293164C7FB50000D8C3 /* BBHomeView.m */; };
-		1CAB62FC164C7FB50000D8C3 /* BBLocationSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6295164C7FB50000D8C3 /* BBLocationSelectView.m */; };
-		1CAB62FE164C7FB50000D8C3 /* BBMediaEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6299164C7FB50000D8C3 /* BBMediaEditView.m */; };
 		1CAB6304164C7FB50000D8C3 /* BBSightingEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB62A5164C7FB50000D8C3 /* BBSightingEditView.m */; };
 		1CAB6307164C7FB50000D8C3 /* BBUserHeadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB62AB164C7FB50000D8C3 /* BBUserHeadingView.m */; };
 		1CAB632E164C7FE00000D8C3 /* BSKeyboardControls.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB630A164C7FE00000D8C3 /* BSKeyboardControls.m */; };
@@ -351,6 +349,22 @@
 		1C29668F1655532300B3CC16 /* BBJsonResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBJsonResponse.m; sourceTree = "<group>"; };
 		1C29669116555E7600B3CC16 /* BBObservationMediaCreate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBObservationMediaCreate.h; sourceTree = "<group>"; };
 		1C29669216555E7600B3CC16 /* BBObservationMediaCreate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBObservationMediaCreate.m; sourceTree = "<group>"; };
+		1C296696165A06B300B3CC16 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		1C296697165A06B300B3CC16 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		1C296698165A06B300B3CC16 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+		1C29669F165B0A1300B3CC16 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		1C2966A0165B0A1300B3CC16 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		1C2966AD165B468100B3CC16 /* BBLocationEditDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLocationEditDelegateProtocol.h; sourceTree = "<group>"; };
+		1C2966AE165B468900B3CC16 /* BBLocationSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLocationSelectView.h; sourceTree = "<group>"; };
+		1C2966AF165B468900B3CC16 /* BBLocationSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLocationSelectView.m; sourceTree = "<group>"; };
+		1C2966B1165B469500B3CC16 /* BBLocationSelectController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLocationSelectController.h; sourceTree = "<group>"; };
+		1C2966B2165B469600B3CC16 /* BBLocationSelectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLocationSelectController.m; sourceTree = "<group>"; };
+		1C2966CE165DBB0D00B3CC16 /* UIImage+fixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+fixOrientation.h"; sourceTree = "<group>"; };
+		1C2966CF165DBB0D00B3CC16 /* UIImage+fixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+fixOrientation.m"; sourceTree = "<group>"; };
+		1C2966D1165E1D7000B3CC16 /* BBModelId.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBModelId.h; sourceTree = "<group>"; };
+		1C2966D2165E1D7000B3CC16 /* BBModelId.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBModelId.m; sourceTree = "<group>"; };
+		1C2966D4165E2CC000B3CC16 /* project-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "project-icon@2x.png"; sourceTree = "<group>"; };
+		1C2966D6165E2D3000B3CC16 /* project-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "project-icon.png"; sourceTree = "<group>"; };
 		1C31AED615DE1B2100A602BE /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = ../RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
 		1C78E20415E512FF00620EF7 /* SRDefaultHttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRDefaultHttpClient.h; sourceTree = "<group>"; };
 		1C78E20515E512FF00620EF7 /* SRDefaultHttpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRDefaultHttpClient.m; sourceTree = "<group>"; };
@@ -449,51 +463,32 @@
 		1CAB61E5164C7FB50000D8C3 /* BBAuthenticationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBAuthenticationController.m; sourceTree = "<group>"; };
 		1CAB61E6164C7FB50000D8C3 /* BBCategoryPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBCategoryPickerController.h; sourceTree = "<group>"; };
 		1CAB61E7164C7FB50000D8C3 /* BBCategoryPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBCategoryPickerController.m; sourceTree = "<group>"; };
-		1CAB61E8164C7FB50000D8C3 /* BBChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBChatViewController.h; sourceTree = "<group>"; };
-		1CAB61E9164C7FB50000D8C3 /* BBChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBChatViewController.m; sourceTree = "<group>"; };
 		1CAB61EA164C7FB50000D8C3 /* BBContainerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBContainerController.h; sourceTree = "<group>"; };
 		1CAB61EB164C7FB50000D8C3 /* BBContainerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBContainerController.m; sourceTree = "<group>"; };
 		1CAB61EC164C7FB50000D8C3 /* BBContributionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBContributionController.h; sourceTree = "<group>"; };
 		1CAB61ED164C7FB50000D8C3 /* BBContributionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBContributionController.m; sourceTree = "<group>"; };
 		1CAB61EE164C7FB50000D8C3 /* BBControllerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBControllerBase.h; sourceTree = "<group>"; };
 		1CAB61EF164C7FB50000D8C3 /* BBControllerBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBControllerBase.m; sourceTree = "<group>"; };
-		1CAB61F0164C7FB50000D8C3 /* BBControllers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBControllers.h; sourceTree = "<group>"; };
 		1CAB61F1164C7FB50000D8C3 /* BBDateSelectController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBDateSelectController.h; sourceTree = "<group>"; };
 		1CAB61F2164C7FB50000D8C3 /* BBDateSelectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBDateSelectController.m; sourceTree = "<group>"; };
-		1CAB61F3164C7FB50000D8C3 /* BBGroupChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBGroupChatViewController.h; sourceTree = "<group>"; };
-		1CAB61F4164C7FB50000D8C3 /* BBGroupChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBGroupChatViewController.m; sourceTree = "<group>"; };
 		1CAB61F5164C7FB50000D8C3 /* BBHeaderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBHeaderController.h; sourceTree = "<group>"; };
 		1CAB61F6164C7FB50000D8C3 /* BBHeaderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBHeaderController.m; sourceTree = "<group>"; };
 		1CAB61F7164C7FB50000D8C3 /* BBHomeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBHomeController.h; sourceTree = "<group>"; };
 		1CAB61F8164C7FB50000D8C3 /* BBHomeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBHomeController.m; sourceTree = "<group>"; };
-		1CAB61F9164C7FB50000D8C3 /* BBImageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBImageController.h; sourceTree = "<group>"; };
-		1CAB61FA164C7FB50000D8C3 /* BBImageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBImageController.m; sourceTree = "<group>"; };
-		1CAB61FB164C7FB50000D8C3 /* BBLocationSelectController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLocationSelectController.h; sourceTree = "<group>"; };
-		1CAB61FC164C7FB50000D8C3 /* BBLocationSelectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLocationSelectController.m; sourceTree = "<group>"; };
 		1CAB61FD164C7FB50000D8C3 /* BBLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoginController.h; sourceTree = "<group>"; };
 		1CAB61FE164C7FB50000D8C3 /* BBLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoginController.m; sourceTree = "<group>"; };
-		1CAB61FF164C7FB50000D8C3 /* BBMediaEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMediaEditController.h; sourceTree = "<group>"; };
-		1CAB6200164C7FB50000D8C3 /* BBMediaEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMediaEditController.m; sourceTree = "<group>"; };
-		1CAB6201164C7FB50000D8C3 /* BBMediaSelectController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMediaSelectController.h; sourceTree = "<group>"; };
-		1CAB6202164C7FB50000D8C3 /* BBMediaSelectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMediaSelectController.m; sourceTree = "<group>"; };
 		1CAB6203164C7FB50000D8C3 /* BBMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMenuController.h; sourceTree = "<group>"; };
 		1CAB6204164C7FB50000D8C3 /* BBMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMenuController.m; sourceTree = "<group>"; };
 		1CAB6205164C7FB50000D8C3 /* BBSightingEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSightingEditController.h; sourceTree = "<group>"; };
 		1CAB6206164C7FB50000D8C3 /* BBSightingEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSightingEditController.m; sourceTree = "<group>"; };
-		1CAB6207164C7FB50000D8C3 /* BBPrivateChatController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBPrivateChatController.h; sourceTree = "<group>"; };
-		1CAB6208164C7FB50000D8C3 /* BBPrivateChatController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBPrivateChatController.m; sourceTree = "<group>"; };
 		1CAB6209164C7FB50000D8C3 /* BBProjectSelectController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBProjectSelectController.h; sourceTree = "<group>"; };
 		1CAB620A164C7FB50000D8C3 /* BBProjectSelectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBProjectSelectController.m; sourceTree = "<group>"; };
 		1CAB620B164C7FB50000D8C3 /* BBRegistrationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBRegistrationController.h; sourceTree = "<group>"; };
 		1CAB620C164C7FB50000D8C3 /* BBRegistrationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBRegistrationController.m; sourceTree = "<group>"; };
-		1CAB620D164C7FB50000D8C3 /* BBSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSettingsViewController.h; sourceTree = "<group>"; };
-		1CAB620E164C7FB50000D8C3 /* BBSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSettingsViewController.m; sourceTree = "<group>"; };
 		1CAB620F164C7FB50000D8C3 /* BBSightingDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSightingDetailController.h; sourceTree = "<group>"; };
 		1CAB6210164C7FB50000D8C3 /* BBSightingDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSightingDetailController.m; sourceTree = "<group>"; };
 		1CAB6211164C7FB50000D8C3 /* BBStreamController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBStreamController.h; sourceTree = "<group>"; };
 		1CAB6212164C7FB50000D8C3 /* BBStreamController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBStreamController.m; sourceTree = "<group>"; };
-		1CAB6213164C7FB50000D8C3 /* BBUserChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBUserChatViewController.h; sourceTree = "<group>"; };
-		1CAB6214164C7FB50000D8C3 /* BBUserChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBUserChatViewController.m; sourceTree = "<group>"; };
 		1CAB6216164C7FB50000D8C3 /* BBCollectionHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBCollectionHelper.h; sourceTree = "<group>"; };
 		1CAB6217164C7FB50000D8C3 /* BBCollectionHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBCollectionHelper.m; sourceTree = "<group>"; };
 		1CAB6218164C7FB50000D8C3 /* BBConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBConstants.h; sourceTree = "<group>"; };
@@ -586,9 +581,6 @@
 		1CAB6278164C7FB50000D8C3 /* BBDatePickerDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBDatePickerDelegateProtocol.h; sourceTree = "<group>"; };
 		1CAB6279164C7FB50000D8C3 /* BBDeviceUIProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBDeviceUIProtocol.h; sourceTree = "<group>"; };
 		1CAB627A164C7FB50000D8C3 /* BBHeaderProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBHeaderProtocol.h; sourceTree = "<group>"; };
-		1CAB627B164C7FB50000D8C3 /* BBLocationEditDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLocationEditDelegateProtocol.h; sourceTree = "<group>"; };
-		1CAB627C164C7FB50000D8C3 /* BBMediaEditDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMediaEditDelegateProtocol.h; sourceTree = "<group>"; };
-		1CAB627D164C7FB50000D8C3 /* BBMediaSelectDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMediaSelectDelegateProtocol.h; sourceTree = "<group>"; };
 		1CAB627E164C7FB50000D8C3 /* BBMenuProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMenuProtocol.h; sourceTree = "<group>"; };
 		1CAB627F164C7FB50000D8C3 /* BBProjectSelectDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBProjectSelectDelegateProtocol.h; sourceTree = "<group>"; };
 		1CAB6280164C7FB50000D8C3 /* BBSightingDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSightingDataSource.h; sourceTree = "<group>"; };
@@ -606,10 +598,6 @@
 		1CAB6291164C7FB50000D8C3 /* BBDateSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBDateSelectView.m; sourceTree = "<group>"; };
 		1CAB6292164C7FB50000D8C3 /* BBHomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBHomeView.h; sourceTree = "<group>"; };
 		1CAB6293164C7FB50000D8C3 /* BBHomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBHomeView.m; sourceTree = "<group>"; };
-		1CAB6294164C7FB50000D8C3 /* BBLocationSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLocationSelectView.h; sourceTree = "<group>"; };
-		1CAB6295164C7FB50000D8C3 /* BBLocationSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLocationSelectView.m; sourceTree = "<group>"; };
-		1CAB6298164C7FB50000D8C3 /* BBMediaEditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMediaEditView.h; sourceTree = "<group>"; };
-		1CAB6299164C7FB50000D8C3 /* BBMediaEditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMediaEditView.m; sourceTree = "<group>"; };
 		1CAB62A4164C7FB50000D8C3 /* BBSightingEditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSightingEditView.h; sourceTree = "<group>"; };
 		1CAB62A5164C7FB50000D8C3 /* BBSightingEditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSightingEditView.m; sourceTree = "<group>"; };
 		1CAB62AA164C7FB50000D8C3 /* BBUserHeadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBUserHeadingView.h; sourceTree = "<group>"; };
@@ -866,6 +854,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C296695165A06B300B3CC16 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				1C296696165A06B300B3CC16 /* SVProgressHUD.bundle */,
+				1C296697165A06B300B3CC16 /* SVProgressHUD.h */,
+				1C296698165A06B300B3CC16 /* SVProgressHUD.m */,
+			);
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
 		1C31AED715DE1B2100A602BE /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1093,6 +1091,9 @@
 		1C9A857715DDEC6A00D98F40 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
+				1C29669F165B0A1300B3CC16 /* MBProgressHUD.h */,
+				1C2966A0165B0A1300B3CC16 /* MBProgressHUD.m */,
+				1C296695165A06B300B3CC16 /* SVProgressHUD */,
 				1CAB6458164C842F0000D8C3 /* SDWebImage */,
 				1CAB6454164C83A70000D8C3 /* JCMSegmentController */,
 				1CAB6451164C82FD0000D8C3 /* PhotoBox.h */,
@@ -1139,6 +1140,8 @@
 				1CAB61DE164C7FB50000D8C3 /* BBUITextField+Extend.m */,
 				1CAB61DF164C7FB50000D8C3 /* UIView+Categories.h */,
 				1CAB61E0164C7FB50000D8C3 /* UIView+Categories.m */,
+				1C2966CE165DBB0D00B3CC16 /* UIImage+fixOrientation.h */,
+				1C2966CF165DBB0D00B3CC16 /* UIImage+fixOrientation.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1146,57 +1149,40 @@
 		1CAB61E1164C7FB50000D8C3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1C2966B1165B469500B3CC16 /* BBLocationSelectController.h */,
+				1C2966B2165B469600B3CC16 /* BBLocationSelectController.m */,
 				1CAB61E2164C7FB50000D8C3 /* BBActionController.h */,
 				1CAB61E3164C7FB50000D8C3 /* BBActionController.m */,
 				1CAB61E4164C7FB50000D8C3 /* BBAuthenticationController.h */,
 				1CAB61E5164C7FB50000D8C3 /* BBAuthenticationController.m */,
 				1CAB61E6164C7FB50000D8C3 /* BBCategoryPickerController.h */,
 				1CAB61E7164C7FB50000D8C3 /* BBCategoryPickerController.m */,
-				1CAB61E8164C7FB50000D8C3 /* BBChatViewController.h */,
-				1CAB61E9164C7FB50000D8C3 /* BBChatViewController.m */,
 				1CAB61EA164C7FB50000D8C3 /* BBContainerController.h */,
 				1CAB61EB164C7FB50000D8C3 /* BBContainerController.m */,
 				1CAB61EC164C7FB50000D8C3 /* BBContributionController.h */,
 				1CAB61ED164C7FB50000D8C3 /* BBContributionController.m */,
 				1CAB61EE164C7FB50000D8C3 /* BBControllerBase.h */,
 				1CAB61EF164C7FB50000D8C3 /* BBControllerBase.m */,
-				1CAB61F0164C7FB50000D8C3 /* BBControllers.h */,
 				1CAB61F1164C7FB50000D8C3 /* BBDateSelectController.h */,
 				1CAB61F2164C7FB50000D8C3 /* BBDateSelectController.m */,
-				1CAB61F3164C7FB50000D8C3 /* BBGroupChatViewController.h */,
-				1CAB61F4164C7FB50000D8C3 /* BBGroupChatViewController.m */,
 				1CAB61F5164C7FB50000D8C3 /* BBHeaderController.h */,
 				1CAB61F6164C7FB50000D8C3 /* BBHeaderController.m */,
 				1CAB61F7164C7FB50000D8C3 /* BBHomeController.h */,
 				1CAB61F8164C7FB50000D8C3 /* BBHomeController.m */,
-				1CAB61F9164C7FB50000D8C3 /* BBImageController.h */,
-				1CAB61FA164C7FB50000D8C3 /* BBImageController.m */,
-				1CAB61FB164C7FB50000D8C3 /* BBLocationSelectController.h */,
-				1CAB61FC164C7FB50000D8C3 /* BBLocationSelectController.m */,
 				1CAB61FD164C7FB50000D8C3 /* BBLoginController.h */,
 				1CAB61FE164C7FB50000D8C3 /* BBLoginController.m */,
-				1CAB61FF164C7FB50000D8C3 /* BBMediaEditController.h */,
-				1CAB6200164C7FB50000D8C3 /* BBMediaEditController.m */,
-				1CAB6201164C7FB50000D8C3 /* BBMediaSelectController.h */,
-				1CAB6202164C7FB50000D8C3 /* BBMediaSelectController.m */,
 				1CAB6203164C7FB50000D8C3 /* BBMenuController.h */,
 				1CAB6204164C7FB50000D8C3 /* BBMenuController.m */,
 				1CAB6205164C7FB50000D8C3 /* BBSightingEditController.h */,
 				1CAB6206164C7FB50000D8C3 /* BBSightingEditController.m */,
-				1CAB6207164C7FB50000D8C3 /* BBPrivateChatController.h */,
-				1CAB6208164C7FB50000D8C3 /* BBPrivateChatController.m */,
 				1CAB6209164C7FB50000D8C3 /* BBProjectSelectController.h */,
 				1CAB620A164C7FB50000D8C3 /* BBProjectSelectController.m */,
 				1CAB620B164C7FB50000D8C3 /* BBRegistrationController.h */,
 				1CAB620C164C7FB50000D8C3 /* BBRegistrationController.m */,
-				1CAB620D164C7FB50000D8C3 /* BBSettingsViewController.h */,
-				1CAB620E164C7FB50000D8C3 /* BBSettingsViewController.m */,
 				1CAB620F164C7FB50000D8C3 /* BBSightingDetailController.h */,
 				1CAB6210164C7FB50000D8C3 /* BBSightingDetailController.m */,
 				1CAB6211164C7FB50000D8C3 /* BBStreamController.h */,
 				1CAB6212164C7FB50000D8C3 /* BBStreamController.m */,
-				1CAB6213164C7FB50000D8C3 /* BBUserChatViewController.h */,
-				1CAB6214164C7FB50000D8C3 /* BBUserChatViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1315,15 +1301,13 @@
 		1CAB6274164C7FB50000D8C3 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				1C2966AD165B468100B3CC16 /* BBLocationEditDelegateProtocol.h */,
 				1CAB6275164C7FB50000D8C3 /* BBActionProtocol.h */,
 				1CAB6276164C7FB50000D8C3 /* BBCategoryPickerDelegateProtocol.h */,
 				1CAB6277164C7FB50000D8C3 /* BBContainerProtocols.h */,
 				1CAB6278164C7FB50000D8C3 /* BBDatePickerDelegateProtocol.h */,
 				1CAB6279164C7FB50000D8C3 /* BBDeviceUIProtocol.h */,
 				1CAB627A164C7FB50000D8C3 /* BBHeaderProtocol.h */,
-				1CAB627B164C7FB50000D8C3 /* BBLocationEditDelegateProtocol.h */,
-				1CAB627C164C7FB50000D8C3 /* BBMediaEditDelegateProtocol.h */,
-				1CAB627D164C7FB50000D8C3 /* BBMediaSelectDelegateProtocol.h */,
 				1CAB627E164C7FB50000D8C3 /* BBMenuProtocol.h */,
 				1CAB627F164C7FB50000D8C3 /* BBProjectSelectDelegateProtocol.h */,
 				1CAB6280164C7FB50000D8C3 /* BBSightingDataSource.h */,
@@ -1340,6 +1324,8 @@
 		1CAB6285164C7FB50000D8C3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1C2966AE165B468900B3CC16 /* BBLocationSelectView.h */,
+				1C2966AF165B468900B3CC16 /* BBLocationSelectView.m */,
 				1CAB628A164C7FB50000D8C3 /* BBBowerBirdHeaderLogo.h */,
 				1CAB628B164C7FB50000D8C3 /* BBBowerBirdHeaderLogo.m */,
 				1CAB628C164C7FB50000D8C3 /* BBCategoryPickerView.h */,
@@ -1350,10 +1336,6 @@
 				1CAB6291164C7FB50000D8C3 /* BBDateSelectView.m */,
 				1CAB6292164C7FB50000D8C3 /* BBHomeView.h */,
 				1CAB6293164C7FB50000D8C3 /* BBHomeView.m */,
-				1CAB6294164C7FB50000D8C3 /* BBLocationSelectView.h */,
-				1CAB6295164C7FB50000D8C3 /* BBLocationSelectView.m */,
-				1CAB6298164C7FB50000D8C3 /* BBMediaEditView.h */,
-				1CAB6299164C7FB50000D8C3 /* BBMediaEditView.m */,
 				1CAB62A4164C7FB50000D8C3 /* BBSightingEditView.h */,
 				1CAB62A5164C7FB50000D8C3 /* BBSightingEditView.m */,
 				1CAB62AA164C7FB50000D8C3 /* BBUserHeadingView.h */,
@@ -1442,6 +1424,7 @@
 		1CAB6344164C80090000D8C3 /* retina */ = {
 			isa = PBXGroup;
 			children = (
+				1C2966D4165E2CC000B3CC16 /* project-icon@2x.png */,
 				1CAB6345164C80090000D8C3 /* action@2x.png */,
 				1CAB6346164C80090000D8C3 /* add@2x.png */,
 				1CAB6347164C80090000D8C3 /* amphibians@2x.png */,
@@ -1479,6 +1462,7 @@
 		1CAB6363164C80090000D8C3 /* standard */ = {
 			isa = PBXGroup;
 			children = (
+				1C2966D6165E2D3000B3CC16 /* project-icon.png */,
 				1CAB6364164C80090000D8C3 /* 00_License.txt */,
 				1CAB6365164C80090000D8C3 /* action.png */,
 				1CAB6366164C80090000D8C3 /* add.png */,
@@ -1637,6 +1621,8 @@
 				1CAB648316532C030000D8C3 /* BBMediaResourceCreate.m */,
 				1C29669116555E7600B3CC16 /* BBObservationMediaCreate.h */,
 				1C29669216555E7600B3CC16 /* BBObservationMediaCreate.m */,
+				1C2966D1165E1D7000B3CC16 /* BBModelId.h */,
+				1C2966D2165E1D7000B3CC16 /* BBModelId.m */,
 			);
 			path = Posts;
 			sourceTree = "<group>";
@@ -1885,6 +1871,9 @@
 				1CAB644C164C80090000D8C3 /* truck.png in Resources */,
 				1CAB644D164C80090000D8C3 /* waste_basket.png in Resources */,
 				1CAB644E164C80090000D8C3 /* logo.svg in Resources */,
+				1C296699165A06B300B3CC16 /* SVProgressHUD.bundle in Resources */,
+				1C2966D5165E2CC000B3CC16 /* project-icon@2x.png in Resources */,
+				1C2966D7165E2D3000B3CC16 /* project-icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1938,28 +1927,19 @@
 				1CAB62AE164C7FB50000D8C3 /* BBActionController.m in Sources */,
 				1CAB62AF164C7FB50000D8C3 /* BBAuthenticationController.m in Sources */,
 				1CAB62B0164C7FB50000D8C3 /* BBCategoryPickerController.m in Sources */,
-				1CAB62B1164C7FB50000D8C3 /* BBChatViewController.m in Sources */,
 				1CAB62B2164C7FB50000D8C3 /* BBContainerController.m in Sources */,
 				1CAB62B3164C7FB50000D8C3 /* BBContributionController.m in Sources */,
 				1CAB62B4164C7FB50000D8C3 /* BBControllerBase.m in Sources */,
 				1CAB62B5164C7FB50000D8C3 /* BBDateSelectController.m in Sources */,
-				1CAB62B6164C7FB50000D8C3 /* BBGroupChatViewController.m in Sources */,
 				1CAB62B7164C7FB50000D8C3 /* BBHeaderController.m in Sources */,
 				1CAB62B8164C7FB50000D8C3 /* BBHomeController.m in Sources */,
-				1CAB62B9164C7FB50000D8C3 /* BBImageController.m in Sources */,
-				1CAB62BA164C7FB50000D8C3 /* BBLocationSelectController.m in Sources */,
 				1CAB62BB164C7FB50000D8C3 /* BBLoginController.m in Sources */,
-				1CAB62BC164C7FB50000D8C3 /* BBMediaEditController.m in Sources */,
-				1CAB62BD164C7FB50000D8C3 /* BBMediaSelectController.m in Sources */,
 				1CAB62BE164C7FB50000D8C3 /* BBMenuController.m in Sources */,
 				1CAB62BF164C7FB50000D8C3 /* BBSightingEditController.m in Sources */,
-				1CAB62C0164C7FB50000D8C3 /* BBPrivateChatController.m in Sources */,
 				1CAB62C1164C7FB50000D8C3 /* BBProjectSelectController.m in Sources */,
 				1CAB62C2164C7FB50000D8C3 /* BBRegistrationController.m in Sources */,
-				1CAB62C3164C7FB50000D8C3 /* BBSettingsViewController.m in Sources */,
 				1CAB62C4164C7FB50000D8C3 /* BBSightingDetailController.m in Sources */,
 				1CAB62C5164C7FB50000D8C3 /* BBStreamController.m in Sources */,
-				1CAB62C6164C7FB50000D8C3 /* BBUserChatViewController.m in Sources */,
 				1CAB62C7164C7FB50000D8C3 /* BBCollectionHelper.m in Sources */,
 				1CAB62C8164C7FB50000D8C3 /* BBConstants.m in Sources */,
 				1CAB62CA164C7FB50000D8C3 /* BBCookieHelper.m in Sources */,
@@ -2008,8 +1988,6 @@
 				1CAB62F9164C7FB50000D8C3 /* BBContainerView.m in Sources */,
 				1CAB62FA164C7FB50000D8C3 /* BBDateSelectView.m in Sources */,
 				1CAB62FB164C7FB50000D8C3 /* BBHomeView.m in Sources */,
-				1CAB62FC164C7FB50000D8C3 /* BBLocationSelectView.m in Sources */,
-				1CAB62FE164C7FB50000D8C3 /* BBMediaEditView.m in Sources */,
 				1CAB6304164C7FB50000D8C3 /* BBSightingEditView.m in Sources */,
 				1CAB6307164C7FB50000D8C3 /* BBUserHeadingView.m in Sources */,
 				1CAB632E164C7FE00000D8C3 /* BSKeyboardControls.m in Sources */,
@@ -2045,6 +2023,12 @@
 				1CAB64A8165489CE0000D8C3 /* BBUserHubClient.m in Sources */,
 				1C2966901655532300B3CC16 /* BBJsonResponse.m in Sources */,
 				1C29669316555E7600B3CC16 /* BBObservationMediaCreate.m in Sources */,
+				1C29669A165A06B300B3CC16 /* SVProgressHUD.m in Sources */,
+				1C2966A1165B0A1400B3CC16 /* MBProgressHUD.m in Sources */,
+				1C2966B0165B468900B3CC16 /* BBLocationSelectView.m in Sources */,
+				1C2966B3165B469800B3CC16 /* BBLocationSelectController.m in Sources */,
+				1C2966D0165DBB0D00B3CC16 /* UIImage+fixOrientation.m in Sources */,
+				1C2966D3165E1D7100B3CC16 /* BBModelId.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,7 +13,27 @@
 @synthesize description = _description,
                   image = _image,
          isPrimaryImage = _isPrimaryImage,
-                licence = _licence;
+                licence = _licence,
+                    key = _key;
+
+
+-(BBMediaEdit*)initWithImage:(UIImage*)image {
+    self = [super init];
+    
+    _image = image;
+    _key = [BBGuidGenerator generateGuid];
+    
+    return self;
+}
+
+
+-(NSString*)key {
+    return _key;
+}
+
+-(void)setKey:(NSString *)key {
+    _key = key;
+}
 
 
 -(NSString*)description {

@@ -11,5 +11,6 @@
 @interface BBJsonResponse : NSObject
 
 @property (nonatomic,retain) NSString *success;
+@property (nonatomic,retain) NSString *action;
 
 @end

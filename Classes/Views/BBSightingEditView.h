@@ -52,7 +52,7 @@
 
 -(BBSightingEditView*)initWithDelegate:(id<BBSightingEditDelegateProtocol>)delegate asObservation:(BOOL)isObservation;
 
--(void)addMediaItem:(BBMediaEdit*)media;
+-(void)addMediaItem:(BBMediaEdit *)media;
 
 -(void)addSightingProject:(BBProject*)project;
 

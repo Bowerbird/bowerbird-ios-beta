@@ -37,6 +37,10 @@
 #define IPHONE_OBSERVATION          (CGSize){290,240}
 #define IPHONE_STREAM_FRAME         (CGRect){0,50,320,390}
 #define IPHONE_AVATAR_SIZE          (CGSize){40,40}
+
+// Project
+#define IPHONE_PROJECT_DESCRIPTION  (CGSize){300, 240}
+#define IPHONE_PROJECT_AVATAR_SIZE  (CGSize){80,80}
 // Constants
 #define MAX_MEDIA_PER_SIGHTING      3
 

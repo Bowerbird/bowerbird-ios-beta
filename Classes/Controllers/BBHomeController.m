@@ -80,6 +80,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadUserStream) name:@"userProfileLoaded" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadUserStream) name:@"loadUserStream" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadGroupStream:) name:@"groupMenuTapped" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadProjectBrowser) name:@"exploreProjectsTapped" object:nil];
     
     return withView;
 }
@@ -131,6 +132,20 @@
 
         // append stream's view to this window
         [self.streamController displayActivities:object];
+    }
+    
+    if([object isKindOfClass:[BBProjectPaginator class]])
+    {
+        [BBLog Debug:object withMessage:@"### BBProjectPaginator Loaded"];
+        // we should remove all the stream controller's views at this point
+        
+        // pass model to stream controller constructor
+        self.streamController = [[BBStreamController alloc]init];
+        [self.view addSubview:self.streamController.view];
+        self.streamController.view.y += 50;
+        
+        // append stream's view to this window
+        [self.streamController displayProjects:object];
     }
     
     if([object isKindOfClass:[BBSightingPaginator class]])
@@ -223,6 +238,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeadingTitle" object:self userInfo:userInfo];
 }
 
+
 -(void)loadGroupStream:(NSNotification *) notification {
     [BBLog Log:@"BBHomeController.loadGroupStream"];
     
@@ -241,6 +257,21 @@
 }
 
 
+-(void)loadProjectBrowser {
+    [BBLog Log:@"BBHomeController.loadProjectBrowser"];
+    
+    [self clearStreamViews];
+    
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"%@/projects?%@",[BBConstants RootUriString], [BBConstants AjaxQuerystring]]
+                                                      delegate:self];
+    
+    NSMutableDictionary* userInfo2 = [NSMutableDictionary dictionaryWithCapacity:1];
+    [userInfo2 setObject:@"Browse Projects" forKey:@"name"];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeadingTitle" object:self userInfo:userInfo2];
+}
+
+
 -(void)clearStreamViews {
     NSArray *viewsToRemove = [self.view subviews];
     for (UIView *v in viewsToRemove) {
@@ -251,7 +282,8 @@
     [self.view addSubview:self.actionController.view];
 }
 
-- (void)didReceiveMemoryWarning {
+
+-(void)didReceiveMemoryWarning {
     [BBLog Log:@"MEMORY WARNING! - BBHomeController"];
     
     [super didReceiveMemoryWarning];

@@ -17,13 +17,15 @@
          fileName = _fileName;
 
 
--(BBMediaResourceCreate*)initWithImage:(UIImage*)image forUsage:(NSString*)usage {
+-(BBMediaResourceCreate*)initWithMedia:(BBMediaEdit*)media forUsage:(NSString*)usage {
     
     self = [super init];
     
-    _file = UIImageJPEGRepresentation(image, 100);
+    UIImage *fixedImage = [media.image normalizedImage];
+    
+    _file = UIImageJPEGRepresentation(fixedImage, 100);
     _type = @"file";
-    _key = [BBGuidGenerator generateGuid];
+    _key = media.key;
     _usage = usage;
     
      // we don't have (easy) access to a native filename like the web client, so use the key.

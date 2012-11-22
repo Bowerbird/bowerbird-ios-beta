@@ -17,16 +17,16 @@
 #import "BBSightingDataSource.h"
 #import "BBDateSelectController.h"
 #import "BBDatePickerDelegateProtocol.h"
-#import "BBMediaEditController.h"
-#import "BBMediaEditDelegateProtocol.h"
-#import "BBLocationSelectController.h"
-#import "BBLocationEditDelegateProtocol.h"
 #import "BBCategoryPickerController.h"
 #import "BBProjectSelectDelegateProtocol.h"
 #import "BBProjectSelectController.h"
 #import "BBObservationCreate.h"
 #import "BBMultipartForm.h"
 #import "RKRequestSerialization.h"
+#import "SVProgressHUD.h"
+#import "BBLocationSelectController.h"
+#import "MBProgressHUD.h"
+#import "UIImage+fixOrientation.h"
 
 @class UIActivityIndicatorView;
 
@@ -37,25 +37,29 @@
     ,UIImagePickerControllerDelegate // required for image picker modal popup
     ,CLLocationManagerDelegate
     ,BBDatePickerDelegateProtocol
-    ,BBMediaEditDelegateProtocol
-    ,BBLocationEditDelegateProtocol
     ,BBCategoryPickerDelegateProtocol
     ,BBProjectSelectDelegateProtocol
+    ,BBLocationEditDelegateProtocol
     ,RKRequestDelegate
->
+    ,RKObjectLoaderDelegate
+    ,MBProgressHUDDelegate
+> {
+    // all these instance vars are for HUD display
+    MBProgressHUD *HUD;
+	long long expectedLength;
+	long long currentLength;
+}
 
 @property (nonatomic,retain) BBSightingEdit *observation;
 @property (nonatomic,retain) BBSightingEditView *observationEditView;
 @property (nonatomic,strong) BBMediaEdit *editingMedia;
-
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (readonly) CLLocationCoordinate2D currentUserCoordinate;
-
 @property (readonly) UIActivityIndicatorView *spinner; // weak
 @property (readonly) UIActivityIndicatorView *currentLocationActivityIndicatorView; // weak
+@property (readonly, strong) NSMutableDictionary* mediaResourceBoxes;
 
 -(BBSightingEditController*)initWithMedia:(BBMediaEdit*)observationMedia;
-
 -(BBSightingEditController*)initAsRecord;
 
 // CLLocationManagerDelegate methods:

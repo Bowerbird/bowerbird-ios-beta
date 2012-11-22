@@ -13,8 +13,16 @@
 @synthesize mediaResourceId = _mediaResourceId,
                 description = _description,
              isPrimaryMedia = _isPrimaryMedia,
-                    licence = _licence;
+                    licence = _licence,
+                        key = _key;
 
+
+-(NSString*)key {
+    return _key;
+}
+-(void)setKey:(NSString *)key {
+    _key = key;
+}
 
 -(NSString*)mediaResourceId {
     return _mediaResourceId;

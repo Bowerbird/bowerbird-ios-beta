@@ -97,7 +97,7 @@
     {
         UIImagePickerController *picker = [[UIImagePickerController alloc] init];
         picker.delegate = self;
-        picker.allowsEditing = YES;
+        picker.allowsEditing = NO;
         picker.sourceType = UIImagePickerControllerSourceTypeCamera;
         [self presentModalViewController:picker animated:YES];
     }
@@ -121,6 +121,7 @@
     {
         UIImagePickerController *picker = [[UIImagePickerController alloc] init];
         picker.delegate = self;
+        picker.allowsEditing = NO;
         picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         [self presentModalViewController:picker animated:YES];
     }
@@ -150,21 +151,9 @@
     
     [picker dismissModalViewControllerAnimated:YES];
     
-    UIImage* image;
+    UIImage* image = [info objectForKey:UIImagePickerControllerOriginalImage];;
     
-    if(picker.sourceType == UIImagePickerControllerSourceTypePhotoLibrary || picker.sourceType == UIImagePickerControllerSourceTypeSavedPhotosAlbum)
-    {
-        [BBLog Log:@"BBContributionController: source is library"];
-        image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    }
-    else
-    {
-        [BBLog Log:@"BBContributionController: source is edited image"];
-        image = [info objectForKey:UIImagePickerControllerEditedImage];
-    }
-    
-    BBMediaEdit *mediaEdit = [[BBMediaEdit alloc]init];
-    mediaEdit.image = image;
+    BBMediaEdit *mediaEdit = [[BBMediaEdit alloc]initWithImage:image];
     
     BBSightingEditController *observationController = [[BBSightingEditController alloc]initWithMedia:mediaEdit];
     
@@ -175,6 +164,7 @@
     [BBLog Log:@"BBContributionController.imagePickerControllerDidCancel"];
     
     [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:NO];
+    
     [picker dismissModalViewControllerAnimated:YES];
 }
 

@@ -146,6 +146,10 @@
     UIImageView *projectBrowser = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, IPHONE_AVATAR_SIZE.width, IPHONE_AVATAR_SIZE.height)];
     projectBrowser.image =[UIImage imageNamed:@"projects.png"];
     MGLine *exploreProjects = [MGLine lineWithLeft:projectBrowser right:@"Project Browser" size:CGSizeMake(280,40)];
+    exploreProjects.onTap = ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"exploreProjectsTapped" object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"menuTappedClose" object:nil];
+    };
     [exploreTable.middleLines addObject:exploreProjects];
     
     MGTableBoxStyled *profileTable = [MGTableBoxStyled boxWithSize:CGSizeMake(300.0, 0)];

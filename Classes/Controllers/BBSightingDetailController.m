@@ -85,6 +85,7 @@
     [info.middleLines addObject:currentImageBox];
     MGBox *thumbs = [MGBox box];//boxWithSize:CGSizeMake(320, 50)];
     thumbs.parentBox.contentLayoutMode = MGLayoutGridStyle;
+    thumbs.contentLayoutMode = MGLayoutGridStyle;
     //thumbs.sizingMode = MGResizingShrinkWrap;
 
     // add the thumb nails

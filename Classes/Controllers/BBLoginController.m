@@ -214,7 +214,7 @@
     
     if ([request isPOST]) // Login Attempt
     {
-        [self getUserProfileFromLoginRequest:response];
+        [self getUserProfile:response];
     }
     else if ([request isGET]) // Load Profile
     {
@@ -223,8 +223,8 @@
 }
 
 
--(void)getUserProfileFromLoginRequest:(RKResponse*)response {
-    [BBLog Log:@"BBLoginController.getUserProfileFromLoginRequest"];
+-(void)getUserProfile:(RKResponse*)response {
+    [BBLog Log:@"BBLoginController.getUserProfile"];
     
     if ([response isOK] && [response isJSON])
     {
@@ -252,10 +252,6 @@
     
     if ([response isOK] && [response isJSON])
     {
-        //NSError* error = nil;
-        //id obj = [response parsedBody:&error];
-        //RKObjectMapping *authenticationMap = [[[RKObjectManager sharedManager] mappingProvider] serializationMappingForClass:[BBAuthenticatedUser class]];
-        
         id obj = [response bodyAsString];
         RKObjectMapping *authenticationMap = [RKObjectMapping mappingForClass:[BBAuthenticatedUser class]];
         
@@ -269,7 +265,7 @@
     }
 }
 
-/*
+/**/
 // TODO: This is potentially the handler for all RestKit activity
 -(void)objectLoader:(RKObjectLoader*)objectLoader didLoadObject:(id)object {
     [BBLog Log:@"BBLoginController.objectLoader:didLoadObject"];
@@ -285,18 +281,13 @@
     
     if([object isKindOfClass:[BBAuthenticatedUser class]])
     {
-        // TODO: Get the mappings for Authenticated User working for the menu items et al.
-        
         BBApplication *appData = [BBApplication sharedInstance];
         appData.authenticatedUser = (BBAuthenticatedUser*)object;
-        [appData.connection start];
-        
-        //[self performSelector:@selector(segueToLoadActivity)withObject:self afterDelay:1];
-        
+
         [[NSNotificationCenter defaultCenter] postNotificationName:@"authenticatedUserLoaded" object:nil];
     }
 }
-*/
+
 
 -(void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     [BBLog Error:[NSString stringWithFormat:@"%@%@", @"BBLoginController.objectLoader:didFailWithError:", [error localizedDescription]]];
@@ -307,7 +298,6 @@
     [BBLog Log:@"MEMORY WARNING! - BBRegistrationController"];
     
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 

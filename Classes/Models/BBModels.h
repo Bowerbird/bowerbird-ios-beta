@@ -40,6 +40,7 @@
 #import "BBSightingEdit.h"
 #import "BBJsonResponse.h"
 
+#import "BBModelId.h"
 #import "BBMediaResourceCreate.h"
 #import "BBObservationMediaCreate.h"
 #import "BBObservationCreate.h"

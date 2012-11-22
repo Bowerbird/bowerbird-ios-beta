@@ -63,4 +63,6 @@
 -(void)save;
 -(void)cancel;
 
+-(void)setUploadedMediaDisplayBox:(id)box toReferenceMedia:(NSString*)key;
+
 @end

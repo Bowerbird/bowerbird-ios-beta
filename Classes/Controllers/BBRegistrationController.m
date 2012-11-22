@@ -93,7 +93,7 @@
     // spiel
     NSString *spielText = @"Iphone wayfarers post-ironic banksy. Typewriter authentic lomo tofu cred. Twee shoreditch seitan small batch, 3 wolf moon freegan odd future wayfarers squid occupy scenester leggings letterpress. +1 pickled readymade flexitarian viral hoodie. Master cleanse next level butcher semiotics, bespoke Austin tumblr vice skateboard jean shorts american apparel. Iphone synth vinyl fanny pack street art trust fund leggings godard, shoreditch mumblecore ennui butcher swag master cleanse. Vinyl etsy jean shorts gastropub iphone wolf, put a bird on it truffaut mixtape gentrify";
     MGLine *spiel = [MGLine lineWithMultilineLeft:spielText right:nil width:280 minHeight:40];
-    [registrationTable.middleLines addObject:spiel];
+    //[registrationTable.middleLines addObject:spiel];
     
     // name
     _textName = [BBUIControlHelper createTextFieldWithFrame:CGRectMake(0, 0, 280, 40)

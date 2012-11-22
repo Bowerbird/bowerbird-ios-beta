@@ -17,8 +17,8 @@
 #import "BBMapPoint.h"
 
 @interface BBLocationSelectView : UIView <
-    BBLocationEditDelegateProtocol
-    ,CLLocationManagerDelegate
+BBLocationEditDelegateProtocol
+,CLLocationManagerDelegate
 >
 
 @property (nonatomic,retain) id<BBLocationEditDelegateProtocol> controller;

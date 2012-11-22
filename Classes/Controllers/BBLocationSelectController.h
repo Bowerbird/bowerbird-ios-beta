@@ -14,6 +14,7 @@
 #import "BBStyles.h"
 #import "BBControllerBase.h"
 #import "BBMapPoint.h"
+#import "BBLocationSelectView.h"
 
 @interface BBLocationSelectController : BBControllerBase <
     BBLocationEditDelegateProtocol

@@ -100,12 +100,12 @@
     // A Register Table
     MGTableBoxStyled *registerTable = [MGTableBoxStyled boxWithSize:CGSizeMake(300,100)];
     registerTable.padding = UIEdgeInsetsMake(10, 10, 10, 10);
-    MGLine *registerTableHeading = [MGLine lineWithLeft:@"It's my first time.." right:nil size:CGSizeMake(280, 40)];
+    MGLine *registerTableHeading = [MGLine lineWithLeft:@"I'm new to BowerBird!" right:nil size:CGSizeMake(280, 40)];
     registerTableHeading.font = HEADER_FONT;
     registerTableHeading.padding = UIEdgeInsetsMake(10, 10, 10, 10);
     [registerTable.topLines addObject:registerTableHeading];
     
-    id registerSpiel = @"If you are not yet a BowerBird member, you will need to register before accessing all the fantastic features. Simply tap this box to begin. We will be gentle.";
+    id registerSpiel = @"If you are not yet a BowerBird member, you will need to register before accessing all the fantastic features. Simply tap this box to get started.";
     MGLine *registerTableBlurb = [MGLine lineWithMultilineLeft:registerSpiel right:nil width:280 minHeight:40];
     registerTableBlurb.padding = UIEdgeInsetsMake(10, 10, 10, 10);
     [registerTable.middleLines addObject:registerTableBlurb];
@@ -113,21 +113,23 @@
     
     // A Browse Table
     MGTableBoxStyled *browseTable = [MGTableBoxStyled boxWithSize:CGSizeMake(300,100)];
-    MGLine *browseTableHeading = [MGLine lineWithLeft:@"Browse" right:nil size:CGSizeMake(280, 40)];
+    browseTable.padding = UIEdgeInsetsMake(10, 10, 10, 10);
+    MGLine *browseTableHeading = [MGLine lineWithLeft:@"Take a Peek first.." right:nil size:CGSizeMake(280, 40)];
     browseTableHeading.font = HEADER_FONT;
-    id browseSpiel = @"If you would like to simply look at the contributions in BowerBird without joining, take a peek";
-    CoolMGButton *browseButton = [BBUIControlHelper createButtonWithFrame:CGRectMake(0, 0, 280, 40)
-                                                                 andTitle:@"Browse"
-                                                                withBlock:^{[self browseScreen];}];
+    browseTableHeading.padding = UIEdgeInsetsMake(10, 10, 10, 10);
     [browseTable.topLines addObject:browseTableHeading];
-    [browseTable.middleLines addObject:[MGLine lineWithMultilineLeft:browseSpiel right:nil width:280 minHeight:40]];
-    [browseTable.bottomLines addObject:browseButton];
+    
+    id browseSpiel = @"If you would like to take a look at the contributions in BowerBird before you decide to join, tap to take a peek.";
+    MGLine *browseTableBlurb = [MGLine lineWithMultilineLeft:browseSpiel right:nil width:280 minHeight:40];
+    browseTableBlurb.padding = UIEdgeInsetsMake(10, 10, 10, 10);
+    [browseTable.middleLines addObject:registerTableBlurb];
+    browseTableBlurb.onTap = ^{};
     
     [authenticationView.boxes addObject:userMenu];
     [authenticationView.boxes addObject:welcomeTable];
     [authenticationView.boxes addObject:loginTable];
     [authenticationView.boxes addObject:registerTable];
-    //[authenticationView.boxes addObject:browseTable];
+    [authenticationView.boxes addObject:browseTable];
     
     [(MGScrollView*)self.view layoutWithSpeed:0.3 completion:nil];
 }

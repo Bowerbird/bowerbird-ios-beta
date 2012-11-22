@@ -13,12 +13,18 @@
 #import "PhotoBox.h"
 #import "BBSightingDetailController.h"
 #import "PhotoBox.h"
+#import "BBUIControlHelper.h"
 
-@interface BBStreamController : BBControllerBase <UIGestureRecognizerDelegate>
+@interface BBStreamController : BBControllerBase <
+     UIGestureRecognizerDelegate
+    ,RKObjectLoaderDelegate
+>
 
 -(void)displayActivities:(BBActivityPaginator*)activities;
 
 -(void)displaySightings:(BBSightingPaginator*)pagedSightings;
+
+-(void)displayProjects:(BBProjectPaginator*)pagedProjects;
 
 @property (nonatomic, weak) IBOutlet MGScrollView *scroller;
 

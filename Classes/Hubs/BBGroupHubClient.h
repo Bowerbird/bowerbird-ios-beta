@@ -6,13 +6,19 @@
  
  -----------------------------------------------------------------------------------------------*/
 
-#import <UIKit/UIKit.h>
-#import "BBHelpers.h"
+#import <Foundation/Foundation.h>
 #import "BBModels.h"
-#import "UIImageView+WebCache.h"
+#import "BBHelpers.h"
+#import "SignalR.h"
 
-@interface BBUserChatViewController : UITableViewController
+@interface BBGroupHubClient : NSObject <SRConnectionDelegate>
 
-@property (nonatomic, strong) NSMutableArray* onlineUsers;
+@property (nonatomic, retain) SRHubConnection* connection;
+@property (nonatomic, retain) SRHubProxy* groupHub;
+
++(id)sharedInstance;
+
+// calls from Server to Client
+-(void)newActivity:(id)payload;
 
 @end

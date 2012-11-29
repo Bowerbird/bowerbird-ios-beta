@@ -13,10 +13,19 @@
 @synthesize success = _success;
 @synthesize action = _action;
 
+/*
 -(NSString*)success {
     return _success;
 }
 -(void)setSuccess:(NSString *)success {
+    _success = success;
+}
+*/
+
+-(BOOL)success {
+    return _success;
+}
+-(void)setSuccess:(BOOL)success {
     _success = success;
 }
 

@@ -19,7 +19,8 @@
                      groups = _groups,
                 observation = _observation,
                        post = _post,
-            observationNote = _observationNote;
+            observationNote = _observationNote,
+ observationNoteObservation = _observationNoteObservation;
 
 
 -(void)setIdentifier:(NSString *)identifier
@@ -112,6 +113,16 @@
 -(BBObservation*)observation
 {
     return _observation;
+}
+
+
+-(void)setObservationNoteObservation:(BBObservation *)observationNoteObservation
+{
+    _observationNoteObservation = observationNoteObservation;
+}
+-(BBObservation*)observationNoteObservation
+{
+    return _observationNoteObservation;
 }
 
 

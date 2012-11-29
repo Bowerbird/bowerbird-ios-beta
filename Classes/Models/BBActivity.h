@@ -10,7 +10,7 @@
 #import "BBModels.h"
 
 // WTF? Forward reference required for lack of compilation
-@class BBObservation;
+@class BBObservation, BBObservationNote;
 
 @interface BBActivity : NSObject
 
@@ -23,6 +23,7 @@
 @property (nonatomic,retain) BBObservation* observation;
 @property (nonatomic,retain) BBPost* post;
 @property (nonatomic,retain) BBObservationNote* observationNote;
+@property (nonatomic,retain) BBObservation* observationNoteObservation;
 
 @property (nonatomic,retain) NSSet* groups;
 

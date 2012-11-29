@@ -17,10 +17,6 @@
     // MAPPINGS
     RKObjectManager* restKitManager = [RKObjectManager objectManagerWithBaseURL:[BBConstants RootUri]];
     [BBMappings mappingsForRKManager:restKitManager];
-
-    // possibly push these into the mapper class...?
-    [restKitManager.router routeClass:[BBMediaResourceCreate class] toResourcePath:@"/mediaresources/create" forMethod:RKRequestMethodPOST];
-    [restKitManager.router routeClass:[BBObservationCreate class] toResourcePath:@"/observations/create" forMethod:RKRequestMethodPOST];
   
     // UI
     self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
@@ -28,6 +24,9 @@
     self.navController = [[UINavigationController alloc] initWithRootViewController:container];
     [self.window addSubview:self.navController.view];
     [self.window makeKeyAndVisible];
+    
+    // prevent the app from going to sleep while it is active.. stops upload killing..
+    [UIApplication sharedApplication].idleTimerDisabled=YES;
     
     return YES;
 }

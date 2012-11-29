@@ -54,16 +54,8 @@
     [BBLog Log:@"BBHomeController.setupHomeView:withView"];
     
     self.headerController = [[BBHeaderController alloc]init];
-    //[self addChildViewController:self.headerController];
-    //[withView addSubview:self.headerController.view];
-    
     self.menuController = [[BBMenuController alloc]init];
-    //[self addChildViewController:self.menuController];
-    //[withView addSubview:self.menuController.view];
-    
     self.actionController = [[BBActionController alloc]init];
-    //[self addChildViewController:self.actionController];
-    //[withView addSubview:self.actionController.view];
     
     // all devices and orientations have the same header height
     self.menuController.view.y = IPHONE_HEADER_PORTRAIT.height;
@@ -129,6 +121,7 @@
         self.streamController = [[BBStreamController alloc]init];
         [self.view addSubview:self.streamController.view];
         self.streamController.view.y += 50;
+        ((MGScrollView*)self.streamController.view).height -= 50;
 
         // append stream's view to this window
         [self.streamController displayActivities:object];
@@ -143,6 +136,7 @@
         self.streamController = [[BBStreamController alloc]init];
         [self.view addSubview:self.streamController.view];
         self.streamController.view.y += 50;
+        ((MGScrollView*)self.streamController.view).height -= 50;
         
         // append stream's view to this window
         [self.streamController displayProjects:object];

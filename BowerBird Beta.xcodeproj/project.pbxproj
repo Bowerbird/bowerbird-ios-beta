@@ -18,6 +18,8 @@
 		1C2966D3165E1D7100B3CC16 /* BBModelId.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2966D2165E1D7000B3CC16 /* BBModelId.m */; };
 		1C2966D5165E2CC000B3CC16 /* project-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C2966D4165E2CC000B3CC16 /* project-icon@2x.png */; };
 		1C2966D7165E2D3000B3CC16 /* project-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C2966D6165E2D3000B3CC16 /* project-icon.png */; };
+		1C2966DD165E59CF00B3CC16 /* BBIdentification.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2966DC165E59CD00B3CC16 /* BBIdentification.m */; };
+		1C2966E0165E663500B3CC16 /* BBSightingNoteDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2966DF165E663300B3CC16 /* BBSightingNoteDescription.m */; };
 		1C31AEEB15DE1B4100A602BE /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C31AEE215DE1B2100A602BE /* libRestKit.a */; };
 		1C78E24D15E512FF00620EF7 /* SRDefaultHttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C78E20515E512FF00620EF7 /* SRDefaultHttpClient.m */; };
 		1C78E24E15E512FF00620EF7 /* SRDefaultHttpHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C78E20715E512FF00620EF7 /* SRDefaultHttpHelper.m */; };
@@ -296,6 +298,8 @@
 		1CAB64A6165489CE0000D8C3 /* BBChatHubClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB64A1165489CE0000D8C3 /* BBChatHubClient.m */; };
 		1CAB64A7165489CE0000D8C3 /* BBGroupHubClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB64A3165489CE0000D8C3 /* BBGroupHubClient.m */; };
 		1CAB64A8165489CE0000D8C3 /* BBUserHubClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB64A5165489CE0000D8C3 /* BBUserHubClient.m */; };
+		1CF6D8DA16671B9C006E760C /* BBTaxonomicRanks.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF6D8D916671B9C006E760C /* BBTaxonomicRanks.m */; };
+		1CF6D8DD16672ABB006E760C /* NSString+helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF6D8DC16672ABB006E760C /* NSString+helpers.m */; };
 		1CFE5D5615E6243A00953262 /* SRHubConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFE5D4615E6243A00953262 /* SRHubConnection.m */; };
 		1CFE5D5715E6243A00953262 /* SRHubInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFE5D4815E6243A00953262 /* SRHubInvocation.m */; };
 		1CFE5D5815E6243A00953262 /* SRHubProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CFE5D4A15E6243A00953262 /* SRHubProxy.m */; };
@@ -365,6 +369,10 @@
 		1C2966D2165E1D7000B3CC16 /* BBModelId.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBModelId.m; sourceTree = "<group>"; };
 		1C2966D4165E2CC000B3CC16 /* project-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "project-icon@2x.png"; sourceTree = "<group>"; };
 		1C2966D6165E2D3000B3CC16 /* project-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "project-icon.png"; sourceTree = "<group>"; };
+		1C2966DB165E59CC00B3CC16 /* BBIdentification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBIdentification.h; sourceTree = "<group>"; };
+		1C2966DC165E59CD00B3CC16 /* BBIdentification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBIdentification.m; sourceTree = "<group>"; };
+		1C2966DE165E663200B3CC16 /* BBSightingNoteDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSightingNoteDescription.h; sourceTree = "<group>"; };
+		1C2966DF165E663300B3CC16 /* BBSightingNoteDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSightingNoteDescription.m; sourceTree = "<group>"; };
 		1C31AED615DE1B2100A602BE /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = ../RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
 		1C78E20415E512FF00620EF7 /* SRDefaultHttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRDefaultHttpClient.h; sourceTree = "<group>"; };
 		1C78E20515E512FF00620EF7 /* SRDefaultHttpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRDefaultHttpClient.m; sourceTree = "<group>"; };
@@ -809,6 +817,10 @@
 		1CAB64A3165489CE0000D8C3 /* BBGroupHubClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBGroupHubClient.m; sourceTree = "<group>"; };
 		1CAB64A4165489CE0000D8C3 /* BBUserHubClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBUserHubClient.h; sourceTree = "<group>"; };
 		1CAB64A5165489CE0000D8C3 /* BBUserHubClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBUserHubClient.m; sourceTree = "<group>"; };
+		1CF6D8D816671B9C006E760C /* BBTaxonomicRanks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBTaxonomicRanks.h; sourceTree = "<group>"; };
+		1CF6D8D916671B9C006E760C /* BBTaxonomicRanks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBTaxonomicRanks.m; sourceTree = "<group>"; };
+		1CF6D8DB16672ABB006E760C /* NSString+helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+helpers.h"; sourceTree = "<group>"; };
+		1CF6D8DC16672ABB006E760C /* NSString+helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+helpers.m"; sourceTree = "<group>"; };
 		1CFE5D4515E6243A00953262 /* SRHubConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRHubConnection.h; sourceTree = "<group>"; };
 		1CFE5D4615E6243A00953262 /* SRHubConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRHubConnection.m; sourceTree = "<group>"; };
 		1CFE5D4715E6243A00953262 /* SRHubInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRHubInvocation.h; sourceTree = "<group>"; };
@@ -1142,6 +1154,8 @@
 				1CAB61E0164C7FB50000D8C3 /* UIView+Categories.m */,
 				1C2966CE165DBB0D00B3CC16 /* UIImage+fixOrientation.h */,
 				1C2966CF165DBB0D00B3CC16 /* UIImage+fixOrientation.m */,
+				1CF6D8DB16672ABB006E760C /* NSString+helpers.h */,
+				1CF6D8DC16672ABB006E760C /* NSString+helpers.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1190,6 +1204,7 @@
 		1CAB6215164C7FB50000D8C3 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				1CAB6224164C7FB50000D8C3 /* BBHelpers.h */,
 				1CAB6216164C7FB50000D8C3 /* BBCollectionHelper.h */,
 				1CAB6217164C7FB50000D8C3 /* BBCollectionHelper.m */,
 				1CAB6218164C7FB50000D8C3 /* BBConstants.h */,
@@ -1202,7 +1217,6 @@
 				1CAB6221164C7FB50000D8C3 /* BBGuidGenerator.m */,
 				1CAB6222164C7FB50000D8C3 /* BBHash.h */,
 				1CAB6223164C7FB50000D8C3 /* BBHash.m */,
-				1CAB6224164C7FB50000D8C3 /* BBHelpers.h */,
 				1CAB6225164C7FB50000D8C3 /* BBLog.h */,
 				1CAB6226164C7FB50000D8C3 /* BBLog.m */,
 				1CAB6227164C7FB50000D8C3 /* BBMapPoint.h */,
@@ -1235,6 +1249,7 @@
 		1CAB6237164C7FB50000D8C3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1CAB625C164C7FB50000D8C3 /* BBModels.h */,
 				1CAB6238164C7FB50000D8C3 /* BBActivity.h */,
 				1CAB6239164C7FB50000D8C3 /* BBActivity.m */,
 				1CAB623A164C7FB50000D8C3 /* BBActivityPaginator.h */,
@@ -1269,7 +1284,6 @@
 				1CAB6259164C7FB50000D8C3 /* BBMediaResource.m */,
 				1CAB625A164C7FB50000D8C3 /* BBMembership.h */,
 				1CAB625B164C7FB50000D8C3 /* BBMembership.m */,
-				1CAB625C164C7FB50000D8C3 /* BBModels.h */,
 				1CAB625D164C7FB50000D8C3 /* BBObservation.h */,
 				1CAB625E164C7FB50000D8C3 /* BBObservation.m */,
 				1CAB625F164C7FB50000D8C3 /* BBObservationNote.h */,
@@ -1294,6 +1308,12 @@
 				1CAB6273164C7FB50000D8C3 /* BBUser.m */,
 				1C29668E1655532300B3CC16 /* BBJsonResponse.h */,
 				1C29668F1655532300B3CC16 /* BBJsonResponse.m */,
+				1C2966DB165E59CC00B3CC16 /* BBIdentification.h */,
+				1C2966DC165E59CD00B3CC16 /* BBIdentification.m */,
+				1C2966DE165E663200B3CC16 /* BBSightingNoteDescription.h */,
+				1C2966DF165E663300B3CC16 /* BBSightingNoteDescription.m */,
+				1CF6D8D816671B9C006E760C /* BBTaxonomicRanks.h */,
+				1CF6D8D916671B9C006E760C /* BBTaxonomicRanks.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2029,6 +2049,10 @@
 				1C2966B3165B469800B3CC16 /* BBLocationSelectController.m in Sources */,
 				1C2966D0165DBB0D00B3CC16 /* UIImage+fixOrientation.m in Sources */,
 				1C2966D3165E1D7100B3CC16 /* BBModelId.m in Sources */,
+				1C2966DD165E59CF00B3CC16 /* BBIdentification.m in Sources */,
+				1C2966E0165E663500B3CC16 /* BBSightingNoteDescription.m in Sources */,
+				1CF6D8DA16671B9C006E760C /* BBTaxonomicRanks.m in Sources */,
+				1CF6D8DD16672ABB006E760C /* NSString+helpers.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

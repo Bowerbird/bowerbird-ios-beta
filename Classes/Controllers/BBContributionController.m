@@ -152,7 +152,7 @@
     [picker dismissModalViewControllerAnimated:YES];
     
     UIImage* image = [info objectForKey:UIImagePickerControllerOriginalImage];;
-    
+    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
     BBMediaEdit *mediaEdit = [[BBMediaEdit alloc]initWithImage:image];
     
     BBSightingEditController *observationController = [[BBSightingEditController alloc]initWithMedia:mediaEdit];

@@ -70,5 +70,9 @@
     _type = type;
 }
 
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key
+{
+    if([key isEqualToString:@"Key"]) self.key = value;
+}
 
 @end

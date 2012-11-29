@@ -89,7 +89,7 @@
     
     // add the user's home and favourites in a table
     MGTableBoxStyled *userTable = [MGTableBoxStyled boxWithSize:CGSizeMake(300.0, 0)];
-    MGLine *userTableHeader = [MGLine lineWithLeft:@"Places" right:nil size:CGSizeMake(280,30)];
+    MGLine *userTableHeader = [MGLine lineWithLeft:@"My Places" right:nil size:CGSizeMake(280,40)];
     userTableHeader.font = HEADER_FONT;
     userTableHeader.padding = UIEdgeInsetsMake(10, 10, 10, 10);
     [userTable.topLines addObject:userTableHeader];
@@ -111,7 +111,7 @@
     [userTable.middleLines addObject:userFavoritesDescription];
     
     MGTableBoxStyled *projectTable = [MGTableBoxStyled boxWithSize:CGSizeMake(300.0, 0)];
-    MGLine *projectTableHeader = [MGLine lineWithLeft:@"Projects" right:nil size:CGSizeMake(280,30)];
+    MGLine *projectTableHeader = [MGLine lineWithLeft:@"My Projects" right:nil size:CGSizeMake(280,40)];
     projectTableHeader.font = HEADER_FONT;
     projectTableHeader.padding = UIEdgeInsetsMake(10, 10, 10, 10);
     [projectTable.topLines addObject:projectTableHeader];
@@ -138,7 +138,7 @@
     }
 
     MGTableBoxStyled *exploreTable = [MGTableBoxStyled boxWithSize:CGSizeMake(300.0, 0)];
-    MGLine *exploreTableHeader = [MGLine lineWithLeft:@"Explore" right:nil size:CGSizeMake(280,30)];
+    MGLine *exploreTableHeader = [MGLine lineWithLeft:@"Browse All Projects" right:nil size:CGSizeMake(280,40)];
     exploreTableHeader.font = HEADER_FONT;
     exploreTableHeader.padding = UIEdgeInsetsMake(10, 10, 10, 10);
     [exploreTable.topLines addObject:exploreTableHeader];
@@ -153,7 +153,7 @@
     [exploreTable.middleLines addObject:exploreProjects];
     
     MGTableBoxStyled *profileTable = [MGTableBoxStyled boxWithSize:CGSizeMake(300.0, 0)];
-    MGLine *profileTableHeader = [MGLine lineWithLeft:@"Profile" right:nil size:CGSizeMake(280,30)];
+    MGLine *profileTableHeader = [MGLine lineWithLeft:@"My Profile" right:nil size:CGSizeMake(280,30)];
     profileTableHeader.font = HEADER_FONT;
     profileTableHeader.padding = UIEdgeInsetsMake(10, 10, 10, 10);
     [profileTable.topLines addObject:profileTableHeader];

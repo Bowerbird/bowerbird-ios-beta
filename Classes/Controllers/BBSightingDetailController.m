@@ -11,6 +11,7 @@
 @interface BBSightingDetailController()
 
 -(void)displayMapInBox;
+@property (nonatomic,strong) BBSighting* sighting;
 
 @end
 
@@ -22,10 +23,10 @@
 
 @synthesize activity = _activity;
 @synthesize mapView = _mapView;
+@synthesize sighting = _sighting;
 
 #pragma mark -
 #pragma mark - Setup and Render
-
 
 -(BBSightingDetailController*)initWithActivity:(BBActivity*)activity {
     self = [super init];
@@ -44,7 +45,6 @@
     self.mapView = [[MKMapView alloc]init];
 }
 
-
 - (void)viewDidLoad {
     [BBLog Log:@"BBSightingDetailController.viewDidLoad"];
     
@@ -57,13 +57,54 @@
     [rightRecognizer setDirection: UISwipeGestureRecognizerDirectionRight];
     [[self view] addGestureRecognizer:rightRecognizer];
 
-    [self displayImages];
+    [self displaySighting];
+    
+    //[self displayImages];
 }
-
 
 #pragma mark -
 #pragma mark - Utilities and Helpers
 
+-(void)displaySighting {
+
+    MGTableBoxStyled *info = [MGTableBoxStyled boxWithSize:IPHONE_OBSERVATION];
+    info.margin = UIEdgeInsetsMake(5, 0, 5, 0);
+    
+    BBObservation *observation = [self isSighting] ? _activity.observation : _activity.observationNoteObservation;
+    
+    double horizontalPaddingTotalWidth = 10;
+    double descriptionWidth = 300 - back.size.width - horizontalPaddingTotalWidth;
+    MGLine *description = [MGLine multilineWithText:observation.title font:DESCRIPTOR_FONT width:descriptionWidth padding:UIEdgeInsetsMake(15, horizontalPaddingTotalWidth/2, 0, horizontalPaddingTotalWidth/2)];
+    
+    MGLine *header = [MGLine lineWithLeft:back right:description size:CGSizeMake(300, 60)];
+    header.underlineType = MGUnderlineNone;
+    [info.topLines addObject:header];
+    
+    header.onTap =^{
+        [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:YES];
+    };
+    
+    MGLine *userProfile = [BBUIControlHelper createUserProfileLineForUser:_activity.user
+                                                          withDescription:_activity.user.name
+                                                                  forSize:CGSizeMake(300, 60)];
+    
+    [info.middleLines addObject:userProfile];
+    
+    [info.middleLines addObject:[BBUIControlHelper createMediaViewerForMedia:_activity.observation.media
+                                                                withPrimary:_activity.observation.primaryMedia
+                                                                    forSize:CGSizeMake(300,270)
+                                                           displayingThumbs:NO]];
+
+    
+    
+    [sightingView.boxes addObject:info];
+    [sightingView layoutWithSpeed:0.3 completion:nil];
+}
+
+-(BOOL)isSighting {
+    
+    return [_activity.type isEqualToString:@"sightingadded"] ? YES : NO;
+}
 
 -(void)displayImages {
     [BBLog Log:@"BBSightingDetailController.displayImages"];
@@ -72,6 +113,8 @@
     MGLine *description = [MGLine multilineWithText:self.activity.observation.title font:HEADER_FONT width:260 padding:UIEdgeInsetsMake(10, 5, 0, 0)];
     MGLine *header = [MGLine lineWithLeft:back right:description size:CGSizeMake(300, 60)];
     header.x +=10;
+    header.underlineType = MGUnderlineNone;
+    
     [info.topLines addObject:header];
     header.onTap =^{
         [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:YES];
@@ -127,7 +170,6 @@
     return map;
 }
 
-
 // display thmap
 -(void)displayMapInBox {
     self.mapView.size = CGSizeMake(320, 240);
@@ -137,10 +179,8 @@
     [self.mapView setCenterCoordinate:CLLocationCoordinate2DMake(self.activity.observation.latitude, self.activity.observation.longitude)];
 }
 
-
 #pragma mark -
 #pragma mark - Delegation and Event Handling
-
 
 - (void)handleSwipeRight:(UIGestureRecognizer *)gestureRecognizer {
     [BBLog Log:@"BBSightingDetailController.handleSwipeRight:"];
@@ -149,13 +189,11 @@
     [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:YES];
 }
 
-
 - (void)didReceiveMemoryWarning {
     [BBLog Log:@"MEMORY WARNING! - BBSightingDetailController"];
     
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 @end

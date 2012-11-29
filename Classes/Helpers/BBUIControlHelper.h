@@ -8,14 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import "MGHelpers.h"
-#import "BBStyles.h"
-#import "CoolMGButton.h"
-#import "PhotoBox.h"
-#import "UIView+MGEasyFrame.h"
+#import "BBHelpers.h"
+#import "BBModels.h"
 
 typedef void (^ActionBlock)();
 
 @interface BBUIControlHelper : NSObject
+
++(UIImage *)arrow;
+
++(UIImage *)back;
 
 +(UITextField *)createTextFieldWithFrame:(CGRect)frame andPlaceholder:(NSString*)text andDelegate:(id)delegate;
 
@@ -24,5 +26,15 @@ typedef void (^ActionBlock)();
 +(MGTableBoxStyled *)createMGTableBoxStyledWithSize:(CGSize)size andBGColor:(UIColor *)color andHeading:(NSString*)heading andPadding:(UIEdgeInsets)padding;
 
 +(MGTableBox *)createMGTableBoxWithSize:(CGSize)size andBGColor:(UIColor *)color andHeading:(NSString*)heading andPadding:(UIEdgeInsets)padding;
+
++(MGLine *)createLocationViewForSighting:(BBSighting*)sighting forSize:(CGSize)size;
+
++(MGLine *)createUserProfileLineForUser:(BBUser*)usr withDescription:(NSString*)desc forSize:(CGSize)size;
+
++(MGLine *)createIdentification:(BBIdentification*)identification forSize:(CGSize)size;
+
++(MGBox *)createMediaViewerForMedia:(NSArray*)media withPrimary:(BBMedia*)primaryMedia forSize:(CGSize)size displayingThumbs:(BOOL)displayThumbs ;
+
++(MGLine *)createSubHeadingWithTitle:(NSString*)title forSize:(CGSize)size;
 
 @end

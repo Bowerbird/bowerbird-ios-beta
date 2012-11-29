@@ -40,7 +40,6 @@
     ,BBCategoryPickerDelegateProtocol
     ,BBProjectSelectDelegateProtocol
     ,BBLocationEditDelegateProtocol
-    ,RKRequestDelegate
     ,RKObjectLoaderDelegate
     ,MBProgressHUDDelegate
 > {

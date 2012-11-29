@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
-#import "BBControllerBase.h"\
+#import "BBControllerBase.h"
 #import "BBActivity.h"
 #import "MGHelpers.h"
 #import "PhotoBox.h"
+#import "BBUIControlHelper.h"
 
 @interface BBSightingDetailController : BBControllerBase <
      UIGestureRecognizerDelegate

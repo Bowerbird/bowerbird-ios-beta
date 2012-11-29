@@ -17,3 +17,4 @@
 #import "UIView+MGEasyFrame.h"
 #import "NSObject+MGEvents.h"
 #import "CoolMGButton.h"
+#import "PhotoBox.h"

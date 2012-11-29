@@ -52,4 +52,17 @@
     _licence = licence;
 }
 
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key
+{
+    if([key isEqualToString:@"Key"]) self.key = value;
+}
+
+-(NSString*)valueForUndefinedKey:(NSString *)key {
+    NSString* val = nil;
+    
+    if([key isEqualToString:@"Key"]) val = _key;
+        
+    return val;
+}
+
 @end

@@ -7,11 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MGHelpers.h"
+#import "BBHelpers.h"
 #import "BBProjectSelectDelegateProtocol.h"
-#import "BBLog.h"
-#import "BBStyles.h"
 #import "BBControllerBase.h"
-#import "BBCollectionHelper.h"
 #import "BBUIControlHelper.h"
 
 @interface BBProjectSelectController : BBControllerBase <BBProjectSelectDelegateProtocol>

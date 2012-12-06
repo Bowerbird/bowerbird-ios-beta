@@ -13,15 +13,17 @@
 #import "MGHelpers.h"
 #import "PhotoBox.h"
 #import "BBUIControlHelper.h"
+#import "MBProgressHUD.h"
+#import "BBIdentificationController.h"
 
 @interface BBSightingDetailController : BBControllerBase <
      UIGestureRecognizerDelegate
     ,MKMapViewDelegate
+    ,RKObjectLoaderDelegate
 >
 
-@property (nonatomic,retain) BBActivity* activity;
 @property (strong, nonatomic) MKMapView *mapView;
 
--(BBSightingDetailController*)initWithActivity:(BBActivity*)activity;
+-(BBSightingDetailController*)initWithSightingIdentifier:(NSString*)identifier;
 
 @end

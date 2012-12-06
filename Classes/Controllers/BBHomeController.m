@@ -46,6 +46,12 @@
 }
 
 
+-(void)viewWillAppear:(BOOL)animated {
+    
+    ((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController.navigationBarHidden = YES;
+}
+
+
 #pragma mark -
 #pragma mark - Utilities and Helpers
 
@@ -92,6 +98,8 @@
 
 -(void)objectLoader:(RKObjectLoader*)objectLoader didLoadObject:(id)object {
     [BBLog Log:@"BBLoginController.objectLoader:didLoadObject"];
+    
+    [SVProgressHUD dismiss];
     
     if([object isKindOfClass:[BBUser class]])
     {
@@ -158,6 +166,8 @@
 
 -(void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     [BBLog Error:[NSString stringWithFormat:@"%@%@", @"BBLoginController.objectLoader:didFailWithError:", [error localizedDescription]]];
+    
+    [SVProgressHUD dismiss];
 }
 
 
@@ -215,6 +225,7 @@
     [BBLog Log:@"BBHomeController.loadUserStream"];
 
     [self clearStreamViews];
+    [SVProgressHUD showWithStatus:@"Loading Activity"];
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"%@?%@",[BBConstants ActivityUrl], [BBConstants AjaxQuerystring]]
                                                       delegate:self];
     
@@ -237,6 +248,7 @@
     [BBLog Log:@"BBHomeController.loadGroupStream"];
     
     [self clearStreamViews];
+    [SVProgressHUD showWithStatus:@"Loading Activity"];
     NSDictionary* userInfo = [notification userInfo];
     BBApplication *app = [BBApplication sharedInstance];
     BBProject* project = [self getProjectWithIdentifier:[userInfo objectForKey:@"groupId"] fromArrayOf:app.authenticatedUser.projects];
@@ -255,7 +267,7 @@
     [BBLog Log:@"BBHomeController.loadProjectBrowser"];
     
     [self clearStreamViews];
-    
+    [SVProgressHUD showWithStatus:@"Loading Projects"];
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"%@/projects?%@",[BBConstants RootUriString], [BBConstants AjaxQuerystring]]
                                                       delegate:self];
     

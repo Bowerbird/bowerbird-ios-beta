@@ -23,11 +23,11 @@
 }
 -(NSUInteger)countOfActivities
 {
-    return [self.activities count];
+    return [_activities count];
 }
 -(id)objectInActivitiesAtIndex:(NSUInteger)index
 {
-    return [self.activities objectAtIndex:index];
+    return [_activities objectAtIndex:index];
 }
 
 @end

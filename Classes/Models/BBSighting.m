@@ -20,7 +20,8 @@
          anonymiseLocation = _anonymiseLocation,
                       user = _user,
                   comments = _comments,
-                projectIds = _projectIds;
+                projectIds = _projectIds,
+                  projects = _projects;
 
 
 -(void)setIdentifier:(NSString *)identifier
@@ -130,6 +131,25 @@
 -(id)objectInCommentsAtIndex:(NSUInteger)index
 {
     return [_comments objectAtIndex:index];
+}
+
+
+-(void)setProjects:(NSArray *)projects
+{
+    _projects = projects;
+}
+-(NSArray*)projects
+{
+    if(!_projects) _projects = [[NSArray alloc]init];
+    return _projects;
+}
+-(NSUInteger)countOfProjects
+{
+    return [_projects count];
+}
+-(id)objectInProjectsAtIndex:(NSUInteger)index
+{
+    return [_projects objectAtIndex:index];
 }
 
 

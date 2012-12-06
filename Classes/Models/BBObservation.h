@@ -18,6 +18,6 @@
 @property BOOL isIdentificationRequired;
 @property (nonatomic,retain) BBMedia* primaryMedia;
 @property (nonatomic,retain) NSArray* media;
-
+@property (nonatomic,retain) NSArray* notes;
 
 @end

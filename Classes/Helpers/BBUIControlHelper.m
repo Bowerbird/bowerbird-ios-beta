@@ -150,13 +150,89 @@
     PhotoBox *categoryIcon = [PhotoBox mediaForImage:photoImage size:CGSizeMake(70, 70)];
     
     NSString *identificationText = [NSString stringWithFormat:@"Category: %@\n%@: %@\nName: %@", selectedCategory.name, [identification.rankType capitalizeFirstLetter], identification.rankName, identification.name];
-    MGLine *identificationInfo = [MGLine multilineWithText:identificationText font:DESCRIPTOR_FONT width:230 padding:UIEdgeInsetsZero];
+    MGLine *identificationInfo = [MGLine multilineWithText:identificationText font:DESCRIPTOR_FONT width:220 padding:UIEdgeInsetsMake(0, 10, 0, 0)];
     identificationInfo.underlineType = MGUnderlineNone;
     
-    MGLine *categoryLine = [MGLine lineWithLeft:categoryIcon right:identificationInfo size:CGSizeMake(320, 100)];
+    MGLine *categoryLine = [MGLine lineWithLeft:categoryIcon right:identificationInfo size:size];
+    categoryLine.bottomMargin = 10;
     categoryLine.underlineType = MGUnderlineNone;
     
     return categoryLine;
+}
+
++(MGLine *)createCurrentClassification:(BBClassification*)classification forSize:(CGSize)size {
+    
+    BBApplication *appData = [BBApplication sharedInstance];
+    NSArray* categories = appData.authenticatedUser.categories;
+    __block BBCategory* selectedCategory;
+    [categories enumerateObjectsUsingBlock:^(BBCategory* category, NSUInteger idx, BOOL *stop) {
+        if([category.name isEqualToString:classification.category]){
+            selectedCategory = category;
+            *stop = YES;
+        }
+    }];
+    
+    NSString *iconPath = [NSString stringWithFormat:@"%@.png", [selectedCategory.name lowercaseString]];
+    UIImage *photoImage = [UIImage imageNamed:iconPath];
+    PhotoBox *categoryIcon = [PhotoBox mediaForImage:photoImage size:CGSizeMake(70, 70)];
+    
+    NSString *identificationText = [NSString stringWithFormat:@"Category: %@\n%@: %@\nName: %@", selectedCategory.name, [classification.rankType capitalizeFirstLetter], classification.rankName, classification.name];
+    MGLine *identificationInfo = [MGLine multilineWithText:identificationText font:DESCRIPTOR_FONT width:220 padding:UIEdgeInsetsMake(0, 10, 0, 0)];
+    identificationInfo.underlineType = MGUnderlineNone;
+    
+    MGLine *categoryLine = [MGLine lineWithLeft:categoryIcon right:identificationInfo size:size];
+    categoryLine.bottomMargin = 10;
+    categoryLine.underlineType = MGUnderlineNone;
+    
+    return categoryLine;
+}
+
++(MGBox *)createSelectedClassification:(BBClassification*)classification forSize:(CGSize)size {
+    
+    MGBox *selectedClassificationBox = [MGBox boxWithSize:size];
+    BBApplication *appData = [BBApplication sharedInstance];
+    NSArray* categories = appData.authenticatedUser.categories;
+    __block BBCategory* selectedCategory;
+    [categories enumerateObjectsUsingBlock:^(BBCategory* category, NSUInteger idx, BOOL *stop) {
+        if([category.name isEqualToString:classification.category]){
+            selectedCategory = category;
+            *stop = YES;
+        }
+    }];
+    
+    NSString *iconPath = [NSString stringWithFormat:@"%@.png", [selectedCategory.name lowercaseString]];
+    UIImage *photoImage = [UIImage imageNamed:iconPath];
+    PhotoBox *categoryIcon = [PhotoBox mediaForImage:photoImage size:CGSizeMake(50, 50)];
+    
+    if(selectedCategory.name == nil) {
+        // display instructions to find an identification
+        MGLine *browseForIdentification = [MGLine multilineWithText:@"Navigate the taxanomic ranks below to make your identification" font:HEADER_FONT width:300 padding:UIEdgeInsetsMake(10, 10, 10, 10)];
+        browseForIdentification.underlineType = MGUnderlineNone;
+        selectedClassificationBox.height = 50;
+        [selectedClassificationBox.boxes addObject:browseForIdentification];
+    }
+    else {
+        // display the currently selected identification
+        NSString *categoryName = selectedCategory.name != nil ? selectedCategory.name : @"Undetermined";
+        NSString *taxonomyName = classification.taxonomy != nil ? classification.taxonomy : @"Undetermined";
+        
+        NSString *identificationText = [NSString stringWithFormat:@"Category: %@\nName: %@", categoryName, classification.name];
+        NSString *taxonomyText = [NSString stringWithFormat:@"Taxonomy: %@", classification.taxonomy];
+        
+        MGLine *identificationInfo = [MGLine multilineWithText:identificationText font:DESCRIPTOR_FONT width:240 padding:UIEdgeInsetsMake(0, 10, 0, 0)];
+        identificationInfo.underlineType = MGUnderlineNone;
+        
+        MGLine *taxonomyInfo = [MGLine multilineWithText:taxonomyText font:DESCRIPTOR_FONT width:300 padding:UIEdgeInsetsMake(5, 10, 5, 10)];
+        taxonomyInfo.underlineType = MGUnderlineNone;
+        
+        MGLine *categoryLine = [MGLine lineWithLeft:categoryIcon right:identificationInfo size:CGSizeMake(size.width, 70)];
+        categoryLine.underlineType = MGUnderlineNone;
+        
+        [selectedClassificationBox.boxes addObject:categoryLine];
+        [selectedClassificationBox.boxes addObject:taxonomyInfo];
+    }
+    
+    return selectedClassificationBox;
 }
 
 +(MGLine *)createSubHeadingWithTitle:(NSString*)title forSize:(CGSize)size {
@@ -174,9 +250,62 @@
     return titleLine;
 }
 
-// description
++(MGTableBoxStyled *)createSubObservation:(BBObservation*)observation forSize:(CGSize)size {
+    
+    BBImage *primaryMediaImage = [BBCollectionHelper getImageWithDimension:@"Square100" fromArrayOf:observation.primaryMedia.mediaResource.imageMedia];
+    PhotoBox *photo = [PhotoBox mediaFor:primaryMediaImage.uri size:IPHONE_NOTE];
+    
+    MGTableBoxStyled* subObservation = [[MGTableBoxStyled alloc]initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+    subObservation.backgroundColor = [UIColor whiteColor];
+    subObservation.margin = UIEdgeInsetsMake(10, 10, 10, 10);
+    
+    MGBox* subObservationSummary = [MGBox boxWithSize:CGSizeMake(240, 120)];
+    subObservationSummary.contentLayoutMode = MGLayoutGridStyle;
+    
+    MGBox* subObservationMedia = [MGBox boxWithSize:CGSizeMake(100, 60)];
+    [subObservationMedia.boxes addObject:photo];
+    [subObservationSummary.boxes addObject:subObservationMedia];
+    
+    MGLine* subObservationDetails = [MGLine multilineWithText:observation.title font:DESCRIPTOR_FONT width:140 padding:UIEdgeInsetsMake(5, 0, 0, 0)];
+    subObservationDetails.underlineType = MGUnderlineNone;
+    [subObservationSummary.boxes addObject:subObservationDetails];
+    
+    [subObservation.topLines addObject:[BBUIControlHelper createSubHeadingWithTitle:@"Sighting summary" forSize:CGSizeMake(size.width, 20)]];
+    [subObservation.middleLines addObject:subObservationSummary];
+    
+    NSString *subObservationCreatorText = [NSString stringWithFormat:@"%@ sighted %@", observation.user.name, [observation.observedOnDate timeAgo]];
+    MGLine *subObservationCreator = [BBUIControlHelper createUserProfileLineForUser:observation.user
+                                                                    withDescription:subObservationCreatorText
+                                                                            forSize:CGSizeMake(size.width, 60)];
+    
+    subObservationCreator.underlineType = MGUnderlineBottom;
+    [subObservation.bottomLines addObject:subObservationCreator];
+    
+    return subObservation;
+}
 
++(MGLine *)createTwoColumnRowWithleftText:(NSString*)leftText
+                             andRightText:(NSString*)rightText
+                                andHeight:(double)height
+                             andLeftWidth:(double)leftWidth
+                            andRightWidth:(double)rightWidth {
+    
+    MGLine *leftCol = [MGLine lineWithLeft:leftText right:nil size:CGSizeMake(leftWidth, height)];
+    MGLine *rightCol = [MGLine lineWithLeft:rightText right:nil size:CGSizeMake(rightWidth, height)];
+    MGLine *line = [MGLine lineWithLeft:leftCol right:rightCol size:CGSizeMake(leftWidth+rightWidth, height)];
+    
+    return line;
+}
 
-// tags
++(MGBox*)createBoxForIdentification:(BBIdentification*)identification withSize:(CGSize)size{
+    MGBox *identificationBox = [MGBox boxWithSize:size];
+    
+    // get the category image for the identification
+    BBApplication *app = [BBApplication sharedInstance];
+
+    // display the taxonomy, name et al for the identification
+    return identificationBox;
+}
+
 
 @end

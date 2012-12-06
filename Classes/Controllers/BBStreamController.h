@@ -14,6 +14,7 @@
 #import "BBSightingDetailController.h"
 #import "PhotoBox.h"
 #import "BBUIControlHelper.h"
+#import "BBAppDelegate.h"
 
 @interface BBStreamController : BBControllerBase <
      UIGestureRecognizerDelegate

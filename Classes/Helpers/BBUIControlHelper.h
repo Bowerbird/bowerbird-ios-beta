@@ -27,6 +27,10 @@ typedef void (^ActionBlock)();
 
 +(MGTableBox *)createMGTableBoxWithSize:(CGSize)size andBGColor:(UIColor *)color andHeading:(NSString*)heading andPadding:(UIEdgeInsets)padding;
 
++(MGLine *)createCurrentClassification:(BBClassification*)classification forSize:(CGSize)size;
+
++(MGBox *)createSelectedClassification:(BBClassification*)classification forSize:(CGSize)size;
+
 +(MGLine *)createLocationViewForSighting:(BBSighting*)sighting forSize:(CGSize)size;
 
 +(MGLine *)createUserProfileLineForUser:(BBUser*)usr withDescription:(NSString*)desc forSize:(CGSize)size;
@@ -36,5 +40,13 @@ typedef void (^ActionBlock)();
 +(MGBox *)createMediaViewerForMedia:(NSArray*)media withPrimary:(BBMedia*)primaryMedia forSize:(CGSize)size displayingThumbs:(BOOL)displayThumbs ;
 
 +(MGLine *)createSubHeadingWithTitle:(NSString*)title forSize:(CGSize)size;
+
++(MGTableBoxStyled *)createSubObservation:(BBObservation*)observation forSize:(CGSize)size;
+
++(MGLine *)createTwoColumnRowWithleftText:(NSString*)leftText
+                 andRightText:(NSString*)rightText
+                    andHeight:(double)height
+                 andLeftWidth:(double)leftWidth
+                andRightWidth:(double)rightWidth;
 
 @end

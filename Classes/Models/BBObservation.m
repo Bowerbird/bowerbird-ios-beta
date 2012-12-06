@@ -12,7 +12,8 @@
 
 @synthesize     isIdentificationRequired = _isIdentificationRequired,
                                    media = _media,
-                            primaryMedia = _primaryMedia;
+                            primaryMedia = _primaryMedia,
+                                   notes = _notes;
 
 
 -(void)setIsIdentificationRequired:(BOOL)isIdentificationRequired
@@ -56,6 +57,25 @@
 -(BBMedia*)primaryMedia
 {
     return _primaryMedia;
+}
+
+
+-(void)setNotes:(NSArray *)notes
+{
+    _notes = notes;
+}
+-(NSArray*)notes
+{
+    if(!_notes) _notes = [[NSArray alloc]init];
+    return _notes;
+}
+-(NSUInteger)countOfNotes
+{
+    return [_notes count];
+}
+-(id)objectInNotesAtIndex:(NSUInteger)index
+{
+    return [_notes objectAtIndex:index];
 }
 
 

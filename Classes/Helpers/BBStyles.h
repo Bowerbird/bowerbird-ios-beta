@@ -29,7 +29,8 @@
 // Logo
 #define LOGO_SIZE                   (CGSize){200,35}
 // Activity
-#define IPHONE_OBSERVATION          (CGSize){320,240}
+#define IPHONE_STREAM_WIDTH         310
+#define IPHONE_OBSERVATION          (CGSize){310,240}
 #define IPHONE_NOTE                 (CGSize){80,60}
 #define IPHONE_STREAM_FRAME         (CGRect){0,50,320,390}
 #define IPHONE_AVATAR_SIZE          (CGSize){40,40}

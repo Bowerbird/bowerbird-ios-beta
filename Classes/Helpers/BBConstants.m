@@ -153,4 +153,8 @@
     return 720;
 }
 
++(NSArray*)ranksToQuery {
+    return [[NSArray alloc]initWithObjects:@"allranks", @"rank2", @"rank3", @"rank4", @"rank5", @"rank6", @"rank7",  nil];
+}
+
 @end

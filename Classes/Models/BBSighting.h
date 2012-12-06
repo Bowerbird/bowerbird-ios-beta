@@ -22,5 +22,6 @@
 @property (nonatomic,retain) BBUser* user;
 @property (nonatomic,retain) NSArray* comments;
 @property (nonatomic,retain) NSSet* projectIds;
+@property (nonatomic,retain) NSArray* projects;
 
 @end

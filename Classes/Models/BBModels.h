@@ -23,7 +23,7 @@
 #import "BBObservation.h"
 #import "BBPost.h"
 #import "BBActivity.h"
-
+#import "BBClassification.h"
 #import "BBProject.h"
 #import "BBChat.h"
 #import "BBChatMessage.h"
@@ -37,6 +37,7 @@
 
 #import "BBActivityPaginator.h"
 #import "BBSightingPaginator.h"
+#import "BBClassificationPaginator.h"
 #import "BBPostPaginator.h"
 #import "BBProjectPaginator.h"
 #import "BBMediaEdit.h"
@@ -47,6 +48,7 @@
 #import "BBMediaResourceCreate.h"
 #import "BBObservationMediaCreate.h"
 #import "BBObservationCreate.h"
+#import "BBClassificationSelector.h"
 
 #import "BBMappings.h"
 #import "BBHelpers.h"

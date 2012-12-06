@@ -15,6 +15,7 @@
 #import "BBStreamController.h"
 #import "BBHomeView.h"
 #import "MGHelpers.h"
+#import "SVProgressHUD.h"
 
 @interface BBHomeController : BBControllerBase <
      RKObjectLoaderDelegate

@@ -62,4 +62,6 @@
 
 +(int)DisappearSeconds;
 
++(NSArray*)ranksToQuery;
+
 @end

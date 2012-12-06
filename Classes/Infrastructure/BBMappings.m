@@ -12,7 +12,6 @@
 
 +(void)mappingsForRKManager:(RKObjectManager*)manager
 {
-    
     RKObjectMapping *imageMapping = [RKObjectMapping mappingForClass:[BBImage class]];
     imageMapping.forceCollectionMapping = YES;
     [imageMapping mapKeyOfNestedDictionaryToAttribute:@"dimensionName"];
@@ -95,7 +94,6 @@
     
     
     RKObjectMapping *authenticationMapping = [RKObjectMapping mappingForClass:[BBAuthentication class]];
-    //authenticationMapping.rootKeyPath = @"Model";
     [authenticationMapping mapKeyPath:@"User" toRelationship:@"authenticatedUser" withMapping:userMapping];
     [manager.mappingProvider setMapping:authenticationMapping forKeyPath:@"Model.User"];
     [manager.mappingProvider addObjectMapping:authenticationMapping];
@@ -132,39 +130,6 @@
     [manager.mappingProvider addObjectMapping:sightingNoteDescriptionMapping];
     
     
-    RKObjectMapping *observationMapping = [RKObjectMapping mappingForClass:[BBObservation class]];
-    [manager.mappingProvider setMapping:observationMapping forKeyPath:@"Observation"];
-    [observationMapping mapKeyPath:@"ObservedOn" toAttribute:@"observedOnDate"];
-    [observationMapping mapKeyPath:@"Title" toAttribute:@"title"];
-    [observationMapping mapKeyPath:@"Address" toAttribute:@"address"];
-    [observationMapping mapKeyPath:@"AnonymiseLocation" toAttribute:@"anonymiseLocation"];
-    [observationMapping mapKeyPath:@"Id" toAttribute:@"identifier"];
-    [observationMapping mapKeyPath:@"IsIdentificationRequired" toAttribute:@"isIdentificationRequired"];
-    [observationMapping mapKeyPath:@"Latitude" toAttribute:@"latitude"];
-    [observationMapping mapKeyPath:@"Longitude" toAttribute:@"longitude"];
-    [observationMapping mapKeyPath:@"Category" toAttribute:@"category"];
-    [observationMapping mapKeyPath:@"Media" toRelationship:@"media" withMapping:mediaMapping];
-    [observationMapping mapKeyPath:@"PrimaryMedia" toRelationship:@"primaryMedia" withMapping:mediaMapping];
-    [manager.mappingProvider addObjectMapping:observationMapping];
-    
-    
-//    RKObjectMapping *observationInsideNoteMapping = [RKObjectMapping mappingForClass:[BBObservation class]];
-//    //[manager.mappingProvider setMapping:observationInsideNoteMapping forKeyPath:@"Sighting"];
-//    [observationInsideNoteMapping mapKeyPath:@"ObservedOn" toAttribute:@"observedOnDate"];
-//    [observationInsideNoteMapping mapKeyPath:@"Title" toAttribute:@"title"];
-//    [observationInsideNoteMapping mapKeyPath:@"Address" toAttribute:@"address"];
-//    [observationInsideNoteMapping mapKeyPath:@"AnonymiseLocation" toAttribute:@"anonymiseLocation"];
-//    [observationInsideNoteMapping mapKeyPath:@"Id" toAttribute:@"identifier"];
-//    [observationInsideNoteMapping mapKeyPath:@"IsIdentificationRequired" toAttribute:@"isIdentificationRequired"];
-//    [observationInsideNoteMapping mapKeyPath:@"Latitude" toAttribute:@"latitude"];
-//    [observationInsideNoteMapping mapKeyPath:@"Longitude" toAttribute:@"longitude"];
-//    [observationInsideNoteMapping mapKeyPath:@"Category" toAttribute:@"category"];
-//    [observationInsideNoteMapping mapKeyPath:@"Media" toRelationship:@"media" withMapping:mediaMapping];
-//    [observationInsideNoteMapping mapKeyPath:@"PrimaryMedia" toRelationship:@"primaryMedia" withMapping:mediaMapping];
-//    //[manager.mappingProvider setSerializationMapping:[observationMapping inverseMapping] forClass:[BBObservation class]];
-    
-    
-    
     RKObjectMapping *observationNoteMapping = [RKObjectMapping mappingForClass:[BBObservationNote class]];
     [manager.mappingProvider setMapping:observationNoteMapping forKeyPath:@"SightingNote"];
     [observationNoteMapping mapKeyPath:@"Id" toAttribute:@"identifier"];
@@ -180,6 +145,26 @@
     [manager.mappingProvider addObjectMapping:observationNoteMapping];
     
     
+    RKObjectMapping *observationMapping = [RKObjectMapping mappingForClass:[BBObservation class]];
+    [manager.mappingProvider setMapping:observationMapping forKeyPath:@"Observation"];
+    [observationMapping mapKeyPath:@"ObservedOn" toAttribute:@"observedOnDate"];
+    [observationMapping mapKeyPath:@"Title" toAttribute:@"title"];
+    [observationMapping mapKeyPath:@"Address" toAttribute:@"address"];
+    [observationMapping mapKeyPath:@"AnonymiseLocation" toAttribute:@"anonymiseLocation"];
+    [observationMapping mapKeyPath:@"Id" toAttribute:@"identifier"];
+    [observationMapping mapKeyPath:@"IsIdentificationRequired" toAttribute:@"isIdentificationRequired"];
+    [observationMapping mapKeyPath:@"Latitude" toAttribute:@"latitude"];
+    [observationMapping mapKeyPath:@"Longitude" toAttribute:@"longitude"];
+    [observationMapping mapKeyPath:@"Category" toAttribute:@"category"];
+    [observationMapping mapKeyPath:@"Media" toRelationship:@"media" withMapping:mediaMapping];
+    [observationMapping mapKeyPath:@"PrimaryMedia" toRelationship:@"primaryMedia" withMapping:mediaMapping];
+    [observationMapping mapKeyPath:@"Projects" toRelationship:@"projects" withMapping:projectMapping];
+    [observationMapping mapKeyPath:@"User" toRelationship:@"user" withMapping:userMapping];
+    [observationMapping mapKeyPath:@"Notes" toRelationship:@"notes" withMapping:observationNoteMapping];
+    [manager.mappingProvider addObjectMapping:observationNoteMapping];
+    [manager.mappingProvider setMapping:observationMapping forKeyPath:@"Model.Observation"];
+        
+    
     RKObjectMapping *activityMapping = [RKObjectMapping mappingForClass:[BBActivity class]];
     [activityMapping mapKeyPath:@"Id" toAttribute:@"identifier"];
     [activityMapping mapKeyPath:@"CreatedDateTime" toAttribute:@"createdOn"];
@@ -190,8 +175,33 @@
     [activityMapping mapKeyPath:@"ObservationAdded.Observation" toRelationship:@"observation" withMapping:observationMapping];
     [activityMapping mapKeyPath:@"SightingNoteAdded.SightingNote" toRelationship:@"observationNote" withMapping:observationNoteMapping];
     [activityMapping mapKeyPath:@"SightingNoteAdded.Sighting" toRelationship:@"observationNoteObservation" withMapping:observationMapping];
+    [manager.mappingProvider addObjectMapping:activityMapping];
     [manager.mappingProvider setSerializationMapping:activityMapping forClass:[BBActivity class]];
     
+    
+    RKObjectMapping *classificationMapping = [RKObjectMapping mappingForClass:[BBClassification class]];
+    [classificationMapping mapKeyPath:@"Taxonomy" toAttribute:@"taxonomy"];
+    [classificationMapping mapKeyPath:@"Name" toAttribute:@"name"];
+    [classificationMapping mapKeyPath:@"RankPosition" toAttribute:@"rankPosition"];
+    [classificationMapping mapKeyPath:@"RankName" toAttribute:@"rankName"];
+    [classificationMapping mapKeyPath:@"ParentRankName" toAttribute:@"parentRankName"];
+    [classificationMapping mapKeyPath:@"Ranks" toAttribute:@"ranks"];
+    [classificationMapping mapKeyPath:@"Category" toAttribute:@"category"];
+    [classificationMapping mapKeyPath:@"SpeciesCount" toAttribute:@"speciesCount"];
+    [classificationMapping mapKeyPath:@"CommonGroupNames" toAttribute:@"commonGroupNames"];
+    [classificationMapping mapKeyPath:@"CommonNames" toAttribute:@"commonNames"];
+    [classificationMapping mapKeyPath:@"Synonyms" toAttribute:@"synonyms"];
+    [classificationMapping mapKeyPath:@"AllCommonNames" toAttribute:@"allCommonNames"];
+    [manager.mappingProvider addObjectMapping:classificationMapping];
+    
+    
+    RKObjectMapping *classificationPaginationMapping = [RKObjectMapping mappingForClass:[BBClassificationPaginator class]];
+    classificationPaginationMapping.rootKeyPath = @"Model.Species";
+    [classificationPaginationMapping mapKeyPath:@"Page" toAttribute:@"currentPage"];
+    [classificationPaginationMapping mapKeyPath:@"PageSize" toAttribute:@"perPage"];
+    [classificationPaginationMapping mapKeyPath:@"TotalResultCount" toAttribute:@"objectCount"];
+    [classificationPaginationMapping mapKeyPath:@"PagedListItems" toRelationship:@"ranks" withMapping:classificationMapping];
+    [manager.mappingProvider setMapping:classificationPaginationMapping forKeyPath:@"Model.Species"];
     
     
     RKObjectMapping *projectPaginationMapping = [RKObjectMapping mappingForClass:[BBProjectPaginator class]];
@@ -201,8 +211,7 @@
     [projectPaginationMapping mapKeyPath:@"TotalResultCount" toAttribute:@"objectCount"];
     [projectPaginationMapping mapKeyPath:@"PagedListItems" toRelationship:@"projects" withMapping:projectMapping];
     [manager.mappingProvider setMapping:projectPaginationMapping forKeyPath:@"Model.Projects"];
-    
-        
+            
     
     RKObjectMapping *activityPaginationMapping = [RKObjectMapping mappingForClass:[BBActivityPaginator class]];
     activityPaginationMapping.rootKeyPath = @"Model.Activities";
@@ -211,7 +220,6 @@
     [activityPaginationMapping mapKeyPath:@"TotalResultCount" toAttribute:@"objectCount"];
     [activityPaginationMapping mapKeyPath:@"PagedListItems" toRelationship:@"activities" withMapping:activityMapping];
     [manager.mappingProvider setMapping:activityPaginationMapping forKeyPath:@"Model.Activities"];
-
     
     
     RKObjectMapping *sightingPaginationMapping = [RKObjectMapping mappingForClass:[BBSightingPaginator class]];
@@ -221,7 +229,6 @@
     [sightingPaginationMapping mapKeyPath:@"TotalResultCount" toAttribute:@"objectCount"];
     [sightingPaginationMapping mapKeyPath:@"Model.PagedListItems" toRelationship:@"activities" withMapping:activityMapping];
     [manager.mappingProvider setMapping:sightingPaginationMapping forKeyPath:@"Model.Sightings"];
-
     
     
     RKObjectMapping *jsonResponseMapping = [RKObjectMapping mappingForClass:[BBJsonResponse class]];
@@ -268,12 +275,10 @@
     [manager.mappingProvider setSerializationMapping:[observationCreateMapping inverseMapping] forClass:[BBObservationCreate class]];
     
     
-    
     RKObjectMapping *modelIdMapping = [RKObjectMapping mappingForClass:[BBModelId class]];
     [modelIdMapping mapKeyPath:@"Id" toAttribute:@"identifier"];
     [manager.mappingProvider addObjectMapping:modelIdMapping];
     [manager.mappingProvider setSerializationMapping:modelIdMapping forClass:[BBModelId class]];
-    
     
     
     [manager.router routeClass:[BBMediaResourceCreate class] toResourcePath:@"/mediaresources/create" forMethod:RKRequestMethodPOST];

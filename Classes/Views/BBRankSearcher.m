@@ -27,7 +27,6 @@
     self = [super init];
     
     _controller = delegate;
-    //[self displayCurrentClassification];
     
     [self displayControls];
     
@@ -39,24 +38,17 @@
     
     searchParameters = [MGTableBoxStyled boxWithSize:CGSizeMake(310, 200)];
     
-    // add top level instructions
-    MGBox *instructionBox = [MGBox boxWithSize:CGSizeMake(300, 100)];
-    
-    // add filter boxes
-    MGBox *filterBox = [MGBox boxWithSize:CGSizeMake(300, 100)];
-    
     // add search box
-    MGBox *searchBox = [MGBox boxWithSize:CGSizeMake(300, 100)];
-    UITextField *searchTextField = [BBUIControlHelper createTextFieldWithFrame:CGRectMake(0, 0, 300, 30) andPlaceholder:@"Start typing to search..." andDelegate:self];
-    
-    [searchTextField  addTarget:self
-                         action:@selector(changeSearchQuery:)
-               forControlEvents:UIControlEventEditingChanged];
+    MGBox *searchBox = [MGBox boxWithSize:CGSizeMake(300, 50)];
+    UITextField *searchTextField = [BBUIControlHelper createTextFieldWithFrame:CGRectMake(0, 0, 300, 40) andPlaceholder:@"Start typing to search..." andDelegate:self];
+    [searchTextField addTarget:self action:@selector(changeSearchQuery:) forControlEvents:UIControlEventEditingChanged];
     searchTextField.returnKeyType = UIReturnKeyDone;
     
     MGLine *searchTextFieldLine = [MGLine lineWithLeft:searchTextField right:nil size:CGSizeMake(300,40)];
-    [searchBox.boxes addObject:searchTextFieldLine];
+    searchTextFieldLine.underlineType = MGUnderlineNone;
+    searchTextFieldLine.margin = UIEdgeInsetsMake(10, 10, 10, 10);
     
+    [searchBox.boxes addObject:searchTextFieldLine];
     searchResults = [MGTableBoxStyled boxWithSize:CGSizeMake(300, 100)];
     
     [self.boxes addObject:searchBox];
@@ -94,9 +86,9 @@
 -(void)displayRanks:(NSArray*)ranks forQuery:(NSString*)query {
     [BBLog Log:@"BBRankBrowser.displayRanks"];
     
-    MGTableBoxStyled *this = searchResults;//[MGTableBoxStyled boxWithSize:CGSizeMake(310, 100)];
+    MGTableBoxStyled *this = searchResults;
+    this.backgroundColor = [UIColor whiteColor];
     [searchResults.middleLines removeAllObjects];
-    UIImage *arrow = [BBUIControlHelper arrow];
     
     NSString*queryText = [query lowercaseString];
     
@@ -119,23 +111,34 @@
         
         NSString *highlightedRank = [NSString stringWithFormat:@"%@\nTaxonomy: %@\nCommon Names: %@", highlightedName, highlightedTaxonomy, highlightedCommonName];
         
-        NMCustomLabel *highlightedText = [[NMCustomLabel alloc]initWithFrame:CGRectMake(0, 0, 280, 60)];
+        NMCustomLabel *highlightedText = [[NMCustomLabel alloc]initWithFrame:CGRectMake(0, 0, 230, 120)];
         highlightedText.text = highlightedRank;
 
-        [highlightedText setDefaultStyle:[NMCustomLabelStyle styleWithFont:[UIFont fontWithName:@"HelveticaNeue" size:12] color:[UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0]]];
-        [highlightedText setStyle:[NMCustomLabelStyle styleWithFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:13] color:[UIColor colorWithRed:53/255.0 green:53/255.0 blue:53/255.0 alpha:1.0]] forKey:@"bold_style"];
+        [highlightedText setDefaultStyle:[NMCustomLabelStyle styleWithFont:[UIFont fontWithName:@"HelveticaNeue" size:14] color:[UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0]]];
+        [highlightedText setStyle:[NMCustomLabelStyle styleWithFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:15] color:[UIColor colorWithRed:53/255.0 green:53/255.0 blue:53/255.0 alpha:1.0]] forKey:@"bold_style"];
         highlightedText.kern = -0.5;
-        highlightedText.lineHeight = 12;
+        highlightedText.lineHeight = 18;
         
-        MGLine *classificationLine = [MGLine lineWithLeft:highlightedText right:arrow size:CGSizeMake(290,60)];
+        PhotoBox *categoryIcon = [BBUIControlHelper createCategoryImageBoxForCategory:classification.category withSize:CGSizeMake(40, 40)];
+        categoryIcon.margin = UIEdgeInsetsMake(5, 5, 70, 5);
+        MGLine *classificationLine = [MGLine lineWithLeft:categoryIcon right:highlightedText size:CGSizeMake(300,130)];
         
-        classificationLine.padding = UIEdgeInsetsMake(0, 5, 5, 5);
+        classificationLine.padding = UIEdgeInsetsMake(5, 5, 5, 5);
         classificationLine.onTap = ^{[_controller setSelectedClassification:classification];};
         
         [this.middleLines addObject:classificationLine];
     }
     
     [self layout];
+}
+
+// 
+- (NSString *)trimWhitespace {
+    NSMutableString *mStr = [self mutableCopy];
+    CFStringTrimWhitespace((CFMutableStringRef)mStr);
+    
+    NSString *result = [mStr copy];
+    return result;
 }
 
 

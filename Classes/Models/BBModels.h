@@ -42,12 +42,15 @@
 #import "BBProjectPaginator.h"
 #import "BBMediaEdit.h"
 #import "BBSightingEdit.h"
+#import "BBSightingNoteEdit.h"
 #import "BBJsonResponse.h"
 
 #import "BBModelId.h"
 #import "BBMediaResourceCreate.h"
 #import "BBObservationMediaCreate.h"
 #import "BBObservationCreate.h"
+#import "BBSightingNoteDescriptionCreate.h"
+#import "BBSightingNoteCreate.h"
 #import "BBClassificationSelector.h"
 
 #import "BBMappings.h"

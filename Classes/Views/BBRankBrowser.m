@@ -41,24 +41,15 @@
     BBClassification *selectedClassification = [_controller getCurrentClassification];
     
     MGTableBoxStyled *classificationChooser = [MGTableBoxStyled boxWithSize:CGSizeMake(310, 120)];
-    MGLine *classificationChooserTitle = [MGLine lineWithLeft:@"Classification" right:nil size:CGSizeMake(280, 30)];
-    classificationChooserTitle.underlineType = MGUnderlineNone;
-    classificationChooserTitle.font = HEADER_FONT;
-    classificationChooserTitle.padding = UIEdgeInsetsMake(5, 5, 0, 0);
-    //[classificationChooser.topLines addObject:classificationChooserTitle];
     [classificationChooser.middleLines addObject:[BBUIControlHelper createSelectedClassification:selectedClassification forSize:CGSizeMake(300, 120)]];
 
     if(selectedClassification.category) {
         CoolMGButton *chooseClassification = [BBUIControlHelper createButtonWithFrame:CGRectMake(0, 0, 290, 40) andTitle:@"Select this Identification" withBlock:^{
-            
             [_controller setSelectedClassification:selectedClassification];
-            // fire up a dictionary
-            // post a notification... 
         }];
         
         chooseClassification.margin = UIEdgeInsetsMake(0, 10, 10, 10);
         [classificationChooser.bottomLines addObject:chooseClassification];
-        // we can show the "Use this species" button
     }
     
     [self.boxes addObject:classificationChooser];

@@ -41,22 +41,20 @@
     [BBLog Log:@"BBSightingDetailController.loadView"];
     
     self.view = [MGScrollView scrollerWithSize:[self screenSize]];
-    self.view.backgroundColor = [self backgroundColor];
+    self.view.backgroundColor = [UIColor blackColor];
     ((MGScrollView*)self.view).contentLayoutMode = MGLayoutTableStyle;
     sightingView = (MGScrollView*)self.view;
     self.mapView = [[MKMapView alloc]init];
     
-    // hit the server for the observation:
+    // LOAD THIS OBSERVATION FROM THE SERVER
     NSString *sightingUrl = [NSString stringWithFormat:@"%@/%@?%@", [BBConstants RootUriString], _identifier, @"X-Requested-With=XMLHttpRequest"];
-    
     RKObjectManager *manager = [RKObjectManager sharedManager];
-    
     [manager loadObjectsAtResourcePath:sightingUrl delegate:self];
     
     [SVProgressHUD showWithStatus:@"Loading Sighting"];
 }
 
-- (void)viewDidLoad {
+-(void)viewDidLoad {
     [BBLog Log:@"BBSightingDetailController.viewDidLoad"];
     
     [super viewDidLoad];
@@ -67,18 +65,10 @@
     rightRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeRight:)];
     [rightRecognizer setDirection: UISwipeGestureRecognizerDirectionRight];
     [[self view] addGestureRecognizer:rightRecognizer];
-
-    //[self displaySighting];
-    
-    //[self displayImages];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-    
     ((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController.navigationBarHidden = YES;
-    
-    //((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController.toolbarHidden = NO;
-    
 }
 
 #pragma mark -
@@ -94,22 +84,28 @@
     
     double horizontalPaddingTotalWidth = 10;
     double descriptionWidth = 300 - back.size.width - horizontalPaddingTotalWidth;
-    MGLine *description = [MGLine multilineWithText:observation.title font:HEADER_FONT width:descriptionWidth padding:UIEdgeInsetsMake(15, horizontalPaddingTotalWidth/2, 0, horizontalPaddingTotalWidth/2)];
+    MGLine *description = [MGLine multilineWithText:observation.title
+                                               font:HEADER_FONT
+                                              width:descriptionWidth
+                                            padding:UIEdgeInsetsMake(15, horizontalPaddingTotalWidth/2, 0, horizontalPaddingTotalWidth/2)];
     
     // HEADER
-    MGLine *header = [MGLine lineWithLeft:back right:description size:CGSizeMake(300, 60)];
+    MGLine *header = [MGLine lineWithLeft:back
+                                    right:description
+                                     size:CGSizeMake(300, 60)];
     header.underlineType = MGUnderlineNone;
     [info.topLines addObject:header];
-    
     header.onTap =^{
+        // Go back to the stream you came from:
         [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:YES];
     };
     
+    
     // USER
-    MGLine *userProfile = [BBUIControlHelper createUserProfileLineForUser:observation.user
+    [info.middleLines addObject:[BBUIControlHelper createUserProfileLineForUser:observation.user
                                                           withDescription:[NSString stringWithFormat:@"%@ sighted %@", observation.user.name, [observation.observedOnDate timeAgo]]
-                                                                  forSize:CGSizeMake(IPHONE_STREAM_WIDTH - arrow.size.width, 60)];
-    [info.middleLines addObject:userProfile];
+                                                                  forSize:CGSizeMake(IPHONE_STREAM_WIDTH - arrow.size.width, 60)]];
+    
     
     // MEDIA
     [info.middleLines addObject:[BBUIControlHelper createMediaViewerForMedia:observation.media
@@ -117,39 +113,38 @@
                                                                     forSize:CGSizeMake(300,270)
                                                            displayingThumbs:YES]];
     
+    
     // OBSERVED ON
-    MGLine *observedOnLine = [BBUIControlHelper createTwoColumnRowWithleftText:@"Observed:"
+    [info.middleLines addObject:[BBUIControlHelper createTwoColumnRowWithleftText:@"Observed:"
                                                                   andRightText:observation.observedOnDate.description
                                                                      andHeight:30
                                                                   andLeftWidth:120
-                                                                 andRightWidth:180];
-    [info.middleLines addObject:observedOnLine];
+                                                                 andRightWidth:180]];
+
     
     // CATEGORY
-    MGLine *categoryLine = [BBUIControlHelper createTwoColumnRowWithleftText:@"Category:"
+    [info.middleLines addObject:[BBUIControlHelper createTwoColumnRowWithleftText:@"Category:"
                                                                 andRightText:observation.category
                                                                    andHeight:30
                                                                 andLeftWidth:120
-                                                               andRightWidth:180];
-    [info.middleLines addObject:categoryLine];
+                                                               andRightWidth:180]];
+
     
-    // LOCATION
-    MGLine *latitudeLine = [BBUIControlHelper createTwoColumnRowWithleftText:@"Latitude:"
+    // LATITUDE
+    [info.middleLines addObject:[BBUIControlHelper createTwoColumnRowWithleftText:@"Latitude:"
                                                                 andRightText:[NSString stringWithFormat:@"%f", observation.latitude]
                                                                    andHeight:30
                                                                 andLeftWidth:120
-                                                               andRightWidth:180];
-    [info.middleLines addObject:latitudeLine];
+                                                               andRightWidth:180]];
     
-    MGLine *longitudeLine = [BBUIControlHelper createTwoColumnRowWithleftText:@"Longitude:"
+    
+    // LONGITUDE
+    [info.middleLines addObject:[BBUIControlHelper createTwoColumnRowWithleftText:@"Longitude:"
                                                                 andRightText:[NSString stringWithFormat:@"%f", observation.longitude]
                                                                    andHeight:30
                                                                 andLeftWidth:120
-                                                               andRightWidth:180];
-    [info.middleLines addObject:longitudeLine];
+                                                               andRightWidth:180]];
 
-//    MGLine *addressLineValue = [MGLine multilineWithText:observation.address font:DESCRIPTOR_FONT width:180 padding:UIEdgeInsetsZero];
-//    MGLine *addressLineLabel = [MGLine lineWithLeft:@"Address:" right:nil size:CGSizeMake(100, 30)];
     MGLine *addressLine = [MGLine lineWithLeft:@"Address:" multilineRight:observation.address width:300 minHeight:30];
     [info.middleLines addObject:addressLine];
     
@@ -162,79 +157,87 @@
         
         MGTableBoxStyled *note = [MGTableBoxStyled boxWithSize:IPHONE_OBSERVATION];
         note.margin = UIEdgeInsetsMake(5, 5, 5, 0);
-
-        // NOTES PERPETRATOR:
-        // USER
-        MGLine *userNoteProfile = [BBUIControlHelper createUserProfileLineForUser:observationNote.user
-                                                              withDescription:[NSString stringWithFormat:@"%@ added a note %@", observationNote.user.name, [observationNote.createdOn timeAgo]]
-                                                                      forSize:CGSizeMake(IPHONE_STREAM_WIDTH - arrow.size.width, 60)];
-        [note.topLines addObject:userNoteProfile];
         
-        // show the identification
+        // USER
+        [note.topLines addObject:[BBUIControlHelper createUserProfileLineForUser:observationNote.user
+                                                                  withDescription:[NSString stringWithFormat:@"%@ added a note %@", observationNote.user.name, [observationNote.createdOn timeAgo]]
+                                                                          forSize:CGSizeMake(IPHONE_STREAM_WIDTH - arrow.size.width, 60)]];
+        
+        // IDENTIFICATION
         if(observationNote.identification) {
-            [note.middleLines addObject:[BBUIControlHelper createSubHeadingWithTitle:@"Idenfitication" forSize:CGSizeMake(IPHONE_STREAM_WIDTH, 20)]];
-            [note.middleLines addObject:[BBUIControlHelper createIdentification:observationNote.identification forSize:CGSizeMake(IPHONE_STREAM_WIDTH, 80)]];
+            [note.middleLines addObject:[BBUIControlHelper createSubHeadingWithTitle:@"Idenfitication"
+                                                                             forSize:CGSizeMake(IPHONE_STREAM_WIDTH, 20)]];
+            
+            [note.middleLines addObject:[BBUIControlHelper createIdentification:observationNote.identification
+                                                                        forSize:CGSizeMake(IPHONE_STREAM_WIDTH, 80)]];
         }
-        // show the taxonomy
+        
+        // TAXONOMY
         if(![observationNote.taxonomy isEqualToString:@""]) {
-            [note.middleLines addObject:[BBUIControlHelper createSubHeadingWithTitle:@"Taxonomy" forSize:CGSizeMake(IPHONE_STREAM_WIDTH, 20)]];
-            MGLine *taxa = [MGLine multilineWithText:observationNote.taxonomy font:DESCRIPTOR_FONT width:IPHONE_STREAM_WIDTH padding:UIEdgeInsetsMake(5, 10, 5, 10)];
+            [note.middleLines addObject:[BBUIControlHelper createSubHeadingWithTitle:@"Taxonomy"
+                                                                             forSize:CGSizeMake(IPHONE_STREAM_WIDTH, 20)]];
+            
+            MGLine *taxa = [MGLine multilineWithText:observationNote.taxonomy
+                                                font:DESCRIPTOR_FONT
+                                               width:IPHONE_STREAM_WIDTH
+                                             padding:UIEdgeInsetsMake(5, 10, 5, 10)];
             taxa.underlineType = MGUnderlineNone;
             [note.middleLines addObject:taxa];
         }
-        // show descriptions
+        
+        // DESCRIPTIONS
         if(observationNote.descriptionCount > 0) {
-            for (BBSightingNoteDescription *description in observationNote.descriptions) {
-                [note.middleLines addObject:[BBUIControlHelper createSubHeadingWithTitle:description.label forSize:CGSizeMake(IPHONE_STREAM_WIDTH, 20)]];
-                MGLine *descriptionLine = [MGLine multilineWithText:description.text font:DESCRIPTOR_FONT width:IPHONE_STREAM_WIDTH padding:UIEdgeInsetsMake(5, 10, 5, 10)];
+            
+            for (BBSightingNoteDescription* description in observationNote.descriptions) {
+                
+                [note.middleLines addObject:[BBUIControlHelper createSubHeadingWithTitle:description.label
+                                                                                 forSize:CGSizeMake(IPHONE_STREAM_WIDTH, 20)]];
+                
+                MGLine *descriptionLine = [MGLine multilineWithText:description.text
+                                                               font:DESCRIPTOR_FONT
+                                                              width:IPHONE_STREAM_WIDTH
+                                                            padding:UIEdgeInsetsMake(5, 10, 5, 10)];
+                descriptionLine.underlineType = MGUnderlineNone;
+            
                 [note.middleLines addObject:descriptionLine];
             }
+            
         }
-        // show tags
+        
+        // TAGS
         if(observationNote.tagCount > 0) {
-            [note.middleLines addObject:[BBUIControlHelper createSubHeadingWithTitle:@"Tags" forSize:CGSizeMake(IPHONE_STREAM_WIDTH, 20)]];
-            MGLine *tagLine = [MGLine multilineWithText:observationNote.allTags font:DESCRIPTOR_FONT width:IPHONE_STREAM_WIDTH padding:UIEdgeInsetsMake(5, 10, 5, 10)];
-            tagLine.font = DESCRIPTOR_FONT;
-            [note.middleLines addObject:tagLine];
+            [note.middleLines addObject:[BBUIControlHelper createSubHeadingWithTitle:@"Tags"
+                                                                             forSize:CGSizeMake(IPHONE_STREAM_WIDTH, 20)]];
+        
+            // grab tags from controller
+            NSArray *tags = [observationNote.allTags componentsSeparatedByString:@","];
+            MGBox *tagBox;
+            
+            DWTagList *tagList = [[DWTagList alloc]initWithFrame:CGRectMake(0, 0, 280, 40)];
+            [tagList setTags:tags];
+            
+            double minHeight = tagList.fittedSize.height;
+            
+            tagBox = [MGBox boxWithSize:CGSizeMake(280, minHeight)];
+            tagBox.margin = UIEdgeInsetsMake(10, 10, 10, 10);
+            [tagBox addSubview:tagList];
+
+            [note.middleLines addObject:tagBox];
         }
         
         [sightingView.boxes addObject:note];
     }
     
-    MGBox *addNoteBox = [MGBox boxWithSize:CGSizeMake(320, 50)];
-    addNoteBox.contentLayoutMode = MGLayoutGridStyle;
-    
-    /*
-    CoolMGButton *identifyButton =[BBUIControlHelper createButtonWithFrame:CGRectMake(0, 0, 100, 60) andTitle:@"Identify" withBlock:^{
-        BBIdentificationController *identificationController = [[BBIdentificationController alloc]init];
-        [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:identificationController animated:NO];
-    }];
-    identifyButton.margin = UIEdgeInsetsMake(5, 5, 5, 5);
-    [addNoteBox.boxes addObject:identifyButton];
-    
-    CoolMGButton *describeButton =[BBUIControlHelper createButtonWithFrame:CGRectMake(0, 0, 100, 60) andTitle:@"Describe" withBlock:^{
-        //
-    }];
-    describeButton.margin = UIEdgeInsetsMake(5, 0, 5, 5);
-    [addNoteBox.boxes addObject:describeButton];
-    
-    CoolMGButton *tagButton =[BBUIControlHelper createButtonWithFrame:CGRectMake(0, 0, 100, 60) andTitle:@"Tag" withBlock:^{
-        //
-    }];
-     
-    
-    tagButton.margin = UIEdgeInsetsMake(5, 0, 5, 5);
-    [addNoteBox.boxes addObject:tagButton];
-    */
-    
     CoolMGButton *addNoteButton = [BBUIControlHelper createButtonWithFrame:CGRectMake(0, 0, 310, 60) andTitle:@"Add a Note" withBlock:^{
-        BBIdentificationController *identificationController = [[BBIdentificationController alloc]init];
-        [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:identificationController animated:NO];
+        BBCreateSightingNoteController *createNoteController = [[BBCreateSightingNoteController alloc]initWithSightingId:observation.identifier];
+        [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:createNoteController animated:NO];
     }];
+    
     addNoteButton.margin = UIEdgeInsetsMake(5, 5, 5, 5);
     
+    MGBox *addNoteBox = [MGBox boxWithSize:CGSizeMake(320, 50)];
+    addNoteBox.contentLayoutMode = MGLayoutGridStyle;
     [addNoteBox.boxes addObject:addNoteButton];
-    
     [sightingView.boxes addObject:addNoteBox];
     
     [sightingView layoutWithSpeed:0.3 completion:nil];
@@ -265,14 +268,13 @@
     MGBox *thumbs = [MGBox box];//boxWithSize:CGSizeMake(320, 50)];
     thumbs.parentBox.contentLayoutMode = MGLayoutGridStyle;
     thumbs.contentLayoutMode = MGLayoutGridStyle;
-    //thumbs.sizingMode = MGResizingShrinkWrap;
 
     // add the thumb nails
     if(observation.media.count > 1)
     {
         // take the current box out - add the new box
         for (__block BBMedia* m in observation.media) {
-            PhotoBox *thumb = [PhotoBox mediaFor:[self getImageWithDimension:@"Square50" fromArrayOf:m.mediaResource.imageMedia].uri size:(CGSizeMake(50, 50))];
+            __weak PhotoBox *thumb = [PhotoBox mediaFor:[self getImageWithDimension:@"Square50" fromArrayOf:m.mediaResource.imageMedia].uri size:(CGSizeMake(50, 50))];
             thumb.onTap = ^{[self displayFullSizeImage:m toReplace:currentPic];};
             [thumbs.boxes addObject:thumb];
         }
@@ -284,13 +286,16 @@
     [sightingView layoutWithSpeed:0.3 completion:nil];
 }
 
--(void)displayFullSizeImage:(BBMedia*)media toReplace:(PhotoBox*)content {
+-(void)displayFullSizeImage:(BBMedia*)media
+                  toReplace:(PhotoBox*)content {
     [BBLog Log:@"BBSightingDetailController.displayFullSizeImage"];
     
-    BBImage *fullSize = [self getImageWithDimension:@"Constrained240" fromArrayOf:media.mediaResource.imageMedia];
+    BBImage *fullSize = [self getImageWithDimension:@"Constrained240"
+                                        fromArrayOf:media.mediaResource.imageMedia];
     MGBox *section = (id)content.parentBox;
     [section.boxes removeAllObjects];
-    [section.boxes addObject:[PhotoBox mediaFor:fullSize.uri size:IPHONE_OBSERVATION]];
+    [section.boxes addObject:[PhotoBox mediaFor:fullSize.uri
+                                           size:IPHONE_OBSERVATION]];
     [section layoutWithSpeed:0.0 completion:nil];
 }
 
@@ -347,8 +352,6 @@
 
 -(void)objectLoaderDidFinishLoading:(RKObjectLoader *)objectLoader {
     [BBLog Log:@"BBSightingDetailController.objectLoaderDidFinishLoading:"];
-    
-    //[MBProgressHUD HUDForView:<#(UIView *)#>]
 }
 
 -(void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {

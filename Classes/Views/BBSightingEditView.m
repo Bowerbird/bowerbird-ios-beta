@@ -66,38 +66,70 @@
 -(void)displayTitleTable {
     [BBLog Log:@"BBSightingEditView.displayTitleTable"];
     
-    _titleTable = [self createTableWithHeading:@"Title"];
-    _titleTextField = [BBUIControlHelper createTextFieldWithFrame:CGRectMake(0, 0, 280, 40) andPlaceholder:@"Add a description" andDelegate:self];
+    MGTableBox *titleTableWrapper = [MGTableBox boxWithSize:CGSizeMake(320, 40)];
+    MGLine *titleTableWrapperHeader = [MGLine lineWithLeft:@"Title"
+                                                       right:nil
+                                                        size:CGSizeMake(300, 30)];
+    titleTableWrapperHeader.underlineType = MGUnderlineNone;
+    titleTableWrapperHeader.padding = UIEdgeInsetsMake(10, 10, 0, 0);
+    [titleTableWrapper.topLines addObject:titleTableWrapperHeader];
+    
+    _titleTable = [MGTableBoxStyled boxWithSize:CGSizeMake(300, 200)];
+    _titleTextField = [BBUIControlHelper createTextFieldWithFrame:CGRectMake(0, 0, 280, 40)
+                                                   andPlaceholder:@"Add a description.."
+                                                      andDelegate:self];
     [_titleTextField setReturnKeyType:UIReturnKeyDone];
     [_titleTextField  addTarget:self
                          action:@selector(changeTitle:)
                forControlEvents:UIControlEventEditingDidEndOnExit];
-    MGLine *titleLine = [MGLine lineWithSize:CGSizeMake(280, 60)];
-    titleLine.padding = UIEdgeInsetsMake(10, 0, 10, 0);
+    MGLine *titleLine = [MGLine lineWithSize:CGSizeMake(290, 60)];
+    titleLine.padding = UIEdgeInsetsMake(10, 10, 10, 0);
     [titleLine.middleItems addObject:_titleTextField];
     [_titleTable.middleLines addObject: titleLine];
+    _titleTable.backgroundColor = [UIColor whiteColor];
+    [titleTableWrapper.middleLines addObject:_titleTable];
     
-    [self.boxes addObject:_titleTable];
+    [self.boxes addObject:titleTableWrapper];
 }
 
 -(void)displayObservedOnTable {
     [BBLog Log:@"BBSightingEditView.displayObservedOnTable"];
     
-    _observedOnTable = [self createTableWithHeading:@"Observed On"];
-    _observedOnLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 280, 30)];
+    MGTableBox *observedOnTableWrapper = [MGTableBox boxWithSize:CGSizeMake(310, 40)];
+    MGLine *observedOnTableHeader = [MGLine lineWithLeft:@"Observed On"
+                                                     right:nil
+                                                      size:CGSizeMake(300, 30)];
+    observedOnTableHeader.underlineType = MGUnderlineNone;
+    observedOnTableHeader.padding = UIEdgeInsetsMake(10, 10, 0, 0);
+    [observedOnTableWrapper.topLines addObject:observedOnTableHeader];
+    _observedOnTable = [MGTableBoxStyled boxWithSize:CGSizeMake(300, 200)];
+    _observedOnTable.backgroundColor = [UIColor whiteColor];
+    _observedOnLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 260, 40)];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setDateStyle:NSDateFormatterLongStyle];
     _observedOnLabel.text = [dateFormatter stringFromDate:[NSDate date]];
-    [_observedOnTable.middleLines addObject:[MGLine lineWithLeft:self.observedOnLabel right:nil size:CGSizeMake(280, 30)]];
+    MGLine *observedOnLine = [MGLine lineWithLeft:self.observedOnLabel
+                                            right:nil
+                                             size:CGSizeMake(280, 60)];
+    observedOnLine.padding = UIEdgeInsetsMake(10, 10, 10, 0);
+    [_observedOnTable.middleLines addObject:observedOnLine];
     _observedOnTable.onTap = ^{[self.controller createdOnStartEdit];};
+    [observedOnTableWrapper.middleLines addObject:_observedOnTable];
     
-    [self.boxes addObject:_observedOnTable];
+    [self.boxes addObject:observedOnTableWrapper];
 }
 
 -(void)displayMediaTable {
     [BBLog Log:@"BBSightingEditView.displayMediaTable"];
     
-    _mediaTable = [self createTableWithHeading:@"Media"];
+    MGTableBox *mediaTableWrapper = [MGTableBox boxWithSize:CGSizeMake(310, 40)];
+    MGLine *mediaTableHeader = [MGLine lineWithLeft:@"Media"
+                                                   right:nil
+                                                    size:CGSizeMake(300, 30)];
+    mediaTableHeader.underlineType = MGUnderlineNone;
+    mediaTableHeader.padding = UIEdgeInsetsMake(10, 10, 0, 0);
+    [mediaTableWrapper.topLines addObject:mediaTableHeader];
+    _mediaTable = [MGTableBoxStyled boxWithSize:CGSizeMake(300, 200)];
     NSArray* mediaItems = [self.controller media];
     MGBox *mediaBox = [MGBox boxWithSize:CGSizeMake(280,120)];
     mediaBox.contentLayoutMode = MGLayoutGridStyle;
@@ -109,30 +141,64 @@
     [_mediaTable.middleLines addObject:mediaBox];
     if(mediaItems.count < MAX_MEDIA_PER_SIGHTING)// if we haven't reached upper limit (3) display an add more..
     {
-        UIButton *addCameraPhoto = [BBUIControlHelper createButtonWithFrame:CGRectMake(0, 0, 100, 40) andTitle:@"+ Camera" withBlock:^(void){[self.controller showCamera];}];
-        UIButton *addLibraryPhoto = [BBUIControlHelper createButtonWithFrame:CGRectMake(0, 0, 100, 40) andTitle:@"+ Library" withBlock:^(void){[self.controller showLibrary];}];
-        MGLine *addMediaLine = [MGLine lineWithLeft:addCameraPhoto right:addLibraryPhoto size:CGSizeMake(280, 60)];
+        CoolMGButton *addCameraPhoto = [BBUIControlHelper createButtonWithFrame:CGRectMake(0, 0, 135, 40)
+                                                                       andTitle:@"+ Camera"
+                                                                      withBlock:^(void){[self.controller showCamera];}];
+        addCameraPhoto.margin = UIEdgeInsetsMake(0, 10, 10, 10);
+        CoolMGButton *addLibraryPhoto = [BBUIControlHelper createButtonWithFrame:CGRectMake(0, 0, 135, 40)
+                                                                        andTitle:@"+ Library"
+                                                                       withBlock:^(void){[self.controller showLibrary];}];
+        addLibraryPhoto.margin = UIEdgeInsetsMake(0, 0, 10, 10);
+        MGLine *addMediaLine = [MGLine lineWithLeft:addCameraPhoto
+                                              right:addLibraryPhoto
+                                               size:CGSizeMake(300, 60)];
         [_mediaTable.bottomLines addObject:addMediaLine];
     }
+    _mediaTable.backgroundColor = [UIColor whiteColor];
+    [mediaTableWrapper.middleLines addObject:_mediaTable];
     
-    [self.boxes addObject:_mediaTable];
+    [self.boxes addObject:mediaTableWrapper];
 }
 
 -(void)displayCategoryTable {
     [BBLog Log:@"BBSightingEditView.displayCategoryTable"];
     
-    _categoryTable = [self createTableWithHeading:@"Category"];
+    MGTableBox *categoryTableWrapper = [MGTableBox boxWithSize:CGSizeMake(310, 40)];
+    MGLine *categoryTableHeader = [MGLine lineWithLeft:@"Category"
+                                              right:nil
+                                               size:CGSizeMake(300, 30)];
+    categoryTableHeader.underlineType = MGUnderlineNone;
+    categoryTableHeader.padding = UIEdgeInsetsMake(10, 10, 0, 0);
+    [categoryTableWrapper.topLines addObject:categoryTableHeader];
+    _categoryTable = [MGTableBoxStyled boxWithSize:CGSizeMake(300, 200)];
     _categoryLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 280, 30)];
-    [_categoryTable.middleLines addObject:[MGLine lineWithLeft:_categoryLabel right:nil size:CGSizeMake(280, 30)]];
+    if([[_controller getCategory] isEqualToString:@""] || [_controller getCategory] == nil)
+    {
+        _categoryLabel.text = @"Choose a category..";
+    }
+    MGLine *categoryLine = [MGLine lineWithLeft:_categoryLabel
+                                          right:nil
+                                           size:CGSizeMake(280, 60)];
+    categoryLine.margin = UIEdgeInsetsMake(10, 10, 10, 0);
+    [_categoryTable.middleLines addObject:categoryLine];
     _categoryTable.onTap = ^{[self.controller categoryStartEdit];};
+    _categoryTable.backgroundColor = [UIColor whiteColor];
+    [categoryTableWrapper.middleLines addObject:_categoryTable];
     
-    [self.boxes addObject:_categoryTable];
+    [self.boxes addObject:categoryTableWrapper];
 }
 
 -(void)displayLocationTable {
     [BBLog Log:@"BBSightingEditView.displayLocationTable"];
     
-    _locationTable = [self createTableWithHeading:@"Location"];
+    MGTableBox *locationTableWrapper = [MGTableBox boxWithSize:CGSizeMake(310, 40)];
+    MGLine *locationTableHeader = [MGLine lineWithLeft:@"Location"
+                                                 right:nil
+                                                  size:CGSizeMake(300, 30)];
+    locationTableHeader.underlineType = MGUnderlineNone;
+    locationTableHeader.padding = UIEdgeInsetsMake(10, 10, 0, 0);
+    [locationTableWrapper.topLines addObject:locationTableHeader];
+    _locationTable = [MGTableBoxStyled boxWithSize:CGSizeMake(300, 200)];
     CGPoint latLon = [self.controller getLocationLatLon];
     _locationLatitude = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 200, 30)];
     _locationLatitude.text = [ NSString stringWithFormat:@"%f", latLon.x];
@@ -144,31 +210,40 @@
     _locationAddress.text = [NSString stringWithFormat:@"%@", _controller.getLocationAddress];
     MGLine *latLine = [MGLine lineWithLeft:@"Latitude:" right:_locationLatitude size:CGSizeMake(280, 30)];
     MGLine *lonLine = [MGLine lineWithLeft:@"Longitude:" right:_locationLongitude size:CGSizeMake(280, 30)];
-    MGLine *addressLine = [MGLine lineWithLeft:@"Address" right:_locationAddress size:CGSizeMake(280, 60)];
+    MGLine *addressLine = [MGLine lineWithLeft:@"Address:" right:_locationAddress size:CGSizeMake(280, 60)];
     [_locationTable.middleLines addObject:latLine];
     [_locationTable.middleLines addObject:lonLine];
     [_locationTable.middleLines addObject:addressLine];
-    //_locationTable.onTap = ^{[self.controller locationStartEdit];};
+    _locationTable.backgroundColor = [UIColor whiteColor];
+    _locationTable.padding = UIEdgeInsetsMake(10, 10, 10, 10);
+    [locationTableWrapper.middleLines addObject:_locationTable];
     
-    [self.boxes addObject:_locationTable];
+    [self.boxes addObject:locationTableWrapper];
 }
 
 -(void)displayProjectsTable {
     [BBLog Log:@"BBSightingEditView.displayProjectsTable"];
     
-    _projectsTable = [self createTableWithHeading:@"Projects"];
-
+    MGTableBox *projectsTableWrapper = [MGTableBox boxWithSize:CGSizeMake(310, 40)];
+    MGLine *projectsTableHeader = [MGLine lineWithLeft:@"Projects"
+                                                 right:nil
+                                                  size:CGSizeMake(300, 30)];
+    projectsTableHeader.underlineType = MGUnderlineNone;
+    projectsTableHeader.padding = UIEdgeInsetsMake(10, 10, 0, 0);
+    [projectsTableWrapper.topLines addObject:projectsTableHeader];
+    _projectsTable = [MGTableBoxStyled boxWithSize:CGSizeMake(300, 200)];
     NSArray *projectsInSighting = [_controller getSightingProjects]; // projects the observation is currently In.
-    
-    for (BBProject* project in projectsInSighting) {
-        
+    if(projectsInSighting.count == 0)
+    {
+        [_projectsTable.middleLines addObject:[MGLine lineWithLeft:@"No Projects Selected.." right:nil size:CGSizeMake(280, 30)]];
+    }
+    for (BBProject* project in projectsInSighting)
+    {
         BBImage* projectImage = [BBCollectionHelper getImageWithDimension:@"Square50" fromArrayOf:project.avatar.imageMedia];
         PhotoBox *projectAvatar = [PhotoBox mediaFor:projectImage.uri size:IPHONE_AVATAR_SIZE];
         projectAvatar.margin = UIEdgeInsetsZero;
-  
         MGLine *projectLine = [MGLine lineWithLeft:projectAvatar right:[UIImage imageNamed:@"arrow.png"] size:CGSizeMake(280, 50)];
         [projectLine.middleItems addObject:project.name];
-        
         projectLine.onTap=^{
             // remove thy self from this table o lordy
             
@@ -176,30 +251,39 @@
         };
         
         [_projectsTable.middleLines addObject:projectLine];
-      }
+    }
     
     if(projectsInSighting.count <= 0) {
         [_projectsTable.middleLines addObject:[MGLine lineWithLeft:@"No Projects in Sighting" right:nil]];
     }
-    
-    // click to show the projects the observation is not in..
     _projectsTable.onTap = ^{[self.controller startAddingProjects];};
-    
+    [projectsTableWrapper.middleLines addObject:_projectsTable];
 
-    [self.boxes addObject:_projectsTable];
+    [self.boxes addObject:projectsTableWrapper];
     [self layoutWithSpeed:0.2 completion:nil];
 }
 
 -(void)displayActionTable {
     [BBLog Log:@"BBSightingEditView.displayActionTable"];
     
-    _actionTable = [self createTableWithHeading:@"Action"];
-    UIButton *cancel = [BBUIControlHelper createButtonWithFrame:CGRectMake(0, 0, 100, 40) andTitle:@"Cancel" withBlock:^(void){[self.controller cancel];}];
-    UIButton *save = [BBUIControlHelper createButtonWithFrame:CGRectMake(0, 0, 100, 40) andTitle:@"Save" withBlock:^(void){[self.controller save];}];
+    MGTableBox *actionTableWrapper = [MGTableBox boxWithSize:CGSizeMake(310, 40)];
+    MGLine *actionTableHeader = [MGLine lineWithLeft:@"Action"
+                                                 right:nil
+                                                  size:CGSizeMake(300, 30)];
+    actionTableHeader.underlineType = MGUnderlineNone;
+    actionTableHeader.padding = UIEdgeInsetsMake(10, 10, 0, 0);
+    [actionTableWrapper.topLines addObject:actionTableHeader];
+    _actionTable = [MGTableBoxStyled boxWithSize:CGSizeMake(300, 200)];
+    UIButton *cancel = [BBUIControlHelper createButtonWithFrame:CGRectMake(10, 0, 135, 40) andTitle:@"Cancel" withBlock:^(void){[self.controller cancel];}];
+    //cancel.margin = UIEdgeInsetsMake(0, 10, 10, 10);
+    UIButton *save = [BBUIControlHelper createButtonWithFrame:CGRectMake(10, 0, 135, 40) andTitle:@"Save" withBlock:^(void){[self.controller save];}];
+    //save.margin = UIEdgeInsetsMake(0, 10, 10, 10);
     MGLine *actionLine = [MGLine lineWithLeft:save right:cancel size:CGSizeMake(280, 60)];
     [_actionTable.bottomLines addObject:actionLine];
+    _actionTable.padding = UIEdgeInsetsMake(10, 10, 10, 10);
+    [actionTableWrapper.middleLines addObject:_actionTable];
     
-    [self.boxes addObject:_actionTable];
+    [self.boxes addObject:actionTableWrapper];
 }
 
 -(void)addSightingProject:(BBProject*)project {
@@ -212,6 +296,7 @@
                                                           andHeading:heading
                                                           andPadding:EDGE_10_PADDING];
 }
+
 
 #pragma mark -
 #pragma mark - Delegate and Protocol interaction
@@ -284,14 +369,28 @@
         // add an overlay to show that the image is uploading:
         [mediaBox.boxes addObject:photo];
     }
+    mediaBox.padding = UIEdgeInsetsMake(10, 10, 10, 0);
     [_mediaTable.middleLines addObject:mediaBox];
+    
     if(mediaItems.count < MAX_MEDIA_PER_SIGHTING)// if we haven't reached upper limit (3) display an add more..
     {
-        UIButton *addCameraPhoto = [BBUIControlHelper createButtonWithFrame:CGRectMake(0, 0, 100, 40) andTitle:@"+ Camera" withBlock:^(void){[self.controller showCamera];}];
-        UIButton *addLibraryPhoto = [BBUIControlHelper createButtonWithFrame:CGRectMake(0, 0, 100, 40) andTitle:@"+ Library" withBlock:^(void){[self.controller showLibrary];}];
-        MGLine *addMediaLine = [MGLine lineWithLeft:addCameraPhoto right:addLibraryPhoto size:CGSizeMake(280, 60)];
+        CoolMGButton *addCameraPhoto = [BBUIControlHelper createButtonWithFrame:CGRectMake(0, 0, 135, 40)
+                                                                       andTitle:@"+ Camera"
+                                                                      withBlock:^(void){[self.controller showCamera];}];
+        addCameraPhoto.margin = UIEdgeInsetsMake(0, 10, 10, 10);
+        
+        CoolMGButton *addLibraryPhoto = [BBUIControlHelper createButtonWithFrame:CGRectMake(0, 0, 135, 40)
+                                                                        andTitle:@"+ Library"
+                                                                       withBlock:^(void){[self.controller showLibrary];}];
+        addLibraryPhoto.margin = UIEdgeInsetsMake(0, 0, 10, 10);
+        
+        MGLine *addMediaLine = [MGLine lineWithLeft:addCameraPhoto
+                                              right:addLibraryPhoto
+                                               size:CGSizeMake(300, 60)];
+        
         [_mediaTable.bottomLines addObject:addMediaLine];
     }
+    
     [self layoutWithSpeed:0.2 completion:nil];
 }
 

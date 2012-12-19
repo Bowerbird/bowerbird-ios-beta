@@ -291,6 +291,8 @@
 
 -(void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     [BBLog Error:[NSString stringWithFormat:@"%@%@", @"BBLoginController.objectLoader:didFailWithError:", [error localizedDescription]]];
+    
+    [SVProgressHUD showErrorWithStatus:[error localizedDescription]];
 }
 
 

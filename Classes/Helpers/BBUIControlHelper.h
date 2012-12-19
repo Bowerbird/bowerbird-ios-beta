@@ -11,6 +11,8 @@
 #import "BBHelpers.h"
 #import "BBModels.h"
 
+@class BBClassification, BBSighting, BBObservation, BBMedia, BBIdentification, BBUser;
+
 typedef void (^ActionBlock)();
 
 @interface BBUIControlHelper : NSObject
@@ -20,6 +22,8 @@ typedef void (^ActionBlock)();
 +(UIImage *)back;
 
 +(UITextField *)createTextFieldWithFrame:(CGRect)frame andPlaceholder:(NSString*)text andDelegate:(id)delegate;
+
++(UITextView *)createTextViewWithFrame:(CGRect)frame andDelegate:(id)delegate;
 
 +(CoolMGButton *)createButtonWithFrame:(CGRect)frame andTitle:(NSString*)text withBlock:(ActionBlock)block;
 
@@ -40,6 +44,8 @@ typedef void (^ActionBlock)();
 +(MGBox *)createMediaViewerForMedia:(NSArray*)media withPrimary:(BBMedia*)primaryMedia forSize:(CGSize)size displayingThumbs:(BOOL)displayThumbs ;
 
 +(MGLine *)createSubHeadingWithTitle:(NSString*)title forSize:(CGSize)size;
+
++(PhotoBox*)createCategoryImageBoxForCategory:(NSString*)category withSize:(CGSize)size;
 
 +(MGTableBoxStyled *)createSubObservation:(BBObservation*)observation forSize:(CGSize)size;
 

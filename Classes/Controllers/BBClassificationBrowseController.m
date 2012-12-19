@@ -98,6 +98,8 @@
 -(void)getRanks {
     [BBLog Log:@"BBClassificationBrowseController.getNextRank"];
     
+    [SVProgressHUD setStatus:@"Loading Species"];
+    
     NSString *query;
     
     if(currentIdentification.currentClassification) {
@@ -108,9 +110,7 @@
     }
     
     NSString *sightingUrl = [NSString stringWithFormat:@"%@/species?%@&%@", [BBConstants RootUriString], query, @"X-Requested-With=XMLHttpRequest"];
-    
     RKObjectManager *manager = [RKObjectManager sharedManager];
-    
     [manager loadObjectsAtResourcePath:sightingUrl delegate:self];
 }
 
@@ -176,6 +176,8 @@
     [BBLog Log:@"BBClassificationBrowseController.objectLoader:didFailWithError"];
     
     [BBLog Log:error.description];
+    
+    [SVProgressHUD showErrorWithStatus:error.description];
 }
 
 
@@ -188,6 +190,8 @@
     if([object isKindOfClass:[BBClassificationPaginator class]]) {
         [view displayRanks:((BBClassificationPaginator*)object).ranks];
     }
+    
+    [SVProgressHUD dismiss];
 }
 
 

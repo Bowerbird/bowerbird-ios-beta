@@ -11,6 +11,7 @@
 #import "BBRankDelegateProtocol.h"
 #import "BBRankSearcher.h"
 #import "BBModels.h"
+#import "SVProgressHUD.h"
 
 @interface BBClassificationSearchController : BBControllerBase<
      RKObjectLoaderDelegate

@@ -71,6 +71,8 @@
     // browse all projects
     // log out/profile/settings
     
+    MGLine *bottomRowPadder = [MGLine lineWithSize:CGSizeMake(280, 5)];
+    
     MGTableBox *userMenu = [MGTableBox boxWithSize:CGSizeMake(300, 0)];
     userMenu.margin = UIEdgeInsetsZero;
     userMenu.padding = UIEdgeInsetsZero;
@@ -80,6 +82,8 @@
     UIImageView *bowerbirdImage = [[UIImageView alloc]initWithFrame:CGRectMake(10, 0, 288,54)];
     bowerbirdImage.image =[UIImage imageNamed:@"logo-negative.png"];
     MGLine *bowerbirdLogo = [MGLine lineWithSize:CGSizeMake(300,60)];
+    bowerbirdLogo.underlineType = MGUnderlineNone;
+    
     
     bowerbirdLogo.margin = UIEdgeInsetsMake(5, 5, 5, 5);
     bowerbirdLogo.margin = UIEdgeInsetsZero;
@@ -87,44 +91,60 @@
     [bowerbirdLogo.middleItems addObject:bowerbirdImage];
     [userMenu.topLines addObject:bowerbirdLogo];
     
-    // add the user's home and favourites in a table
-    MGTableBoxStyled *userTable = [MGTableBoxStyled boxWithSize:CGSizeMake(300.0, 0)];
+    
+    // USER PLACES TABLE
+    MGTableBox *userTableWrapper = [MGTableBox box];
+    /*
     MGLine *userTableHeader = [MGLine lineWithLeft:@"My Places" right:nil size:CGSizeMake(280,40)];
     userTableHeader.font = HEADER_FONT;
     userTableHeader.padding = UIEdgeInsetsMake(10, 10, 10, 10);
-    [userTable.topLines addObject:userTableHeader];
-    
+    userTableHeader.underlineType = MGUnderlineNone;
+    [userTableWrapper.topLines addObject:userTableHeader];
+    */
+    MGTableBoxStyled *userTable = [MGTableBoxStyled boxWithSize:CGSizeMake(300.0, 0)];
+    [userTableWrapper.middleLines addObject:userTable];
     PhotoBox *userHomeImage = [PhotoBox mediaFor:@"/img/home.png" size:IPHONE_AVATAR_SIZE];
-    userHomeImage.margin = UIEdgeInsetsZero;
-    MGLine *userHomeDescription = [MGLine lineWithLeft:userHomeImage right:arrow size:CGSizeMake(280, 40)];
-    [userHomeDescription.middleItems addObject:@"Take Me Home"];
+    userHomeImage.margin = UIEdgeInsetsMake(5, 5, 5, 5);
+    MGLine *userHomeDescriptionLabel = [MGLine lineWithLeft:@"Home" right:arrow size:CGSizeMake(220, 40)];
+    userHomeDescriptionLabel.font = HEADER_FONT;
+    userHomeDescriptionLabel.underlineType = MGUnderlineNone;
+    MGLine *userHomeDescription = [MGLine lineWithLeft:userHomeImage right:userHomeDescriptionLabel size:CGSizeMake(280, 50)];
+    userHomeDescription.underlineType = MGUnderlineNone;
     userHomeDescription.onTap = ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:@"loadUserStream" object:nil];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"menuTappedClose" object:nil];
     };
     [userTable.middleLines addObject:userHomeDescription];
-    
     PhotoBox *userFavoritesImage = [PhotoBox mediaFor:@"/img/favourites.png" size:IPHONE_AVATAR_SIZE];
-    userFavoritesImage.margin = UIEdgeInsetsZero;
-    MGLine *userFavoritesDescription = [MGLine lineWithLeft:userFavoritesImage right:arrow size:CGSizeMake(280, 40)];
-    [userFavoritesDescription.middleItems addObject:@"My Favourites"];
+    userFavoritesImage.margin = UIEdgeInsetsMake(5, 5, 5, 5);
+    MGLine *userFavoritesDescriptionLabel = [MGLine lineWithLeft:@"Favorites" right:arrow size:CGSizeMake(220, 40)];
+    userFavoritesDescriptionLabel.font = HEADER_FONT;
+    userFavoritesDescriptionLabel.underlineType = MGUnderlineNone;
+    MGLine *userFavoritesDescription = [MGLine lineWithLeft:userFavoritesImage right:userFavoritesDescriptionLabel size:CGSizeMake(280, 50)];
+    userFavoritesDescription.underlineType = MGUnderlineNone;
     [userTable.middleLines addObject:userFavoritesDescription];
+    [userTable.bottomLines addObject:bottomRowPadder];
     
+    // PROJECT TABLE
+    MGTableBox *projectTableWrapper = [MGTableBox box];
+    MGLine *projectTableHeader = [MGLine lineWithLeft:@"Projects" right:nil size:CGSizeMake(280,40)];
+    //projectTableHeader.font = HEADER_FONT;
+    projectTableHeader.padding = UIEdgeInsetsMake(10, 10, 0, 10);
+    projectTableHeader.underlineType = MGUnderlineNone;
+    [projectTableWrapper.topLines addObject:projectTableHeader];
     MGTableBoxStyled *projectTable = [MGTableBoxStyled boxWithSize:CGSizeMake(300.0, 0)];
-    MGLine *projectTableHeader = [MGLine lineWithLeft:@"My Projects" right:nil size:CGSizeMake(280,40)];
-    projectTableHeader.font = HEADER_FONT;
-    projectTableHeader.padding = UIEdgeInsetsMake(10, 10, 10, 10);
-    [projectTable.topLines addObject:projectTableHeader];
-    
+    [projectTableWrapper.middleLines addObject:projectTable];
     NSArray* projectsForUser = appData.authenticatedUser.projects;
     for(BBProject* project in projectsForUser)
     {
         BBImage* projectImage = [self getImageWithDimension:@"Square50" fromArrayOf:project.avatar.imageMedia];
         PhotoBox *projectAvatar = [PhotoBox mediaFor:projectImage.uri size:IPHONE_AVATAR_SIZE];
-        projectAvatar.margin = UIEdgeInsetsZero;
-        
-        MGLine *projectDescription = [MGLine lineWithLeft:projectAvatar right:arrow size:CGSizeMake(280, 40)];
-        [projectDescription.middleItems addObject:project.name];
+        projectAvatar.margin = UIEdgeInsetsMake(5, 5, 5, 5);
+        MGLine *projectDescriptionLabel = [MGLine lineWithLeft:project.name right:arrow size:CGSizeMake(220, 40)];
+        projectDescriptionLabel.font = HEADER_FONT;
+        projectDescriptionLabel.underlineType = MGUnderlineNone;
+        MGLine *projectDescription = [MGLine lineWithLeft:projectAvatar right:projectDescriptionLabel size:CGSizeMake(280, 50)];
+        projectDescription.underlineType = MGUnderlineNone;
         projectDescription.margin = UIEdgeInsetsZero;
         projectDescription.onTap = ^{
             // TODO: add a delegate to ContainerController whose protocol can empty stream controller views...
@@ -136,41 +156,62 @@
         
         [projectTable.middleLines addObject:projectDescription];
     }
+    [projectTable.bottomLines addObject:bottomRowPadder];
 
+    // EXPLORE TABLE
+    MGTableBox *exploreTableWrapper = [MGTableBox box];
+    MGLine *exploreTableHeader = [MGLine lineWithLeft:@"Explore, Join and Leave Projects" right:nil size:CGSizeMake(280,40)];
+    //exploreTableHeader.font = HEADER_FONT;
+    exploreTableHeader.padding = UIEdgeInsetsMake(10, 10, 0, 10);
+    exploreTableHeader.underlineType = MGUnderlineNone;
+    [exploreTableWrapper.topLines addObject:exploreTableHeader];
     MGTableBoxStyled *exploreTable = [MGTableBoxStyled boxWithSize:CGSizeMake(300.0, 0)];
-    MGLine *exploreTableHeader = [MGLine lineWithLeft:@"Browse All Projects" right:nil size:CGSizeMake(280,40)];
-    exploreTableHeader.font = HEADER_FONT;
-    exploreTableHeader.padding = UIEdgeInsetsMake(10, 10, 10, 10);
-    [exploreTable.topLines addObject:exploreTableHeader];
-    
-    UIImageView *projectBrowser = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, IPHONE_AVATAR_SIZE.width, IPHONE_AVATAR_SIZE.height)];
-    projectBrowser.image =[UIImage imageNamed:@"projects.png"];
-    MGLine *exploreProjects = [MGLine lineWithLeft:projectBrowser right:@"Project Browser" size:CGSizeMake(280,40)];
+    [exploreTableWrapper.middleLines addObject:exploreTable];
+    PhotoBox *projectBrowser = [PhotoBox mediaForImage:[UIImage imageNamed:@"projects.png"] size:IPHONE_AVATAR_SIZE];
+    projectBrowser.margin = UIEdgeInsetsMake(5, 5, 5, 5);
+    MGLine *exploreProjectsLabel = [MGLine lineWithLeft:@"Project Browser" right:arrow size:CGSizeMake(220, 40)];
+    exploreProjectsLabel.font = HEADER_FONT;
+    exploreProjectsLabel.underlineType = MGUnderlineNone;
+    MGLine *exploreProjects = [MGLine lineWithLeft:projectBrowser right:exploreProjectsLabel size:CGSizeMake(280,50)];
+    exploreProjects.bottomPadding = 5;
+    exploreProjects.underlineType = MGUnderlineNone;
     exploreProjects.onTap = ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:@"exploreProjectsTapped" object:nil];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"menuTappedClose" object:nil];
     };
     [exploreTable.middleLines addObject:exploreProjects];
+    [exploreTable.bottomLines addObject:bottomRowPadder];
     
+    // PROFILE TABLE
+    MGTableBox *profileTableWrapper = [MGTableBox box];
+    MGLine *profileTableHeader = [MGLine lineWithLeft:appData.authenticatedUser.user.name right:nil size:CGSizeMake(280,40)];
+    //profileTableHeader.font = HEADER_FONT;
+    profileTableHeader.padding = UIEdgeInsetsMake(10, 10, 0, 10);
+    profileTableHeader.underlineType = MGUnderlineNone;
+    [profileTableWrapper.topLines addObject:profileTableHeader];
     MGTableBoxStyled *profileTable = [MGTableBoxStyled boxWithSize:CGSizeMake(300.0, 0)];
-    MGLine *profileTableHeader = [MGLine lineWithLeft:@"My Profile" right:nil size:CGSizeMake(280,30)];
-    profileTableHeader.font = HEADER_FONT;
-    profileTableHeader.padding = UIEdgeInsetsMake(10, 10, 10, 10);
-    [profileTable.topLines addObject:profileTableHeader];
-    MGLine *signOut = [MGLine lineWithLeft:nil right:@"Sign Me Out" size:CGSizeMake(280,40)];
+    [profileTableWrapper.middleLines addObject:profileTable];
+    PhotoBox *accountBrowser = [PhotoBox mediaForImage:[UIImage imageNamed:@"user-icon.png"] size:IPHONE_AVATAR_SIZE];
+    accountBrowser.margin = UIEdgeInsetsMake(5, 5, 5, 5);
+    MGLine *signOutLabel = [MGLine lineWithLeft:@"Logout" right:arrow size:CGSizeMake(220,40)];
+    signOutLabel.font = HEADER_FONT;
+    signOutLabel.underlineType = MGUnderlineNone;
+    MGLine *signOut = [MGLine lineWithLeft:accountBrowser right:signOutLabel size:CGSizeMake(280, 50)];
+    signOut.underlineType = MGUnderlineNone;
     signOut.onTap = ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:@"userHasSignedOut" object:nil];
     };
     [profileTable.middleLines addObject:signOut];
+    [profileTable.bottomLines addObject:bottomRowPadder];
     
     [menuView.boxes addObject:userMenu];
-    [menuView.boxes addObject:userTable];
+    [menuView.boxes addObject:userTableWrapper];
     if(projectsForUser.count > 0)
     {
-        [menuView.boxes addObject:projectTable];
+        [menuView.boxes addObject:projectTableWrapper];
     }
-    [menuView.boxes addObject:exploreTable];
-    [menuView.boxes addObject:profileTable];
+    [menuView.boxes addObject:exploreTableWrapper];
+    [menuView.boxes addObject:profileTableWrapper];
     
     [(MGScrollView*)self.view layoutWithSpeed:0.3 completion:nil];
     self.view.x = self.view.width * -1;

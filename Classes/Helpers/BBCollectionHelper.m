@@ -87,7 +87,18 @@
     return proj;
 }
 
-
++(NSArray*)getObjectsFromCollection:(NSArray*)array withKeyName:(NSString*)key equalToValue:(NSString*)val {
+    
+    __block NSMutableArray *values = [[NSMutableArray alloc]init];
+    
+    [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if([[obj valueForKey:key] isEqualToString:val]) {
+            [values addObject:obj];
+        }
+    }];
+    
+    return [[NSArray alloc]initWithArray:values];
+}
 
 
 @end

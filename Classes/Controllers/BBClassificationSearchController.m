@@ -52,6 +52,7 @@
                                   action:@selector(cancelClicked)];
     
     self.navigationItem.rightBarButtonItem = btnCancel;
+    self.title = @"Identification";
 }
 
 
@@ -85,9 +86,11 @@
     
     [[RKRequestQueue sharedQueue] cancelRequestsWithDelegate:self];
     
-    NSString *query = [NSString stringWithFormat:@"query=%@", text];
+    NSString *query = [NSString stringWithFormat:@"query=%@&pagesize=50", text];
     
     queryText = text;
+    
+    [SVProgressHUD setStatus:@"Querying Species"];
     
     NSString *sightingUrl = [NSString stringWithFormat:@"%@/species?%@&%@", [BBConstants RootUriString], query, @"X-Requested-With=XMLHttpRequest"];
     
@@ -104,6 +107,8 @@
     [BBLog Log:@"BBClassificationSearchController.objectLoader:didFailWithError"];
     
     [BBLog Log:error.description];
+    
+    [SVProgressHUD showErrorWithStatus:error.description];
 }
 
 
@@ -122,6 +127,8 @@
     if([object isKindOfClass:[BBClassificationPaginator class]]) {
         [view displayRanks:((BBClassificationPaginator*)object).ranks forQuery:queryText];
     }
+    
+    [SVProgressHUD dismiss];
 }
 
 @end

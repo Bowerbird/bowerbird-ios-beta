@@ -19,4 +19,9 @@
     _identifier = identifier;
 }
 
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key
+{
+    if([key isEqualToString:@"Id"]) self.identifier = value;
+}
+
 @end

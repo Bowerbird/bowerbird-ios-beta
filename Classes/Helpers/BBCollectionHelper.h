@@ -10,6 +10,7 @@
 #import "BBImage.h"
 #import "BBApplication.h"
 #import "BBProject.h"
+#import "BBSightingNoteDescription.h"
 
 @class BBProject;
 
@@ -22,5 +23,7 @@
 +(NSArray*)getUserProjects:(NSArray*)withIdentifiers inYesNotInNo:(BOOL)yesOrNo;
 
 +(BBProject*)getUserProjectById:(NSString*)identifier;
+
++(NSArray*)getObjectsFromCollection:(NSArray*)array withKeyName:(NSString*)key equalToValue:(NSString*)val;
 
 @end

@@ -19,8 +19,6 @@
     [BBLog Log:@"BBStreamController.loadView"];
     
     self.view = [MGScrollView scrollerWithSize:[self screenSize]];
-    
-    ((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController.navigationBarHidden = YES;
 }
 
 - (void)viewDidLoad {
@@ -34,8 +32,6 @@
     rightRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeRight:)];
     [rightRecognizer setDirection: UISwipeGestureRecognizerDirectionRight];
     [[self view] addGestureRecognizer:rightRecognizer];
-    
-    ((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController.navigationBarHidden = YES;
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -64,6 +60,8 @@
     if(pagedActivities.activities.count == 0)
     {
         MGLine *description = [MGLine multilineWithText:@"No Activity yet!" font:HEADER_FONT width:300 padding:UIEdgeInsetsMake(150, 50, 0, 0)];
+        description.underlineType = MGUnderlineNone;
+        description.textColor = [UIColor whiteColor];
         
         [((MGScrollView*)self.view).boxes addObject:description];
     }
@@ -139,22 +137,46 @@
     }
     // show descriptions
     if(observationNote.descriptionCount > 0) {
-        for (BBSightingNoteDescription *description in observationNote.descriptions) {
-            [info.middleLines addObject:[BBUIControlHelper createSubHeadingWithTitle:description.label forSize:CGSizeMake(IPHONE_STREAM_WIDTH, 20)]];
-            MGLine *descriptionLine = [MGLine multilineWithText:description.text font:DESCRIPTOR_FONT width:IPHONE_STREAM_WIDTH padding:UIEdgeInsetsMake(5, 10, 5, 10)];
+        
+        for (BBSightingNoteDescription* description in observationNote.descriptions) {
+            
+            [info.middleLines addObject:[BBUIControlHelper createSubHeadingWithTitle:description.label
+                                                                             forSize:CGSizeMake(IPHONE_STREAM_WIDTH, 20)]];
+            
+            MGLine *descriptionLine = [MGLine multilineWithText:description.text
+                                                           font:DESCRIPTOR_FONT
+                                                          width:IPHONE_STREAM_WIDTH
+                                                        padding:UIEdgeInsetsMake(5, 10, 5, 10)];
+            descriptionLine.underlineType = MGUnderlineNone;
+            
             [info.middleLines addObject:descriptionLine];
         }
     }
     // show tags
     if(observationNote.tagCount > 0) {
-        [info.middleLines addObject:[BBUIControlHelper createSubHeadingWithTitle:@"Tags" forSize:CGSizeMake(IPHONE_STREAM_WIDTH, 20)]];
-        MGLine *tagLine = [MGLine multilineWithText:observationNote.allTags font:DESCRIPTOR_FONT width:IPHONE_STREAM_WIDTH padding:UIEdgeInsetsMake(5, 10, 5, 10)];
-        tagLine.font = DESCRIPTOR_FONT;
-        [info.middleLines addObject:tagLine];
+    
+        [info.middleLines addObject:[BBUIControlHelper createSubHeadingWithTitle:@"Tags"
+                                                                         forSize:CGSizeMake(IPHONE_STREAM_WIDTH, 20)]];
+        
+        // grab tags from controller
+        NSArray *tags = [observationNote.allTags componentsSeparatedByString:@","];
+        MGBox *tagBox;
+        
+        DWTagList *tagList = [[DWTagList alloc]initWithFrame:CGRectMake(0, 0, 280, 40)];
+        [tagList setTags:tags];
+        
+        double minHeight = tagList.fittedSize.height;
+        
+        tagBox = [MGBox boxWithSize:CGSizeMake(280, minHeight)];
+        tagBox.margin = UIEdgeInsetsMake(10, 10, 10, 10);
+        [tagBox addSubview:tagList];
+        
+        [info.middleLines addObject:tagBox];
     }
     
     // show the observation the note belongs to in summary form:
-    MGTableBoxStyled *subObservation = [BBUIControlHelper createSubObservation:activity.observationNoteObservation forSize:CGSizeMake(290, 200)];
+    MGTableBoxStyled *subObservation = [BBUIControlHelper createSubObservation:activity.observationNoteObservation
+                                                                       forSize:CGSizeMake(290, 200)];
     [info.bottomLines addObject:subObservation];
     
     [streamView.boxes addObject:info];

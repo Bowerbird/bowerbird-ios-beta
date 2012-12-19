@@ -135,12 +135,16 @@
     [this.actionTable.middleLines removeAllObjects];
     
     if(_observation.category == nil || [_observation.category isEqualToString:@""]) {
-        [this.actionTable.middleLines addObject:[MGLine lineWithLeft:@"Choose a Category" right:nil size:CGSizeMake(280, 30)]];
+        MGLine *categoryLine = [MGLine lineWithLeft:@"Choose a Category" right:nil size:CGSizeMake(280, 30)];
+        categoryLine.underlineType = MGUnderlineNone;
+        [this.actionTable.middleLines addObject:categoryLine];
         isValid = NO;
     }
     
     if(_observation.title == nil || [_observation.title isEqualToString:@""]){
-        [this.actionTable.middleLines addObject:[MGLine lineWithLeft:@"Add a Title" right:nil size:CGSizeMake(280, 30)]];
+        MGLine *titleLine = [MGLine lineWithLeft:@"Add a Title" right:nil size:CGSizeMake(280, 30)];
+        titleLine.underlineType = MGUnderlineNone;
+        [this.actionTable.middleLines addObject:titleLine];
         isValid = NO;
     }
     
@@ -186,8 +190,9 @@
     ((BBSightingEditView*)self.view).observedOnTable.onTap=^{};
     
     BBDateSelectController *dateSelector = [[BBDateSelectController alloc]initWithDelegate:self];
-    MGLine *datePickerLine = [MGLine lineWithSize:CGSizeMake(280, 256)];
+    MGLine *datePickerLine = [MGLine lineWithSize:CGSizeMake(300, 256)];
     datePickerLine.middleItems = (id)dateSelector.view;
+    datePickerLine.padding = UIEdgeInsetsMake(0, 5, 5, 0);
     [((BBSightingEditView*)self.view).observedOnTable.bottomLines addObject:datePickerLine];
     [((BBSightingEditView*)self.view) layoutWithSpeed:0.3 completion:nil];
     [((BBSightingEditView*)self.view) scrollToView:datePickerLine withMargin:8];
@@ -377,9 +382,13 @@
     NSString *iconPath = [NSString stringWithFormat:@"%@.png", [category.name lowercaseString]];
     
     PhotoBox *photo = [PhotoBox mediaForImage:[UIImage imageNamed:iconPath] size:CGSizeMake(40,40)];
-    MGLine *categoryLine = [MGLine lineWithLeft:photo right:category.name size:CGSizeMake(200, 50)];
-    
+    MGLine *categoryNameLine = [MGLine lineWithLeft:category.name right:nil size:CGSizeMake(210, 40)];
+    categoryNameLine.underlineType = MGUnderlineNone;
+    MGLine *categoryLine = [MGLine lineWithLeft:photo right:categoryNameLine size:CGSizeMake(280, 60)];
+    categoryLine.margin = UIEdgeInsetsMake(10, 10, 10, 10);
+    categoryLine.underlineType = MGUnderlineNone;
     [this.categoryTable.middleLines addObject:categoryLine];
+    
     [this layoutWithSpeed:0.3 completion:nil];
 }
 
@@ -391,6 +400,12 @@
     
     [((BBSightingEditView*)self.view).categoryTable.bottomLines removeAllObjects];
     [((BBSightingEditView*)self.view) layoutWithSpeed:0.3 completion:nil];
+}
+
+-(NSString*)getCategory {
+    [BBLog Log:@"BBSightingEditController.getCategory"];
+    
+    return _observation.category;
 }
 
 -(NSArray*)getCategories {
@@ -409,6 +424,7 @@
     BBCategoryPickerController *categoryPicker = [[BBCategoryPickerController alloc]initWithDelegate:self];
     MGLine *categoryPickerLine = [MGLine lineWithSize:CGSizeMake(280, 256)];
     categoryPickerLine.middleItems = (id)categoryPicker.view;
+    categoryPickerLine.padding = UIEdgeInsetsMake(0, 0, 10, 0);
     
     [((BBSightingEditView*)self.view).categoryTable.bottomLines addObject:categoryPickerLine];
     [((BBSightingEditView*)self.view) layoutWithSpeed:0.3 completion:nil];
@@ -599,6 +615,22 @@
 -(void)save {
     [BBLog Log:@"BBSightingEditController.save"];
     
+    if([self validateForm]) {
+        [self saveIsValid];
+    }
+    else {
+        if(_observation.category == nil || [_observation.category isEqualToString:@""]) {
+            [SVProgressHUD showErrorWithStatus:@"Choose a Category"];
+        }
+        
+        if(_observation.title == nil || [_observation.title isEqualToString:@""]){
+            [SVProgressHUD showErrorWithStatus:@"Add a Title"];
+        }
+    }
+}
+
+-(void)saveIsValid{
+
     BBObservationCreate *observation = [[BBObservationCreate alloc]init];
     observation.title = _observation.title;
     observation.observedOn = _observation.createdOn;
@@ -638,7 +670,7 @@
     //[manager.mappingProvider setSerializationMapping:map forClass:[BBObservationCreate class]];
     
     // display HUD..
-    //[SVProgressHUD showWithStatus:[NSString stringWithFormat:@"Saving Observation"]];
+    [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"Saving Observation"]];
     
     //NSString *observationCreateUrl = [NSString stringWithFormat:@"%@/%@", [BBConstants RootUriString], @"observations/create"];
     //[manager sendObject:observation toResourcePath:observationCreateUrl usingBlock:^(RKObjectLoader *loader) {
@@ -677,7 +709,7 @@
     
     [BBLog Log:[NSString stringWithFormat:@"%@%@", @"ERROR:", error.localizedDescription]];
     
-    [SVProgressHUD dismiss];
+    [SVProgressHUD showErrorWithStatus:error.localizedDescription];
 }
 
 -(void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
@@ -734,12 +766,23 @@
 -(void)objectLoaderDidFinishLoading:(RKObjectLoader *)objectLoader {
     [BBLog Log:@"BBSightingEditController.objectLoaderDidFinishLoading:"];
     
-    [SVProgressHUD dismiss];
+    [SVProgressHUD showSuccessWithStatus:@"Media Uploaded"];
     //[HUD show:NO];
     
     BBMediaEdit *media = [_observation.media lastObject];
     [_observationEditView addMediaItem:media];
 }
+
+
+-(void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
+    // is it a JsonResponse?
+}
+
+-(void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjectDictionary:(NSDictionary *)dictionary {
+    
+    
+}
+
 
 -(void)processMappingResult:(RKObjectMappingResult *)result {
     [BBLog Log:@"BBSightingEditController.processMappingResult:"];
@@ -763,6 +806,10 @@
     [formatter setMaximumFractionDigits:1];
     
     [SVProgressHUD setStatus:[NSString stringWithFormat:@"%@%@%@Mb", [formatter stringFromNumber:[NSNumber numberWithDouble:progress]], @"% of ", [formatter stringFromNumber:[NSNumber numberWithDouble:fileSize]]]];
+    
+    if(progress == fileSize) {
+        [SVProgressHUD setStatus:@"File Uploaded. \nWaiting for save confirmation"];
+    }
 }
 
 -(void)cancel {

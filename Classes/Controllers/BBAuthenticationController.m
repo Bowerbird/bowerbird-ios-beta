@@ -71,59 +71,31 @@
     [userMenu.topLines addObject:bowerbirdLogo];
     
     // What is bowerbird
-    MGTableBoxStyled *welcomeTable = [MGTableBoxStyled boxWithSize:CGSizeMake(300, 100)];
-    welcomeTable.padding = UIEdgeInsetsMake(10, 10, 10, 10);
-    MGLine *welcomeTableHeading = [MGLine lineWithLeft:@"What is BowerBird?" right:nil size:CGSizeMake(280, 40)];
-    welcomeTableHeading.font = HEADER_FONT;
-    welcomeTableHeading.padding = UIEdgeInsetsMake(10, 10, 10, 10);
-    [welcomeTable.topLines addObject:welcomeTableHeading];
+    id welcomeHeading = @"What is BowerBird?";
+    id welcomeSpiel = @"BowerBird is a place to share and discuss Australia's biodiversity. The BowerBird App is designed to allow BowerBird members to contribute in the field. For extended functionality, visit bowerbird.org.au.";
+    MGTableBoxStyled *welcomeTable = [self createTableWithHeading:welcomeHeading
+                                                         andSpiel:welcomeSpiel];
     
-    id welcomeSpiel = @"BowerBird is a place to share and discuss Australia's biodiversity. To find out more, visit bowerbird.org.au.";
-    MGLine *welcomeTableBlurb =[MGLine lineWithMultilineLeft:welcomeSpiel right:nil width:280 minHeight:40];
-    welcomeTableBlurb.padding = UIEdgeInsetsMake(10, 10, 10, 10);
-    [welcomeTable.middleLines addObject:welcomeTableBlurb];
-    
-    // A Login Table
-    MGTableBoxStyled *loginTable = [MGTableBoxStyled boxWithSize:CGSizeMake(300,100)];
-    loginTable.padding = UIEdgeInsetsMake(10, 10, 10, 10);
-    MGLine *loginTableHeading = [MGLine lineWithLeft:@"I'm already a Member!" right:nil size:CGSizeMake(280, 40)];
-    loginTableHeading.font = HEADER_FONT;
-    loginTableHeading.padding = UIEdgeInsetsMake(10, 10, 10, 10);
-    [loginTable.topLines addObject:loginTableHeading];
-    
+    // Login Table
+    id loginHeading = @"I'm already a Member!";
     id loginSpiel = @"If you are already a member of BowerBird, you can log in by entering your email address and your password. Simply tap this box.";
-    MGLine *loginTableBlurb =[MGLine lineWithMultilineLeft:loginSpiel right:nil width:280 minHeight:40];
-    loginTableBlurb.padding = UIEdgeInsetsMake(10, 10, 10, 10);
-    [loginTable.middleLines addObject:loginTableBlurb];
+    MGTableBoxStyled *loginTable = [self createTableWithHeading:loginHeading
+                                                         andSpiel:loginSpiel];
     loginTable.onTap = ^{[self loginAuthenticationScreen];};
    
     // A Register Table
-    MGTableBoxStyled *registerTable = [MGTableBoxStyled boxWithSize:CGSizeMake(300,100)];
-    registerTable.padding = UIEdgeInsetsMake(10, 10, 10, 10);
-    MGLine *registerTableHeading = [MGLine lineWithLeft:@"I'm new to BowerBird!" right:nil size:CGSizeMake(280, 40)];
-    registerTableHeading.font = HEADER_FONT;
-    registerTableHeading.padding = UIEdgeInsetsMake(10, 10, 10, 10);
-    [registerTable.topLines addObject:registerTableHeading];
-    
+    id registerHeading = @"I'm new to BowerBird!";
     id registerSpiel = @"If you are not yet a BowerBird member, you will need to register before accessing all the fantastic features. Simply tap this box to get started.";
-    MGLine *registerTableBlurb = [MGLine lineWithMultilineLeft:registerSpiel right:nil width:280 minHeight:40];
-    registerTableBlurb.padding = UIEdgeInsetsMake(10, 10, 10, 10);
-    [registerTable.middleLines addObject:registerTableBlurb];
+    MGTableBoxStyled *registerTable = [self createTableWithHeading:registerHeading
+                                                          andSpiel:registerSpiel];
     registerTable.onTap = ^{[self registerAuthenticationScreen];};
     
     // A Browse Table
-    MGTableBoxStyled *browseTable = [MGTableBoxStyled boxWithSize:CGSizeMake(300,100)];
-    browseTable.padding = UIEdgeInsetsMake(10, 10, 10, 10);
-    MGLine *browseTableHeading = [MGLine lineWithLeft:@"Take a Peek first.." right:nil size:CGSizeMake(280, 40)];
-    browseTableHeading.font = HEADER_FONT;
-    browseTableHeading.padding = UIEdgeInsetsMake(10, 10, 10, 10);
-    [browseTable.topLines addObject:browseTableHeading];
-    
+    id browseHeading = @"Take a Peek first..";
     id browseSpiel = @"If you would like to take a look at the contributions in BowerBird before you decide to join, tap to take a peek.";
-    MGLine *browseTableBlurb = [MGLine lineWithMultilineLeft:browseSpiel right:nil width:280 minHeight:40];
-    browseTableBlurb.padding = UIEdgeInsetsMake(10, 10, 10, 10);
-    [browseTable.middleLines addObject:registerTableBlurb];
-    browseTableBlurb.onTap = ^{};
+    MGTableBoxStyled *browseTable = [self createTableWithHeading:browseHeading
+                                                        andSpiel:browseSpiel];
+    browseTable.onTap = ^{};
     
     [authenticationView.boxes addObject:userMenu];
     [authenticationView.boxes addObject:welcomeTable];
@@ -134,6 +106,27 @@
     [(MGScrollView*)self.view layoutWithSpeed:0.3 completion:nil];
 }
 
+-(MGTableBoxStyled*)createTableWithHeading:(id)headingText
+                                  andSpiel:(id)spielText {
+    
+    MGTableBoxStyled *table = [MGTableBoxStyled boxWithSize:CGSizeMake(300,100)];
+    table.padding = UIEdgeInsetsMake(10, 10, 10, 10);
+    MGLine *tableHeading = [MGLine lineWithLeft:headingText
+                                          right:nil
+                                           size:CGSizeMake(280, 40)];
+    tableHeading.font = HEADER_FONT;
+    tableHeading.padding = UIEdgeInsetsMake(10, 10, 10, 10);
+    [table.topLines addObject:tableHeading];
+    MGLine *tableBlurb = [MGLine lineWithMultilineLeft:spielText
+                                                 right:nil
+                                                 width:280
+                                             minHeight:40];
+    tableBlurb.padding = UIEdgeInsetsMake(10, 10, 10, 10);
+    [table.middleLines addObject:tableBlurb];
+
+
+    return table;
+}
 
 -(void)loginAuthenticationScreen {
     [BBLog Log:@"Login pushed"];
@@ -157,14 +150,11 @@
     // throw a call to the controller to go to browser
 }
 
-
-
 -(void)authenticatedUserLoaded {
     [BBLog Log:@"BBAuthenticationController.authenticatedUserLoaded"];
     
     [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popToRootViewControllerAnimated:YES];
 }
-
 
 -(void)cancelUserRegistration {
     [BBLog Log:@"BBAuthenticationController.cancelUserRegistration"];
@@ -172,13 +162,11 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"displayAuthenticate" object:nil];
 }
 
-
 -(void)didReceiveMemoryWarning {
     [BBLog Log:@"MEMORY WARNING! - BBAuthenticationController"];
  
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 @end

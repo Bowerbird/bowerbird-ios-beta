@@ -21,7 +21,7 @@
     _controller = delegate;
     _categories = [_controller getCategories];
     
-    UIView *categoryPickerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 280, 200)];
+    UIView *categoryPickerView = [[UIView alloc]initWithFrame:CGRectMake(10, 0, 280, 200)];
     
     _categoryPicker = [[UIPickerView alloc]initWithFrame:CGRectZero];
     _categoryPicker.delegate = self;
@@ -57,7 +57,7 @@
     _categoryPicker.center = (CGPoint){roundf((frame.size.width+(left*2)) / 2), roundf(frame.size.height / 2)};
     
     [wrap addSubview:categoryPickerView];
-    CoolMGButton *doneButton = [BBUIControlHelper createButtonWithFrame:CGRectMake(0, wrap.size.height + 10, wrap.width, 40)
+    CoolMGButton *doneButton = [BBUIControlHelper createButtonWithFrame:CGRectMake(10, wrap.size.height + 10, wrap.width - 10, 40)
                                                                andTitle:@"Finished"
                                                               withBlock:^{[self doneClicked];}];
     [self addSubview:wrap];
@@ -95,10 +95,13 @@
     UIImage *photoImage = [UIImage imageNamed:iconPath];
     UIView *photoImageView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
     [photoImageView addSubview:[[UIImageView alloc]initWithImage:photoImage]];
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 150, 50)];
-    UIView *labelView = [[UIView alloc]initWithFrame:CGRectMake(60, 0, 150, 50)];
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 180, 50)];
+    label.font = HEADER_FONT;
+    UIView *labelView = [[UIView alloc]initWithFrame:CGRectMake(60, 0, 180, 50)];
     [labelView addSubview:label];
     label.text = selectedCategory.name;
+    label.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
+    labelView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
     
     UIView *pickerItem = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 280, 60)];
     [pickerItem addSubview:photoImageView];

@@ -35,6 +35,19 @@
     return textField;
 }
 
++(UITextView *)createTextViewWithFrame:(CGRect)frame andDelegate:(id)delegate {
+    //UITextField *textField = [[UITextField alloc]init];
+    UITextView *textView = [[UITextView alloc] initWithFrame:frame];
+    textView.font = [UIFont systemFontOfSize:15];
+
+    textView.autocorrectionType = UITextAutocorrectionTypeNo;
+    textView.keyboardType = UIKeyboardTypeDefault;
+    textView.returnKeyType = UIReturnKeyDone;
+    textView.delegate = delegate;
+    
+    return textView;
+}
+
 +(CoolMGButton *)createButtonWithFrame:(CGRect)frame andTitle:(NSString*)text withBlock:(ActionBlock)block {
     CoolMGButton *button = [[CoolMGButton alloc]initWithFrame:frame];
     button.frame = frame;
@@ -187,6 +200,26 @@
     return categoryLine;
 }
 
++(PhotoBox*)createCategoryImageBoxForCategory:(NSString*)category withSize:(CGSize)size {
+    
+    BBApplication *appData = [BBApplication sharedInstance];
+    NSArray* categories = appData.authenticatedUser.categories;
+    __block BBCategory* selectedCategory;
+    [categories enumerateObjectsUsingBlock:^(BBCategory* cat, NSUInteger idx, BOOL *stop) {
+        if([cat.name isEqualToString:category]){
+            selectedCategory = cat;
+            *stop = YES;
+        }
+    }];
+    
+    NSString *iconPath = [NSString stringWithFormat:@"%@.png", [selectedCategory.name lowercaseString]];
+    UIImage *photoImage = [UIImage imageNamed:iconPath];
+    PhotoBox *categoryIcon = [PhotoBox mediaForImage:photoImage size:size];
+    
+    return categoryIcon;
+}
+
+
 +(MGBox *)createSelectedClassification:(BBClassification*)classification forSize:(CGSize)size {
     
     MGBox *selectedClassificationBox = [MGBox boxWithSize:size];
@@ -217,7 +250,7 @@
         NSString *taxonomyName = classification.taxonomy != nil ? classification.taxonomy : @"Undetermined";
         
         NSString *identificationText = [NSString stringWithFormat:@"Category: %@\nName: %@", categoryName, classification.name];
-        NSString *taxonomyText = [NSString stringWithFormat:@"Taxonomy: %@", classification.taxonomy];
+        NSString *taxonomyText = [NSString stringWithFormat:@"Taxonomy: %@", taxonomyName];
         
         MGLine *identificationInfo = [MGLine multilineWithText:identificationText font:DESCRIPTOR_FONT width:240 padding:UIEdgeInsetsMake(0, 10, 0, 0)];
         identificationInfo.underlineType = MGUnderlineNone;

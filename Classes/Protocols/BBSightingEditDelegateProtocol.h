@@ -56,6 +56,7 @@
 // Called by clicking the Category table. Asks the controller to add
 // the BBCategoryPickerController's BBCategoryPickerView into the BBSightingEditView
 -(void)categoryStartEdit;
+-(NSString*)getCategory;
 
 // Usage:
 // Called by clicking on save or cancel in the BBSightingEditView. BBCategoryPickerController

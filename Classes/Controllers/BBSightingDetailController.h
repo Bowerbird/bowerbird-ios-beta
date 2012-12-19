@@ -14,7 +14,8 @@
 #import "PhotoBox.h"
 #import "BBUIControlHelper.h"
 #import "MBProgressHUD.h"
-#import "BBIdentificationController.h"
+#import "BBCreateSightingNoteController.h"
+#import "DWTagList.h"
 
 @interface BBSightingDetailController : BBControllerBase <
      UIGestureRecognizerDelegate
@@ -22,7 +23,7 @@
     ,RKObjectLoaderDelegate
 >
 
-@property (strong, nonatomic) MKMapView *mapView;
+@property (weak, nonatomic) MKMapView *mapView;
 
 -(BBSightingDetailController*)initWithSightingIdentifier:(NSString*)identifier;
 

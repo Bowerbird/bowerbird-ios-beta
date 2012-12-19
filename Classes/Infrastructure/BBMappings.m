@@ -126,6 +126,7 @@
     [sightingNoteDescriptionMapping mapKeyPath:@"Group" toAttribute:@"group"];
     [sightingNoteDescriptionMapping mapKeyPath:@"Label" toAttribute:@"label"];
     [sightingNoteDescriptionMapping mapKeyPath:@"Description" toAttribute:@"description"];
+    [sightingNoteDescriptionMapping mapKeyPath:@"Name" toAttribute:@"name"];
     [sightingNoteDescriptionMapping mapKeyPath:@"Text" toAttribute:@"text"];
     [manager.mappingProvider addObjectMapping:sightingNoteDescriptionMapping];
     
@@ -275,14 +276,39 @@
     [manager.mappingProvider setSerializationMapping:[observationCreateMapping inverseMapping] forClass:[BBObservationCreate class]];
     
     
+    RKObjectMapping *sightingNoteDescriptionCreateMapping = [RKObjectMapping mappingForClass:[BBSightingNoteDescriptionCreate class]];
+    [sightingNoteDescriptionCreateMapping mapKeyPath:@"Key" toAttribute:@"key"];
+    [sightingNoteDescriptionCreateMapping mapKeyPath:@"Value" toAttribute:@"value"];
+    [manager.mappingProvider addObjectMapping:sightingNoteDescriptionCreateMapping];
+    [manager.mappingProvider setSerializationMapping:[sightingNoteDescriptionCreateMapping inverseMapping] forClass:[BBSightingNoteDescriptionCreate class]];
+    
+    
+    RKObjectMapping *sightingNoteCreateMapping = [RKObjectMapping mappingForClass:[BBSightingNoteCreate class]];
+    // TODO: implement when ready... [sightingNoteCreateMapping mapKeyPath:@"IsCustomIdentification" toAttribute:@"isCustomIdentification"];
+    [sightingNoteCreateMapping mapKeyPath:@"SightingId" toAttribute:@"sightingId"];
+    [sightingNoteCreateMapping mapKeyPath:@"Descriptions" toRelationship:@"descriptions" withMapping:sightingNoteDescriptionCreateMapping];
+    [sightingNoteCreateMapping mapKeyPath:@"Tags" toAttribute:@"tags"];
+    [sightingNoteCreateMapping mapKeyPath:@"Taxonomy" toAttribute:@"taxonomy"];
+    [manager.mappingProvider addObjectMapping:sightingNoteCreateMapping];
+    [manager.mappingProvider setSerializationMapping:[sightingNoteCreateMapping inverseMapping] forClass:[BBSightingNoteCreate class]];
+        
+    
     RKObjectMapping *modelIdMapping = [RKObjectMapping mappingForClass:[BBModelId class]];
     [modelIdMapping mapKeyPath:@"Id" toAttribute:@"identifier"];
     [manager.mappingProvider addObjectMapping:modelIdMapping];
-    [manager.mappingProvider setSerializationMapping:modelIdMapping forClass:[BBModelId class]];
+    [manager.mappingProvider setSerializationMapping:[modelIdMapping inverseMapping] forClass:[BBModelId class]];
+    
+    
+    RKObjectMapping *jsonResponse = [RKObjectMapping mappingForClass:[BBJsonResponse class]];
+    jsonResponse.rootKeyPath = @"Model";
+    [jsonResponse mapKeyPath:@"Success" toAttribute:@"success"];
+    [manager.mappingProvider addObjectMapping:jsonResponse];
+    [manager.mappingProvider setMapping:jsonResponseMapping forKeyPath:@"Model.Success"];
     
     
     [manager.router routeClass:[BBMediaResourceCreate class] toResourcePath:@"/mediaresources/create" forMethod:RKRequestMethodPOST];
     [manager.router routeClass:[BBObservationCreate class] toResourcePath:@"/observations/create" forMethod:RKRequestMethodPOST];
+    [manager.router routeClass:[BBSightingNoteCreate class] toResourcePathPattern:@"/observations/:identifier/createnote" forMethod:RKRequestMethodPOST];
 }
 
 @end

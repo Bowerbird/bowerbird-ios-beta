@@ -235,7 +235,9 @@
     
     // NOTE: THis is a nil test because API is sending back null name in auth user
     if(app.authenticatedUser.user.name != nil){
-        [userInfo setObject:app.authenticatedUser.user.name forKey:@"name"];
+        //[userInfo setObject:app.authenticatedUser.user.name forKey:@"name"];
+        // renamed to "Home"
+        [userInfo setObject:@"Home" forKey:@"name"];
     }else{
         [userInfo setObject:@"My Home Stream" forKey:@"name"];
     }

@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C06F84D167178C40086B9E0 /* BBSightingNoteCreate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C06F84C167178C40086B9E0 /* BBSightingNoteCreate.m */; };
+		1C06F85016717D460086B9E0 /* BBSightingNoteDescriptionCreate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C06F84F16717D460086B9E0 /* BBSightingNoteDescriptionCreate.m */; };
+		1C06F853167188AF0086B9E0 /* BBCreateSightingNoteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C06F852167188AF0086B9E0 /* BBCreateSightingNoteView.m */; };
+		1C06F85716718A230086B9E0 /* BBSightingNoteEdit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C06F85616718A220086B9E0 /* BBSightingNoteEdit.m */; };
+		1C1ABC2F167EDE9600EEA5DF /* BBSightingNoteTagController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1ABC2E167EDE9600EEA5DF /* BBSightingNoteTagController.m */; };
 		1C2966901655532300B3CC16 /* BBJsonResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C29668F1655532300B3CC16 /* BBJsonResponse.m */; };
 		1C29669316555E7600B3CC16 /* BBObservationMediaCreate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C29669216555E7600B3CC16 /* BBObservationMediaCreate.m */; };
 		1C296699165A06B300B3CC16 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1C296696165A06B300B3CC16 /* SVProgressHUD.bundle */; };
@@ -72,6 +77,11 @@
 		1C9D7BB115E2A942002D9425 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C9D7BB015E2A942002D9425 /* ImageIO.framework */; };
 		1C9D7BB315E2A952002D9425 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C9D7BB215E2A952002D9425 /* CoreImage.framework */; };
 		1C9D7BB515E2A9B6002D9425 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C9D7BB415E2A9B6002D9425 /* MapKit.framework */; };
+		1CA67A701676B713003D5642 /* user-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CA67A6F1676B713003D5642 /* user-icon.png */; };
+		1CA67A721676B725003D5642 /* user-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CA67A711676B725003D5642 /* user-icon@2x.png */; };
+		1CA67A751676FC39003D5642 /* DWTagList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CA67A741676FC39003D5642 /* DWTagList.m */; };
+		1CA67A7C16781EA4003D5642 /* BBSightingNoteAddDescriptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CA67A7B16781EA4003D5642 /* BBSightingNoteAddDescriptionController.m */; };
+		1CA67A7F16781F1F003D5642 /* BBSightingNoteEditDescriptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CA67A7E16781F1F003D5642 /* BBSightingNoteEditDescriptionController.m */; };
 		1CAB62AC164C7FB50000D8C3 /* BBUITextField+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB61DE164C7FB50000D8C3 /* BBUITextField+Extend.m */; };
 		1CAB62AD164C7FB50000D8C3 /* UIView+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB61E0164C7FB50000D8C3 /* UIView+Categories.m */; };
 		1CAB62AE164C7FB50000D8C3 /* BBActionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB61E3164C7FB50000D8C3 /* BBActionController.m */; };
@@ -306,11 +316,10 @@
 		1CAB64A6165489CE0000D8C3 /* BBChatHubClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB64A1165489CE0000D8C3 /* BBChatHubClient.m */; };
 		1CAB64A7165489CE0000D8C3 /* BBGroupHubClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB64A3165489CE0000D8C3 /* BBGroupHubClient.m */; };
 		1CAB64A8165489CE0000D8C3 /* BBUserHubClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB64A5165489CE0000D8C3 /* BBUserHubClient.m */; };
-		1CADCE1C166C706900B95709 /* BBSightingNoteEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CADCE1B166C706900B95709 /* BBSightingNoteEditController.m */; };
 		1CADCE1F166C9B2400B95709 /* BBClassificationBrowseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CADCE1E166C9B2400B95709 /* BBClassificationBrowseController.m */; };
 		1CADCE22166CAA0C00B95709 /* BBClassification.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CADCE21166CAA0C00B95709 /* BBClassification.m */; };
 		1CADCE25166CB26A00B95709 /* BBClassificationPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CADCE24166CB26A00B95709 /* BBClassificationPaginator.m */; };
-		1CADCE28166DA9AB00B95709 /* BBIdentificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CADCE27166DA9AB00B95709 /* BBIdentificationController.m */; };
+		1CADCE28166DA9AB00B95709 /* BBCreateSightingNoteController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CADCE27166DA9AB00B95709 /* BBCreateSightingNoteController.m */; };
 		1CADCE2B166DACAF00B95709 /* BBClassificationSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CADCE2A166DACAE00B95709 /* BBClassificationSearchController.m */; };
 		1CF6D8DA16671B9C006E760C /* BBTaxonomicRanks.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF6D8D916671B9C006E760C /* BBTaxonomicRanks.m */; };
 		1CF6D8DD16672ABB006E760C /* NSString+helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF6D8DC16672ABB006E760C /* NSString+helpers.m */; };
@@ -364,6 +373,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1C06F84B167178C40086B9E0 /* BBSightingNoteCreate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSightingNoteCreate.h; sourceTree = "<group>"; };
+		1C06F84C167178C40086B9E0 /* BBSightingNoteCreate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSightingNoteCreate.m; sourceTree = "<group>"; };
+		1C06F84E16717D450086B9E0 /* BBSightingNoteDescriptionCreate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSightingNoteDescriptionCreate.h; sourceTree = "<group>"; };
+		1C06F84F16717D460086B9E0 /* BBSightingNoteDescriptionCreate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSightingNoteDescriptionCreate.m; sourceTree = "<group>"; };
+		1C06F851167188AF0086B9E0 /* BBCreateSightingNoteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBCreateSightingNoteView.h; sourceTree = "<group>"; };
+		1C06F852167188AF0086B9E0 /* BBCreateSightingNoteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBCreateSightingNoteView.m; sourceTree = "<group>"; };
+		1C06F854167188EE0086B9E0 /* BBSightingNoteEditDelegateProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BBSightingNoteEditDelegateProtocol.h; sourceTree = "<group>"; };
+		1C06F85516718A220086B9E0 /* BBSightingNoteEdit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSightingNoteEdit.h; sourceTree = "<group>"; };
+		1C06F85616718A220086B9E0 /* BBSightingNoteEdit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSightingNoteEdit.m; sourceTree = "<group>"; };
+		1C1ABC2D167EDE9600EEA5DF /* BBSightingNoteTagController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSightingNoteTagController.h; sourceTree = "<group>"; };
+		1C1ABC2E167EDE9600EEA5DF /* BBSightingNoteTagController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSightingNoteTagController.m; sourceTree = "<group>"; };
 		1C29668E1655532300B3CC16 /* BBJsonResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBJsonResponse.h; sourceTree = "<group>"; };
 		1C29668F1655532300B3CC16 /* BBJsonResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBJsonResponse.m; sourceTree = "<group>"; };
 		1C29669116555E7600B3CC16 /* BBObservationMediaCreate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBObservationMediaCreate.h; sourceTree = "<group>"; };
@@ -492,6 +512,14 @@
 		1C9D7BB015E2A942002D9425 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		1C9D7BB215E2A952002D9425 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		1C9D7BB415E2A9B6002D9425 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		1CA67A6F1676B713003D5642 /* user-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user-icon.png"; sourceTree = "<group>"; };
+		1CA67A711676B725003D5642 /* user-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user-icon@2x.png"; sourceTree = "<group>"; };
+		1CA67A731676FC39003D5642 /* DWTagList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWTagList.h; sourceTree = "<group>"; };
+		1CA67A741676FC39003D5642 /* DWTagList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWTagList.m; sourceTree = "<group>"; };
+		1CA67A7A16781EA4003D5642 /* BBSightingNoteAddDescriptionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSightingNoteAddDescriptionController.h; sourceTree = "<group>"; };
+		1CA67A7B16781EA4003D5642 /* BBSightingNoteAddDescriptionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSightingNoteAddDescriptionController.m; sourceTree = "<group>"; };
+		1CA67A7D16781F1F003D5642 /* BBSightingNoteEditDescriptionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSightingNoteEditDescriptionController.h; sourceTree = "<group>"; };
+		1CA67A7E16781F1F003D5642 /* BBSightingNoteEditDescriptionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSightingNoteEditDescriptionController.m; sourceTree = "<group>"; };
 		1CAB61DD164C7FB50000D8C3 /* BBUITextField+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BBUITextField+Extend.h"; sourceTree = "<group>"; };
 		1CAB61DE164C7FB50000D8C3 /* BBUITextField+Extend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BBUITextField+Extend.m"; sourceTree = "<group>"; };
 		1CAB61DF164C7FB50000D8C3 /* UIView+Categories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Categories.h"; sourceTree = "<group>"; };
@@ -848,16 +876,14 @@
 		1CAB64A3165489CE0000D8C3 /* BBGroupHubClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBGroupHubClient.m; sourceTree = "<group>"; };
 		1CAB64A4165489CE0000D8C3 /* BBUserHubClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBUserHubClient.h; sourceTree = "<group>"; };
 		1CAB64A5165489CE0000D8C3 /* BBUserHubClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBUserHubClient.m; sourceTree = "<group>"; };
-		1CADCE1A166C706900B95709 /* BBSightingNoteEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSightingNoteEditController.h; sourceTree = "<group>"; };
-		1CADCE1B166C706900B95709 /* BBSightingNoteEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSightingNoteEditController.m; sourceTree = "<group>"; };
 		1CADCE1D166C9B2400B95709 /* BBClassificationBrowseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBClassificationBrowseController.h; sourceTree = "<group>"; };
 		1CADCE1E166C9B2400B95709 /* BBClassificationBrowseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBClassificationBrowseController.m; sourceTree = "<group>"; };
 		1CADCE20166CAA0C00B95709 /* BBClassification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBClassification.h; sourceTree = "<group>"; };
 		1CADCE21166CAA0C00B95709 /* BBClassification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBClassification.m; sourceTree = "<group>"; };
 		1CADCE23166CB26A00B95709 /* BBClassificationPaginator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBClassificationPaginator.h; sourceTree = "<group>"; };
 		1CADCE24166CB26A00B95709 /* BBClassificationPaginator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBClassificationPaginator.m; sourceTree = "<group>"; };
-		1CADCE26166DA9AB00B95709 /* BBIdentificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBIdentificationController.h; sourceTree = "<group>"; };
-		1CADCE27166DA9AB00B95709 /* BBIdentificationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBIdentificationController.m; sourceTree = "<group>"; };
+		1CADCE26166DA9AB00B95709 /* BBCreateSightingNoteController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBCreateSightingNoteController.h; sourceTree = "<group>"; };
+		1CADCE27166DA9AB00B95709 /* BBCreateSightingNoteController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBCreateSightingNoteController.m; sourceTree = "<group>"; };
 		1CADCE29166DACAE00B95709 /* BBClassificationSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBClassificationSearchController.h; sourceTree = "<group>"; };
 		1CADCE2A166DACAE00B95709 /* BBClassificationSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBClassificationSearchController.m; sourceTree = "<group>"; };
 		1CF6D8D816671B9C006E760C /* BBTaxonomicRanks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBTaxonomicRanks.h; sourceTree = "<group>"; };
@@ -1150,6 +1176,8 @@
 		1C9A857715DDEC6A00D98F40 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
+				1CA67A731676FC39003D5642 /* DWTagList.h */,
+				1CA67A741676FC39003D5642 /* DWTagList.m */,
 				1C8F4FA61670525100A9F805 /* NMCustomLabel.h */,
 				1C8F4FA71670525100A9F805 /* NMCustomLabel.m */,
 				1C8F4FA81670525100A9F805 /* NMCustomLabelStyle.h */,
@@ -1262,14 +1290,18 @@
 				1CAB6210164C7FB50000D8C3 /* BBSightingDetailController.m */,
 				1CAB6211164C7FB50000D8C3 /* BBStreamController.h */,
 				1CAB6212164C7FB50000D8C3 /* BBStreamController.m */,
-				1CADCE1A166C706900B95709 /* BBSightingNoteEditController.h */,
-				1CADCE1B166C706900B95709 /* BBSightingNoteEditController.m */,
-				1CADCE26166DA9AB00B95709 /* BBIdentificationController.h */,
-				1CADCE27166DA9AB00B95709 /* BBIdentificationController.m */,
+				1CADCE26166DA9AB00B95709 /* BBCreateSightingNoteController.h */,
+				1CADCE27166DA9AB00B95709 /* BBCreateSightingNoteController.m */,
 				1CADCE1D166C9B2400B95709 /* BBClassificationBrowseController.h */,
 				1CADCE1E166C9B2400B95709 /* BBClassificationBrowseController.m */,
 				1CADCE29166DACAE00B95709 /* BBClassificationSearchController.h */,
 				1CADCE2A166DACAE00B95709 /* BBClassificationSearchController.m */,
+				1CA67A7A16781EA4003D5642 /* BBSightingNoteAddDescriptionController.h */,
+				1CA67A7B16781EA4003D5642 /* BBSightingNoteAddDescriptionController.m */,
+				1CA67A7D16781F1F003D5642 /* BBSightingNoteEditDescriptionController.h */,
+				1CA67A7E16781F1F003D5642 /* BBSightingNoteEditDescriptionController.m */,
+				1C1ABC2D167EDE9600EEA5DF /* BBSightingNoteTagController.h */,
+				1C1ABC2E167EDE9600EEA5DF /* BBSightingNoteTagController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1393,6 +1425,8 @@
 				1CADCE24166CB26A00B95709 /* BBClassificationPaginator.m */,
 				1C8F4F95166EC3D700A9F805 /* BBClassificationSelector.h */,
 				1C8F4F96166EC3D700A9F805 /* BBClassificationSelector.m */,
+				1C06F85516718A220086B9E0 /* BBSightingNoteEdit.h */,
+				1C06F85616718A220086B9E0 /* BBSightingNoteEdit.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1417,6 +1451,7 @@
 				1CAB647C164D37380000D8C3 /* BBStreamProtocol.h */,
 				1CAB647D164D38560000D8C3 /* BBMenuViewProtocol.h */,
 				1C8F4F94166EBFD500A9F805 /* BBRankDelegateProtocol.h */,
+				1C06F854167188EE0086B9E0 /* BBSightingNoteEditDelegateProtocol.h */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1444,6 +1479,8 @@
 				1C8F4F99166ECCA800A9F805 /* BBRankBrowser.m */,
 				1C8F4F9F16703FF300A9F805 /* BBRankSearcher.h */,
 				1C8F4FA016703FF300A9F805 /* BBRankSearcher.m */,
+				1C06F851167188AF0086B9E0 /* BBCreateSightingNoteView.h */,
+				1C06F852167188AF0086B9E0 /* BBCreateSightingNoteView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1528,6 +1565,7 @@
 		1CAB6344164C80090000D8C3 /* retina */ = {
 			isa = PBXGroup;
 			children = (
+				1CA67A711676B725003D5642 /* user-icon@2x.png */,
 				1C2966D4165E2CC000B3CC16 /* project-icon@2x.png */,
 				1CAB6345164C80090000D8C3 /* action@2x.png */,
 				1CAB6346164C80090000D8C3 /* add@2x.png */,
@@ -1566,6 +1604,7 @@
 		1CAB6363164C80090000D8C3 /* standard */ = {
 			isa = PBXGroup;
 			children = (
+				1CA67A6F1676B713003D5642 /* user-icon.png */,
 				1C2966D6165E2D3000B3CC16 /* project-icon.png */,
 				1CAB6364164C80090000D8C3 /* 00_License.txt */,
 				1CAB6365164C80090000D8C3 /* action.png */,
@@ -1727,6 +1766,10 @@
 				1C29669216555E7600B3CC16 /* BBObservationMediaCreate.m */,
 				1C2966D1165E1D7000B3CC16 /* BBModelId.h */,
 				1C2966D2165E1D7000B3CC16 /* BBModelId.m */,
+				1C06F84B167178C40086B9E0 /* BBSightingNoteCreate.h */,
+				1C06F84C167178C40086B9E0 /* BBSightingNoteCreate.m */,
+				1C06F84E16717D450086B9E0 /* BBSightingNoteDescriptionCreate.h */,
+				1C06F84F16717D460086B9E0 /* BBSightingNoteDescriptionCreate.m */,
 			);
 			path = Posts;
 			sourceTree = "<group>";
@@ -1978,6 +2021,8 @@
 				1C296699165A06B300B3CC16 /* SVProgressHUD.bundle in Resources */,
 				1C2966D5165E2CC000B3CC16 /* project-icon@2x.png in Resources */,
 				1C2966D7165E2D3000B3CC16 /* project-icon.png in Resources */,
+				1CA67A701676B713003D5642 /* user-icon.png in Resources */,
+				1CA67A721676B725003D5642 /* user-icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2140,17 +2185,24 @@
 				1CF6D8E31667A174006E760C /* NSDate+Helper.m in Sources */,
 				1C9D28881667A2C7002270B1 /* NSDate+TimeAgo.m in Sources */,
 				1C9D288D1668384D002270B1 /* DACircularProgressView.m in Sources */,
-				1CADCE1C166C706900B95709 /* BBSightingNoteEditController.m in Sources */,
 				1CADCE1F166C9B2400B95709 /* BBClassificationBrowseController.m in Sources */,
 				1CADCE22166CAA0C00B95709 /* BBClassification.m in Sources */,
 				1CADCE25166CB26A00B95709 /* BBClassificationPaginator.m in Sources */,
-				1CADCE28166DA9AB00B95709 /* BBIdentificationController.m in Sources */,
+				1CADCE28166DA9AB00B95709 /* BBCreateSightingNoteController.m in Sources */,
 				1CADCE2B166DACAF00B95709 /* BBClassificationSearchController.m in Sources */,
 				1C8F4F97166EC3D700A9F805 /* BBClassificationSelector.m in Sources */,
 				1C8F4F9A166ECCA800A9F805 /* BBRankBrowser.m in Sources */,
 				1C8F4FA116703FF300A9F805 /* BBRankSearcher.m in Sources */,
 				1C8F4FAA1670525200A9F805 /* NMCustomLabel.m in Sources */,
 				1C8F4FAB1670525200A9F805 /* NMCustomLabelStyle.m in Sources */,
+				1C06F84D167178C40086B9E0 /* BBSightingNoteCreate.m in Sources */,
+				1C06F85016717D460086B9E0 /* BBSightingNoteDescriptionCreate.m in Sources */,
+				1C06F853167188AF0086B9E0 /* BBCreateSightingNoteView.m in Sources */,
+				1C06F85716718A230086B9E0 /* BBSightingNoteEdit.m in Sources */,
+				1CA67A751676FC39003D5642 /* DWTagList.m in Sources */,
+				1CA67A7C16781EA4003D5642 /* BBSightingNoteAddDescriptionController.m in Sources */,
+				1CA67A7F16781F1F003D5642 /* BBSightingNoteEditDescriptionController.m in Sources */,
+				1C1ABC2F167EDE9600EEA5DF /* BBSightingNoteTagController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

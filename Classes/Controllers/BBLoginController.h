@@ -13,6 +13,7 @@
 #import "BBUIControlHelper.h"
 #import "BBStyles.h"
 #import "BSKeyboardControls.h"
+#import "SVProgressHUD.h"
 
 @interface BBLoginController : BBControllerBase <
      UITextFieldDelegate

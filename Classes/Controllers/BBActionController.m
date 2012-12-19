@@ -101,7 +101,7 @@
     };
     [actionView.boxes addObject:library];
 
-    [(MGBox*)self.view layoutWithSpeed:0.3 completion:^{self.view.height = 480;}];
+    [(MGBox*)self.view layoutWithSpeed:0.3 completion:^{self.view.height = [UIScreen mainScreen].bounds.size.height;}];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"actionTappedClose" object:nil];
 }
 

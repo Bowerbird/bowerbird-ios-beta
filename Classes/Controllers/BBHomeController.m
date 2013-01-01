@@ -116,7 +116,7 @@
         [BBLog Debug:object withMessage:@"### BBAuthenticatedUser Loaded"];
         
         BBApplication *appData = [BBApplication sharedInstance];
-        [appData.connection start];
+        //[appData.connection start];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"userProfileLoaded" object:nil];
     }
@@ -255,7 +255,10 @@
     BBApplication *app = [BBApplication sharedInstance];
     BBProject* project = [self getProjectWithIdentifier:[userInfo objectForKey:@"groupId"] fromArrayOf:app.authenticatedUser.projects];
     
-    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"%@/%@/activity?%@",[BBConstants RootUriString], project.identifier, [BBConstants AjaxQuerystring]]
+//    NSString *queryUrl =[NSString stringWithFormat:@"%@/%@/activity?%@",[BBConstants RootUriString], project.identifier, [BBConstants AjaxQuerystring]];
+    NSString *queryUrl =[NSString stringWithFormat:@"%@/%@?%@",[BBConstants RootUriString], project.identifier, [BBConstants AjaxQuerystring]];
+  
+    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:queryUrl
                                                       delegate:self];
     
     NSMutableDictionary* userInfo2 = [NSMutableDictionary dictionaryWithCapacity:1];

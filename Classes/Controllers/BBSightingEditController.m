@@ -47,19 +47,6 @@
     [_observation addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:NULL];
     [_observation addObserver:self forKeyPath:@"category" options:NSKeyValueObservingOptionNew context:NULL];
     
-    /* -- REMOVING THE DEPENDENCY ON SIGNALR
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(mediaResourceUploaded:)
-                                                 name:@"notifyMediaResourceUploaded"
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(mediaResourceUploadFailed:)
-                                                 name:@"notifyMediaResourceUploadFailed"
-                                               object:nil];
-    
-     */
-    
     [self addImageToObservation:observationMedia];
     
     return self;
@@ -90,21 +77,22 @@
     self.observationEditView = [[BBSightingEditView alloc]initWithDelegate:self asObservation:isObservation];
     self.view = self.observationEditView;
     
+    BBLocationSelectController *locationSelectController = [[BBLocationSelectController alloc]initWithDelegate:self];
+    MGLine *locationPickerLine = [MGLine lineWithLeft:locationSelectController.view right:nil size:CGSizeMake(280, 240)];
+    
+    [((BBSightingEditView*)self.view).locationTable.bottomLines removeAllObjects];
+    [((BBSightingEditView*)self.view).locationTable.bottomLines addObject:locationPickerLine];
+    
     [(MGScrollView*)self.view layoutWithSpeed:0.3 completion:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [BBLog Log:@"BBSightingEditController.viewWillAppear"];
-    
-    // perhaps here we load the map...
-    BBLocationSelectController *locationSelectController = [[BBLocationSelectController alloc]initWithDelegate:self];
-    MGLine *locationPickerLine = [MGLine lineWithLeft:locationSelectController.view right:nil size:CGSizeMake(280, 240)];
+
+    ((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController.navigationBarHidden = YES;
     
     [self validateForm];
-
-    [((BBSightingEditView*)self.view).locationTable.bottomLines removeAllObjects];
-    [((BBSightingEditView*)self.view).locationTable.bottomLines addObject:locationPickerLine];
-    [((BBSightingEditView*)self.view) scrollToView:locationPickerLine withMargin:8];
+    
     [((BBSightingEditView*)self.view) layoutWithSpeed:0.3 completion:nil];
 }
 
@@ -134,18 +122,24 @@
     
     [this.actionTable.middleLines removeAllObjects];
     
-    if(_observation.category == nil || [_observation.category isEqualToString:@""]) {
-        MGLine *categoryLine = [MGLine lineWithLeft:@"Choose a Category" right:nil size:CGSizeMake(280, 30)];
+    if(_observation.category == nil || [_observation.category isEqualToString:@""] || _observation.title == nil || [_observation.title isEqualToString:@""]) {
+        MGLine *categoryLine = [MGLine lineWithLeft:@"Before you can save you need to:" right:nil size:CGSizeMake(280, 30)];
+        categoryLine.font = HEADER_FONT;
         categoryLine.underlineType = MGUnderlineNone;
         [this.actionTable.middleLines addObject:categoryLine];
         isValid = NO;
     }
     
+    if(_observation.category == nil || [_observation.category isEqualToString:@""]) {
+        MGLine *categoryLine = [MGLine lineWithLeft:@"* Choose a Category" right:nil size:CGSizeMake(280, 30)];
+        categoryLine.underlineType = MGUnderlineNone;
+        [this.actionTable.middleLines addObject:categoryLine];
+    }
+    
     if(_observation.title == nil || [_observation.title isEqualToString:@""]){
-        MGLine *titleLine = [MGLine lineWithLeft:@"Add a Title" right:nil size:CGSizeMake(280, 30)];
+        MGLine *titleLine = [MGLine lineWithLeft:@"* Add a Title" right:nil size:CGSizeMake(280, 30)];
         titleLine.underlineType = MGUnderlineNone;
         [this.actionTable.middleLines addObject:titleLine];
-        isValid = NO;
     }
     
     [this layoutWithSpeed:0.3 completion:nil];
@@ -296,13 +290,8 @@
     BBMediaResourceCreate *mediaResourceCreate = [[BBMediaResourceCreate alloc]initWithMedia:mediaEdit forUsage:@"contribution"];
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
-    //RKObjectMapping *map = [[manager mappingProvider] serializationMappingForClass:[BBMediaResourceCreate class]];
-    //manager.serializationMIMEType = RKMIMETypeJSON;
-    //[manager.mappingProvider setSerializationMapping:map forClass:[BBMediaResourceCreate class]];
-    
     [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"Uploading"]];
     
-    //RKObjectLoader *loader =
     [manager postObject:mediaResourceCreate usingBlock:^(RKObjectLoader *loader) {
         loader.delegate = self;
         RKObjectMapping *map = [[[RKObjectManager sharedManager] mappingProvider] serializationMappingForClass:[BBMediaResourceCreate class]];
@@ -313,31 +302,6 @@
         loader.params = p;
         loader.objectMapping = [[manager mappingProvider] objectMappingForClass:[BBJsonResponse class]];
     }];
-    
-    
-    /*
-    HUD = [[MBProgressHUD alloc] initWithView:self.view];
-    HUD.mode = MBProgressHUDModeAnnularDeterminate;
-    HUD.delegate = self;
-    HUD.labelText = @"Uploading Media";
-    [HUD show:YES];
-    */
-    
-    /* commented to test a lighter-weight attempt to post and process server json success response...
-    [manager postObject:mediaResourceCreate usingBlock:^(RKObjectLoader *loader){
-        RKObjectMapping *map = [[[RKObjectManager sharedManager] mappingProvider] serializationMappingForClass:[BBMediaResourceCreate class]];
-        NSError *error = nil;
-        NSDictionary *d = [[RKObjectSerializer serializerWithObject:mediaResourceCreate mapping:map] serializedObject:&error];
-        
-        RKParams *p = [RKParams paramsWithDictionary:d];
-        [p setData:mediaResourceCreate.file MIMEType:@"image/jpeg" forParam:@"file"];
-        loader.params = p;
-        
-        loader.objectMapping = [manager.mappingProvider objectMappingForClass:[BBJsonResponse class]];
-        
-        loader.delegate = self;
-    }];
-    */
     
     // add this to the list of media in our observation model
     [_observation.media addObject:mediaEdit];
@@ -384,8 +348,9 @@
     PhotoBox *photo = [PhotoBox mediaForImage:[UIImage imageNamed:iconPath] size:CGSizeMake(40,40)];
     MGLine *categoryNameLine = [MGLine lineWithLeft:category.name right:nil size:CGSizeMake(210, 40)];
     categoryNameLine.underlineType = MGUnderlineNone;
+    categoryNameLine.font = HEADER_FONT;
     MGLine *categoryLine = [MGLine lineWithLeft:photo right:categoryNameLine size:CGSizeMake(280, 60)];
-    categoryLine.margin = UIEdgeInsetsMake(10, 10, 10, 10);
+    categoryLine.margin = UIEdgeInsetsMake(0, 10, 10, 10);
     categoryLine.underlineType = MGUnderlineNone;
     [this.categoryTable.middleLines addObject:categoryLine];
     
@@ -437,33 +402,15 @@
 -(void)stopAddingProjects {
     [BBLog Log:@"BBSightingEditController.stopAddingProjects"];
     
-    [self resumeScrolling];
-    BBSightingEditView *this = (BBSightingEditView*)self.view;
-    
-    this.projectsTable.onTap=^{[((BBSightingEditView*)self.view).controller startAddingProjects];};
-    
-    [this.projectsTable.bottomLines removeAllObjects];
-    [this layoutWithSpeed:0.3 completion:nil];
+    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:YES];
 }
 
 -(void)startAddingProjects {
     [BBLog Log:@"BBSightingEditController.startAddingProjects"];
     
-    //[self pauseScrolling];
-    
     BBProjectSelectController *projectSelector = [[BBProjectSelectController alloc]initWithDelegate:self];
-    //MGLine *projectSelectorLine = [MGLine lineWithSize:CGSizeMake(280,150)];
-    MGLine *projectSelectorLine = [MGLine lineWithMultilineLeft:nil right:nil width:280 minHeight:150];
-    
-    //MGLine *projectSelectorLine = [MGLine line];
-    [projectSelectorLine.middleItems addObject:projectSelector.view];
-    
-    BBSightingEditView *this = (BBSightingEditView*)self.view;
-    this.projectsTable.onTap=^{};
-    
-    [((BBSightingEditView*)self.view).projectsTable.bottomLines addObject:projectSelectorLine];
-    [((BBSightingEditView*)self.view) layoutWithSpeed:0.3 completion:nil];
-    [((BBSightingEditView*)self.view) scrollToView:projectSelectorLine withMargin:8];
+
+    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:projectSelector animated:YES];
 }
 
 -(NSArray*)getSightingProjects {
@@ -505,7 +452,14 @@
         PhotoBox *avatar = [PhotoBox mediaFor:projectImage.uri size:IPHONE_AVATAR_SIZE];
         avatar.margin = UIEdgeInsetsZero;
         
-        MGLine *projectDescription = [MGLine lineWithLeft:avatar right:proj.name size:CGSizeMake(100, 40)];
+        MGLine *projectName = [MGLine lineWithLeft:proj.name right:nil size:CGSizeMake(230, 40)];
+        projectName.underlineType = MGUnderlineNone;
+        projectName.margin = UIEdgeInsetsMake(0, 10, 0, 0);
+        MGLine *projectDescription = [MGLine lineWithLeft:avatar right:projectName size:CGSizeMake(280, 40)];
+        projectDescription.underlineType = MGUnderlineNone;
+        projectDescription.margin = UIEdgeInsetsMake(0, 0, 10, 0);
+        projectDescription.onTap = ^{[self removeSightingProject:proj.identifier];};
+        
         [((BBSightingEditView*)self.view).projectsTable.middleLines addObject:projectDescription];
     }
     [((BBSightingEditView*)self.view) layoutWithSpeed:0.3 completion:nil];
@@ -530,22 +484,14 @@
 -(void)locationStartEdit {
     [BBLog Log:@"BBSightingEditController.locationStartEdit"];
     
-    //[self pauseScrolling];
     ((BBSightingEditView*)self.view).locationTable.onTap=^{};
     
     BBLocationSelectController *locationSelectController = [[BBLocationSelectController alloc]initWithDelegate:self];
-    //[self.app.navController pushViewController:locationSelectController animated:NO];
     
     MGLine *locationPickerLine = [MGLine lineWithLeft:locationSelectController.view right:nil size:CGSizeMake(280, 240)];
     locationPickerLine.backgroundColor = [UIColor redColor];
-    //UIView *locationPickerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 260, 240)];
-    
-    //[locationPickerView addSubview:locationSelectController.view];
-    //[locationPickerLine addSubview:locationPickerView];
     
     [((BBSightingEditView*)self.view).locationTable.bottomLines addObject:locationPickerLine];
-    //locationPickerLine.x = 0;
-    //locationPickerLine.y = 0;
     [((BBSightingEditView*)self.view) scrollToView:locationPickerLine withMargin:8];
     [((BBSightingEditView*)self.view) layoutWithSpeed:0.3 completion:nil];
 }
@@ -665,15 +611,10 @@
     observation.media = [[NSArray alloc]initWithArray:newMedia];
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
-    //RKObjectMapping *map = [[manager mappingProvider] serializationMappingForClass:[BBObservationCreate class]];
     manager.serializationMIMEType = RKMIMETypeJSON;
-    //[manager.mappingProvider setSerializationMapping:map forClass:[BBObservationCreate class]];
     
-    // display HUD..
     [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"Saving Observation"]];
     
-    //NSString *observationCreateUrl = [NSString stringWithFormat:@"%@/%@", [BBConstants RootUriString], @"observations/create"];
-    //[manager sendObject:observation toResourcePath:observationCreateUrl usingBlock:^(RKObjectLoader *loader) {
     [manager postObject:observation usingBlock:^(RKObjectLoader *loader) {
         
         // map native object to dictionary of key values
@@ -688,6 +629,7 @@
         // convert json data object to a string
         NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         loader.params = [RKRequestSerialization serializationWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding] MIMEType:RKMIMETypeJSON];
+        loader.delegate = self;
     }];
 }
 
@@ -779,7 +721,6 @@
 }
 
 -(void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjectDictionary:(NSDictionary *)dictionary {
-    
     
 }
 

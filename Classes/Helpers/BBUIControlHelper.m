@@ -105,14 +105,18 @@
     return [MGLine line];
 }
 
-+(MGBox *)createMediaViewerForMedia:(NSArray*)media withPrimary:(BBMedia*)primaryMedia forSize:(CGSize)size displayingThumbs:(BOOL)displayThumbs {
++(MGBox *)createMediaViewerForMedia:(NSArray*)media
+                        withPrimary:(BBMedia*)primaryMedia
+                            forSize:(CGSize)size
+                   displayingThumbs:(BOOL)displayThumbs {
+    
     [BBLog Log:@"BBUIControlHelper.createMediaViewerForMedia:"];
     
     MGBox *mediaViewer = [MGBox boxWithSize:size];
     mediaViewer.boxLayoutMode = MGLayoutTableStyle;
     BBImage *fullSize = [BBCollectionHelper getImageWithDimension:@"Constrained240" fromArrayOf:primaryMedia.mediaResource.imageMedia];
     
-    MGBox* currentImageBox = [MGBox boxWithSize:CGSizeMake(300, 240)];
+    __block MGBox* currentImageBox = [MGBox boxWithSize:CGSizeMake(300, 240)];
     __block PhotoBox *currentPic = [PhotoBox mediaFor:fullSize.uri size:CGSizeMake(300, 240)];
     [currentImageBox.boxes addObject:currentPic];
     
@@ -125,9 +129,11 @@
         thumbs.contentLayoutMode = MGLayoutGridStyle;
         
         // take the current box out - add the new box
-        for (__block BBMedia* m in media)
+        //for (__block BBMedia* m in media)
+        for (BBMedia* m in media)
         {
-            PhotoBox *thumb = [PhotoBox mediaFor:[BBCollectionHelper getImageWithDimension:@"Square50" fromArrayOf:m.mediaResource.imageMedia].uri size:(CGSizeMake(50, 50))];
+            //__weak PhotoBox *thumb = [PhotoBox mediaFor:[BBCollectionHelper getImageWithDimension:@"Square50" fromArrayOf:m.mediaResource.imageMedia].uri size:(CGSizeMake(50, 50))];
+            PhotoBox *thumb = [PhotoBox mediaFor:[BBCollectionHelper getImageWithDimension:@"Square100" fromArrayOf:m.mediaResource.imageMedia].uri size:(CGSizeMake(80, 80))];
             
             thumb.onTap = ^{
                 BBImage *fullSize = [BBCollectionHelper getImageWithDimension:@"Constrained240" fromArrayOf:m.mediaResource.imageMedia];

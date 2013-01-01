@@ -74,7 +74,7 @@
     [projectMapping mapKeyPath:@"Name" toAttribute:@"name"];
     [projectMapping mapKeyPath:@"GroupType" toAttribute:@"groupType"];
     [projectMapping mapKeyPath:@"MemberCount" toAttribute:@"memberCount"];
-    [projectMapping mapKeyPath:@"ObservationCount" toAttribute:@"observationCount"];
+    [projectMapping mapKeyPath:@"SightingCount" toAttribute:@"observationCount"];
     [projectMapping mapKeyPath:@"PostCount" toAttribute:@"postCount"];
     [projectMapping mapKeyPath:@"Description" toAttribute:@"description"];
     [projectMapping mapKeyPath:@"Avatar" toRelationship:@"avatar" withMapping:mediaResourceMapping];

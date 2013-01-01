@@ -179,7 +179,7 @@
     MGLine *categoryLine = [MGLine lineWithLeft:_categoryLabel
                                           right:nil
                                            size:CGSizeMake(280, 60)];
-    categoryLine.margin = UIEdgeInsetsMake(10, 10, 10, 0);
+    categoryLine.margin = UIEdgeInsetsMake(0, 10, 10, 0);
     [_categoryTable.middleLines addObject:categoryLine];
     _categoryTable.onTap = ^{[self.controller categoryStartEdit];};
     _categoryTable.backgroundColor = [UIColor whiteColor];
@@ -232,11 +232,17 @@
     projectsTableHeader.padding = UIEdgeInsetsMake(10, 10, 0, 0);
     [projectsTableWrapper.topLines addObject:projectsTableHeader];
     _projectsTable = [MGTableBoxStyled boxWithSize:CGSizeMake(300, 200)];
+    _projectsTable.padding = UIEdgeInsetsMake(10, 10, 10, 10);
+    
     NSArray *projectsInSighting = [_controller getSightingProjects]; // projects the observation is currently In.
+    /*
     if(projectsInSighting.count == 0)
     {
-        [_projectsTable.middleLines addObject:[MGLine lineWithLeft:@"No Projects Selected.." right:nil size:CGSizeMake(280, 30)]];
+        MGLine *addProjectsLine = [MGLine lineWithLeft:@"No Projects Selected.." right:nil size:CGSizeMake(280, 30)];
+        addProjectsLine.underlineType = MGUnderlineNone;
+        [_projectsTable.middleLines addObject:addProjectsLine];
     }
+    */
     for (BBProject* project in projectsInSighting)
     {
         BBImage* projectImage = [BBCollectionHelper getImageWithDimension:@"Square50" fromArrayOf:project.avatar.imageMedia];
@@ -246,7 +252,7 @@
         [projectLine.middleItems addObject:project.name];
         projectLine.onTap=^{
             // remove thy self from this table o lordy
-            
+            [_controller removeSightingProject:project.identifier];
             // tell the controller to remove from the observation, and add back to the list of projects to choose from.. redraw with no animation.
         };
         
@@ -256,8 +262,14 @@
     if(projectsInSighting.count <= 0) {
         [_projectsTable.middleLines addObject:[MGLine lineWithLeft:@"No Projects in Sighting" right:nil]];
     }
-    _projectsTable.onTap = ^{[self.controller startAddingProjects];};
+    
+    CoolMGButton *addProjectsButton =[BBUIControlHelper createButtonWithFrame:CGRectMake(10, 0, 280, 40) andTitle:@"Add Projects" withBlock:^(void){
+        [_controller startAddingProjects];
+    }];
+    [_projectsTable.bottomLines addObject:addProjectsButton];
+    
     [projectsTableWrapper.middleLines addObject:_projectsTable];
+    
 
     [self.boxes addObject:projectsTableWrapper];
     [self layoutWithSpeed:0.2 completion:nil];
@@ -305,22 +317,6 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     [_controller updateTitle];
 }
-
-//- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
-//    return YES;
-//}
-
-// if we encounter a newline character return
-//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-//{
-//    // enter closes the keyboard
-//    if ([string isEqualToString:@"\n"])
-//    {
-//        [textField resignFirstResponder];
-//        return NO;
-//    }
-//    return YES;
-//}
 
 // trigger changes to the model via the controller protocols
 -(void)changeTitle:(NSString*)title {

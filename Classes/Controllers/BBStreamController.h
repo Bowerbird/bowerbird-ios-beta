@@ -19,6 +19,7 @@
 @interface BBStreamController : BBControllerBase <
      UIGestureRecognizerDelegate
     ,RKObjectLoaderDelegate
+    ,UIScrollViewDelegate
 >
 
 -(void)displayActivities:(BBActivityPaginator*)activities;

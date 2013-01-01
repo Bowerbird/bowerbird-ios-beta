@@ -106,13 +106,40 @@
                                                           withDescription:[NSString stringWithFormat:@"%@ sighted %@", observation.user.name, [observation.observedOnDate timeAgo]]
                                                                   forSize:CGSizeMake(IPHONE_STREAM_WIDTH - arrow.size.width, 60)]];
     
-    
+    /*
     // MEDIA
     [info.middleLines addObject:[BBUIControlHelper createMediaViewerForMedia:observation.media
                                                                 withPrimary:observation.primaryMedia
                                                                     forSize:CGSizeMake(300,270)
                                                            displayingThumbs:YES]];
+    */
     
+    //MGBox *mediaViewer = [MGBox boxWithSize:CGSizeMake(300, 270)];
+    //mediaViewer.boxLayoutMode = MGLayoutTableStyle;
+    BBImage *fullSize = [BBCollectionHelper getImageWithDimension:@"Constrained240" fromArrayOf:observation.primaryMedia.mediaResource.imageMedia];
+    
+    
+    MGBox* currentImageBox = [MGBox box];
+    currentImageBox.width = 300;
+    __block PhotoBox *currentPic = [PhotoBox mediaFor:fullSize.uri size:CGSizeMake(300, 240)];
+    [currentImageBox.boxes addObject:currentPic];
+    [info.middleLines addObject:currentImageBox];
+    MGBox *thumbs = [MGBox box];
+    thumbs.parentBox.contentLayoutMode = MGLayoutGridStyle;
+    
+    // add the thumb nails
+    if(observation.media.count > 1)
+    {
+        // take the current box out - add the new box
+        for (__block BBMedia* m in observation.media) {
+            PhotoBox *thumb = [PhotoBox mediaFor:[self getImageWithDimension:@"Square100" fromArrayOf:m.mediaResource.imageMedia].uri size:(CGSizeMake(80, 80))];
+            thumb.onTap = ^{[self displayFullSizeImage:m toReplace:currentPic];};
+            [thumbs.boxes addObject:thumb];
+        }
+    }
+    
+    [info.middleLines addObject:currentImageBox];
+    [info.middleLines addObject:thumbs];
     
     // OBSERVED ON
     [info.middleLines addObject:[BBUIControlHelper createTwoColumnRowWithleftText:@"Observed:"
@@ -265,10 +292,11 @@
     __block PhotoBox *currentPic = [PhotoBox mediaFor:fullSize.uri size:IPHONE_OBSERVATION];
     [currentImageBox.boxes addObject:currentPic];
     [info.middleLines addObject:currentImageBox];
-    MGBox *thumbs = [MGBox box];//boxWithSize:CGSizeMake(320, 50)];
-    thumbs.parentBox.contentLayoutMode = MGLayoutGridStyle;
+    MGBox *thumbs = [MGBox boxWithSize:CGSizeMake(300, 50)];
+    //thumbs.parentBox.contentLayoutMode = MGLayoutGridStyle;
     thumbs.contentLayoutMode = MGLayoutGridStyle;
-
+    thumbs.sizingMode = MGResizingShrinkWrap;
+    
     // add the thumb nails
     if(observation.media.count > 1)
     {
@@ -295,7 +323,7 @@
     MGBox *section = (id)content.parentBox;
     [section.boxes removeAllObjects];
     [section.boxes addObject:[PhotoBox mediaFor:fullSize.uri
-                                           size:IPHONE_OBSERVATION]];
+                                           size:CGSizeMake(300, 240)]];
     [section layoutWithSpeed:0.0 completion:nil];
 }
 

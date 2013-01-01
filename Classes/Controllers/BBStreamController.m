@@ -186,6 +186,7 @@
     [BBLog Log:@"BBStreamController.addObservation"];
     
     MGScrollView *streamView = (MGScrollView*)self.view;
+    
     MGTableBoxStyled *info = [MGTableBoxStyled boxWithSize:IPHONE_OBSERVATION];
     info.margin = UIEdgeInsetsMake(5, 5, 5, 0);
     

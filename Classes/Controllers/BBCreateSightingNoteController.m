@@ -76,7 +76,10 @@
         }
     }
     
-    [SVProgressHUD showSuccessWithStatus:@"Didn't Map Result Properly"];
+    //[SVProgressHUD showSuccessWithStatus:@"Didn't Map Result Properly"];
+    
+    [SVProgressHUD showSuccessWithStatus:@"Saved Note!/n(But didn't Map Result)"];
+    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:YES];
 }
 
 // search for Id clicked, browse for Id clicked, remove Id clicked
@@ -140,8 +143,44 @@
     // update the View's UI
 }
 
-// save, cancel
+#pragma mark -
+#pragma mark - Save or Cancel Observation
+
 -(void)save {
+    [BBLog Log:@"BBSightingEditController.save"];
+    
+    if([self validateForm]) {
+        [self saveIsValid];
+    }
+    else {
+        
+        [SVProgressHUD showErrorWithStatus:@"You need to add something!"];
+        /*
+        if(_observation.category == nil || [_observation.category isEqualToString:@""]) {
+            [SVProgressHUD showErrorWithStatus:@"Choose a Category"];
+        }
+        
+        if(_observation.title == nil || [_observation.title isEqualToString:@""]){
+            [SVProgressHUD showErrorWithStatus:@"Add a Title"];
+        }
+         */
+    }
+}
+
+
+-(BOOL)validateForm {
+    
+    // empty the validation area of the view
+    BOOL isValid = YES;
+    
+    if(_sightingNote.tags.count == 0 && _sightingNote.descriptions.count == 0 && ([_sightingNote.taxonomy isEqualToString:@""] || !_sightingNote.taxonomy)) {
+        isValid = NO;
+    }
+    
+    return isValid;
+}
+
+-(void)saveIsValid{
     
     // create a sightingNoteCreate
     BBSightingNoteCreate *postSightingNote = [[BBSightingNoteCreate alloc]init];
@@ -177,16 +216,6 @@
     }
     
     postSightingNote.descriptions = descriptionObjects;
-    
-    /* - 'twas a dummy block.. 
-    BBSightingNoteDescriptionCreate *sightingNoteDescription = [[BBSightingNoteDescriptionCreate alloc]init];
-    sightingNoteDescription.key = @"Test key";
-    sightingNoteDescription.value = @"Test value";
-    [postSightingNote.descriptions addObject:sightingNoteDescription];
-    */
-
-    
-    //postSightingNote.tags = @"Test tag, test, tag";
         
     // post this data to the server. On Success, pop this biatch off the stack.
     RKObjectManager *manager = [RKObjectManager sharedManager];

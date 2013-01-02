@@ -20,6 +20,9 @@
 @synthesize attachedTo, replacementFor, sizingMode;
 @synthesize fixedPosition, zIndex, layingOut, slideBoxesInFromEmpty;
 
+// HC scrollview lazyloading page positioning:
+@synthesize pageLocation;
+
 // MGLayoutBox protocol optionals
 @synthesize tapper, tappable, onTap;
 @synthesize swiper, swipable, onSwipe;

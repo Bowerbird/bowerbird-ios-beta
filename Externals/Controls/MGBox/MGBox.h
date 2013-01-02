@@ -20,4 +20,7 @@
 // sugar
 - (UIImage *)screenshot:(float)scale;
 
+// HC scrollview lazyloading page positioning:
+@property (nonatomic, assign) int pageLocation;
+
 @end

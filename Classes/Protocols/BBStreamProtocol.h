@@ -8,6 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+@class BBStreamView;
+
 @protocol BBStreamProtocol <NSObject>
+
+@required
+-(void)displayStreamView:(BBStreamView*)streamView;
+
+@optional
+-(NSSet*)getStreamItems;
 
 @end

@@ -22,7 +22,7 @@
 #pragma mark -
 #pragma mark - Setup and Render
 
-
+// called on first load of controller
 -(void)loadView {
     [BBLog Log:@"BBHomeController.loadView"];
     
@@ -31,7 +31,7 @@
     self.view = [self setupHomeView:[[BBHomeView alloc]initWithSize:HOME_SIZE]];
 }
 
-
+// called on first load of controller, after view is constructed
 -(void)viewDidLoad {
     [BBLog Log:@"BBHomeController.viewDidLoad"];
     
@@ -45,7 +45,7 @@
     [self loadUserStream];
 }
 
-
+// called every time view is displayed
 -(void)viewWillAppear:(BOOL)animated {
     
     ((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController.navigationBarHidden = YES;
@@ -88,8 +88,16 @@
 #pragma mark - Delegation and Event Handling
 
 
+-(void)displayStreamView:(BBStreamView*)streamView {
+    [BBLog Log:@"BBHomeController.displayStreamView:"];
+    
+    [self.view addSubview:streamView];
+    self.streamController.view.y += 50;
+    ((BBStreamView*)self.streamController.view).height -= 50;
+}
+
 - (void)handleSwipeRight:(UIGestureRecognizer *)gestureRecognizer {
-    [BBLog Log:@"BBContainerController.handleSwipeRight:"];
+    [BBLog Log:@"BBHomeController.handleSwipeRight:"];
     
     // this is a right swipe so bring in the menu
     [[NSNotificationCenter defaultCenter] postNotificationName:@"menuTapped" object:nil];
@@ -97,7 +105,7 @@
 
 
 -(void)objectLoader:(RKObjectLoader*)objectLoader didLoadObject:(id)object {
-    [BBLog Log:@"BBLoginController.objectLoader:didLoadObject"];
+    [BBLog Log:@"BBHomeController.objectLoader:didLoadObject"];
     
     [SVProgressHUD dismiss];
     
@@ -115,12 +123,13 @@
     {
         [BBLog Debug:object withMessage:@"### BBAuthenticatedUser Loaded"];
         
-        BBApplication *appData = [BBApplication sharedInstance];
+        // BBApplication *appData = [BBApplication sharedInstance];
         //[appData.connection start];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"userProfileLoaded" object:nil];
     }
     
+    /* // REFACTOR: Shifted to StreamController class..
     if([object isKindOfClass:[BBActivityPaginator class]])
     {
         [BBLog Debug:object withMessage:@"### BBActivityPaginator Loaded"];
@@ -161,13 +170,14 @@
         // append stream's view to this window
         [self.streamController displaySightings:object];
     }
+     */
 }
 
 
 -(void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     [BBLog Error:[NSString stringWithFormat:@"%@%@", @"BBLoginController.objectLoader:didFailWithError:", [error localizedDescription]]];
     
-    [SVProgressHUD dismiss];
+    [SVProgressHUD showErrorWithStatus:error.description];
 }
 
 
@@ -221,67 +231,71 @@
 }
 
 
+// REFACTOR: call stream controller's initWithUser constructor
 -(void)loadUserStream {
     [BBLog Log:@"BBHomeController.loadUserStream"];
 
     [self clearStreamViews];
+    
+    self.streamController = [[BBStreamController alloc]initWithUserAndDelegate:self];
+    
+    /* // REFACTOR: Moved to the Stream Controller
     [SVProgressHUD showWithStatus:@"Loading Activity"];
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"%@?%@",[BBConstants ActivityUrl], [BBConstants AjaxQuerystring]]
                                                       delegate:self];
+    */
     
-    // update the user stream title with the name of the currently logged in user.
-    BBApplication* app = [BBApplication sharedInstance];
     NSMutableDictionary *userInfo = [[NSMutableDictionary alloc]init];
-    
-    // NOTE: THis is a nil test because API is sending back null name in auth user
-    if(app.authenticatedUser.user.name != nil){
-        //[userInfo setObject:app.authenticatedUser.user.name forKey:@"name"];
-        // renamed to "Home"
-        [userInfo setObject:@"Home" forKey:@"name"];
-    }else{
-        [userInfo setObject:@"My Home Stream" forKey:@"name"];
-    }
-    
+    [userInfo setObject:@"Home" forKey:@"name"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeadingTitle" object:self userInfo:userInfo];
 }
 
-
+// REFACTOR: call stream controller's initWithGroup constructor, passing group id as parameter
 -(void)loadGroupStream:(NSNotification *) notification {
     [BBLog Log:@"BBHomeController.loadGroupStream"];
     
     [self clearStreamViews];
-    [SVProgressHUD showWithStatus:@"Loading Activity"];
-    NSDictionary* userInfo = [notification userInfo];
-    BBApplication *app = [BBApplication sharedInstance];
-    BBProject* project = [self getProjectWithIdentifier:[userInfo objectForKey:@"groupId"] fromArrayOf:app.authenticatedUser.projects];
+
+    NSString *groupId = [[notification userInfo] objectForKey:@"groupId"];
     
-//    NSString *queryUrl =[NSString stringWithFormat:@"%@/%@/activity?%@",[BBConstants RootUriString], project.identifier, [BBConstants AjaxQuerystring]];
+    self.streamController = [[BBStreamController alloc]initWithGroup:groupId
+                                                         andDelegate:self];
+    
+    /* // REFACTOR: Moved to the Stream Controller
+    //NSString *queryUrl =[NSString stringWithFormat:@"%@/%@/activity?%@",[BBConstants RootUriString], project.identifier, [BBConstants AjaxQuerystring]];
     NSString *queryUrl =[NSString stringWithFormat:@"%@/%@?%@",[BBConstants RootUriString], project.identifier, [BBConstants AjaxQuerystring]];
   
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:queryUrl
                                                       delegate:self];
+    */
     
+    BBApplication *app = [BBApplication sharedInstance];
+    BBProject* project = [self getProjectWithIdentifier:groupId
+                                            fromArrayOf:app.authenticatedUser.projects];
+
     NSMutableDictionary* userInfo2 = [NSMutableDictionary dictionaryWithCapacity:1];
     [userInfo2 setObject:[NSString stringWithString:project.name] forKey:@"name"];
-    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeadingTitle" object:self userInfo:userInfo2];
 }
 
-
+// REFACTOR: call stream constructor's initWithProjects constructor
 -(void)loadProjectBrowser {
     [BBLog Log:@"BBHomeController.loadProjectBrowser"];
     
     [self clearStreamViews];
+    
+    self.streamController = [[BBStreamController alloc]initWithProjectsAndDelegate:self];
+    
+    /* // REFACTOR: Moved to the Stream Controller
     [SVProgressHUD showWithStatus:@"Loading Projects"];
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"%@/projects?%@",[BBConstants RootUriString], [BBConstants AjaxQuerystring]]
                                                       delegate:self];
+    */
     
     NSMutableDictionary* userInfo2 = [NSMutableDictionary dictionaryWithCapacity:1];
     [userInfo2 setObject:@"Browse Projects" forKey:@"name"];
-    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeadingTitle" object:self userInfo:userInfo2];
 }
-
 
 -(void)clearStreamViews {
     NSArray *viewsToRemove = [self.view subviews];
@@ -291,8 +305,9 @@
     [self.view addSubview:self.headerController.view];
     [self.view addSubview:self.menuController.view];
     [self.view addSubview:self.actionController.view];
+    
+    self.streamController = nil;
 }
-
 
 -(void)didReceiveMemoryWarning {
     [BBLog Log:@"MEMORY WARNING! - BBHomeController"];
@@ -300,6 +315,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 @end

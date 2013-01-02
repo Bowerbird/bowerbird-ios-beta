@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "BBModels.h"
 
-@interface BBProjectPaginator : RKObjectPaginator
+@interface BBProjectPaginator : BBPaginator
 
 @property (nonatomic,retain) NSArray* projects;
 

@@ -35,6 +35,7 @@
 #import "BBApplication.h"
 #import "BBMembership.h"
 
+#import "BBPaginator.h"
 #import "BBActivityPaginator.h"
 #import "BBSightingPaginator.h"
 #import "BBClassificationPaginator.h"

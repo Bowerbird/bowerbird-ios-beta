@@ -26,6 +26,8 @@
 		1C2966DD165E59CF00B3CC16 /* BBIdentification.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2966DC165E59CD00B3CC16 /* BBIdentification.m */; };
 		1C2966E0165E663500B3CC16 /* BBSightingNoteDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2966DF165E663300B3CC16 /* BBSightingNoteDescription.m */; };
 		1C31AEEB15DE1B4100A602BE /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C31AEE215DE1B2100A602BE /* libRestKit.a */; };
+		1C3728BD1693B694000472F1 /* BBPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C3728BC1693B694000472F1 /* BBPaginator.m */; };
+		1C3728C01693ED75000472F1 /* BBStreamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C3728BF1693ED75000472F1 /* BBStreamView.m */; };
 		1C78E24D15E512FF00620EF7 /* SRDefaultHttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C78E20515E512FF00620EF7 /* SRDefaultHttpClient.m */; };
 		1C78E24E15E512FF00620EF7 /* SRDefaultHttpHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C78E20715E512FF00620EF7 /* SRDefaultHttpHelper.m */; };
 		1C78E24F15E512FF00620EF7 /* SRDefaultHttpWebRequestWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C78E20915E512FF00620EF7 /* SRDefaultHttpWebRequestWrapper.m */; };
@@ -409,6 +411,10 @@
 		1C2966DE165E663200B3CC16 /* BBSightingNoteDescription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSightingNoteDescription.h; sourceTree = "<group>"; };
 		1C2966DF165E663300B3CC16 /* BBSightingNoteDescription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSightingNoteDescription.m; sourceTree = "<group>"; };
 		1C31AED615DE1B2100A602BE /* RestKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RestKit.xcodeproj; path = ../RestKit/RestKit.xcodeproj; sourceTree = "<group>"; };
+		1C3728BB1693B694000472F1 /* BBPaginator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBPaginator.h; sourceTree = "<group>"; };
+		1C3728BC1693B694000472F1 /* BBPaginator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBPaginator.m; sourceTree = "<group>"; };
+		1C3728BE1693ED75000472F1 /* BBStreamView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBStreamView.h; sourceTree = "<group>"; };
+		1C3728BF1693ED75000472F1 /* BBStreamView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBStreamView.m; sourceTree = "<group>"; };
 		1C78E20415E512FF00620EF7 /* SRDefaultHttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRDefaultHttpClient.h; sourceTree = "<group>"; };
 		1C78E20515E512FF00620EF7 /* SRDefaultHttpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRDefaultHttpClient.m; sourceTree = "<group>"; };
 		1C78E20615E512FF00620EF7 /* SRDefaultHttpHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRDefaultHttpHelper.h; sourceTree = "<group>"; };
@@ -1427,6 +1433,8 @@
 				1C8F4F96166EC3D700A9F805 /* BBClassificationSelector.m */,
 				1C06F85516718A220086B9E0 /* BBSightingNoteEdit.h */,
 				1C06F85616718A220086B9E0 /* BBSightingNoteEdit.m */,
+				1C3728BB1693B694000472F1 /* BBPaginator.h */,
+				1C3728BC1693B694000472F1 /* BBPaginator.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1481,6 +1489,8 @@
 				1C8F4FA016703FF300A9F805 /* BBRankSearcher.m */,
 				1C06F851167188AF0086B9E0 /* BBCreateSightingNoteView.h */,
 				1C06F852167188AF0086B9E0 /* BBCreateSightingNoteView.m */,
+				1C3728BE1693ED75000472F1 /* BBStreamView.h */,
+				1C3728BF1693ED75000472F1 /* BBStreamView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2203,6 +2213,8 @@
 				1CA67A7C16781EA4003D5642 /* BBSightingNoteAddDescriptionController.m in Sources */,
 				1CA67A7F16781F1F003D5642 /* BBSightingNoteEditDescriptionController.m in Sources */,
 				1C1ABC2F167EDE9600EEA5DF /* BBSightingNoteTagController.m in Sources */,
+				1C3728BD1693B694000472F1 /* BBPaginator.m in Sources */,
+				1C3728C01693ED75000472F1 /* BBStreamView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

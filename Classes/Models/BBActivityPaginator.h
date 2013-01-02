@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "BBModels.h"
 
-@interface BBActivityPaginator : RKObjectPaginator
+@interface BBActivityPaginator : BBPaginator
 
 @property (nonatomic,retain) NSArray* activities;
 

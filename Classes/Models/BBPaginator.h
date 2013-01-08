@@ -12,6 +12,14 @@
 
 @property (nonatomic,strong) NSMutableSet *items;
 
+@property (nonatomic, readonly) NSUInteger pageCount;
+
+@property (nonatomic, readonly) NSUInteger currentPage;
+
 -(BOOL)moreItemsExist;
+
+-(void)setPageCount:(NSUInteger)pageCount;
+
+-(void)setCurrentPage:(NSUInteger)currentPage;
 
 @end

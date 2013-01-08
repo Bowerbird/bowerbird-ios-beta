@@ -11,6 +11,8 @@
 @implementation BBPaginator
 
 @synthesize items = _items;
+@synthesize pageCount = _pageCount;
+@synthesize currentPage = _currentPage;
 
 -(NSMutableSet*)items {
     if(!_items)_items = [[NSMutableSet alloc]init];
@@ -27,13 +29,15 @@
 }
 
 -(BOOL)moreItemsExist {
-    BOOL moreItems = YES;
-    
-    if(![self hasNextPage]) {
-        moreItems = NO;
-    }
-    
-    return moreItems;
+    return self.currentPage < self.pageCount;
+}
+
+-(void)setPageCount:(NSUInteger)pageCount {
+    _pageCount = pageCount;
+}
+
+-(void)setCurrentPage:(NSUInteger)currentPage {
+    _currentPage = currentPage;
 }
 
 @end

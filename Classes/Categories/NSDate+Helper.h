@@ -58,5 +58,9 @@
 + (NSString *)timeFormatString;
 + (NSString *)timestampFormatString;
 + (NSString *)dbFormatString;
++ (NSDate *)getCurrentUTCDate;
++ (NSString *)getCurrentUTCFormatDate;
+
+- (NSString *)dateAsJsonUtcString;
 
 @end

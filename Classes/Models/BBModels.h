@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <RestKit/RestKit.h>
+#import <RestKit/RKISO8601DateFormatter.h>
 
 #import "BBImage.h"
 #import "BBMediaResource.h"

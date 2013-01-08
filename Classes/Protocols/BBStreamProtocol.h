@@ -10,12 +10,10 @@
 
 @class BBStreamView;
 
+/* Used for a Stream controller to talk to it's container view */
 @protocol BBStreamProtocol <NSObject>
 
 @required
 -(void)displayStreamView:(BBStreamView*)streamView;
-
-@optional
--(NSSet*)getStreamItems;
 
 @end

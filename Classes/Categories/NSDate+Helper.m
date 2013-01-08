@@ -275,4 +275,35 @@
 	return [NSDate timestampFormatString];
 }
 
+// http://stackoverflow.com/questions/2615833/objective-c-setting-nsdate-to-current-utc
++(NSDate *)getCurrentUTCDate
+{
+    NSDate *localDate = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
+    [dateFormatter setTimeZone:timeZone];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *dateString = [dateFormatter stringFromDate:localDate];
+    [dateFormatter release];
+    return [NSDate dateFromString:dateString];
+}
+
++(NSString *)getCurrentUTCFormateDate
+{
+    NSDate *localDate = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
+    [dateFormatter setTimeZone:timeZone];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *dateString = [dateFormatter stringFromDate:localDate];
+    [dateFormatter release];
+    return dateString;
+}
+
+- (NSString *)dateAsJsonUtcString {
+    NSArray *dateUtcComponents = [[self string] componentsSeparatedByString:@" "];
+    NSString* dateAsUtcJsonString = [NSString stringWithFormat:@"%@T%@Z", [dateUtcComponents objectAtIndex:0], [dateUtcComponents objectAtIndex:1]];
+    return dateAsUtcJsonString;
+}
+
 @end

@@ -15,22 +15,17 @@
 #import "PhotoBox.h"
 #import "BBUIControlHelper.h"
 #import "BBAppDelegate.h"
-#import "BBStreamProtocol.h"
 #import "BBStreamView.h"
 
 @interface BBStreamController : BBControllerBase <
-     UIGestureRecognizerDelegate
-    //,RKObjectLoaderDelegate
-    ,RKObjectPaginatorDelegate
-    ,UIScrollViewDelegate
+     UIGestureRecognizerDelegate // for swiping
+    ,RKObjectLoaderDelegate // for posting on click
+    ,RKObjectPaginatorDelegate // for pagination
+    ,UIScrollViewDelegate // for scroll view
 >
 
 -(BBStreamController*)initWithUserAndDelegate:(id<BBStreamProtocol>)delegate;
 -(BBStreamController*)initWithGroup:(NSString*)groupId andDelegate:(id<BBStreamProtocol>)delegate;
 -(BBStreamController*)initWithProjectsAndDelegate:(id<BBStreamProtocol>)delegate;
-
--(void)displayActivities:(BBActivityPaginator*)activities;
--(void)displaySightings:(BBSightingPaginator*)pagedSightings;
--(void)displayProjects:(BBProjectPaginator*)pagedProjects;
 
 @end

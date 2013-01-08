@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Museum Victoria. All rights reserved.
 //
 
+#import <RestKit/RKRequestSerialization.h>
 #import "BBControllerBase.h"
 #import "BBClassificationBrowseController.h"
 #import "BBClassificationSearchController.h"
@@ -15,7 +16,6 @@
 #import "BBModels.h"
 #import "BBCreateSightingNoteView.h"
 #import "BBSightingNoteEditDelegateProtocol.h"
-#import "RKRequestSerialization.h"
 #import "DWTagList.h"
 #import "BBSightingNoteAddDescriptionController.h"
 #import "BBSightingNoteEditDescriptionController.h"

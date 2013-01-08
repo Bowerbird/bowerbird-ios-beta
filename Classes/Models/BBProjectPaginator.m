@@ -8,7 +8,10 @@
 
 #import "BBProjectPaginator.h"
 
-@implementation BBProjectPaginator
+@implementation BBProjectPaginator {
+    int currentOffset;
+    int perPage;
+}
 
 @synthesize projects = _projects;
 
@@ -28,6 +31,15 @@
 -(id)objectInProjectsAtIndex:(NSUInteger)index
 {
     return [self.projects objectAtIndex:index];
+}
+
+- (void) objectLoader:(RKObjectLoader *)loader willMapData:(inout __autoreleasing id *)mappableData {
+    NSMutableDictionary* model = [[*mappableData objectForKey: @"Model"] mutableCopy];
+    NSDictionary* pagedResult = [model objectForKey:@"Projects"];
+    
+    self.perPage = [[pagedResult objectForKey: @"PageSize"] intValue];
+    self.pageCount = ([[pagedResult objectForKey: @"TotalResultCount"] intValue] / [[pagedResult objectForKey: @"PageSize"] intValue]) + 1;
+    self.currentPage = [[pagedResult objectForKey: @"Page"] intValue];
 }
 
 @end

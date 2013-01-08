@@ -12,17 +12,11 @@
 
 @interface BBStreamView : MGScrollView
 
+@property (nonatomic,strong) UIView *tableFooterView;
+
 -(BBStreamView*)initWithDelegate:(id<BBStreamProtocol>)delegate andSize:(CGSize)size;
 
--(BOOL)renderStreamItem:(MGBox*)boxItem
-              forItemId:(NSString*)itemId;
-
--(BOOL)renderStreamItem:(MGBox*)boxItem
-            inDirection:(BOOL)scrollingDownward
-              forItemId:(NSString*)itemId;
-
--(NSString*)itemAtStreamBottom;
-
--(NSString*)itemAtStreamTop;
+-(void)renderStreamItem:(MGBox*)boxItem
+                  atTop:(BOOL)displayAtTop;
 
 @end

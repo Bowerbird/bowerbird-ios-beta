@@ -9,8 +9,7 @@
 #import "BBActivityPaginator.h"
 
 @implementation BBActivityPaginator {
-    int currentOffset;
-    int perPage;
+
 }
 
 @synthesize activities = _activities;
@@ -34,18 +33,12 @@
 }
 
 - (void) objectLoader:(RKObjectLoader *)loader willMapData:(inout __autoreleasing id *)mappableData {
-    NSMutableDictionary* d = [[*mappableData objectForKey: @"d"] mutableCopy];
-    
-    NSString* next = [d objectForKey: @"Page"];
-    
-    if(!next) {
-        currentOffset = 0;
-    }
-    else {
-        NSDictionary* params = [next queryParameters];
-        perPage = [[params objectForKey: @"PageSize"] intValue];
-        currentOffset = [[params objectForKey: @"Page"] intValue];
-    }
+    NSMutableDictionary* model = [[*mappableData objectForKey: @"Model"] mutableCopy];
+    NSDictionary* pagedResult = [model objectForKey:@"Activities"];
+
+    self.perPage = [[pagedResult objectForKey: @"PageSize"] intValue];
+    self.pageCount = ([[pagedResult objectForKey: @"TotalResultCount"] intValue] / [[pagedResult objectForKey: @"PageSize"] intValue]) + 1;
+    self.currentPage = [[pagedResult objectForKey: @"Page"] intValue];
 }
 
 @end

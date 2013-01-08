@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import <RestKit/RKRequestSerialization.h>
 #import "BBControllerBase.h"
 #import "BBModels.h"
 #import "MGScrollView.h"
@@ -22,7 +23,6 @@
 #import "BBProjectSelectController.h"
 #import "BBObservationCreate.h"
 #import "BBMultipartForm.h"
-#import "RKRequestSerialization.h"
 #import "SVProgressHUD.h"
 #import "BBLocationSelectController.h"
 #import "MBProgressHUD.h"

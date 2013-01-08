@@ -84,6 +84,7 @@
 		1CA67A751676FC39003D5642 /* DWTagList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CA67A741676FC39003D5642 /* DWTagList.m */; };
 		1CA67A7C16781EA4003D5642 /* BBSightingNoteAddDescriptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CA67A7B16781EA4003D5642 /* BBSightingNoteAddDescriptionController.m */; };
 		1CA67A7F16781F1F003D5642 /* BBSightingNoteEditDescriptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CA67A7E16781F1F003D5642 /* BBSightingNoteEditDescriptionController.m */; };
+		1CAADA161696AFF200D98407 /* SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAADA151696AFF200D98407 /* SVPullToRefresh.m */; };
 		1CAB62AC164C7FB50000D8C3 /* BBUITextField+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB61DE164C7FB50000D8C3 /* BBUITextField+Extend.m */; };
 		1CAB62AD164C7FB50000D8C3 /* UIView+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB61E0164C7FB50000D8C3 /* UIView+Categories.m */; };
 		1CAB62AE164C7FB50000D8C3 /* BBActionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB61E3164C7FB50000D8C3 /* BBActionController.m */; };
@@ -526,6 +527,8 @@
 		1CA67A7B16781EA4003D5642 /* BBSightingNoteAddDescriptionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSightingNoteAddDescriptionController.m; sourceTree = "<group>"; };
 		1CA67A7D16781F1F003D5642 /* BBSightingNoteEditDescriptionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSightingNoteEditDescriptionController.h; sourceTree = "<group>"; };
 		1CA67A7E16781F1F003D5642 /* BBSightingNoteEditDescriptionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSightingNoteEditDescriptionController.m; sourceTree = "<group>"; };
+		1CAADA141696AFF200D98407 /* SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPullToRefresh.h; sourceTree = "<group>"; };
+		1CAADA151696AFF200D98407 /* SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVPullToRefresh.m; sourceTree = "<group>"; };
 		1CAB61DD164C7FB50000D8C3 /* BBUITextField+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BBUITextField+Extend.h"; sourceTree = "<group>"; };
 		1CAB61DE164C7FB50000D8C3 /* BBUITextField+Extend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BBUITextField+Extend.m"; sourceTree = "<group>"; };
 		1CAB61DF164C7FB50000D8C3 /* UIView+Categories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Categories.h"; sourceTree = "<group>"; };
@@ -1182,6 +1185,7 @@
 		1C9A857715DDEC6A00D98F40 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
+				1CAADA131696AFF200D98407 /* SVPullToRefresh */,
 				1CA67A731676FC39003D5642 /* DWTagList.h */,
 				1CA67A741676FC39003D5642 /* DWTagList.m */,
 				1C8F4FA61670525100A9F805 /* NMCustomLabel.h */,
@@ -1238,6 +1242,15 @@
 				1C9D288C1668384D002270B1 /* DACircularProgressView.m */,
 			);
 			path = DACircularProgress;
+			sourceTree = "<group>";
+		};
+		1CAADA131696AFF200D98407 /* SVPullToRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				1CAADA141696AFF200D98407 /* SVPullToRefresh.h */,
+				1CAADA151696AFF200D98407 /* SVPullToRefresh.m */,
+			);
+			path = SVPullToRefresh;
 			sourceTree = "<group>";
 		};
 		1CAB61DC164C7FB50000D8C3 /* Categories */ = {
@@ -2215,6 +2228,7 @@
 				1C1ABC2F167EDE9600EEA5DF /* BBSightingNoteTagController.m in Sources */,
 				1C3728BD1693B694000472F1 /* BBPaginator.m in Sources */,
 				1C3728C01693ED75000472F1 /* BBStreamView.m in Sources */,
+				1CAADA161696AFF200D98407 /* SVPullToRefresh.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2241,7 +2255,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Hamish Crittenden (86VTBUZG7B)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Hamish Crittenden (86VTBUZG7B)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2261,6 +2276,8 @@
 					"-ObjC",
 					"-all_load",
 				);
+				PROVISIONING_PROFILE = "5C4E7E37-7F8A-46A5-AB8A-8A9CAA998BA2";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5C4E7E37-7F8A-46A5-AB8A-8A9CAA998BA2";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = armv7;
 			};
@@ -2274,7 +2291,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Hamish Crittenden (86VTBUZG7B)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Hamish Crittenden (86VTBUZG7B)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -2288,6 +2306,8 @@
 					"-ObjC",
 					"-all_load",
 				);
+				PROVISIONING_PROFILE = "5C4E7E37-7F8A-46A5-AB8A-8A9CAA998BA2";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5C4E7E37-7F8A-46A5-AB8A-8A9CAA998BA2";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = armv7;
@@ -2297,16 +2317,16 @@
 		1C9A856115DDE9B300D98F40 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Hamish Crittenden (86VTBUZG7B)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Hamish Crittenden (86VTBUZG7B)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Other Sources/BowerBird-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Other Sources/BowerBird-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = BowerBird;
-				PROVISIONING_PROFILE = "72FC061E-DB98-4F07-856C-B0F50571B6AB";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "72FC061E-DB98-4F07-856C-B0F50571B6AB";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
@@ -2315,14 +2335,14 @@
 		1C9A856215DDE9B300D98F40 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Hamish Crittenden (86VTBUZG7B)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Other Sources/BowerBird-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Other Sources/BowerBird-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = BowerBird;
-				PROVISIONING_PROFILE = "72FC061E-DB98-4F07-856C-B0F50571B6AB";
+				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};

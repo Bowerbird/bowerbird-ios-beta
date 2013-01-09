@@ -162,6 +162,10 @@
     [observationMapping mapKeyPath:@"Projects" toRelationship:@"projects" withMapping:projectMapping];
     [observationMapping mapKeyPath:@"User" toRelationship:@"user" withMapping:userMapping];
     [observationMapping mapKeyPath:@"Notes" toRelationship:@"notes" withMapping:observationNoteMapping];
+    [observationMapping mapKeyPath:@"CommentCount" toAttribute:@"commentCount"];
+    [observationMapping mapKeyPath:@"ProjectCount" toAttribute:@"projectCount"];
+    [observationMapping mapKeyPath:@"NoteCount" toAttribute:@"noteCount"];
+    //[observationMapping mapKeyPath:@"IdentificationCount" toAttribute:@"identificationCount"];
     [manager.mappingProvider addObjectMapping:observationNoteMapping];
     [manager.mappingProvider setMapping:observationMapping forKeyPath:@"Model.Observation"];
         

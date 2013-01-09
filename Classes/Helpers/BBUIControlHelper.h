@@ -10,6 +10,7 @@
 #import "MGHelpers.h"
 #import "BBHelpers.h"
 #import "BBModels.h"
+#import "BBArrowView.h"
 
 @class BBClassification, BBSighting, BBObservation, BBMedia, BBIdentification, BBUser;
 
@@ -47,7 +48,7 @@ typedef void (^ActionBlock)();
 
 +(PhotoBox*)createCategoryImageBoxForCategory:(NSString*)category withSize:(CGSize)size;
 
-+(MGTableBoxStyled *)createSubObservation:(BBObservation*)observation forSize:(CGSize)size;
++(MGTableBoxStyled *)createSubObservation:(BBObservation*)observation forSize:(CGSize)size withBlock:(ActionBlock)block;
 
 +(MGLine *)createTwoColumnRowWithleftText:(NSString*)leftText
                  andRightText:(NSString*)rightText

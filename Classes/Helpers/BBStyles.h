@@ -43,6 +43,7 @@
 
 
 // FONTS
+#define SMALL_DESCRIPTOR_FONT       [UIFont fontWithName:@"HelveticaNeue" size:12]
 #define DESCRIPTOR_FONT             [UIFont fontWithName:@"HelveticaNeue" size:14]
 #define HEADER_FONT                 [UIFont fontWithName:@"HelveticaNeue" size:18]
 #define HEADER_FONT_BIG             [UIFont fontWithName:@"HelveticaNeue" size:24]

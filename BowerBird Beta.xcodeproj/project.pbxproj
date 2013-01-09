@@ -324,6 +324,7 @@
 		1CADCE25166CB26A00B95709 /* BBClassificationPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CADCE24166CB26A00B95709 /* BBClassificationPaginator.m */; };
 		1CADCE28166DA9AB00B95709 /* BBCreateSightingNoteController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CADCE27166DA9AB00B95709 /* BBCreateSightingNoteController.m */; };
 		1CADCE2B166DACAF00B95709 /* BBClassificationSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CADCE2A166DACAE00B95709 /* BBClassificationSearchController.m */; };
+		1CF44643169CE8A10064CC40 /* BBArrowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF44642169CE8A10064CC40 /* BBArrowView.m */; };
 		1CF6D8DA16671B9C006E760C /* BBTaxonomicRanks.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF6D8D916671B9C006E760C /* BBTaxonomicRanks.m */; };
 		1CF6D8DD16672ABB006E760C /* NSString+helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF6D8DC16672ABB006E760C /* NSString+helpers.m */; };
 		1CF6D8E31667A174006E760C /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF6D8E21667A174006E760C /* NSDate+Helper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -895,6 +896,8 @@
 		1CADCE27166DA9AB00B95709 /* BBCreateSightingNoteController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBCreateSightingNoteController.m; sourceTree = "<group>"; };
 		1CADCE29166DACAE00B95709 /* BBClassificationSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBClassificationSearchController.h; sourceTree = "<group>"; };
 		1CADCE2A166DACAE00B95709 /* BBClassificationSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBClassificationSearchController.m; sourceTree = "<group>"; };
+		1CF44641169CE8A10064CC40 /* BBArrowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBArrowView.h; sourceTree = "<group>"; };
+		1CF44642169CE8A10064CC40 /* BBArrowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBArrowView.m; sourceTree = "<group>"; };
 		1CF6D8D816671B9C006E760C /* BBTaxonomicRanks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBTaxonomicRanks.h; sourceTree = "<group>"; };
 		1CF6D8D916671B9C006E760C /* BBTaxonomicRanks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBTaxonomicRanks.m; sourceTree = "<group>"; };
 		1CF6D8DB16672ABB006E760C /* NSString+helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+helpers.h"; sourceTree = "<group>"; };
@@ -1504,6 +1507,8 @@
 				1C06F852167188AF0086B9E0 /* BBCreateSightingNoteView.m */,
 				1C3728BE1693ED75000472F1 /* BBStreamView.h */,
 				1C3728BF1693ED75000472F1 /* BBStreamView.m */,
+				1CF44641169CE8A10064CC40 /* BBArrowView.h */,
+				1CF44642169CE8A10064CC40 /* BBArrowView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2229,6 +2234,7 @@
 				1C3728BD1693B694000472F1 /* BBPaginator.m in Sources */,
 				1C3728C01693ED75000472F1 /* BBStreamView.m in Sources */,
 				1CAADA161696AFF200D98407 /* SVPullToRefresh.m in Sources */,
+				1CF44643169CE8A10064CC40 /* BBArrowView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

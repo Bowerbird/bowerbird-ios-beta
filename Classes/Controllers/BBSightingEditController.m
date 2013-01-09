@@ -290,7 +290,9 @@
     BBMediaResourceCreate *mediaResourceCreate = [[BBMediaResourceCreate alloc]initWithMedia:mediaEdit forUsage:@"contribution"];
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
-    [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"Uploading"]];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"Uploading"]];
+    });
     
     [manager postObject:mediaResourceCreate usingBlock:^(RKObjectLoader *loader) {
         loader.delegate = self;

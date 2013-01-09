@@ -16,6 +16,7 @@
 #import "BBUIControlHelper.h"
 #import "BBAppDelegate.h"
 #import "BBStreamView.h"
+#import "BBArrowView.h"
 
 @interface BBStreamController : BBControllerBase <
      UIGestureRecognizerDelegate // for swiping

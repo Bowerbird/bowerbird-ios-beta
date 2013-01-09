@@ -27,6 +27,7 @@
   // shape and colour
   self.backgroundColor = [UIColor colorWithRed:0.94 green:0.94 blue:0.95 alpha:1];
   self.layer.cornerRadius = CORNER_RADIUS;
+  
 
   // shadow
   self.layer.shadowColor = [UIColor colorWithWhite:0.12 alpha:1].CGColor;

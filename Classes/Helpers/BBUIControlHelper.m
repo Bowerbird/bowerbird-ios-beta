@@ -19,7 +19,9 @@
 }
 
 
-+(UITextField *)createTextFieldWithFrame:(CGRect)frame andPlaceholder:(NSString*)text andDelegate:(id)delegate {
++(UITextField *)createTextFieldWithFrame:(CGRect)frame
+                          andPlaceholder:(NSString*)text
+                             andDelegate:(id)delegate {
     //UITextField *textField = [[UITextField alloc]init];
     UITextField *textField = [[UITextField alloc] initWithFrame:frame];
     textField.borderStyle = UITextBorderStyleRoundedRect;
@@ -35,7 +37,8 @@
     return textField;
 }
 
-+(UITextView *)createTextViewWithFrame:(CGRect)frame andDelegate:(id)delegate {
++(UITextView *)createTextViewWithFrame:(CGRect)frame
+                           andDelegate:(id)delegate {
     //UITextField *textField = [[UITextField alloc]init];
     UITextView *textView = [[UITextView alloc] initWithFrame:frame];
     textView.font = [UIFont systemFontOfSize:15];
@@ -48,7 +51,9 @@
     return textView;
 }
 
-+(CoolMGButton *)createButtonWithFrame:(CGRect)frame andTitle:(NSString*)text withBlock:(ActionBlock)block {
++(CoolMGButton *)createButtonWithFrame:(CGRect)frame
+                              andTitle:(NSString*)text
+                             withBlock:(ActionBlock)block {
     CoolMGButton *button = [[CoolMGButton alloc]initWithFrame:frame];
     button.frame = frame;
     [button setTitle:text forState:UIControlStateNormal];
@@ -59,7 +64,10 @@
     return button;
 }
 
-+(MGTableBoxStyled *)createMGTableBoxStyledWithSize:(CGSize)size andBGColor:(UIColor *)color andHeading:(NSString*)heading andPadding:(UIEdgeInsets)padding {
++(MGTableBoxStyled *)createMGTableBoxStyledWithSize:(CGSize)size
+                                         andBGColor:(UIColor *)color
+                                         andHeading:(NSString*)heading
+                                         andPadding:(UIEdgeInsets)padding {
     MGTableBoxStyled *styledTable = [MGTableBoxStyled boxWithSize:size];
     MGLine *headingLine = [MGLine lineWithLeft:heading right:nil size:CGSizeMake(size.width-padding.left-padding.right, size.height-padding.top-padding.bottom)];
     headingLine.font = HEADER_FONT;
@@ -71,7 +79,10 @@
     return styledTable;
 }
 
-+(MGTableBox *)createMGTableBoxWithSize:(CGSize)size andBGColor:(UIColor *)color andHeading:(NSString*)heading andPadding:(UIEdgeInsets)padding {
++(MGTableBox *)createMGTableBoxWithSize:(CGSize)size
+                             andBGColor:(UIColor *)color
+                             andHeading:(NSString*)heading
+                             andPadding:(UIEdgeInsets)padding {
     MGTableBox *styledTable = [MGTableBox boxWithSize:size];
     MGLine *headingLine = [MGLine lineWithLeft:heading right:nil size:CGSizeMake(size.width-padding.left-padding.right, size.height-padding.top-padding.bottom)];
     headingLine.font = HEADER_FONT;
@@ -83,25 +94,40 @@
     return styledTable;
 }
 
-+(MGLine *)createUserProfileLineForUser:(BBUser*)usr withDescription:(NSString*)desc forSize:(CGSize)size {
++(MGLine *)createUserProfileLineForUser:(BBUser*)usr
+                        withDescription:(NSString*)desc
+                                forSize:(CGSize)size {
     [BBLog Log:@"BBUIControlHelper.createUserProfileDescriptionForUser"];
-    
+
+    // AVATAR
     BBImage *avatarImage = [BBCollectionHelper getImageWithDimension:@"Square50" fromArrayOf:usr.avatar.imageMedia];
-    PhotoBox *avatar = [PhotoBox mediaFor:avatarImage.uri size:IPHONE_AVATAR_SIZE];
+    PhotoBox *avatar = [PhotoBox mediaFor:avatarImage.uri size:CGSizeMake(50, 50)];
+    avatar.padding = UIEdgeInsetsZero;
+    avatar.margin = UIEdgeInsetsZero;
     
     // parameterise the allowable size for the description line. Allows caller to put an arrow to the left or right of the user profile.
     double horizontalPaddingTotalWidth = 10;
-    double descriptionWidth = size.width - IPHONE_AVATAR_SIZE.width - horizontalPaddingTotalWidth;
+    double descriptionWidth = size.width - 50 - horizontalPaddingTotalWidth * 2;
     
-    MGLine *description = [MGLine multilineWithText:desc font:DESCRIPTOR_FONT width:descriptionWidth padding:UIEdgeInsetsMake(15, horizontalPaddingTotalWidth/2, 0, horizontalPaddingTotalWidth/2)];
+    // ACTIVITY DISCRIPTION
+    MGLine *description = [MGLine multilineWithText:desc
+                                               font:DESCRIPTOR_FONT
+                                              width:descriptionWidth
+                                            padding:UIEdgeInsetsMake(15, horizontalPaddingTotalWidth/2, 0, horizontalPaddingTotalWidth/2)];
+    
     description.underlineType = MGUnderlineNone;
-    MGLine *user = [MGLine lineWithLeft:avatar right:description size:size];
+    
+    // COMBINED AVATAR AND DESCRIPTION
+    MGLine *user = [MGLine lineWithLeft:avatar
+                                  right:description size:size];
+    
     user.underlineType = MGUnderlineNone;
     
     return user;
 }
 
-+(MGLine *)createLocationViewForSighting:(BBSighting*)sighting forSize:(CGSize)size {
++(MGLine *)createLocationViewForSighting:(BBSighting*)sighting
+                                 forSize:(CGSize)size {
     return [MGLine line];
 }
 
@@ -152,7 +178,8 @@
     return mediaViewer;
 }
 
-+(MGLine *)createIdentification:(BBIdentification*)identification forSize:(CGSize)size {
++(MGLine *)createIdentification:(BBIdentification*)identification
+                        forSize:(CGSize)size {
     
     BBApplication *appData = [BBApplication sharedInstance];
     NSArray* categories = appData.authenticatedUser.categories;
@@ -179,7 +206,8 @@
     return categoryLine;
 }
 
-+(MGLine *)createCurrentClassification:(BBClassification*)classification forSize:(CGSize)size {
++(MGLine *)createCurrentClassification:(BBClassification*)classification
+                               forSize:(CGSize)size {
     
     BBApplication *appData = [BBApplication sharedInstance];
     NSArray* categories = appData.authenticatedUser.categories;
@@ -206,7 +234,8 @@
     return categoryLine;
 }
 
-+(PhotoBox*)createCategoryImageBoxForCategory:(NSString*)category withSize:(CGSize)size {
++(PhotoBox*)createCategoryImageBoxForCategory:(NSString*)category
+                                     withSize:(CGSize)size {
     
     BBApplication *appData = [BBApplication sharedInstance];
     NSArray* categories = appData.authenticatedUser.categories;
@@ -226,7 +255,8 @@
 }
 
 
-+(MGBox *)createSelectedClassification:(BBClassification*)classification forSize:(CGSize)size {
++(MGBox *)createSelectedClassification:(BBClassification*)classification
+                               forSize:(CGSize)size {
     
     MGBox *selectedClassificationBox = [MGBox boxWithSize:size];
     BBApplication *appData = [BBApplication sharedInstance];
@@ -274,44 +304,76 @@
     return selectedClassificationBox;
 }
 
-+(MGLine *)createSubHeadingWithTitle:(NSString*)title forSize:(CGSize)size {
++(MGLine *)createSubHeadingWithTitle:(NSString*)title
+                             forSize:(CGSize)size {
     MGLine *titleLine = [MGLine lineWithLeft:[NSString stringWithFormat:@"%@:", title] right:nil size:size];
     titleLine.padding = UIEdgeInsetsMake(5, 10, 5, 10);
-    UIFont *subHeadingFont = [UIFont italicSystemFontOfSize:12]; //DESCRIPTOR_FONT;
+    UIFont *subHeadingFont = [UIFont systemFontOfSize:12]; //DESCRIPTOR_FONT;
     titleLine.textColor = [UIColor grayColor];
-    
     titleLine.font = subHeadingFont;
     titleLine.underlineType = MGUnderlineBottom;
-    //titleLine.underlineType = MGUnderlineTop;
     titleLine.backgroundColor = [UIColor whiteColor];
-    
     
     return titleLine;
 }
 
-+(MGTableBoxStyled *)createSubObservation:(BBObservation*)observation forSize:(CGSize)size {
++(MGTableBox *)createSubObservation:(BBObservation*)observation
+                            forSize:(CGSize)size
+                          withBlock:(ActionBlock)block {
     
     BBImage *primaryMediaImage = [BBCollectionHelper getImageWithDimension:@"Square100" fromArrayOf:observation.primaryMedia.mediaResource.imageMedia];
-    PhotoBox *photo = [PhotoBox mediaFor:primaryMediaImage.uri size:IPHONE_NOTE];
+    PhotoBox *photo = [PhotoBox mediaFor:primaryMediaImage.uri size:CGSizeMake(100, 100)];
+    photo.margin = UIEdgeInsetsZero;
+    photo.padding = UIEdgeInsetsZero;
     
-    MGTableBoxStyled* subObservation = [[MGTableBoxStyled alloc]initWithFrame:CGRectMake(0, 0, size.width, size.height)];
-    subObservation.backgroundColor = [UIColor whiteColor];
-    subObservation.margin = UIEdgeInsetsMake(10, 10, 10, 10);
+    MGTableBox* subObservationTable = [[MGTableBox alloc]initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+    subObservationTable.backgroundColor = [UIColor colorWithRed:0.94 green:0.94 blue:0.95 alpha:1];
+    subObservationTable.margin = UIEdgeInsetsMake(10, 10, 0, 0);
     
-    MGBox* subObservationSummary = [MGBox boxWithSize:CGSizeMake(240, 120)];
+    MGBox* subObservationSummary = [MGBox boxWithSize:CGSizeMake(size.width, size.height)];
     subObservationSummary.contentLayoutMode = MGLayoutGridStyle;
     
-    MGBox* subObservationMedia = [MGBox boxWithSize:CGSizeMake(100, 60)];
+    MGBox* subObservationMedia = [MGBox boxWithSize:CGSizeMake(100, 100)];
     [subObservationMedia.boxes addObject:photo];
+    subObservationMedia.margin = UIEdgeInsetsZero;
+    subObservationMedia.padding = UIEdgeInsetsZero;
     [subObservationSummary.boxes addObject:subObservationMedia];
     
-    MGLine* subObservationDetails = [MGLine multilineWithText:observation.title font:DESCRIPTOR_FONT width:140 padding:UIEdgeInsetsMake(5, 0, 0, 0)];
-    subObservationDetails.underlineType = MGUnderlineNone;
-    [subObservationSummary.boxes addObject:subObservationDetails];
+    // add a box to the right of the image box to display the summary for the observation.
+    MGBox *sightingSummary = [MGBox box];
+    sightingSummary.width = 140;
+    sightingSummary.margin = UIEdgeInsetsMake(0, 10, 0, 0);
+    sightingSummary.contentLayoutMode = MGLayoutTableStyle;
     
-    [subObservation.topLines addObject:[BBUIControlHelper createSubHeadingWithTitle:@"Sighting summary" forSize:CGSizeMake(size.width, 20)]];
-    [subObservation.middleLines addObject:subObservationSummary];
+    MGLine *titleLine = [MGLine multilineWithText:observation.title font:[UIFont boldSystemFontOfSize:13] width:135 padding:UIEdgeInsetsMake(0, 0, 0, 0)];
+    [sightingSummary.boxes addObject:titleLine];
+    MGLine *noteCountLine = [MGLine lineWithLeft:[NSString stringWithFormat:@"%i notes", [observation.noteCount intValue]] right:nil size:CGSizeMake(120,20)];
+    noteCountLine.font = SMALL_DESCRIPTOR_FONT;
+    [sightingSummary.boxes addObject:noteCountLine];
+    MGLine *projectCountLine = [MGLine lineWithLeft:[NSString stringWithFormat:@"%i projects", [observation.projectCount intValue]] right:nil size:CGSizeMake(120,20)];
+    projectCountLine.font = SMALL_DESCRIPTOR_FONT;
+    [sightingSummary.boxes addObject:projectCountLine];
+    MGLine *commentCountLine = [MGLine lineWithLeft:[NSString stringWithFormat:@"%i comments", [observation.commentCount intValue]] right:nil size:CGSizeMake(120,20)];
+    commentCountLine.font = SMALL_DESCRIPTOR_FONT;
+    [sightingSummary.boxes addObject:commentCountLine];
     
+    [subObservationSummary.boxes addObject:sightingSummary];
+    
+    MGBox *detailArrowBox = [BBUIControlHelper getForwardArrow];
+    detailArrowBox.margin = UIEdgeInsetsMake(10, 10, 0, 0);
+    [subObservationSummary.boxes addObject:detailArrowBox];
+
+    MGLine *subSightingTitleLine = [MGLine lineWithLeft:[NSString stringWithFormat:@"%@:", @"The Original Sighting"] right:nil size:CGSizeMake(size.width, 20)];
+    subSightingTitleLine.padding = UIEdgeInsetsMake(5, 0, 5, 10);
+    subSightingTitleLine.textColor = [UIColor grayColor];
+    subSightingTitleLine.font = [UIFont systemFontOfSize:12];
+    subSightingTitleLine.underlineType = MGUnderlineBottom;
+    subSightingTitleLine.backgroundColor = [UIColor whiteColor];
+    
+    [subObservationTable.topLines addObject:subSightingTitleLine];
+    [subObservationTable.middleLines addObject:subObservationSummary];
+    
+    /*
     NSString *subObservationCreatorText = [NSString stringWithFormat:@"%@ sighted %@", observation.user.name, [observation.observedOnDate timeAgo]];
     MGLine *subObservationCreator = [BBUIControlHelper createUserProfileLineForUser:observation.user
                                                                     withDescription:subObservationCreatorText
@@ -319,8 +381,10 @@
     
     subObservationCreator.underlineType = MGUnderlineBottom;
     [subObservation.bottomLines addObject:subObservationCreator];
+    */
     
-    return subObservation;
+    subObservationTable.onTap = block;
+    return subObservationTable;
 }
 
 +(MGLine *)createTwoColumnRowWithleftText:(NSString*)leftText
@@ -336,7 +400,8 @@
     return line;
 }
 
-+(MGBox*)createBoxForIdentification:(BBIdentification*)identification withSize:(CGSize)size{
++(MGBox*)createBoxForIdentification:(BBIdentification*)identification
+                           withSize:(CGSize)size{
     MGBox *identificationBox = [MGBox boxWithSize:size];
     
     // get the category image for the identification
@@ -346,5 +411,17 @@
     return identificationBox;
 }
 
++(MGBox*)getForwardArrow {
+    // Set up reusable forward and back arrows
+    UIView *forwardArrow = [[BBArrowView alloc]initWithFrame:CGRectMake(0, 0, 30, 40)
+                                             andDirection:BBArrowNext
+                                           andArrowColour:[UIColor colorWithRed:0.26 green:0.57 blue:0.88 alpha:1.0]
+                                              andBgColour:[UIColor colorWithRed:0.94 green:0.94 blue:0.95 alpha:1]];
+    
+    MGBox *arrowWrapper = [MGBox boxWithSize:CGSizeMake(forwardArrow.width, forwardArrow.height)];
+    [arrowWrapper addSubview:forwardArrow];
+    
+    return arrowWrapper;
+}
 
 @end

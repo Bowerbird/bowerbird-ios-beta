@@ -34,7 +34,7 @@
   self.rightItemsTextAlignment = NSTextAlignmentRight;
 
   // default underline
-  self.underlineType = MGUnderlineBottom;
+    self.underlineType = MGUnderlineNone; //MGUnderlineBottom;
 }
 
 #pragma mark - Factories

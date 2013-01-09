@@ -20,11 +20,11 @@
 @property BOOL requestWasPullLatest;
 @property (nonatomic, strong) NSDate *latestFetchedActivityNewer;
 @property (nonatomic, strong) NSDate *latestFetchedActivityOlder;
+@property (nonatomic, strong) NSDate *latestFetchedActivityNewerLocalTime;
 
 @end
 
 @implementation BBStreamController{
-    UIImage *arrow, *back;
     UIActivityIndicatorView *progress;
     BOOL paginatorIsLoading;
     NSString *groupId;
@@ -49,6 +49,8 @@
     _controller = delegate;
     self.latestFetchedActivityOlder = [NSDate getCurrentUTCDate];
     self.latestFetchedActivityNewer = [NSDate getCurrentUTCDate];
+    self.latestFetchedActivityNewerLocalTime = [NSDate date];
+    
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [SVProgressHUD showWithStatus:@"Loading Activity"];
@@ -160,9 +162,7 @@
     [BBLog Log:@"BBStreamController.viewDidLoad"];
     
     [super viewDidLoad];
-    arrow = [UIImage imageNamed:@"arrow.png"];
-    back = [UIImage imageNamed:@"back.png"];
-    
+
     UISwipeGestureRecognizer *rightRecognizer;
     rightRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeRight:)];
     [rightRecognizer setDirection: UISwipeGestureRecognizerDirectionRight];
@@ -196,6 +196,7 @@
             
             stream.requestWasPullLatest = YES;
             stream.latestFetchedActivityNewer = [NSDate getCurrentUTCDate]; // set latest fetch to now for future fetches
+            stream.latestFetchedActivityNewerLocalTime = [NSDate date];
         }];
     }
     
@@ -218,7 +219,6 @@
         
         // do UI stuff back in UI land
         dispatch_async(dispatch_get_main_queue(), ^{
-            
             
             progressBox = [MGBox boxWithSize:CGSizeMake(100, 40)];
             progressBox.backgroundColor = [UIColor whiteColor];
@@ -288,27 +288,46 @@
     if(!displayAtTop && scroll)
     {
         [((BBStreamView*)self.view) scrollToView:box withMargin:0];
-        [((BBStreamView*)self.view) layout];
     }
 }
 
 -(MGBox*)renderSightingNoteActivity:(BBActivity*)activity {
     [BBLog Log:@"BBStreamController.renderSightingNoteActivity"];
     
-    MGTableBoxStyled *info = [MGTableBoxStyled boxWithSize:IPHONE_OBSERVATION];
-    info.margin = UIEdgeInsetsMake(5, 5, 5, 0);
+    MGTableBox *info = [MGTableBox boxWithSize:IPHONE_OBSERVATION];
+    info.backgroundColor = [UIColor whiteColor];
     
-    info.onTap = ^{
+    info.margin = UIEdgeInsetsMake(5, 5, 5, 0);
+    info.padding = UIEdgeInsetsZero;
+    
+    BBImage *avatarImage = [BBCollectionHelper getImageWithDimension:@"Square50" fromArrayOf:activity.user.avatar.imageMedia];
+    PhotoBox *avatar = [PhotoBox mediaFor:avatarImage.uri size:CGSizeMake(50, 50)];
+    avatar.padding = UIEdgeInsetsZero;
+    avatar.margin = UIEdgeInsetsZero;
+
+    MGLine *activityDescription = [MGLine lineWithMultilineLeft:[NSString stringWithFormat:@"%@ %@",activity.description, [activity.createdOn timeAgo]]
+                                                          right:nil
+                                                          width:240
+                                                      minHeight:50];
+    activityDescription.margin = UIEdgeInsetsMake(0, 10, 0, 10);
+    activityDescription.padding = UIEdgeInsetsZero;
+    activityDescription.underlineType = MGUnderlineNone;
+    
+    MGBox *detailArrow = [self getForwardArrow];
+    detailArrow.margin = UIEdgeInsetsMake(5, 0, 5, 5);
+    
+    MGBox *userProfileWithArrow = [MGBox boxWithSize:CGSizeMake(310, 50)];
+    userProfileWithArrow.backgroundColor = [UIColor colorWithRed:0.94 green:0.94 blue:0.95 alpha:1];
+    userProfileWithArrow.contentLayoutMode = MGLayoutGridStyle;
+    
+    [userProfileWithArrow.boxes addObject:avatar];
+    [userProfileWithArrow.boxes addObject:activityDescription];
+    //[userProfileWithArrow.boxes addObject:detailArrow];
+    /*
+    userProfileWithArrow.onTap = ^{
         [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:[[BBSightingDetailController alloc]initWithSightingIdentifier:activity.observationNoteObservation.identifier] animated:YES];
     };
-    
-    // Add the User Profile to the top:
-    MGLine *userProfile = [BBUIControlHelper createUserProfileLineForUser:activity.user
-                                                          withDescription:[NSString stringWithFormat:@"%@ %@",activity.description, [activity.createdOn timeAgo]]
-                                                                  forSize:CGSizeMake(IPHONE_STREAM_WIDTH - arrow.size.width, 60)];
-    
-    MGLine *userProfileWithArrow = [MGLine lineWithLeft:userProfile right:arrow size:CGSizeMake(IPHONE_STREAM_WIDTH,60)];
-    userProfileWithArrow.bottomPadding = 5;
+    */
     [info.topLines addObject:userProfileWithArrow];
     
     BBObservationNote *observationNote = activity.observationNote;
@@ -365,8 +384,11 @@
     }
     
     // show the observation the note belongs to in summary form:
-    MGTableBoxStyled *subObservation = [BBUIControlHelper createSubObservation:activity.observationNoteObservation
-                                                                       forSize:CGSizeMake(290, 200)];
+    MGTableBox *subObservation = [BBUIControlHelper createSubObservation:activity.observationNoteObservation
+                                                                       forSize:CGSizeMake(300, 200)
+                                                                        withBlock:^{
+                                                                            [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:[[BBSightingDetailController alloc]initWithSightingIdentifier:activity.observationNoteObservation.identifier]
+                                                                                                                                                                   animated:YES];}];
     [info.bottomLines addObject:subObservation];
     
     return info;
@@ -377,34 +399,50 @@
 -(MGBox*)renderSightingActivity:(BBActivity*)activity {
     [BBLog Log:@"BBStreamController.renderSightingActivity"];
     
-    MGTableBoxStyled *info = [MGTableBoxStyled boxWithSize:IPHONE_OBSERVATION];
+    MGTableBox *info = [MGTableBox boxWithSize:IPHONE_OBSERVATION];
+    info.backgroundColor = [UIColor whiteColor];
+    
     info.margin = UIEdgeInsetsMake(5, 5, 5, 0);
+    info.padding = UIEdgeInsetsZero;
     
-    MGLine *userProfile = [BBUIControlHelper createUserProfileLineForUser:activity.user
-                                                          withDescription:[NSString stringWithFormat:@"%@ %@",activity.description, [activity.createdOn timeAgo]]
-                                                                  forSize:CGSizeMake(IPHONE_STREAM_WIDTH - arrow.size.width, 60)];
+    BBImage *avatarImage = [BBCollectionHelper getImageWithDimension:@"Square50" fromArrayOf:activity.user.avatar.imageMedia];
+    PhotoBox *avatar = [PhotoBox mediaFor:avatarImage.uri size:CGSizeMake(50, 50)];
+    avatar.padding = UIEdgeInsetsZero;
+    avatar.margin = UIEdgeInsetsZero;
     
+    MGLine *activityDescription = [MGLine lineWithMultilineLeft:[NSString stringWithFormat:@"%@ %@",activity.description, [activity.createdOn timeAgo]]
+                                                          right:nil
+                                                          width:200
+                                                      minHeight:50];
+    activityDescription.margin = UIEdgeInsetsMake(0, 10, 0, 10);
+    activityDescription.padding = UIEdgeInsetsZero;
+    activityDescription.underlineType = MGUnderlineNone;
     
-    MGLine *userProfileWithArrow = [MGLine lineWithLeft:userProfile right:arrow size:CGSizeMake(IPHONE_STREAM_WIDTH,60)];
-    userProfileWithArrow.bottomPadding = 5;
+    MGBox *detailArrow = [self getForwardArrow];
+    detailArrow.margin = UIEdgeInsetsMake(5, 0, 5, 5);
     
-    //userProfileWithArrow.underlineType = MGUnderlineNone;
-    [info.topLines addObject:userProfileWithArrow];
+    MGBox *userProfileWithArrow = [MGBox boxWithSize:CGSizeMake(310, 50)];
+    userProfileWithArrow.backgroundColor = [UIColor colorWithRed:0.94 green:0.94 blue:0.95 alpha:1];
+    userProfileWithArrow.contentLayoutMode = MGLayoutGridStyle;
     
-    info.onTap = ^{
+    [userProfileWithArrow.boxes addObject:avatar];
+    [userProfileWithArrow.boxes addObject:activityDescription];
+    [userProfileWithArrow.boxes addObject:detailArrow];
+    
+    userProfileWithArrow.onTap = ^{
         [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:[[BBSightingDetailController alloc]initWithSightingIdentifier:activity.observation.identifier] animated:YES];
     };
     
+    [info.topLines addObject:userProfileWithArrow];
     [info.middleLines addObject:[BBUIControlHelper createMediaViewerForMedia:activity.observation.media
                                                                  withPrimary:activity.observation.primaryMedia
-                                                                     forSize:CGSizeMake(IPHONE_STREAM_WIDTH,270)
+                                                                     forSize:CGSizeMake(IPHONE_STREAM_WIDTH,250)
                                                             displayingThumbs:NO]];
     
-    MGLine *title = [MGLine lineWithLeft:activity.observation.title right:nil size:CGSizeMake(IPHONE_STREAM_WIDTH, 40)];
-    title.padding = UIEdgeInsetsMake(5, 10, 5, 10);
+    MGLine *title = [MGLine lineWithLeft:activity.observation.title right:nil size:CGSizeMake(IPHONE_STREAM_WIDTH, 30)];
+    title.padding = UIEdgeInsetsMake(0, 10, 5, 10);
     title.font = HEADER_FONT;
     title.underlineType = MGUnderlineNone;
-    
     [info.middleLines addObject:title];
     
     return info;
@@ -584,7 +622,7 @@ didLoadObjectDictionary:(NSDictionary *)dictionary {
     }
     
     [[((BBStreamView*)self.view) pullToRefreshView] stopAnimating];
-    [[((BBStreamView*)self.view) pullToRefreshView] setLastUpdatedDate:self.latestFetchedActivityNewer];
+    [[((BBStreamView*)self.view) pullToRefreshView] setLastUpdatedDate:self.latestFetchedActivityNewerLocalTime];
 }
 
 #pragma mark -
@@ -623,6 +661,18 @@ didLoadObjectDictionary:(NSDictionary *)dictionary {
     
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(MGBox*)getForwardArrow {
+    UIView *arrow = [[BBArrowView alloc]initWithFrame:CGRectMake(0, 0, 30, 40)
+                                        andDirection:BBArrowNext
+                                      andArrowColour:[UIColor grayColor]
+                                         andBgColour:[UIColor colorWithRed:0.94 green:0.94 blue:0.95 alpha:1]];
+    
+    MGBox *arrowWrapper = [MGBox boxWithSize:CGSizeMake(arrow.width, arrow.height)];
+    [arrowWrapper addSubview:arrow];
+    
+    return arrowWrapper;
 }
 
 @end

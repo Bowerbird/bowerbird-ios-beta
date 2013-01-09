@@ -19,5 +19,9 @@
 @property (nonatomic,retain) BBMedia* primaryMedia;
 @property (nonatomic,retain) NSArray* media;
 @property (nonatomic,retain) NSArray* notes;
+@property (nonatomic,strong) NSNumber* commentCount;
+@property (nonatomic,strong) NSNumber* noteCount;
+@property (nonatomic,strong) NSNumber* projectCount;
+@property (nonatomic,strong) NSNumber* identificationCount;
 
 @end

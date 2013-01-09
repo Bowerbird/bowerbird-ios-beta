@@ -13,7 +13,11 @@
 @synthesize     isIdentificationRequired = _isIdentificationRequired,
                                    media = _media,
                             primaryMedia = _primaryMedia,
-                                   notes = _notes;
+                                   notes = _notes,
+                            commentCount = _commentCount,
+                            projectCount = _projectCount,
+                               noteCount = _noteCount,
+                     identificationCount = _identificationCount;
 
 
 -(void)setIsIdentificationRequired:(BOOL)isIdentificationRequired
@@ -25,6 +29,33 @@
     return _isIdentificationRequired;
 }
 
+-(NSNumber*)commentCount {
+    return _commentCount;
+}
+-(void)setCommentCount:(NSNumber *)commentCount {
+    _commentCount = commentCount;
+}
+
+-(NSNumber*)projectCount {
+    return _projectCount;
+}
+-(void)setProjectCount:(NSNumber *)projectCount {
+    _projectCount = projectCount;
+}
+
+-(NSNumber*)noteCount {
+    return _noteCount;
+}
+-(void)setNoteCount:(NSNumber *)noteCount {
+    _noteCount = noteCount;
+}
+
+-(NSNumber*)identificationCount {
+    return _identificationCount;
+}
+-(void)setIdentificationCount:(NSNumber *)identificationCount {
+    _identificationCount = identificationCount;
+}
 
 // change from an NSSet to an NSArray
 -(void)setMedia:(NSArray *)media

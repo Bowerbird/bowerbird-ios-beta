@@ -79,18 +79,24 @@
 
     MGTableBoxStyled *info = [MGTableBoxStyled boxWithSize:IPHONE_OBSERVATION];
     info.margin = UIEdgeInsetsMake(5, 5, 5, 0);
+    info.backgroundColor = [UIColor whiteColor];
+    
+    MGBox *backArrow = [self getBackArrow];
+    //[info.topLines addObject:backArrow];
     
     BBObservation *observation = (BBObservation*)_sighting;
     
     double horizontalPaddingTotalWidth = 10;
-    double descriptionWidth = 300 - back.size.width - horizontalPaddingTotalWidth;
+    double descriptionWidth = 300 - backArrow.width - horizontalPaddingTotalWidth;
     MGLine *description = [MGLine multilineWithText:observation.title
                                                font:HEADER_FONT
                                               width:descriptionWidth
                                             padding:UIEdgeInsetsMake(15, horizontalPaddingTotalWidth/2, 0, horizontalPaddingTotalWidth/2)];
     
+    
+    
     // HEADER
-    MGLine *header = [MGLine lineWithLeft:back
+    MGLine *header = [MGLine lineWithLeft:backArrow
                                     right:description
                                      size:CGSizeMake(300, 60)];
     header.underlineType = MGUnderlineNone;
@@ -99,12 +105,12 @@
         // Go back to the stream you came from:
         [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:YES];
     };
-    
+    header.backgroundColor = [UIColor colorWithRed:0.94 green:0.94 blue:0.95 alpha:1];;
     
     // USER
     [info.middleLines addObject:[BBUIControlHelper createUserProfileLineForUser:observation.user
                                                           withDescription:[NSString stringWithFormat:@"%@ sighted %@", observation.user.name, [observation.observedOnDate timeAgo]]
-                                                                  forSize:CGSizeMake(IPHONE_STREAM_WIDTH - arrow.size.width, 60)]];
+                                                                  forSize:CGSizeMake(IPHONE_STREAM_WIDTH - backArrow.width, 60)]];
     
     /*
     // MEDIA
@@ -156,7 +162,7 @@
                                                                 andLeftWidth:120
                                                                andRightWidth:180]];
 
-    
+    /////////////// Replace all this location detail with an actual map
     // LATITUDE
     [info.middleLines addObject:[BBUIControlHelper createTwoColumnRowWithleftText:@"Latitude:"
                                                                 andRightText:[NSString stringWithFormat:@"%f", observation.latitude]
@@ -391,6 +397,20 @@
         _sighting = object;
         [self displaySighting];
     }
+}
+
+
+-(MGBox*)getBackArrow {
+    // Set up reusable forward and back arrows
+    UIView *backArrow = [[BBArrowView alloc]initWithFrame:CGRectMake(0, 0, 30, 40)
+                                         andDirection:BBArrowBack
+                                       andArrowColour:[UIColor colorWithRed:0.26 green:0.57 blue:0.88 alpha:1.0]
+                                          andBgColour:[UIColor colorWithRed:0.94 green:0.94 blue:0.95 alpha:1]];
+    
+    MGBox *arrowWrapper = [MGBox boxWithSize:CGSizeMake(backArrow.width, backArrow.height)];
+    [arrowWrapper addSubview:backArrow];
+    
+    return arrowWrapper;
 }
 
 @end

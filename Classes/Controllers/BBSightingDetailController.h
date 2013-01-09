@@ -16,6 +16,7 @@
 #import "MBProgressHUD.h"
 #import "BBCreateSightingNoteController.h"
 #import "DWTagList.h"
+#import "BBArrowView.h"
 
 @interface BBSightingDetailController : BBControllerBase <
      UIGestureRecognizerDelegate

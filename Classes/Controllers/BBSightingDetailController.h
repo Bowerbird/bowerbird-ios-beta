@@ -15,8 +15,14 @@
 #import "BBUIControlHelper.h"
 #import "MBProgressHUD.h"
 #import "BBCreateSightingNoteController.h"
+#import "BBIdentifySightingController.h"
 #import "DWTagList.h"
 #import "BBArrowView.h"
+#import "PDLocation.h"
+#import "MapPoint.h"
+#import "BBDisplayLocationController.h"
+#import "BBDisplayFullImageController.h"
+#import "SVProgressHUD.h"
 
 @interface BBSightingDetailController : BBControllerBase <
      UIGestureRecognizerDelegate
@@ -25,6 +31,7 @@
 >
 
 @property (weak, nonatomic) MKMapView *mapView;
+@property (strong, nonatomic) UITapGestureRecognizer *tapGesture;
 
 -(BBSightingDetailController*)initWithSightingIdentifier:(NSString*)identifier;
 

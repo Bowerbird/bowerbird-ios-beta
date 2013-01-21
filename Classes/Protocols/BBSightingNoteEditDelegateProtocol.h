@@ -14,11 +14,6 @@
 
 @required
 
-// search for Id clicked, browse for Id clicked, remove Id clicked
--(void)searchClassifications;
--(void)browseClassifications;
--(void)removeClassification;
-
 // start selecting description to add, finish selecting description to add, add description, remove description
 -(void)startAddDescription;
 -(void)endAddDescription;

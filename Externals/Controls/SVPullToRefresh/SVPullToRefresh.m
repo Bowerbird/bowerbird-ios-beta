@@ -80,7 +80,7 @@ static CGFloat const SVPullToRefreshViewHeight = 60;
     self.textColor = [UIColor darkGrayColor];
     
     self.originalScrollViewContentInset = self.scrollView.contentInset;
-
+    
     return self;
 }
 
@@ -111,7 +111,7 @@ static CGFloat const SVPullToRefreshViewHeight = 60;
         self.activityIndicatorView.center = CGPointMake(round(self.bounds.size.width/2), round(self.bounds.size.height/2));
     } else
         self.activityIndicatorView.center = self.arrow.center;
-
+    
 }
 
 #pragma mark - Getters
@@ -122,7 +122,7 @@ static CGFloat const SVPullToRefreshViewHeight = 60;
         arrow.backgroundColor = [UIColor clearColor];
 		
 		// assign a different default color for arrow
-//		arrow.arrowColor = [UIColor blueColor];
+        //		arrow.arrowColor = [UIColor blueColor];
     }
     return arrow;
 }
@@ -180,18 +180,18 @@ static CGFloat const SVPullToRefreshViewHeight = 60;
     [self addSubview:titleLabel];
     
     [self addSubview:self.arrow];
-    	
-    self.state = SVPullToRefreshStateHidden;    
+    
+    self.state = SVPullToRefreshStateHidden;
     self.frame = CGRectMake(0, -SVPullToRefreshViewHeight, self.scrollView.bounds.size.width, SVPullToRefreshViewHeight);
 }
 
 - (void)setInfiniteScrollingActionHandler:(void (^)(void))actionHandler {
-    self.originalTableFooterView = [(BBStreamView*)self.scrollView tableFooterView];
+    self.originalTableFooterView = [(UITableView*)self.scrollView tableFooterView];
     infiniteScrollingActionHandler = [actionHandler copy];
     self.showsInfiniteScrolling = YES;
     self.frame = CGRectMake(0, 0, self.scrollView.bounds.size.width, SVPullToRefreshViewHeight);
-    [(BBStreamView*)self.scrollView setTableFooterView:self];
-    self.state = SVPullToRefreshStateHidden;    
+    [(UITableView*)self.scrollView setTableFooterView:self];
+    self.state = SVPullToRefreshStateHidden;
     [self layoutSubviews];
 }
 
@@ -237,9 +237,9 @@ static CGFloat const SVPullToRefreshViewHeight = 60;
 - (void)setShowsInfiniteScrolling:(BOOL)show {
     showsInfiniteScrolling = show;
     if(!show)
-        [(BBStreamView*)self.scrollView setTableFooterView:self.originalTableFooterView];
+        [(UITableView*)self.scrollView setTableFooterView:self.originalTableFooterView];
     else
-        [(BBStreamView*)self.scrollView setTableFooterView:self];
+        [(UITableView*)self.scrollView setTableFooterView:self];
 }
 
 #pragma mark -
@@ -269,7 +269,7 @@ static CGFloat const SVPullToRefreshViewHeight = 60;
         [self layoutSubviews];
 }
 
-- (void)scrollViewDidScroll:(CGPoint)contentOffset {    
+- (void)scrollViewDidScroll:(CGPoint)contentOffset {
     if(pullToRefreshActionHandler) {
         if (self.state == SVPullToRefreshStateLoading) {
             CGFloat offset = MAX(self.scrollView.contentOffset.y * -1, 0);
@@ -327,11 +327,11 @@ static CGFloat const SVPullToRefreshViewHeight = 60;
         [self.activityIndicatorView stopAnimating];
         [self setScrollViewContentInset:self.originalScrollViewContentInset];
         [self rotateArrow:0 hide:YES];
-        return;   
+        return;
     }
     
     if(infiniteScrollingActionHandler && !self.showsInfiniteScrolling)
-        return;   
+        return;
     
     if(state == newState)
         return;
@@ -371,7 +371,7 @@ static CGFloat const SVPullToRefreshViewHeight = 60;
             case SVPullToRefreshStateHidden:
                 [self.activityIndicatorView stopAnimating];
                 break;
-
+                
             case SVPullToRefreshStateLoading:
                 [self.activityIndicatorView startAnimating];
                 infiniteScrollingActionHandler();
@@ -435,7 +435,7 @@ static char UIScrollViewInfiniteScrollingView;
 }
 
 - (void)setShowsPullToRefresh:(BOOL)showsPullToRefresh {
-    self.pullToRefreshView.showsPullToRefresh = showsPullToRefresh;   
+    self.pullToRefreshView.showsPullToRefresh = showsPullToRefresh;
 }
 
 - (BOOL)showsPullToRefresh {
@@ -452,7 +452,7 @@ static char UIScrollViewInfiniteScrollingView;
 }
 
 - (void)setShowsInfiniteScrolling:(BOOL)showsInfiniteScrolling {
-    self.infiniteScrollingView.showsInfiniteScrolling = showsInfiniteScrolling;   
+    self.infiniteScrollingView.showsInfiniteScrolling = showsInfiniteScrolling;
 }
 
 - (BOOL)showsInfiniteScrolling {
@@ -506,7 +506,7 @@ static char UIScrollViewInfiniteScrollingView;
         alphaGradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)alphaGradientColors, alphaGradientLocations);
     }else{
         const CGFloat * components = CGColorGetComponents([self.arrowColor CGColor]);
-        int numComponents = CGColorGetNumberOfComponents([self.arrowColor CGColor]);        
+        int numComponents = CGColorGetNumberOfComponents([self.arrowColor CGColor]);
         CGFloat colors[8];
         switch(numComponents){
             case 2:{

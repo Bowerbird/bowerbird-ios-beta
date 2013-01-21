@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "BBSightingNoteDescriptionCreate.h"
 
+// This is the object which is actually posted to the server
 @interface BBSightingNoteCreate : NSObject
 
 @property (nonatomic, strong) NSString *identifier;

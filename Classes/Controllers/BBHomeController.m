@@ -88,12 +88,12 @@
 #pragma mark - Delegation and Event Handling
 
 
--(void)displayStreamView:(BBStreamView*)streamView {
+-(void)displayStreamView:(UIView*)streamView {
     [BBLog Log:@"BBHomeController.displayStreamView:"];
     
     [self.view addSubview:streamView];
     self.streamController.view.y += 50;
-    ((BBStreamView*)self.streamController.view).height -= 50;
+    self.streamController.view.height -= 50;
 }
 
 - (void)handleSwipeRight:(UIGestureRecognizer *)gestureRecognizer {

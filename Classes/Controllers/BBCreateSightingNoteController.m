@@ -82,20 +82,6 @@
     [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:YES];
 }
 
-// search for Id clicked, browse for Id clicked, remove Id clicked
--(void)searchClassifications {
-    BBClassificationSearchController *searchController = [[BBClassificationSearchController alloc]init];
-    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:searchController animated:YES];
-}
--(void)browseClassifications {
-    BBClassificationBrowseController *browseController = [[BBClassificationBrowseController alloc]init];
-    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:browseController animated:YES];
-}
--(void)removeClassification {
-    // clear the taxonomy
-    // tell the view to clear the classification display box
-}
-
 // start selecting description to add, finish selecting description to add, add description, remove description
 -(void)startAddDescription {
     // pop up a picker control with list of un-added descriptions
@@ -112,6 +98,7 @@
     [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:sightingNoteAddDescription animated:YES];
     
 }
+
 -(void)endAddDescription {
     // hide picker popup but add selected item to view for filling in value
 }
@@ -119,6 +106,10 @@
 // add key/value description pair to the model's description dictionary
 -(void)addDescription:(BBSightingNoteDescription *)description {
     //[_sightingNote.descriptions setObject:description.text forKey:description.label];
+}
+
+-(void)removeDescription:(BBSightingNoteDescription *)description {
+    // TODO:
 }
 
 -(void)startAddTag {
@@ -138,6 +129,7 @@
     [_sightingNote.tags addObject:tag];
     // update the View's UI
 }
+
 -(void)removeTag:(NSString*)tag {
     [_sightingNote.tags removeObject:tag];
     // update the View's UI
@@ -166,7 +158,6 @@
          */
     }
 }
-
 
 -(BOOL)validateForm {
     

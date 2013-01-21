@@ -26,6 +26,7 @@
     BBClassificationSelector *currentIdentification;
     MGTableBoxStyled *classificationBrowser;
     MGBox *currentIdentificationBox;
+    BOOL isCustom;
 }
 
 // do a first pass to load the first level ranks
@@ -40,12 +41,14 @@
 }
 
 
--(BBClassificationBrowseController*)initWithClassification:(BBClassificationSelector*)classification {
+-(BBClassificationBrowseController*)initWithClassification:(BBClassificationSelector*)classification
+                                                  asCustom:(BOOL)custom {
     [BBLog Log:@"BBClassificationBrowseController.initWithIdentification"];
     
     self = [super init];
     
     currentIdentification = classification;
+    isCustom = custom;
     
     return self;
 }
@@ -153,7 +156,8 @@
     
     BBClassificationSelector *nextClassificationSelector = [[BBClassificationSelector alloc]initWithClassification:classification andCurrentRank:[currentIdentification getNextRankQuery]];
     
-    BBClassificationBrowseController *nextClassificationBrowseController = [[BBClassificationBrowseController alloc]initWithClassification:nextClassificationSelector];
+    BBClassificationBrowseController *nextClassificationBrowseController = [[BBClassificationBrowseController alloc]initWithClassification:nextClassificationSelector
+                                                                                                                                  asCustom:isCustom];
     
     [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:nextClassificationBrowseController animated:NO];
 }
@@ -164,7 +168,7 @@
     
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithCapacity:1];
     [userInfo setObject:classification forKey:@"classification"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"classificationSelectedForNote" object:self userInfo:userInfo];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"identificationSelected" object:self userInfo:userInfo];
 }
 
 

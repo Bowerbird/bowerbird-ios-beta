@@ -71,7 +71,7 @@
     
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithCapacity:1];
     [userInfo setObject:classification forKey:@"classification"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"classificationSelectedForNote" object:self userInfo:userInfo];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"identificationSelected" object:self userInfo:userInfo];
 }
 
 

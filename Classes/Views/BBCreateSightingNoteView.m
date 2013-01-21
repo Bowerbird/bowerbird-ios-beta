@@ -28,19 +28,7 @@
 
 -(void)displayControls {
     [BBLog Log:@"BBCreateSightingNoteController.displayControls:"];
-    
-    MGTableBox *identificationTableWrapper = [MGTableBox boxWithSize:CGSizeMake(310, 40)];
-    MGLine *identificationTableHeader = [MGLine lineWithLeft:@"Identification"
-                                                       right:nil
-                                                        size:CGSizeMake(300, 30)];
-    identificationTableHeader.underlineType = MGUnderlineNone;
-    identificationTableHeader.padding = UIEdgeInsetsMake(10, 10, 0, 0);
-    [identificationTableWrapper.topLines addObject:identificationTableHeader];
-    identificationTable = [MGTableBoxStyled boxWithSize:CGSizeMake(300, 200)];
-    [identificationTableWrapper.middleLines addObject:identificationTable];
-    [self displayIdentificationControls];
-    
-    
+ 
     MGTableBox *descriptionTableWrapper = [MGTableBox boxWithSize:CGSizeMake(310, 40)];
     MGLine *descriptionTableHeader = [MGLine lineWithLeft:@"Description"
                                                     right:nil
@@ -77,31 +65,10 @@
     [actionTableWrapper.middleLines addObject:actionTable];
     [self displayActionControls];
     
-    [self.boxes addObject:identificationTableWrapper];
     [self.boxes addObject:descriptionTableWrapper];
     [self.boxes addObject:tagsTableWrapper];
     [self.boxes addObject:actionTableWrapper];
     [self layoutWithSpeed:0.3 completion:nil];
-}
-
--(void)displayIdentificationControls {
-    
-    CoolMGButton *search = [BBUIControlHelper createButtonWithFrame:CGRectMake(0, 0, 135, 40)
-                                                           andTitle:@"Search"
-                                                          withBlock:^{[_controller searchClassifications];}];
-    search.margin = UIEdgeInsetsMake(0, 10, 10, 10);
-    
-    CoolMGButton *browse = [BBUIControlHelper createButtonWithFrame:CGRectMake(0, 0, 135, 40)
-                                                           andTitle:@"Browse"
-                                                          withBlock:^{[_controller browseClassifications];}];
-    browse.margin = UIEdgeInsetsMake(0, 0, 10, 10);
-    
-    MGLine *searchBrowseLine = [MGLine lineWithLeft:search
-                                              right:browse
-                                               size:CGSizeMake(300, 60)];
-
-    searchBrowseLine.underlineType = MGUnderlineNone;
-    [identificationTable.bottomLines addObject:searchBrowseLine];
 }
 
 -(void)displayDescriptionControls {
@@ -196,17 +163,6 @@
     }
     
     [self layout];
-}
-
--(void)displayIdentification:(BBClassification*)classification {
-    [identificationTable.middleLines removeAllObjects];
-    [identificationTable.middleLines addObject:[BBUIControlHelper createCurrentClassification:classification forSize:CGSizeMake(300, 140)]];
-    [self layout];
-}
-
--(void)removeIdentification {
-    [identificationTable.middleLines removeAllObjects];
-    [self displayIdentificationControls];
 }
 
 @end

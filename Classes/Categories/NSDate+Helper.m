@@ -262,6 +262,10 @@
 	return @"yyyy-MM-dd";
 }
 
++ (NSString *)dateFormatHumanReadable {
+    return @"dd-MM-yyyy";
+}
+
 + (NSString *)timeFormatString {
 	return @"HH:mm:ss";
 }

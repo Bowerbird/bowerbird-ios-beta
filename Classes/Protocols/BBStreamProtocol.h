@@ -14,6 +14,6 @@
 @protocol BBStreamProtocol <NSObject>
 
 @required
--(void)displayStreamView:(BBStreamView*)streamView;
+-(void)displayStreamView:(UIView*)streamView;
 
 @end

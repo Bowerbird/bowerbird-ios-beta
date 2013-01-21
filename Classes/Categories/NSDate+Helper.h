@@ -61,6 +61,8 @@
 + (NSDate *)getCurrentUTCDate;
 + (NSString *)getCurrentUTCFormatDate;
 
++ (NSString *)dateFormatHumanReadable;
+
 - (NSString *)dateAsJsonUtcString;
 
 @end

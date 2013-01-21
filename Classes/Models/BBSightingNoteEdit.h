@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+// this is the object which is created in the interface, but not posted to the server
 @interface BBSightingNoteEdit : NSObject
 
 -(BBSightingNoteEdit*)initWithSightingId:(NSString*)sightingId;

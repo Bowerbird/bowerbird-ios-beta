@@ -69,7 +69,10 @@
     
     if([self userIsAuthenticated])
     {
-        [SVProgressHUD setStatus:@"Loading your profile"];
+        // do UI stuff back in UI land
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [SVProgressHUD setStatus:@"Loading your profile"];
+        });
         
         // pull down the logged in user's latest profile information
         [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"%@?%@",[BBConstants AuthenticatedUserProfileUrl], [BBConstants AjaxQuerystring]]

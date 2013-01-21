@@ -8,9 +8,8 @@
 
 #import <RestKit/RKRequestSerialization.h>
 #import "BBControllerBase.h"
-#import "BBClassificationBrowseController.h"
-#import "BBClassificationSearchController.h"
 #import "BBUIControlHelper.h"
+#import "SVProgressHUD.h"
 #import "BBStyles.h"
 #import "MGHelpers.h"
 #import "BBModels.h"

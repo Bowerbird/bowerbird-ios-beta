@@ -8,7 +8,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BBStreamView.h"
+//#import "BBStreamView.h"
 
 @interface SVPullToRefresh : UIView
 

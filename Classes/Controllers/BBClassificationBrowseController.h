@@ -14,8 +14,10 @@
 @interface BBClassificationBrowseController : BBControllerBase <
      RKObjectLoaderDelegate
     ,BBRankDelegateProtocol
-> 
+>
 
--(BBClassificationBrowseController*)initWithClassification:(BBClassificationSelector*)classification;
+// add another constructor to use this controller as a builder for custom identifications....
+-(BBClassificationBrowseController*)initWithClassification:(BBClassificationSelector*)classification
+                                                  asCustom:(BOOL)custom;
 
 @end

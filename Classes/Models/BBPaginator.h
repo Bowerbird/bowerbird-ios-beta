@@ -10,7 +10,8 @@
 
 @interface BBPaginator : RKObjectPaginator
 
-@property (nonatomic,strong) NSMutableSet *items;
+//@property (nonatomic,strong) NSMutableSet *items;
+@property (nonatomic,strong) NSMutableArray *items;
 
 @property (nonatomic, readonly) NSUInteger pageCount;
 

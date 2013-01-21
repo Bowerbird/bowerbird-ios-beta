@@ -27,7 +27,7 @@
     self.size = size;
     
     // tableFooterView needs to be visible at the bottom of the scroll view... then hidden..?
-    self.tableFooterView = [MGBox boxWithSize:CGSizeMake(self.size.width, 30)];
+    //self.tableFooterView = [MGBox boxWithSize:CGSizeMake(self.size.width, 30)];
     
     _controller = delegate;
 

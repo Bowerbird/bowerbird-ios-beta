@@ -14,6 +14,7 @@
 @synthesize pageCount = _pageCount;
 @synthesize currentPage = _currentPage;
 
+/*
 -(NSMutableSet*)items {
     if(!_items)_items = [[NSMutableSet alloc]init];
     return _items;
@@ -27,6 +28,25 @@
 -(void)removeItemsObject:(NSObject *)item {
     [_items removeObject:item];
 }
+*/
+
+-(NSMutableArray*)items {
+    if(!_items) _items = [[NSMutableArray alloc]init];
+    return _items;
+}
+
+-(void)setItems:(NSMutableArray *)items {
+    _items = items;
+}
+
+-(void)addItem:(NSObject*)item {
+    [self.items addObject:item];
+}
+
+-(void)removeItem:(NSObject*)item {
+    [self.items removeObject:item];
+}
+
 
 -(BOOL)moreItemsExist {
     return self.currentPage < self.pageCount;

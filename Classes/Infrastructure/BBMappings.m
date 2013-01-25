@@ -106,6 +106,7 @@
     
     
     RKObjectMapping *identificationMapping = [RKObjectMapping mappingForClass:[BBIdentification class]];
+    [identificationMapping mapKeyPath:@"IsCustomIdentification" toAttribute:@"isCustomIdentification"];
     [identificationMapping mapKeyPath:@"Category" toAttribute:@"category"];
     [identificationMapping mapKeyPath:@"Name" toAttribute:@"name"];
     [identificationMapping mapKeyPath:@"RankName" toAttribute:@"rankName"];
@@ -113,9 +114,16 @@
     [identificationMapping mapKeyPath:@"CommonGroupNames" toAttribute:@"commonGroupNames"];
     [identificationMapping mapKeyPath:@"CommonNames" toAttribute:@"commonNames"];
     [identificationMapping mapKeyPath:@"Taxonomy" toAttribute:@"taxonomy"];
-    [identificationMapping mapKeyPath:@"TaxonomicRanks" toRelationship:@"taxonomicRanks" withMapping:taxonomicRankMapping];
     [identificationMapping mapKeyPath:@"Synonyms" toAttribute:@"synonyms"];
     [identificationMapping mapKeyPath:@"AllCommonNames" toAttribute:@"allCommonNames"];
+    [identificationMapping mapKeyPath:@"Comments" toAttribute:@"comments"];
+    [identificationMapping mapKeyPath:@"CreatedOnDescription" toAttribute:@"createdOnDescription"];
+    [identificationMapping mapKeyPath:@"Ranks" toRelationship:@"ranks" withMapping:taxonomicRankMapping];
+    [identificationMapping mapKeyPath:@"TotalVoteScore" toAttribute:@"totalVoteScore"];
+    [identificationMapping mapKeyPath:@"UserVoteScore" toAttribute:@"userVoteScore"];
+    [identificationMapping mapKeyPath:@"SightingId" toAttribute:@"sightingId"];
+    [identificationMapping mapKeyPath:@"Id" toAttribute:@"identifier"];
+    [identificationMapping mapKeyPath:@"User" toRelationship:@"user" withMapping:userMapping];
     [manager.mappingProvider setMapping:identificationMapping forKeyPath:@"Identification"];
     [manager.mappingProvider addObjectMapping:identificationMapping];
     
@@ -135,14 +143,15 @@
     [manager.mappingProvider setMapping:observationNoteMapping forKeyPath:@"SightingNote"];
     [observationNoteMapping mapKeyPath:@"Id" toAttribute:@"identifier"];
     [observationNoteMapping mapKeyPath:@"CreatedOn" toAttribute:@"createdOn"];
-    [observationNoteMapping mapKeyPath:@"Identification" toRelationship:@"identification" withMapping:identificationMapping]; //toAttribute:@"identification"];
-    [observationNoteMapping mapKeyPath:@"Taxonomy" toAttribute:@"taxonomy"];
     [observationNoteMapping mapKeyPath:@"Descriptions" toRelationship:@"descriptions" withMapping:sightingNoteDescriptionMapping];
     [observationNoteMapping mapKeyPath:@"Tags" toAttribute:@"tags"];
     [observationNoteMapping mapKeyPath:@"User" toRelationship:@"user" withMapping:userMapping];
     [observationNoteMapping mapKeyPath:@"TagCount" toAttribute:@"tagCount"];
     [observationNoteMapping mapKeyPath:@"DescriptionCount" toAttribute:@"descriptionCount"];
     [observationNoteMapping mapKeyPath:@"AllTags" toAttribute:@"allTags"];
+    [observationNoteMapping mapKeyPath:@"TotalVoteScore" toAttribute:@"totalVoteScore"];
+    [observationNoteMapping mapKeyPath:@"UserVoteScore" toAttribute:@"userVoteScore"];
+    [observationNoteMapping mapKeyPath:@"SightingId" toAttribute:@"sightingId"];
     [manager.mappingProvider addObjectMapping:observationNoteMapping];
     
     
@@ -162,11 +171,16 @@
     [observationMapping mapKeyPath:@"Projects" toRelationship:@"projects" withMapping:projectMapping];
     [observationMapping mapKeyPath:@"User" toRelationship:@"user" withMapping:userMapping];
     [observationMapping mapKeyPath:@"Notes" toRelationship:@"notes" withMapping:observationNoteMapping];
+    [observationMapping mapKeyPath:@"Identifications" toRelationship:@"identifications" withMapping:identificationMapping];
     [observationMapping mapKeyPath:@"CommentCount" toAttribute:@"commentCount"];
     [observationMapping mapKeyPath:@"ProjectCount" toAttribute:@"projectCount"];
     [observationMapping mapKeyPath:@"NoteCount" toAttribute:@"noteCount"];
-    //[observationMapping mapKeyPath:@"IdentificationCount" toAttribute:@"identificationCount"];
-    [manager.mappingProvider addObjectMapping:observationNoteMapping];
+    [observationMapping mapKeyPath:@"IdentificationCount" toAttribute:@"identificationCount"];
+    [observationMapping mapKeyPath:@"TotalVoteScore" toAttribute:@"totalVoteScore"];
+    [observationMapping mapKeyPath:@"UserVoteScore" toAttribute:@"userVoteScore"];
+    [observationMapping mapKeyPath:@"UserFavourited" toAttribute:@"userFavourited"];
+    [observationMapping mapKeyPath:@"FavouritesCount" toAttribute:@"favouritesCount"];
+    [manager.mappingProvider addObjectMapping:observationMapping];
     [manager.mappingProvider setMapping:observationMapping forKeyPath:@"Model.Observation"];
         
     
@@ -180,6 +194,8 @@
     [activityMapping mapKeyPath:@"ObservationAdded.Observation" toRelationship:@"observation" withMapping:observationMapping];
     [activityMapping mapKeyPath:@"SightingNoteAdded.SightingNote" toRelationship:@"observationNote" withMapping:observationNoteMapping];
     [activityMapping mapKeyPath:@"SightingNoteAdded.Sighting" toRelationship:@"observationNoteObservation" withMapping:observationMapping];
+    [activityMapping mapKeyPath:@"IdentificationAdded.Sighting" toRelationship:@"identificationObservation" withMapping:observationMapping];
+    [activityMapping mapKeyPath:@"IdentificationAdded.Identification" toRelationship:@"identification" withMapping:identificationMapping];
     [manager.mappingProvider addObjectMapping:activityMapping];
     [manager.mappingProvider setSerializationMapping:activityMapping forClass:[BBActivity class]];
     
@@ -288,14 +304,41 @@
     
     
     RKObjectMapping *sightingNoteCreateMapping = [RKObjectMapping mappingForClass:[BBSightingNoteCreate class]];
-    // TODO: implement when ready... [sightingNoteCreateMapping mapKeyPath:@"IsCustomIdentification" toAttribute:@"isCustomIdentification"];
     [sightingNoteCreateMapping mapKeyPath:@"SightingId" toAttribute:@"sightingId"];
     [sightingNoteCreateMapping mapKeyPath:@"Descriptions" toRelationship:@"descriptions" withMapping:sightingNoteDescriptionCreateMapping];
     [sightingNoteCreateMapping mapKeyPath:@"Tags" toAttribute:@"tags"];
     [sightingNoteCreateMapping mapKeyPath:@"Taxonomy" toAttribute:@"taxonomy"];
     [manager.mappingProvider addObjectMapping:sightingNoteCreateMapping];
     [manager.mappingProvider setSerializationMapping:[sightingNoteCreateMapping inverseMapping] forClass:[BBSightingNoteCreate class]];
-        
+    
+    
+    RKObjectMapping *identifySightingMapping = [RKObjectMapping mappingForClass:[BBIdentifySightingEdit class]];
+    [identifySightingMapping mapKeyPath:@"SightingId" toAttribute:@"sightingId"];
+    [identifySightingMapping mapKeyPath:@"Taxonomy" toAttribute:@"taxonomy"];
+    [identifySightingMapping mapKeyPath:@"IsCustomIdentification" toAttribute:@"isCustomIdentification"];
+    [manager.mappingProvider addObjectMapping:identifySightingMapping];
+    [manager.mappingProvider setSerializationMapping:[identifySightingMapping inverseMapping] forClass:[BBIdentifySightingEdit class]];
+    
+    
+    RKObjectMapping *voteCreateMapping = [RKObjectMapping mappingForClass:[BBVoteCreate class]];
+    [voteCreateMapping mapKeyPath:@"id" toAttribute:@"identifier"];
+    [voteCreateMapping mapKeyPath:@"subId" toAttribute:@"subIdentifier"];
+    [voteCreateMapping mapKeyPath:@"contributionType" toAttribute:@"contributionType"];
+    [voteCreateMapping mapKeyPath:@"subContributionType" toAttribute:@"subContributionType"];
+    [voteCreateMapping mapKeyPath:@"score" toAttribute:@"score"];
+    [manager.mappingProvider addObjectMapping:voteCreateMapping];
+    [manager.mappingProvider setSerializationMapping:[voteCreateMapping inverseMapping] forClass:[BBVoteCreate class]];
+    
+    
+    RKObjectMapping *subVoteCreateMapping = [RKObjectMapping mappingForClass:[BBSubVoteCreate class]];
+    [subVoteCreateMapping mapKeyPath:@"id" toAttribute:@"identifier"];
+    [subVoteCreateMapping mapKeyPath:@"subId" toAttribute:@"subIdentifier"];
+    [subVoteCreateMapping mapKeyPath:@"contributionType" toAttribute:@"contributionType"];
+    [subVoteCreateMapping mapKeyPath:@"subContributionType" toAttribute:@"subContributionType"];
+    [subVoteCreateMapping mapKeyPath:@"score" toAttribute:@"score"];
+    [manager.mappingProvider addObjectMapping:subVoteCreateMapping];
+    [manager.mappingProvider setSerializationMapping:[subVoteCreateMapping inverseMapping] forClass:[BBSubVoteCreate class]];
+    
     
     RKObjectMapping *modelIdMapping = [RKObjectMapping mappingForClass:[BBModelId class]];
     [modelIdMapping mapKeyPath:@"Id" toAttribute:@"identifier"];
@@ -307,12 +350,17 @@
     jsonResponse.rootKeyPath = @"Model";
     [jsonResponse mapKeyPath:@"Success" toAttribute:@"success"];
     [manager.mappingProvider addObjectMapping:jsonResponse];
-    [manager.mappingProvider setMapping:jsonResponseMapping forKeyPath:@"Model.Success"];
+    [manager.mappingProvider setMapping:jsonResponse forKeyPath:@"Model.Success"];
     
     
-    [manager.router routeClass:[BBMediaResourceCreate class] toResourcePath:@"/mediaresources/create" forMethod:RKRequestMethodPOST];
-    [manager.router routeClass:[BBObservationCreate class] toResourcePath:@"/observations/create" forMethod:RKRequestMethodPOST];
-    [manager.router routeClass:[BBSightingNoteCreate class] toResourcePathPattern:@"/observations/:identifier/createnote" forMethod:RKRequestMethodPOST];
+    [manager.router routeClass:[BBMediaResourceCreate class] toResourcePath:@"/mediaresources" forMethod:RKRequestMethodPOST];
+    [manager.router routeClass:[BBObservationCreate class] toResourcePath:@"/observations" forMethod:RKRequestMethodPOST];
+    [manager.router routeClass:[BBIdentifySightingEdit class] toResourcePath:@"/:identifier/createidentification" forMethod:RKRequestMethodPOST];
+    [manager.router routeClass:[BBSightingNoteCreate class] toResourcePathPattern:@"/:sightingId/createnote" forMethod:RKRequestMethodPOST];
+    [manager.router routeClass:[BBFavouriteId class] toResourcePath:@"/favourites" forMethod:RKRequestMethodPOST];
+    [manager.router routeClass:[BBProjectId class] toResourcePath:@"/projects/:identifier/members" forMethod:RKRequestMethodPOST];// this may not be serverside refactored yet
+    [manager.router routeClass:[BBVoteCreate class] toResourcePath:@"/:identifier/vote" forMethod:RKRequestMethodPOST];
+    [manager.router routeClass:[BBSubVoteCreate class] toResourcePath:@"/:identifier/:subIdentifier/vote" forMethod:RKRequestMethodPOST];
 }
 
 @end

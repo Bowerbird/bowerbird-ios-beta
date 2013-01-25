@@ -30,6 +30,7 @@ static CGRect MapFullFrame;
     MGScrollView* sightingView;
     UIImage *arrow, *back;
     PhotoBox *fullSizeImage;
+    id contributionForVoting;
 }
 
 @synthesize mapView = _mapView;
@@ -91,6 +92,15 @@ static CGRect MapFullFrame;
     // CONTAINER AND MODEL
     MGTableBox *info = [MGTableBox boxWithSize:[self screenSize]];
     info.backgroundColor = [UIColor whiteColor];
+    
+    MGTableBox *ids = [MGTableBox boxWithSize:[self screenSize]];
+    ids.backgroundColor = [UIColor blackColor];
+    ids.margin = UIEdgeInsetsMake(10, 0, 0, 0);
+    
+    MGTableBox *notes = [MGTableBox boxWithSize:[self screenSize]];
+    notes.backgroundColor = [UIColor blackColor];
+    notes.margin = UIEdgeInsetsMake(10, 0, 0, 0);
+    
     BBObservation *observation = (BBObservation*)_sighting;
 
     // HEADING
@@ -99,21 +109,57 @@ static CGRect MapFullFrame;
     // MEDIA
     [info.middleLines addObject:[self displayMedia:observation]];
     
-    // USER
-    [info.middleLines addObject:[self sightingUser:observation]];
-    
     // CATEGORY
     [info.middleLines addObject:[self sightingCategory:observation.category]];
     
     // MAP
     [info.middleLines addObject:[self displayMapInBox]];
     
+    // USER
+    [info.middleLines addObject:[self sightingUser:observation]];
+    
+    // VOTES
+    BBVoteController *voteController = [[BBVoteController alloc]initWithObservation:observation];
+    [info.bottomLines addObject:voteController.view];
+    
     // Add the Sighting to the View
-    [sightingView.boxes addObject:info];    
+    [sightingView.boxes addObject:info];
+    
+    // IDENTIFICATIONS
+    for(BBIdentification *identification in observation.identifications) {
+        [ids.middleLines addObject:[self addIdentification:identification]];
+    }
+    if(observation.identifications.count > 0) {
+        NSString* identificationsCountTitle = observation.identifications.count > 1 ?
+        [NSString stringWithFormat:@"Sighting has %i Identifications", observation.identifications.count] :
+        [NSString stringWithFormat:@"Sighting has %i Identification", observation.identifications.count];
+        
+        MGLine *identificationsTitle = [MGLine lineWithLeft:identificationsCountTitle right:nil size:CGSizeMake(300, 20)];
+        identificationsTitle.margin = UIEdgeInsetsMake(5, 10, 5, 0);
+        identificationsTitle.textColor = [UIColor whiteColor];
+        identificationsTitle.backgroundColor = [UIColor blackColor];
+        
+        [ids.topLines addObject:identificationsTitle];
+        
+        [sightingView.boxes addObject:ids];
+    }
     
     // NOTES
     for (BBObservationNote *observationNote in observation.notes) {
-        [sightingView.boxes addObject:[self addObservationNote:observationNote]];
+        [notes.middleLines addObject:[self addObservationNote:observationNote]];
+    }
+    if(observation.notes.count > 0) {
+        NSString* notesCountTitle = observation.notes.count > 1 ?
+        [NSString stringWithFormat:@"Sighting has %i Notes", observation.identifications.count] :
+        [NSString stringWithFormat:@"Sighting has %i Note", observation.identifications.count];
+        
+        MGLine *notesTitle = [MGLine lineWithLeft:notesCountTitle right:nil size:CGSizeMake(300, 20)];
+        notesTitle.textColor = [UIColor whiteColor];
+        notesTitle.backgroundColor = [UIColor blackColor];
+        notesTitle.margin = UIEdgeInsetsMake(5, 10, 5, 0);
+        
+        [notes.topLines addObject:notesTitle];
+        [sightingView.boxes addObject:notes];
     }
     
     // CONTROLS
@@ -143,7 +189,7 @@ static CGRect MapFullFrame;
     
     // USER
     MGLine *userWhoAddedSighting = [self createUserProfileLineForUser:observation.user
-                                                      withDescription:[NSString stringWithFormat:@"%@\nsighted %@", observation.user.name, [dateFormatter stringFromDate:observation.observedOnDate]]
+                                                      withDescription:[NSString stringWithFormat:@"%@\nsighted on %@", observation.user.name, [dateFormatter stringFromDate:observation.observedOnDate]]
                                                               forSize:CGSizeMake(IPHONE_STREAM_WIDTH-20, 60)];
     
     userWhoAddedSighting.margin = UIEdgeInsetsMake(10, 10, 10, 10);
@@ -159,13 +205,30 @@ static CGRect MapFullFrame;
     
     // USER
     MGLine *userWhoAddedSighting = [self createUserProfileLineForUser:user
-                                                      withDescription:[NSString stringWithFormat:@"%@\ndescribed %@", user.name, [dateFormatter stringFromDate:note.createdOn]]
+                                                      withDescription:[NSString stringWithFormat:@"%@\ndescribed on %@", user.name, [dateFormatter stringFromDate:note.createdOn]]
                                                               forSize:CGSizeMake(IPHONE_STREAM_WIDTH-20, 60)];
     
     userWhoAddedSighting.margin = UIEdgeInsetsMake(10, 10, 10, 10);
     userWhoAddedSighting.font = HEADER_FONT;
     
     return userWhoAddedSighting;
+}
+
+
+-(MGLine*)sightingIdentificationUser:(BBUser*)user forIdentification:(BBIdentification*)identification {
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:[NSDate dateFormatHumanReadable]];
+    
+    // USER
+    MGLine *userWhoAddedIdentification = [self createUserProfileLineForUser:user
+                                                      withDescription:[NSString stringWithFormat:@"%@\nidentified on %@", user.name, identification.createdOnDescription]
+                                                              forSize:CGSizeMake(IPHONE_STREAM_WIDTH-20, 60)];
+    
+    userWhoAddedIdentification.margin = UIEdgeInsetsMake(10, 10, 10, 10);
+    //userWhoAddedIdentification.font = HEADER_FONT;
+    
+    return userWhoAddedIdentification;
 }
 
 -(MGLine*)createHeaderLineWithDescription:(NSString*)description {
@@ -213,7 +276,7 @@ static CGRect MapFullFrame;
     
     // ACTIVITY DISCRIPTION
     MGLine *description = [MGLine multilineWithText:desc
-                                               font:HEADER_FONT
+                                               font:DESCRIPTOR_FONT
                                               width:descriptionWidth
                                             padding:UIEdgeInsetsMake(15, 0, 0, horizontalPaddingTotalWidth)];
     
@@ -349,7 +412,6 @@ static CGRect MapFullFrame;
     PhotoBox *fullSizePhoto = [PhotoBox mediaFor:fullSize.uri
                                             size:CGSizeMake(300, 240)];
     
-    
     __weak UINavigationController *nav = self.navigationController;
     fullSizePhoto.onTap = ^{
         BBDisplayFullImageController *fullImageController = [[BBDisplayFullImageController alloc]initWithImage:originalSize];
@@ -360,38 +422,51 @@ static CGRect MapFullFrame;
     [section.boxes removeAllObjects];
     [section.boxes addObject:fullSizePhoto];
     
-    
     [section layoutWithSpeed:0.0 completion:nil];
 }
 
--(MGTableBox*)addObservationNote:(BBObservationNote*)observationNote {
+-(MGTableBox*)addIdentification:(BBIdentification*)identification {
+    MGTableBox *idBox = [MGTableBox boxWithSize:CGSizeMake(320, 100)];
+    idBox.backgroundColor = [UIColor whiteColor];
+    idBox.margin = UIEdgeInsetsMake(5, 0, 0, 0);
     
-    MGTableBox *note = [MGTableBox boxWithSize:CGSizeMake(320, 100)];
-    note.backgroundColor = [UIColor whiteColor];
-    //note.margin = UIEdgeInsetsMake(5, 5, 5, 0);
-       
     // IDENTIFICATION
-    if(observationNote.identification) {
-        [note.middleLines addObject:[BBUIControlHelper createSubHeadingWithTitle:@"Idenfitication"
+    if(identification) {
+        [idBox.middleLines addObject:[BBUIControlHelper createSubHeadingWithTitle:@"Idenfitication"
                                                                          forSize:CGSizeMake(IPHONE_STREAM_WIDTH, 20)]];
         
-        [note.middleLines addObject:[BBUIControlHelper createIdentification:observationNote.identification
+        [idBox.middleLines addObject:[BBUIControlHelper createIdentification:identification
                                                                     forSize:CGSizeMake(IPHONE_STREAM_WIDTH, 80)]];
     }
     
     // TAXONOMY
-    if(![observationNote.taxonomy isEqualToString:@""]) {
-        [note.middleLines addObject:[BBUIControlHelper createSubHeadingWithTitle:@"Taxonomy"
+    if(![identification.taxonomy isEqualToString:@""]) {
+        [idBox.middleLines addObject:[BBUIControlHelper createSubHeadingWithTitle:@"Taxonomy"
                                                                          forSize:CGSizeMake(IPHONE_STREAM_WIDTH, 20)]];
         
-        MGLine *taxa = [MGLine multilineWithText:observationNote.taxonomy
+        MGLine *taxa = [MGLine multilineWithText:identification.taxonomy
                                             font:DESCRIPTOR_FONT
                                            width:IPHONE_STREAM_WIDTH
                                          padding:UIEdgeInsetsMake(5, 10, 5, 10)];
         taxa.underlineType = MGUnderlineNone;
-        [note.middleLines addObject:taxa];
+        [idBox.middleLines addObject:taxa];
     }
     
+    // USER
+    [idBox.bottomLines addObject:[self sightingIdentificationUser:identification.user forIdentification:identification]];
+    
+    // VOTES
+    BBVoteController *voteController = [[BBVoteController alloc]initWithIdentification:identification];
+    [idBox.bottomLines addObject:voteController.view];
+    
+    return idBox;
+}
+
+-(MGTableBox*)addObservationNote:(BBObservationNote*)observationNote {
+    MGTableBox *note = [MGTableBox boxWithSize:CGSizeMake(320, 100)];
+    note.backgroundColor = [UIColor whiteColor];
+    note.margin = UIEdgeInsetsMake(5, 0, 0, 0);
+        
     // DESCRIPTIONS
     if(observationNote.descriptionCount > 0) {
         
@@ -435,8 +510,13 @@ static CGRect MapFullFrame;
     // USER
     [note.bottomLines addObject:[self sightingNoteUser:observationNote.user forNote:observationNote]];
     
+    // VOTES
+    BBVoteController *voteController = [[BBVoteController alloc]initWithObservationNote:observationNote];
+    [note.bottomLines addObject:voteController.view];
+    
     return note;
 }
+
 
 -(MGBox*)addDescribeIdentifyButtons:(BBObservation*)observation {
     

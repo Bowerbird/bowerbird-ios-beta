@@ -10,6 +10,16 @@
 
 @implementation BBModelId
 
+-(id)initWithId:(NSString*)identifier {
+    self = [super init];
+    
+    if(self) {
+        _identifier = identifier;
+    }
+    
+    return self;
+}
+
 @synthesize identifier = _identifier;
 
 -(NSString*)identifier {

@@ -12,12 +12,15 @@
 
 @synthesize identifier = _identifier;
 @synthesize createdOn = _createdOn;
-@synthesize identification = _identification;
-@synthesize taxonomy = _taxonomy;
+@synthesize createdOnDescription = _createdOnDescription;
 @synthesize descriptions = _descriptions;
 @synthesize tags = _tags;
 @synthesize user = _user;
+@synthesize sightingId = _sightingId;
+@synthesize comments = _comments;
 @synthesize allTags = _allTags;
+@synthesize totalVoteScore = _totalVoteScore;
+@synthesize userVoteScore = _userVoteScore;
 @synthesize tagCount = _tagCount;
 @synthesize descriptionCount = _descriptionCount;
 
@@ -29,7 +32,6 @@
     _identifier = identifier;
 }
 
-
 -(NSDate*)createdOn {
     return _createdOn;
 }
@@ -37,22 +39,12 @@
     _createdOn = createdOn;
 }
 
-
--(BBIdentification*)identification {
-    return _identification;
+-(NSString*)createdOnDescription {
+    return _createdOnDescription;
 }
--(void)setIdentification:(BBIdentification *)identification {
-    _identification = identification;
+-(void)setCreatedOnDescription:(NSString *)createdOnDescription {
+    _createdOnDescription = createdOnDescription;
 }
-
-
--(NSString*)taxonomy {
-    return _taxonomy;
-}
--(void)setTaxonomy:(NSString *)taxonomy {
-    _taxonomy = taxonomy;
-}
-
 
 -(NSArray*)descriptions {
     return _descriptions;
@@ -60,31 +52,25 @@
 -(void)setDescriptions:(NSArray *)descriptions {
     _descriptions = descriptions;
 }
--(NSUInteger)countOfDescriptions
-{
+-(NSUInteger)countOfDescriptions {
     return [_descriptions count];
 }
--(id)objectInDescriptionsAtIndex:(NSUInteger)index
-{
+-(id)objectInDescriptionsAtIndex:(NSUInteger)index {
     return [_descriptions objectAtIndex:index];
 }
 
-
 -(NSArray*)tags {
-    return _descriptions;
+    return _tags;
 }
 -(void)setTags:(NSArray *)tags {
     _tags = tags;
 }
--(NSUInteger)countOfTags
-{
+-(NSUInteger)countOfTags {
     return [_tags count];
 }
--(id)objectInTagsAtIndex:(NSUInteger)index
-{
+-(id)objectInTagsAtIndex:(NSUInteger)index {
     return [_tags objectAtIndex:index];
 }
-
 
 -(BBUser*)user {
     return _user;
@@ -93,28 +79,53 @@
     _user = user;
 }
 
+-(NSString*)sightingId {
+    return _sightingId;
+}
+-(void)setSightingId:(NSString *)sightingId {
+    _sightingId = sightingId;
+}
 
--(int)tagCount {
+-(NSString*)comments {
+    return _comments;
+}
+-(void)setComments:(NSString *)comments {
+    _comments = comments;
+}
+
+-(NSNumber *)tagCount {
     return _tagCount;
 }
--(void)setTagCount:(int)tagCount{
+-(void)setTagCount:(NSNumber *)tagCount{
     _tagCount = tagCount;
 }
 
-
--(int)descriptionCount {
+-(NSNumber *)descriptionCount {
     return _descriptionCount;
 }
--(void)setDescriptionCount:(int)descriptionCount {
+-(void)setDescriptionCount:(NSNumber *)descriptionCount {
     _descriptionCount = descriptionCount;
 }
-
 
 -(NSString*)allTags {
     return _allTags;
 }
 -(void)setAllTags:(NSString *)allTags {
     _allTags = allTags;
+}
+
+-(NSNumber *)totalVoteScore {
+    return _totalVoteScore;
+}
+-(void)setTotalVoteScore:(NSNumber *)totalVoteScore {
+    _totalVoteScore = totalVoteScore;
+}
+
+-(NSNumber *)userVoteScore {
+    return _userVoteScore;
+}
+-(void)setUserVoteScore:(NSNumber *)userVoteScore {
+    _userVoteScore = userVoteScore;
 }
 
 @end

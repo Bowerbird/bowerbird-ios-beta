@@ -347,16 +347,23 @@
     
     MGLine *titleLine = [MGLine multilineWithText:observation.title font:[UIFont boldSystemFontOfSize:13] width:135 padding:UIEdgeInsetsMake(0, 0, 0, 0)];
     [sightingSummary.boxes addObject:titleLine];
+    
     MGLine *noteCountLine = [MGLine lineWithLeft:[NSString stringWithFormat:@"%i notes", [observation.noteCount intValue]] right:nil size:CGSizeMake(120,20)];
     noteCountLine.font = SMALL_DESCRIPTOR_FONT;
     [sightingSummary.boxes addObject:noteCountLine];
+    
+    MGLine *identificationCountLine = [MGLine lineWithLeft:[NSString stringWithFormat:@"%i identifications", [observation.identificationCount intValue]] right:nil size:CGSizeMake(120,20)];
+    identificationCountLine.font = SMALL_DESCRIPTOR_FONT;
+    [sightingSummary.boxes addObject:identificationCountLine];
+    
     MGLine *projectCountLine = [MGLine lineWithLeft:[NSString stringWithFormat:@"%i projects", [observation.projectCount intValue]] right:nil size:CGSizeMake(120,20)];
     projectCountLine.font = SMALL_DESCRIPTOR_FONT;
     [sightingSummary.boxes addObject:projectCountLine];
+
     MGLine *commentCountLine = [MGLine lineWithLeft:[NSString stringWithFormat:@"%i comments", [observation.commentCount intValue]] right:nil size:CGSizeMake(120,20)];
     commentCountLine.font = SMALL_DESCRIPTOR_FONT;
     [sightingSummary.boxes addObject:commentCountLine];
-    
+
     [subObservationSummary.boxes addObject:sightingSummary];
     
     MGBox *detailArrowBox = [BBUIControlHelper getForwardArrow];

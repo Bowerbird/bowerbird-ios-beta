@@ -30,6 +30,13 @@
 		1C31AEEB15DE1B4100A602BE /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C31AEE215DE1B2100A602BE /* libRestKit.a */; };
 		1C3728BD1693B694000472F1 /* BBPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C3728BC1693B694000472F1 /* BBPaginator.m */; };
 		1C3728C01693ED75000472F1 /* BBStreamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C3728BF1693ED75000472F1 /* BBStreamView.m */; };
+		1C5BD56C16B0B3FF0007B49E /* BBVoteCreate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C5BD56B16B0B3FF0007B49E /* BBVoteCreate.m */; };
+		1C5BD57316B0D1950007B49E /* BBActivityProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C5BD57216B0D1950007B49E /* BBActivityProvider.m */; };
+		1C5BD57616B0D2310007B49E /* BBVoteActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C5BD57516B0D2310007B49E /* BBVoteActivity.m */; };
+		1C5BD57916B0EFC90007B49E /* BBSubVoteCreate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C5BD57816B0EFC80007B49E /* BBSubVoteCreate.m */; };
+		1C5BD57C16B108DA0007B49E /* BBProjectId.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C5BD57B16B108D90007B49E /* BBProjectId.m */; };
+		1C5BD57F16B108F60007B49E /* BBFavouriteId.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C5BD57E16B108F50007B49E /* BBFavouriteId.m */; };
+		1C5BD58216B1E9F10007B49E /* BBVoteController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C5BD58116B1E9F00007B49E /* BBVoteController.m */; };
 		1C78E24D15E512FF00620EF7 /* SRDefaultHttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C78E20515E512FF00620EF7 /* SRDefaultHttpClient.m */; };
 		1C78E24E15E512FF00620EF7 /* SRDefaultHttpHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C78E20715E512FF00620EF7 /* SRDefaultHttpHelper.m */; };
 		1C78E24F15E512FF00620EF7 /* SRDefaultHttpWebRequestWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C78E20915E512FF00620EF7 /* SRDefaultHttpWebRequestWrapper.m */; };
@@ -434,6 +441,21 @@
 		1C3728BC1693B694000472F1 /* BBPaginator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBPaginator.m; sourceTree = "<group>"; };
 		1C3728BE1693ED75000472F1 /* BBStreamView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBStreamView.h; sourceTree = "<group>"; };
 		1C3728BF1693ED75000472F1 /* BBStreamView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBStreamView.m; sourceTree = "<group>"; };
+		1C5BD56A16B0B3FF0007B49E /* BBVoteCreate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBVoteCreate.h; sourceTree = "<group>"; };
+		1C5BD56B16B0B3FF0007B49E /* BBVoteCreate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBVoteCreate.m; sourceTree = "<group>"; };
+		1C5BD57116B0D1950007B49E /* BBActivityProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBActivityProvider.h; sourceTree = "<group>"; };
+		1C5BD57216B0D1950007B49E /* BBActivityProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBActivityProvider.m; sourceTree = "<group>"; };
+		1C5BD57416B0D2310007B49E /* BBVoteActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBVoteActivity.h; sourceTree = "<group>"; };
+		1C5BD57516B0D2310007B49E /* BBVoteActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBVoteActivity.m; sourceTree = "<group>"; };
+		1C5BD57716B0EFC80007B49E /* BBSubVoteCreate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSubVoteCreate.h; sourceTree = "<group>"; };
+		1C5BD57816B0EFC80007B49E /* BBSubVoteCreate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSubVoteCreate.m; sourceTree = "<group>"; };
+		1C5BD57A16B108D90007B49E /* BBProjectId.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBProjectId.h; sourceTree = "<group>"; };
+		1C5BD57B16B108D90007B49E /* BBProjectId.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBProjectId.m; sourceTree = "<group>"; };
+		1C5BD57D16B108F40007B49E /* BBFavouriteId.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBFavouriteId.h; sourceTree = "<group>"; };
+		1C5BD57E16B108F50007B49E /* BBFavouriteId.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBFavouriteId.m; sourceTree = "<group>"; };
+		1C5BD58016B1E9EF0007B49E /* BBVoteController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBVoteController.h; sourceTree = "<group>"; };
+		1C5BD58116B1E9F00007B49E /* BBVoteController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBVoteController.m; sourceTree = "<group>"; };
+		1C5BD58616B1ED4C0007B49E /* BBVoteDelegateProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BBVoteDelegateProtocol.h; sourceTree = "<group>"; };
 		1C78E20415E512FF00620EF7 /* SRDefaultHttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRDefaultHttpClient.h; sourceTree = "<group>"; };
 		1C78E20515E512FF00620EF7 /* SRDefaultHttpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRDefaultHttpClient.m; sourceTree = "<group>"; };
 		1C78E20615E512FF00620EF7 /* SRDefaultHttpHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRDefaultHttpHelper.h; sourceTree = "<group>"; };
@@ -646,7 +668,7 @@
 		1CAB6259164C7FB50000D8C3 /* BBMediaResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMediaResource.m; sourceTree = "<group>"; };
 		1CAB625A164C7FB50000D8C3 /* BBMembership.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMembership.h; sourceTree = "<group>"; };
 		1CAB625B164C7FB50000D8C3 /* BBMembership.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMembership.m; sourceTree = "<group>"; };
-		1CAB625C164C7FB50000D8C3 /* BBModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBModels.h; sourceTree = "<group>"; };
+		1CAB625C164C7FB50000D8C3 /* BBModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBModels.h; path = ../Models/BBModels.h; sourceTree = "<group>"; };
 		1CAB625D164C7FB50000D8C3 /* BBObservation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBObservation.h; sourceTree = "<group>"; };
 		1CAB625E164C7FB50000D8C3 /* BBObservation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBObservation.m; sourceTree = "<group>"; };
 		1CAB625F164C7FB50000D8C3 /* BBObservationNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBObservationNote.h; sourceTree = "<group>"; };
@@ -1010,6 +1032,17 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		1C5BD57016B0D1620007B49E /* Providers */ = {
+			isa = PBXGroup;
+			children = (
+				1C5BD57116B0D1950007B49E /* BBActivityProvider.h */,
+				1C5BD57216B0D1950007B49E /* BBActivityProvider.m */,
+				1C5BD57416B0D2310007B49E /* BBVoteActivity.h */,
+				1C5BD57516B0D2310007B49E /* BBVoteActivity.m */,
+			);
+			path = Providers;
+			sourceTree = "<group>";
+		};
 		1C78E20215E512FF00620EF7 /* SignalR.Client */ = {
 			isa = PBXGroup;
 			children = (
@@ -1200,6 +1233,7 @@
 		1C9A856715DDEC6A00D98F40 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				1C5BD57016B0D1620007B49E /* Providers */,
 				1CAB649F165489C70000D8C3 /* Hubs */,
 				1CAB61DC164C7FB50000D8C3 /* Categories */,
 				1CAB61E1164C7FB50000D8C3 /* Controllers */,
@@ -1371,6 +1405,8 @@
 				1C1C988016A5223500181917 /* BBDisplayLocationController.m */,
 				1C1C988916A8F22D00181917 /* BBDisplayFullImageController.h */,
 				1C1C988716A8F1D500181917 /* BBDisplayFullImageController.m */,
+				1C5BD58016B1E9EF0007B49E /* BBVoteController.h */,
+				1C5BD58116B1E9F00007B49E /* BBVoteController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1416,6 +1452,7 @@
 				1CAB6234164C7FB50000D8C3 /* BBMappings.h */,
 				1CAB6235164C7FB50000D8C3 /* BBMappings.m */,
 				1CAB6236164C7FB50000D8C3 /* main.m */,
+				1CAB625C164C7FB50000D8C3 /* BBModels.h */,
 			);
 			path = Infrastructure;
 			sourceTree = "<group>";
@@ -1423,7 +1460,6 @@
 		1CAB6237164C7FB50000D8C3 /* GetModels */ = {
 			isa = PBXGroup;
 			children = (
-				1CAB625C164C7FB50000D8C3 /* BBModels.h */,
 				1CAB6238164C7FB50000D8C3 /* BBActivity.h */,
 				1CAB6239164C7FB50000D8C3 /* BBActivity.m */,
 				1CAB623A164C7FB50000D8C3 /* BBActivityPaginator.h */,
@@ -1521,6 +1557,7 @@
 				1C8F4F94166EBFD500A9F805 /* BBRankDelegateProtocol.h */,
 				1C06F854167188EE0086B9E0 /* BBSightingNoteEditDelegateProtocol.h */,
 				1CB81833169F9DE800F98C43 /* BBIdentifySightingProtocol.h */,
+				1C5BD58616B1ED4C0007B49E /* BBVoteDelegateProtocol.h */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1835,24 +1872,32 @@
 		1CAB647E165307600000D8C3 /* PostModels */ = {
 			isa = PBXGroup;
 			children = (
-				1CAB626E164C7FB50000D8C3 /* BBSightingEdit.h */,
-				1CAB626F164C7FB50000D8C3 /* BBSightingEdit.m */,
-				1C06F85516718A220086B9E0 /* BBSightingNoteEdit.h */,
-				1C06F85616718A220086B9E0 /* BBSightingNoteEdit.m */,
-				1C06F84B167178C40086B9E0 /* BBSightingNoteCreate.h */,
-				1C06F84C167178C40086B9E0 /* BBSightingNoteCreate.m */,
-				1CAB647F165307B30000D8C3 /* BBObservationCreate.h */,
-				1CAB6480165307B30000D8C3 /* BBObservationCreate.m */,
-				1CAB648216532C030000D8C3 /* BBMediaResourceCreate.h */,
-				1CAB648316532C030000D8C3 /* BBMediaResourceCreate.m */,
-				1C29669116555E7600B3CC16 /* BBObservationMediaCreate.h */,
-				1C29669216555E7600B3CC16 /* BBObservationMediaCreate.m */,
-				1C2966D1165E1D7000B3CC16 /* BBModelId.h */,
-				1C2966D2165E1D7000B3CC16 /* BBModelId.m */,
-				1C06F84E16717D450086B9E0 /* BBSightingNoteDescriptionCreate.h */,
-				1C06F84F16717D460086B9E0 /* BBSightingNoteDescriptionCreate.m */,
+				1C5BD57D16B108F40007B49E /* BBFavouriteId.h */,
+				1C5BD57E16B108F50007B49E /* BBFavouriteId.m */,
 				1CB8182D169F8A3500F98C43 /* BBIdentifySightingEdit.h */,
 				1CB8182E169F8A3500F98C43 /* BBIdentifySightingEdit.m */,
+				1CAB648216532C030000D8C3 /* BBMediaResourceCreate.h */,
+				1CAB648316532C030000D8C3 /* BBMediaResourceCreate.m */,
+				1C2966D1165E1D7000B3CC16 /* BBModelId.h */,
+				1C2966D2165E1D7000B3CC16 /* BBModelId.m */,
+				1CAB647F165307B30000D8C3 /* BBObservationCreate.h */,
+				1CAB6480165307B30000D8C3 /* BBObservationCreate.m */,
+				1C29669116555E7600B3CC16 /* BBObservationMediaCreate.h */,
+				1C29669216555E7600B3CC16 /* BBObservationMediaCreate.m */,
+				1C5BD57A16B108D90007B49E /* BBProjectId.h */,
+				1C5BD57B16B108D90007B49E /* BBProjectId.m */,
+				1CAB626E164C7FB50000D8C3 /* BBSightingEdit.h */,
+				1CAB626F164C7FB50000D8C3 /* BBSightingEdit.m */,
+				1C06F84B167178C40086B9E0 /* BBSightingNoteCreate.h */,
+				1C06F84C167178C40086B9E0 /* BBSightingNoteCreate.m */,
+				1C06F84E16717D450086B9E0 /* BBSightingNoteDescriptionCreate.h */,
+				1C06F84F16717D460086B9E0 /* BBSightingNoteDescriptionCreate.m */,
+				1C06F85516718A220086B9E0 /* BBSightingNoteEdit.h */,
+				1C06F85616718A220086B9E0 /* BBSightingNoteEdit.m */,
+				1C5BD57716B0EFC80007B49E /* BBSubVoteCreate.h */,
+				1C5BD57816B0EFC80007B49E /* BBSubVoteCreate.m */,
+				1C5BD56A16B0B3FF0007B49E /* BBVoteCreate.h */,
+				1C5BD56B16B0B3FF0007B49E /* BBVoteCreate.m */,
 			);
 			name = PostModels;
 			path = Posts;
@@ -2321,6 +2366,13 @@
 				1CB8187416A4F8B200F98C43 /* MapPoint.m in Sources */,
 				1C1C988116A5223500181917 /* BBDisplayLocationController.m in Sources */,
 				1C1C988816A8F1D500181917 /* BBDisplayFullImageController.m in Sources */,
+				1C5BD56C16B0B3FF0007B49E /* BBVoteCreate.m in Sources */,
+				1C5BD57316B0D1950007B49E /* BBActivityProvider.m in Sources */,
+				1C5BD57616B0D2310007B49E /* BBVoteActivity.m in Sources */,
+				1C5BD57916B0EFC90007B49E /* BBSubVoteCreate.m in Sources */,
+				1C5BD57C16B108DA0007B49E /* BBProjectId.m in Sources */,
+				1C5BD57F16B108F60007B49E /* BBFavouriteId.m in Sources */,
+				1C5BD58216B1E9F10007B49E /* BBVoteController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

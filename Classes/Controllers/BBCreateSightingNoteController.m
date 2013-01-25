@@ -35,7 +35,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setClassificationForNote:) name:@"classificationSelectedForNote" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveSightingNoteDescription:) name:@"sightingNoteEditDescriptionSaved" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeSightingNoteDescription:) name:@"sightingNoteDescriptionRemove" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removeSightingNoteDescription:) name:@"sightingNoteEditDescriptionDeleted" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cancelSightingNoteDescriptionEdit) name:@"sightingNoteEditDescriptionCancel" object:nil];
     
     // create the view for this container
@@ -76,8 +76,6 @@
         }
     }
     
-    //[SVProgressHUD showSuccessWithStatus:@"Didn't Map Result Properly"];
-    
     [SVProgressHUD showSuccessWithStatus:@"Saved Note!/n(But didn't Map Result)"];
     [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:YES];
 }
@@ -106,6 +104,14 @@
 // add key/value description pair to the model's description dictionary
 -(void)addDescription:(BBSightingNoteDescription *)description {
     //[_sightingNote.descriptions setObject:description.text forKey:description.label];
+}
+
+-(void)editDescription:(BBSightingNoteDescriptionCreate *)description {
+    [BBLog Log:@"BBSightingEditController.editDescription:"];
+    
+    BBSightingNoteEditDescriptionController *sightingNoteEditDescription = [[BBSightingNoteEditDescriptionController alloc]initWithDescriptionEdit:description];
+    
+    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:sightingNoteEditDescription animated:YES];
 }
 
 -(void)removeDescription:(BBSightingNoteDescription *)description {
@@ -145,17 +151,7 @@
         [self saveIsValid];
     }
     else {
-        
-        [SVProgressHUD showErrorWithStatus:@"You need to add something!"];
-        /*
-        if(_observation.category == nil || [_observation.category isEqualToString:@""]) {
-            [SVProgressHUD showErrorWithStatus:@"Choose a Category"];
-        }
-        
-        if(_observation.title == nil || [_observation.title isEqualToString:@""]){
-            [SVProgressHUD showErrorWithStatus:@"Add a Title"];
-        }
-         */
+        [SVProgressHUD showErrorWithStatus:@"Check the Validation Errors"];
     }
 }
 
@@ -202,8 +198,6 @@
         
         // either set as new array or make mutable..
         [descriptionObjects addObject:sightingNoteDescription];
-        
-        //[postSightingNote addDescription:sightingNoteDescription];
     }
     
     postSightingNote.descriptions = descriptionObjects;
@@ -214,6 +208,9 @@
     
     [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"Saving Sighting Note"]];
 
+    [manager postObject:postSightingNote delegate:self];
+    
+    /*
     [manager postObject:postSightingNote usingBlock:^(RKObjectLoader *loader) {
         // map native object to dictionary of key values
         RKObjectMapping *map = [[manager mappingProvider] serializationMappingForClass:[BBSightingNoteCreate class]];
@@ -229,6 +226,7 @@
         loader.params = [RKRequestSerialization serializationWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding] MIMEType:RKMIMETypeJSON];
         loader.delegate = self;
     }];
+     */
 }
 
 -(void)cancel {

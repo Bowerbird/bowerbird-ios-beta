@@ -11,13 +11,18 @@
 @implementation BBObservation
 
 @synthesize     isIdentificationRequired = _isIdentificationRequired,
-                                   media = _media,
-                            primaryMedia = _primaryMedia,
-                                   notes = _notes,
-                            commentCount = _commentCount,
-                            projectCount = _projectCount,
-                               noteCount = _noteCount,
-                     identificationCount = _identificationCount;
+                media = _media,
+                primaryMedia = _primaryMedia,
+                notes = _notes,
+                commentCount = _commentCount,
+                projectCount = _projectCount,
+                noteCount = _noteCount,
+                identificationCount = _identificationCount,
+                identifications = _identifications,
+                favouritesCount = _favouritesCount,
+                userFavourited = _userFavourited,
+                totalVoteScore = _totalVoteScore,
+                userVoteScore = _userVoteScore;
 
 
 -(void)setIsIdentificationRequired:(BOOL)isIdentificationRequired
@@ -75,10 +80,6 @@
 {
     return [self.media objectEnumerator];
 }
-//-(BBMediaResource*)memberOfMedia:(BBMediaResource *)object
-//{
-//    return [self.media member:object];
-//}
 
 
 -(void)setPrimaryMedia:(BBMedia *)primaryMedia
@@ -109,6 +110,53 @@
     return [_notes objectAtIndex:index];
 }
 
+
+-(void)setIdentifications:(NSArray *)identifications
+{
+    _identifications = identifications;
+}
+-(NSArray*)identifications
+{
+    if(!_identifications) _identifications = [[NSArray alloc]init];
+    return _identifications;
+}
+-(NSUInteger)countOfIdentifications
+{
+    return [_identifications count];
+}
+-(id)objectInIdentificationsAtIndex:(NSUInteger)index
+{
+    return [_identifications objectAtIndex:index];
+}
+
+
+-(NSNumber *)totalVoteScore {
+    return _totalVoteScore;
+}
+-(void)setTotalVoteScore:(NSNumber *)totalVoteScore {
+    _totalVoteScore = totalVoteScore;
+}
+
+-(NSNumber *)userVoteScore {
+    return _userVoteScore;
+}
+-(void)setUserVoteScore:(NSNumber *)userVoteScore {
+    _userVoteScore = userVoteScore;
+}
+
+-(NSNumber *)favouritesCount {
+    return _favouritesCount;
+}
+-(void)setFavouritesCount:(NSNumber *)favouritesCount {
+    _favouritesCount = favouritesCount;
+}
+
+-(BOOL)userFavourited {
+    return _userFavourited;
+}
+-(void)setUserFavourited:(BOOL)userFavourited {
+    _userFavourited = userFavourited;
+}
 
 - (void)setNilValueForKey:(NSString *)theKey
 {

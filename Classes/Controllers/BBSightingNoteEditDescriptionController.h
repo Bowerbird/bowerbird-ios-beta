@@ -16,5 +16,6 @@
 >
 
 -(BBSightingNoteEditDescriptionController *)initWithDescription:(BBSightingNoteDescription*)description;
+-(BBSightingNoteEditDescriptionController *)initWithDescriptionEdit:(BBSightingNoteDescriptionCreate*)editDesc;
 
 @end

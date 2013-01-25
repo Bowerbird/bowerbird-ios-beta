@@ -12,7 +12,8 @@
 #import "SVProgressHUD.h"
 
 @interface BBDisplayFullImageController : BBControllerBase <
-    UIGestureRecognizerDelegate
+     UIGestureRecognizerDelegate
+    ,UIScrollViewDelegate
 >
 
 -(id)initWithImage:(BBImage*)image;

@@ -20,7 +20,9 @@
                 observation = _observation,
                        post = _post,
             observationNote = _observationNote,
- observationNoteObservation = _observationNoteObservation;
+ observationNoteObservation = _observationNoteObservation,
+  identificationObservation = _identificationObservation,
+             identification = _identification;
 
 
 -(void)setIdentifier:(NSString *)identifier
@@ -123,6 +125,24 @@
 -(BBObservation*)observationNoteObservation
 {
     return _observationNoteObservation;
+}
+
+
+-(void)setIdentificationObservation:(BBObservation*)identificationObservation
+{
+    _identificationObservation = identificationObservation;
+}
+-(BBObservation*)identificationObservation {
+    return _identificationObservation;
+}
+
+-(void)setIdentification:(BBIdentification *)identification
+{
+    _identification = identification;
+}
+-(BBIdentification*)identification
+{
+    return _identification;
 }
 
 

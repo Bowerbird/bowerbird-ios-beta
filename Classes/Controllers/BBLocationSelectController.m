@@ -67,7 +67,8 @@ didChangeDragState:(MKAnnotationViewDragState)newState
 }
 */
 
--(MKAnnotationView *)mapView:(MKMapView *)mV viewForAnnotation:(id <MKAnnotation>)annotation
+-(MKAnnotationView *)mapView:(MKMapView *)mV
+           viewForAnnotation:(id <MKAnnotation>)annotation
 {
     MKAnnotationView *pinView = nil;
     if(annotation != _locationSelectView.mapView.userLocation)

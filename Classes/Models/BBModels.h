@@ -48,12 +48,16 @@
 #import "BBJsonResponse.h"
 
 #import "BBModelId.h"
+#import "BBProjectId.h"
+#import "BBFavouriteId.h"
 #import "BBMediaResourceCreate.h"
 #import "BBObservationMediaCreate.h"
 #import "BBObservationCreate.h"
 #import "BBSightingNoteDescriptionCreate.h"
 #import "BBSightingNoteCreate.h"
 #import "BBClassificationSelector.h"
+#import "BBVoteCreate.h"
+#import "BBSubVoteCreate.h"
 
 #import "BBMappings.h"
 #import "BBHelpers.h"

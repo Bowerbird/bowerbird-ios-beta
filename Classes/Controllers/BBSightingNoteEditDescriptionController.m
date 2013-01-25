@@ -25,13 +25,18 @@
 @implementation BBSightingNoteEditDescriptionController {
     BBSightingNoteDescription *description;
     BBSightingNoteDescriptionCreate *editDescription;
+    BOOL isEdit;
 }
 
 -(BBSightingNoteEditDescriptionController *)initWithDescription:(BBSightingNoteDescription*)desc {
     [BBLog Log:@"BBSightingNoteEditDescriptionController.initWithDescription:"];
     
     self = [super init];
-    description = desc;
+    
+    if(self){
+        description = desc;
+        isEdit = NO;
+    }
     
     return self;
 }
@@ -40,10 +45,21 @@
     [BBLog Log:@"BBSightingNoteEditDescriptionController.initWithDescription:"];
     
     self = [super init];
-    editDescription = editDesc;
-    description = [[BBCollectionHelper getObjectsFromCollection:[BBSightingNoteDescription getSightingNoteDescriptions]
-                                                         withKeyName:@"identifier"
-                                                        equalToValue:editDesc.key] objectAtIndex:0];
+    
+    if(self){
+        editDescription = editDesc;
+        NSArray *allDescriptions = [BBSightingNoteDescription getSightingNoteDescriptions];
+        __block BBSightingNoteDescription *relatedDesc;
+        [allDescriptions enumerateObjectsUsingBlock:^(BBSightingNoteDescription *d, NSUInteger idx, BOOL *stop) {
+            if (d.identifier == editDesc.key) {
+                *stop = YES;
+                relatedDesc = d;
+            }
+        }];
+
+        description = relatedDesc;
+        isEdit = YES;
+    }
     
     return self;
 }
@@ -65,8 +81,22 @@
     descriptorLine.margin = UIEdgeInsetsMake(10, 10, 0, 10);
     descriptorLine.underlineType = MGUnderlineNone;
     
+    MGLine *removeButtonLine;
+    if(isEdit) {
+        descriptor.text = editDescription.value;
+
+        CoolMGButton *delete = [BBUIControlHelper createButtonWithFrame:CGRectMake(10, 10, 300, 40) andTitle:@"Delete" withBlock:^{
+            NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithCapacity:1];
+            [userInfo setObject:editDescription forKey:@"description"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"sightingNoteEditDescriptionDeleted" object:self userInfo:userInfo];
+        }];
+        
+        removeButtonLine = [MGLine lineWithLeft:delete right:nil size:CGSizeMake(300, 40)];
+        removeButtonLine.underlineType = MGUnderlineNone;
+        removeButtonLine.margin = UIEdgeInsetsMake(10, 10, 10, 10);
+    }
+    
     CoolMGButton *done = [BBUIControlHelper createButtonWithFrame:CGRectMake(10, 10, 300, 40) andTitle:@"Save" withBlock:^{
-       // pass to notification system:
         editDescription = [[BBSightingNoteDescriptionCreate alloc]init];
         editDescription.key = description.identifier;
         editDescription.value = descriptor.text;
@@ -74,12 +104,14 @@
         [userInfo setObject:editDescription forKey:@"description"];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"sightingNoteEditDescriptionSaved" object:self userInfo:userInfo];
     }];
+    
     MGLine *doneButtonLine = [MGLine lineWithLeft:done right:nil size:CGSizeMake(300, 40)];
     doneButtonLine.underlineType = MGUnderlineNone;
     doneButtonLine.margin = UIEdgeInsetsMake(10, 10, 10, 10);
 
     [((MGScrollView*)self.view).boxes addObject:descriptorTitle];
     [((MGScrollView*)self.view).boxes addObject:descriptorLine];
+    if(isEdit)[((MGScrollView*)self.view).boxes addObject:removeButtonLine];
     [((MGScrollView*)self.view).boxes addObject:doneButtonLine];
     
     self.view.backgroundColor = [self backgroundColor];
@@ -120,13 +152,6 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"sightingNoteDescriptionSave" object:self userInfo:userInfo];
 }
 
-// used when editing to remove
--(void)remove {
-    NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithCapacity:1];
-    [userInfo setObject:editDescription forKey:@"sightingNoteDescription"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"sightingNoteDescriptionRemove" object:self userInfo:userInfo];
-}
-
 - (BOOL) textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     if([text isEqualToString:@"\n"]){
         [textView resignFirstResponder];
@@ -135,10 +160,5 @@
         return YES;
     }
 }
-
-#pragma mark -
-#pragma mark - Protocol Implementations
-
-
 
 @end

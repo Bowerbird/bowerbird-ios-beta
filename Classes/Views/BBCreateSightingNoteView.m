@@ -72,7 +72,8 @@
 }
 
 -(void)displayDescriptionControls {
-    CoolMGButton *addDescription = [BBUIControlHelper createButtonWithFrame:CGRectMake(0, 0, 280, 40) andTitle:@"Add Description" withBlock:^{
+    CoolMGButton *addDescription = [BBUIControlHelper createButtonWithFrame:CGRectMake(0, 0, 280, 40)
+                                                                   andTitle:@"Add Description" withBlock:^{
         [_controller startAddDescription];
     }];
     addDescription.margin = UIEdgeInsetsMake(10, 10, 10, 0);
@@ -80,7 +81,8 @@
 }
 
 -(void)displayTagsControls {
-    CoolMGButton *addTag = [BBUIControlHelper createButtonWithFrame:CGRectMake(0, 0, 280, 40) andTitle:@"Add Tags" withBlock:^{
+    CoolMGButton *addTag = [BBUIControlHelper createButtonWithFrame:CGRectMake(0, 0, 280, 40)
+                                                           andTitle:@"Add Tags" withBlock:^{
         [_controller startAddTag];
     }];
     addTag.margin = UIEdgeInsetsMake(10, 10, 10, 0);
@@ -141,22 +143,26 @@
 -(void)displayDescriptions {
     [BBLog Log:@"BBCreateSightingView.displayDescriptions"];
     
-    // get descriptions from controller
     NSArray *descriptions = [_controller getDescriptions];
-    
-    // clear descriptions list
     [descriptionTable.middleLines removeAllObjects];
     
     // display descriptions
-    for(BBSightingNoteDescriptionCreate *desc in descriptions){
+    for(BBSightingNoteDescriptionCreate *desc in descriptions)
+    {
+        __block BBSightingNoteDescription *sightingNoteDesc = [BBSightingNoteDescription getDescriptionByIdentifier:desc.key];
         
-        BBSightingNoteDescription *sightingNoteDesc = [BBSightingNoteDescription getDescriptionByIdentifier:desc.key];
         MGLine *descriptionTitle = [MGLine lineWithLeft:sightingNoteDesc.name right:nil size:CGSizeMake(280, 30)];
         descriptionTitle.padding = UIEdgeInsetsMake(5, 10, 5, 10);
         descriptionTitle.font = HEADER_FONT;
+        
         MGLine *descriptionText = [MGLine lineWithMultilineLeft:desc.value right:nil width:280 minHeight:30];
         descriptionText.underlineType = MGUnderlineNone;
         descriptionText.padding = UIEdgeInsetsMake(5, 10, 5, 10);
+        
+        if([_controller respondsToSelector:@selector(editDescription:)]) {
+            descriptionTitle.onTap = ^{[_controller editDescription:desc];};
+            descriptionText.onTap = ^{[_controller editDescription:desc];};
+        }
         
         [descriptionTable.middleLines addObject:descriptionTitle];
         [descriptionTable.middleLines addObject:descriptionText];

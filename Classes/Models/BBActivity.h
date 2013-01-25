@@ -24,6 +24,8 @@
 @property (nonatomic,retain) BBPost* post;
 @property (nonatomic,retain) BBObservationNote* observationNote;
 @property (nonatomic,retain) BBObservation* observationNoteObservation;
+@property (nonatomic,retain) BBObservation* identificationObservation;
+@property (nonatomic,retain) BBIdentification* identification;
 
 @property (nonatomic,retain) NSSet* groups;
 

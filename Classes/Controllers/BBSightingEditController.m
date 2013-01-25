@@ -294,6 +294,9 @@
         [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"Uploading"]];
     });
     
+    //[manager postObject:mediaResourceCreate delegate:self];
+    isObservation = NO;
+    
     [manager postObject:mediaResourceCreate usingBlock:^(RKObjectLoader *loader) {
         loader.delegate = self;
         RKObjectMapping *map = [[[RKObjectManager sharedManager] mappingProvider] serializationMappingForClass:[BBMediaResourceCreate class]];
@@ -599,10 +602,8 @@
     int counter = 1;
     NSMutableArray *newMedia = [[NSMutableArray alloc]init];
     
-    //for (NSString* mediaResourceId in _observation.mediaResourceIds) {
     for (BBMediaEdit* media in _observation.media) {
         BBObservationMediaCreate *observationMedia = [[BBObservationMediaCreate alloc]init];
-        //observationMedia.mediaResourceId = mediaResourceId;
         observationMedia.key = media.key;
         observationMedia.licence = app.authenticatedUser.defaultLicence;
         observationMedia.isPrimaryMedia = counter == 1;
@@ -617,6 +618,10 @@
     
     [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"Saving Observation"]];
     
+    isObservation = YES;
+    
+    [manager postObject:observation delegate:self];
+    /*
     [manager postObject:observation usingBlock:^(RKObjectLoader *loader) {
         
         // map native object to dictionary of key values
@@ -633,6 +638,7 @@
         loader.params = [RKRequestSerialization serializationWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding] MIMEType:RKMIMETypeJSON];
         loader.delegate = self;
     }];
+    */
 }
 
 -(void)observationSent {
@@ -660,7 +666,6 @@
     [BBLog Log:@"BBSightingEditController.request:didLoadResponse"];
 
     [BBLog Log:response.bodyAsString];
-    
     
     if ([response isOK] && [response isJSON])
     {
@@ -699,6 +704,9 @@
         }
     }
     
+    if(isObservation) {
+        [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:NO];
+    }
 }
 
 -(void)objectLoaderDidLoadUnexpectedResponse:(RKObjectLoader *)objectLoader {

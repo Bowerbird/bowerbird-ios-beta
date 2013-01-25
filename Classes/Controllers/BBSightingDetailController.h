@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
+#import <RestKit/RKRequestSerialization.h>
 #import "BBControllerBase.h"
 #import "BBActivity.h"
 #import "MGHelpers.h"
@@ -23,6 +24,8 @@
 #import "BBDisplayLocationController.h"
 #import "BBDisplayFullImageController.h"
 #import "SVProgressHUD.h"
+#import "BBSubVoteCreate.h"
+#import "BBVoteController.h"
 
 @interface BBSightingDetailController : BBControllerBase <
      UIGestureRecognizerDelegate

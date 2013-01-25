@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "BBModels.h"
+#import "BBIdentifySightingEdit.h"
+//#import "BBSubVoteCreate.h"
 
 @interface BBMappings : NSObject
 

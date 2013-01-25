@@ -12,4 +12,6 @@
 
 @property (nonatomic, strong) NSString *identifier;
 
+-(id)initWithId:(NSString*)identifier;
+
 @end

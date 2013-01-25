@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <RestKit/RKRequestSerialization.h>
 #import "BBControllerBase.h"
 #import "BBIdentifySightingEdit.h"
 #import "BBIdentifySightingView.h"
@@ -16,7 +17,8 @@
 #import "BBClassificationCreateController.h"
 
 @interface BBIdentifySightingController : BBControllerBase <
-    BBIdentifySightingProtocol
+     BBIdentifySightingProtocol
+    ,RKObjectLoaderDelegate
 >
 
 @property (nonatomic,strong) BBIdentifySightingEdit *identifySighting;

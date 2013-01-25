@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class BBSightingNoteDescription;
+@class BBSightingNoteDescription, BBSightingNoteDescriptionCreate;
 
 @protocol BBSightingNoteEditDelegateProtocol <NSObject>
 
@@ -18,7 +18,8 @@
 -(void)startAddDescription;
 -(void)endAddDescription;
 -(void)addDescription:(BBSightingNoteDescription *)description;
--(void)removeDescription:(BBSightingNoteDescription *)description;
+-(void)removeDescription:(NSString *)descriptionIdentifier;
+-(void)editDescription:(BBSightingNoteDescriptionCreate *)description;
 -(NSArray*)getDescriptions;
 
 // add a tag, remove a tag

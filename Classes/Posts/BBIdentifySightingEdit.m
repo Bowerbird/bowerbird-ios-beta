@@ -16,7 +16,7 @@ isCustomIdentification = _isCustomIdentification,
               category = _category,
                kingdom = _kingdom,
                 phylum = _phylum,
-                 klass = _class,
+                 klass = _klass,
                  order = _order,
                 family = _family,
                  genus = _genus,
@@ -37,8 +37,8 @@ isCustomIdentification = _isCustomIdentification,
 -(NSString*)kingdom { return _kingdom; }
 -(void)setPhylum:(NSString *)phylum { _phylum = phylum; }
 -(NSString*)phylum { return _phylum; }
--(void)setClass:(NSString *)class { _class = class; }
--(NSString*)class { return _class; }
+-(void)setKlass:(NSString *)klass { _klass = klass; }
+-(NSString*)klass { return _klass; }
 -(void)setOrder:(NSString *)order { _order = order; }
 -(NSString*)order { return _order; }
 -(void)setFamily:(NSString *)family { _family = family; }
@@ -74,7 +74,7 @@ isCustomIdentification = _isCustomIdentification,
     _category = [customId objectForKey:@"category"];
     _kingdom = [customId objectForKey:@"kingdom"];
     _phylum = [customId objectForKey:@"phylum"];
-    _class = [customId objectForKey:@"class"];
+    _klass = [customId objectForKey:@"klass"];
     _order = [customId objectForKey:@"order"];
     _family = [customId objectForKey:@"family"];
     _genus = [customId objectForKey:@"genus"];

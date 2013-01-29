@@ -20,6 +20,7 @@
 #import "BBSightingNoteEditDescriptionController.h"
 #import "BBSightingNoteDescriptionCreate.h"
 #import "BBSightingNoteTagController.h"
+#import "NSString+RKAdditions.h"
 
 @interface BBCreateSightingNoteController : BBControllerBase <
      RKObjectLoaderDelegate

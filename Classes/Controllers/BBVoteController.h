@@ -8,6 +8,7 @@
 
 #import "BBControllerBase.h"
 #import "BBModels.h"
+#import "BBStarView.h"
 
 @interface BBVoteController : BBControllerBase <
     RKObjectLoaderDelegate

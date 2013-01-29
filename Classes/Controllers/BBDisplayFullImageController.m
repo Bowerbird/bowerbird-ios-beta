@@ -70,20 +70,18 @@
     [self.view addSubview:spinner];
     [spinner startAnimating];
     
+    CGRect frame = CGRectMake(0, 50, [self screenSize].width, [self screenSize].height- 50);
     
     uiScrollView = [[UIScrollView alloc]init];
     uiScrollView.contentSize = imgSize;
     
-    CGRect frame = CGRectMake(0, 50, [self screenSize].width, [self screenSize].height- 50);
-    
-    [BBLog Log:[NSString stringWithFormat:@"ScrollView Frame x:%f y:%f w:%f h:%f", frame.origin.x, frame.origin.y, frame.size.width, frame.size.height]];
-    
     uiScrollView.frame = frame;
     uiScrollView.delegate = self;
-    
     uiScrollView.minimumZoomScale=1/[self calculateZoomScale];
     uiScrollView.maximumZoomScale=1.0;
     uiScrollView.zoomScale = 1/[self calculateZoomScale];
+    
+    [BBLog Log:[NSString stringWithFormat:@"ScrollView Frame x:%f y:%f w:%f h:%f", frame.origin.x, frame.origin.y, frame.size.width, frame.size.height]];
 }
 
 -(void)viewDidUnload {
@@ -143,6 +141,8 @@
         [uiScrollView addSubview:imageView];
         [self.view addSubview:uiScrollView];
         
+        //[uiScrollView setZoomScale:uiScrollView.minimumZoomScale];
+        
         imageView.size = imgSize;
         imageView.alpha = 0;
         imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth
@@ -152,6 +152,9 @@
         [UIView animateWithDuration:0.2 animations:^{
             imageView.alpha = 1;
         }];
+        
+        
+        
     });
 }
 

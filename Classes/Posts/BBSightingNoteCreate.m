@@ -7,6 +7,7 @@
 //
 
 #import "BBSightingNoteCreate.h"
+#import "NSString+RKAdditions.h"
 
 @implementation BBSightingNoteCreate
 

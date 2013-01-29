@@ -10,7 +10,7 @@
 #import "BBModels.h"
 
 // WTF? Forward reference required for lack of compilation
-@class BBObservation, BBObservationNote;
+@class BBObservation, BBObservationNote, BBPost;
 
 @interface BBActivity : NSObject
 

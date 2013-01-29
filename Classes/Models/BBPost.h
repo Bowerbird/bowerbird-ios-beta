@@ -7,7 +7,17 @@
  -----------------------------------------------------------------------------------------------*/
 
 #import <Foundation/Foundation.h>
+#import "BBModels.h"
 
 @interface BBPost : NSObject
+
+@property (nonatomic,strong) NSString* identifier;
+@property (nonatomic,strong) NSString* createdOnDescription;
+@property (nonatomic,strong) BBGroup* group;
+@property (nonatomic,strong) NSString* groupId;
+@property (nonatomic,strong) NSString* message;
+@property (nonatomic,strong) NSString* postType;
+@property (nonatomic,strong) NSString* subject;
+@property (nonatomic,strong) BBUser *user;
 
 @end

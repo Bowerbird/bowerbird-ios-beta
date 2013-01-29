@@ -30,6 +30,7 @@
 #import "BBChatMessage.h"
 #import "BBChatUserTyping.h"
 #import "BBCategory.h"
+#import "BBPost.h"
 
 #import "BBAuthentication.h"
 #import "BBAuthenticatedUser.h"

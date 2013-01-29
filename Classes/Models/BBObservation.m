@@ -158,6 +158,10 @@
     _userFavourited = userFavourited;
 }
 
+-(void)toggleFavourite {
+    _userFavourited = !_userFavourited;
+}
+
 - (void)setNilValueForKey:(NSString *)theKey
 {
     if ([theKey isEqualToString:@"isIdentificationRequired"]) {

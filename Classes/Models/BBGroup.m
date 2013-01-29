@@ -14,7 +14,7 @@
                       name = _name,
                description = _description,
                  groupType = _groupType,
-               memberCount = _memberCount,
+                 userCount = _userCount,
                  postCount = _postCount,
                     avatar = _avatar;
 
@@ -59,13 +59,13 @@
 }
 
 
--(void)setMemberCount:(int)memberCount
+-(void)setUserCount:(int)userCount
 {
-    _memberCount = memberCount;
+    _userCount = userCount;
 }
--(int)memberCount
+-(int)userCount
 {
-    return _memberCount;
+    return _userCount;
 }
 
 

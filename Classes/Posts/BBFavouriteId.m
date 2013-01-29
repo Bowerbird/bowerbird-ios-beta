@@ -11,6 +11,7 @@
 @implementation BBFavouriteId
 
 -(id)initWithObservationId:(NSString*)identifier {
+    
     self = [super initWithId:identifier];
     
     return self;

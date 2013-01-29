@@ -242,13 +242,14 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if(![self.streamItemSizesCache objectForKey:[NSString stringWithFormat:@"%i", indexPath.row]]) {
         
         MGBox *box = [self displayStreamItem:[[_paginator items] objectAtIndex:[indexPath row]]];
+    
         queriedBox = box;
-        
+    
         // add enough size for margins (5 top and bottom) and round off the size to avoid antialaising
         float boxHeight = (int)(box.height + 10);
-        
+    
         [self.streamItemSizesCache setObject:[[NSNumber alloc]initWithFloat:boxHeight] forKey:[NSString stringWithFormat:@"%i", indexPath.row]];
-        
+    
         return boxHeight;
     }
     
@@ -323,7 +324,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
         
     [self.tableView addInfiniteScrollingWithActionHandler:^{
         _tableView.infiniteScrollingView.backgroundColor = [UIColor blackColor];
-        _tableView.infiniteScrollingView.arrowColor = [UIColor grayColor];
+        _tableView.infiniteScrollingView.arrowColor = [UIColor whiteColor];
+        _tableView.infiniteScrollingView.textColor = [UIColor whiteColor];
         
         [stream handlePaginatorLoadNextPage];
     }];
@@ -336,6 +338,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if([_paginator moreItemsExist] && !_paginatorIsLoading)
     {
         _paginatorIsLoading = YES;
+        //[_tableView.infiniteScrollingView startAnimating];
         [_paginator loadNextPage];
     }
 }
@@ -375,11 +378,19 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
         {
             box = [self renderSightingIdentification:activity];
         }
+        else if([activity.type isEqualToString:@"postadded"])
+        {
+            box = [self renderPost:activity];
+        }
     }
     else if([item isKindOfClass:[BBProject class]])
     {
         BBProject *project = (BBProject*)item;
         box = [self renderProject:project];
+    }
+    else
+    {
+        box = [MGBox box]; // empty box - unknown activity type
     }
     
     [box layout];
@@ -575,10 +586,62 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     // show the observation the note belongs to in summary form:
     MGTableBox *subObservation = [BBUIControlHelper createSubObservation:activity.identificationObservation
                                                                  forSize:CGSizeMake(300, 200)
-                                                               withBlock:^{
-                                                                   [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:[[BBSightingDetailController alloc]initWithSightingIdentifier:activity.identificationObservation.identifier]
-                                                                                                                                                          animated:YES];}];
+                                                               withBlock:^
+    {
+        [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:[[BBSightingDetailController alloc]initWithSightingIdentifier:activity.identificationObservation.identifier]
+                                                                                               animated:YES];
+    }];
+    
     [info.bottomLines addObject:subObservation];
+    
+    return info;
+}
+
+-(MGBox*)renderPost:(BBActivity*)activity {
+    [BBLog Log:@"BBStreamController.renderPost"];
+    
+    MGTableBox *info = [MGTableBox boxWithSize:IPHONE_OBSERVATION];
+    info.backgroundColor = [UIColor whiteColor];
+    
+    info.margin = UIEdgeInsetsMake(5, 5, 5, 0);
+    info.padding = UIEdgeInsetsZero;
+    
+    BBImage *avatarImage = [BBCollectionHelper getImageWithDimension:@"Square50" fromArrayOf:activity.user.avatar.imageMedia];
+    PhotoBox *avatar = [PhotoBox mediaFor:avatarImage.uri size:CGSizeMake(50, 50)];
+    avatar.padding = UIEdgeInsetsZero;
+    avatar.margin = UIEdgeInsetsZero;
+    
+    MGLine *activityDescription = [MGLine lineWithMultilineLeft:[NSString stringWithFormat:@"%@ %@",activity.description, [activity.createdOn timeAgo]]
+                                                          right:nil
+                                                          width:240
+                                                      minHeight:50];
+    activityDescription.margin = UIEdgeInsetsMake(0, 10, 0, 10);
+    activityDescription.padding = UIEdgeInsetsZero;
+    activityDescription.underlineType = MGUnderlineNone;
+    
+    MGBox *detailArrow = [self getForwardArrow];
+    detailArrow.margin = UIEdgeInsetsMake(5, 0, 5, 5);
+    
+    MGBox *userProfileWithArrow = [MGBox boxWithSize:CGSizeMake(310, 50)];
+    userProfileWithArrow.backgroundColor = [UIColor colorWithRed:0.94 green:0.94 blue:0.95 alpha:1];
+    userProfileWithArrow.contentLayoutMode = MGLayoutGridStyle;
+    
+    [userProfileWithArrow.boxes addObject:avatar];
+    [userProfileWithArrow.boxes addObject:activityDescription];
+    [info.topLines addObject:userProfileWithArrow];
+    
+    MGLine *subjectLine = [MGLine multilineWithText:activity.post.subject
+                                               font:HEADER_FONT
+                                              width:300
+                                            padding:UIEdgeInsetsMake(10, 10, 10, 10)];
+    
+    MGLine *messageLine = [MGLine multilineWithText:activity.post.message
+                                               font:DESCRIPTOR_FONT
+                                              width:300
+                                            padding:UIEdgeInsetsMake(10, 10, 10, 10)];
+    
+    [info.middleLines addObject:subjectLine];
+    [info.middleLines addObject:messageLine];
     
     return info;
 }
@@ -593,8 +656,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     MGLine *projectName = [MGLine lineWithLeft:project.name right:nil size:CGSizeMake(280, 40)];
     projectName.font = HEADER_FONT;
     
-    NSString *multiLineDisplay = [NSString stringWithFormat:@"%d members \n%d observations \n%d posts", project.memberCount, project.observationCount, project.postCount];
-    MGLine *projectStats = [MGLine lineWithLeft:avatar multilineRight:multiLineDisplay width:280 minHeight:100];
+    NSString *multiLineDisplay = [NSString stringWithFormat:@"%i members \n%i observations \n%i posts", project.userCount, project.observationCount, project.postCount];
+    MGLine *projectStats = [MGLine lineWithLeft:avatar multilineRight:multiLineDisplay width:290 minHeight:100];
     projectStats.underlineType = MGUnderlineNone;
     
     MGTableBoxStyled *info = [MGTableBoxStyled boxWithSize:IPHONE_PROJECT_DESCRIPTION];
@@ -602,7 +665,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     [info.topLines addObject:projectName];
     [info.middleLines addObject:projectStats];
     
-    MGLine *description = [MGLine lineWithMultilineLeft:project.description right:nil width:270 minHeight:30];
+    MGLine *description = [MGLine lineWithMultilineLeft:project.description right:nil width:280 minHeight:30];
     description.padding = UIEdgeInsetsMake(10, 0, 10, 0);
     description.underlineType = MGUnderlineNone;
     [info.middleLines addObject:description];
@@ -615,7 +678,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     projJoinLeave.identifier = project.identifier;
     
     if(projectInUserList) {
-        [info.bottomLines addObject:[BBUIControlHelper createButtonWithFrame:CGRectMake(10, 0, 280, 40) andTitle:@"Leave Project" withBlock:^{
+        [info.bottomLines addObject:[BBUIControlHelper createButtonWithFrame:CGRectMake(10, 0, 290, 40) andTitle:@"Leave Project" withBlock:^{
             NSString* resourcePath = [NSString stringWithFormat:@"%@/%@/leave",[BBConstants RootUriString], project.identifier];
             [[RKObjectManager sharedManager] sendObject:projJoinLeave toResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
                 loader.delegate = self;
@@ -625,7 +688,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     }
     else
     {
-        [info.bottomLines addObject:[BBUIControlHelper createButtonWithFrame:CGRectMake(10, 0, 280, 40) andTitle:@"Join Project" withBlock:^{
+        [info.bottomLines addObject:[BBUIControlHelper createButtonWithFrame:CGRectMake(10, 0, 290, 40) andTitle:@"Join Project" withBlock:^{
             NSString* resourcePath = [NSString stringWithFormat:@"%@/%@/join",[BBConstants RootUriString], project.identifier];
             [[RKObjectManager sharedManager] sendObject:projJoinLeave toResourcePath:resourcePath usingBlock:^(RKObjectLoader *loader) {
                 loader.delegate = self;

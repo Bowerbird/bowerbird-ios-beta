@@ -110,7 +110,10 @@
     ((BBSightingEditView*)self.view).scrollEnabled = YES;
 }
 
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+-(void)observeValueForKeyPath:(NSString *)keyPath
+                     ofObject:(id)object
+                       change:(NSDictionary *)change
+                      context:(void *)context {
     [self validateForm];
 }
 
@@ -265,7 +268,8 @@
     }
 }
 
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+ -(void)imagePickerController:(UIImagePickerController *)picker
+didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [BBLog Log:@"BBSightingEditController.imagePickerController:"];
     
     [picker dismissModalViewControllerAnimated:YES];
@@ -607,7 +611,7 @@
         observationMedia.key = media.key;
         observationMedia.licence = app.authenticatedUser.defaultLicence;
         observationMedia.isPrimaryMedia = counter == 1;
-        observationMedia.description = @"Observed in the field using the BowerBird App";
+        observationMedia.description = @"Observed using the BowerBird App";
         [newMedia addObject:observationMedia];
         counter ++;
     }
@@ -620,8 +624,7 @@
     
     isObservation = YES;
     
-    [manager postObject:observation delegate:self];
-    /*
+    //[manager postObject:observation delegate:self]; // ain't working.. posting as text/html.
     [manager postObject:observation usingBlock:^(RKObjectLoader *loader) {
         
         // map native object to dictionary of key values
@@ -638,7 +641,7 @@
         loader.params = [RKRequestSerialization serializationWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding] MIMEType:RKMIMETypeJSON];
         loader.delegate = self;
     }];
-    */
+    
 }
 
 -(void)observationSent {
@@ -662,7 +665,8 @@
     [SVProgressHUD showErrorWithStatus:error.localizedDescription];
 }
 
--(void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
+ -(void)request:(RKRequest*)request
+didLoadResponse:(RKResponse*)response {
     [BBLog Log:@"BBSightingEditController.request:didLoadResponse"];
 
     [BBLog Log:response.bodyAsString];
@@ -704,8 +708,11 @@
         }
     }
     
+    // if we've saved an observation successfully, pop to the stream. Question is.. do we pass the
+    // new observation back into it as a pseudo activity? If we do, how do we query it? Using a Key??
     if(isObservation) {
-        [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:NO];
+        // need to send a notification to kill this puppy
+        //[((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popToViewController:self.parentViewController animated:NO];
     }
 }
 
@@ -725,26 +732,32 @@
     [_observationEditView addMediaItem:media];
 }
 
-
--(void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
+-(void)objectLoader:(RKObjectLoader *)objectLoader
+      didLoadObject:(id)object {
     // is it a JsonResponse?
 }
 
--(void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjectDictionary:(NSDictionary *)dictionary {
+    -(void)objectLoader:(RKObjectLoader *)objectLoader
+didLoadObjectDictionary:(NSDictionary *)dictionary {
     
 }
-
 
 -(void)processMappingResult:(RKObjectMappingResult *)result {
     [BBLog Log:@"BBSightingEditController.processMappingResult:"];
     
 }
 
--(void)request:(RKRequest *)request didReceiveData:(NSInteger)bytesReceived totalBytesReceived:(NSInteger)totalBytesReceived totalBytesExpectedToReceive:(NSInteger)totalBytesExpectedToReceive {
+             -(void)request:(RKRequest *)request
+             didReceiveData:(NSInteger)bytesReceived
+         totalBytesReceived:(NSInteger)totalBytesReceived
+totalBytesExpectedToReceive:(NSInteger)totalBytesExpectedToReceive {
     [BBLog Log:[NSString stringWithFormat:@"bytes received: %d total received: %d total to receive: %d", bytesReceived, totalBytesReceived, totalBytesExpectedToReceive]];
 }
 
--(void)request:(RKRequest *)request didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
+            -(void)request:(RKRequest *)request
+           didSendBodyData:(NSInteger)bytesWritten
+         totalBytesWritten:(NSInteger)totalBytesWritten
+ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
     
     [BBLog Log:[NSString stringWithFormat:@"bytes written: %d total written: %d total to send: %d", bytesWritten, totalBytesWritten, totalBytesExpectedToWrite]];
     

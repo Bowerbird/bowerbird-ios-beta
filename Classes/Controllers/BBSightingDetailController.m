@@ -118,6 +118,9 @@ static CGRect MapFullFrame;
     // USER
     [info.middleLines addObject:[self sightingUser:observation]];
     
+    [info.bottomLines addObject:[BBUIControlHelper createSubHeadingWithTitle:@"Rating"
+                                                                      forSize:CGSizeMake(IPHONE_STREAM_WIDTH, 20)]];
+    
     // VOTES
     BBVoteController *voteController = [[BBVoteController alloc]initWithObservation:observation];
     [info.bottomLines addObject:voteController.view];
@@ -136,7 +139,7 @@ static CGRect MapFullFrame;
         
         MGLine *identificationsTitle = [MGLine lineWithLeft:identificationsCountTitle right:nil size:CGSizeMake(300, 20)];
         identificationsTitle.margin = UIEdgeInsetsMake(5, 10, 5, 0);
-        identificationsTitle.textColor = [UIColor whiteColor];
+        identificationsTitle.textColor = [self backgroundColor];
         identificationsTitle.backgroundColor = [UIColor blackColor];
         
         [ids.topLines addObject:identificationsTitle];
@@ -154,7 +157,7 @@ static CGRect MapFullFrame;
         [NSString stringWithFormat:@"Sighting has %i Note", observation.identifications.count];
         
         MGLine *notesTitle = [MGLine lineWithLeft:notesCountTitle right:nil size:CGSizeMake(300, 20)];
-        notesTitle.textColor = [UIColor whiteColor];
+        notesTitle.textColor = [self backgroundColor];
         notesTitle.backgroundColor = [UIColor blackColor];
         notesTitle.margin = UIEdgeInsetsMake(5, 10, 5, 0);
         
@@ -359,9 +362,18 @@ static CGRect MapFullFrame;
     
     BBImage *fullSize = [BBCollectionHelper getImageWithDimension:@"Constrained240"
                                                       fromArrayOf:observation.primaryMedia.mediaResource.imageMedia];
+    BBImage *originalSize = [self getImageWithDimension:@"Original"
+                                            fromArrayOf:observation.primaryMedia.mediaResource.imageMedia];
+    
     MGBox* currentImageBox = [MGBox box];
     currentImageBox.width = 300;
     __block PhotoBox *currentPic = [PhotoBox mediaFor:fullSize.uri size:CGSizeMake(300, 240)];
+    __weak UINavigationController *nav = self.navigationController;
+    currentPic.onTap = ^{
+        BBDisplayFullImageController *fullImageController = [[BBDisplayFullImageController alloc]initWithImage:originalSize];
+        [nav pushViewController:fullImageController animated:NO];
+    };
+    
     [currentImageBox.boxes addObject:currentPic];
     
     [mediaWrapperBox.boxes addObject:currentImageBox];
@@ -455,6 +467,10 @@ static CGRect MapFullFrame;
     // USER
     [idBox.bottomLines addObject:[self sightingIdentificationUser:identification.user forIdentification:identification]];
     
+    
+    [idBox.bottomLines addObject:[BBUIControlHelper createSubHeadingWithTitle:@"Rating"
+                                                                     forSize:CGSizeMake(IPHONE_STREAM_WIDTH, 20)]];
+    
     // VOTES
     BBVoteController *voteController = [[BBVoteController alloc]initWithIdentification:identification];
     [idBox.bottomLines addObject:voteController.view];
@@ -483,7 +499,6 @@ static CGRect MapFullFrame;
             
             [note.middleLines addObject:descriptionLine];
         }
-        
     }
     
     // TAGS
@@ -509,6 +524,10 @@ static CGRect MapFullFrame;
         
     // USER
     [note.bottomLines addObject:[self sightingNoteUser:observationNote.user forNote:observationNote]];
+    
+    
+    [note.bottomLines addObject:[BBUIControlHelper createSubHeadingWithTitle:@"Rating"
+                                                                      forSize:CGSizeMake(IPHONE_STREAM_WIDTH, 20)]];
     
     // VOTES
     BBVoteController *voteController = [[BBVoteController alloc]initWithObservationNote:observationNote];

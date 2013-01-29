@@ -7,6 +7,7 @@
 //
 
 #import "BBCreateSightingNoteController.h"
+#import "NSString+RKAdditions.h"
 
 @interface BBCreateSightingNoteController ()
 
@@ -52,7 +53,9 @@
 #pragma mark - Protocol Impementations
 
 -(void)objectLoaderDidLoadUnexpectedResponse:(RKObjectLoader *)objectLoader {
+    [BBLog Log:@"BBCreateSightingNoteController.objectDidLoadUnexpectedResponse:"];
     
+    [BBLog Log:objectLoader.response.bodyAsString];
 }
 
 -(void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
@@ -212,21 +215,14 @@
     
     /*
     [manager postObject:postSightingNote usingBlock:^(RKObjectLoader *loader) {
-        // map native object to dictionary of key values
-        RKObjectMapping *map = [[manager mappingProvider] serializationMappingForClass:[BBSightingNoteCreate class]];
-        NSError *error = nil;
-        NSDictionary *d = [[RKObjectSerializer serializerWithObject:postSightingNote mapping:map] serializedObject:&error];
-        
-        // convert key value dictionary to json data object
-        NSError *e;
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:d options:0 error:&e];
-        
-        // convert json data object to a string
-        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        loader.params = [RKRequestSerialization serializationWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding] MIMEType:RKMIMETypeJSON];
         loader.delegate = self;
+        loader.method = RKRequestMethodPOST;
+        loader.params = [BBConstants AjaxRequestParams];
+        NSString *encodedUrl = [postSightingNote.sightingId stringByReplacingURLEncoding];
+        loader.resourcePath = [NSString stringWithFormat:@"/%@/createnote", encodedUrl];
     }];
-     */
+    */
+    
 }
 
 -(void)cancel {

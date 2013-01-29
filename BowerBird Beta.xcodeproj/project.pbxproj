@@ -30,6 +30,7 @@
 		1C31AEEB15DE1B4100A602BE /* libRestKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C31AEE215DE1B2100A602BE /* libRestKit.a */; };
 		1C3728BD1693B694000472F1 /* BBPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C3728BC1693B694000472F1 /* BBPaginator.m */; };
 		1C3728C01693ED75000472F1 /* BBStreamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C3728BF1693ED75000472F1 /* BBStreamView.m */; };
+		1C5479A816B7B3E100393B9F /* BBStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C5479A716B7B3E100393B9F /* BBStarView.m */; };
 		1C5BD56C16B0B3FF0007B49E /* BBVoteCreate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C5BD56B16B0B3FF0007B49E /* BBVoteCreate.m */; };
 		1C5BD57316B0D1950007B49E /* BBActivityProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C5BD57216B0D1950007B49E /* BBActivityProvider.m */; };
 		1C5BD57616B0D2310007B49E /* BBVoteActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C5BD57516B0D2310007B49E /* BBVoteActivity.m */; };
@@ -441,6 +442,8 @@
 		1C3728BC1693B694000472F1 /* BBPaginator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBPaginator.m; sourceTree = "<group>"; };
 		1C3728BE1693ED75000472F1 /* BBStreamView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBStreamView.h; sourceTree = "<group>"; };
 		1C3728BF1693ED75000472F1 /* BBStreamView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBStreamView.m; sourceTree = "<group>"; };
+		1C5479A616B7B3E100393B9F /* BBStarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBStarView.h; sourceTree = "<group>"; };
+		1C5479A716B7B3E100393B9F /* BBStarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBStarView.m; sourceTree = "<group>"; };
 		1C5BD56A16B0B3FF0007B49E /* BBVoteCreate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBVoteCreate.h; sourceTree = "<group>"; };
 		1C5BD56B16B0B3FF0007B49E /* BBVoteCreate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBVoteCreate.m; sourceTree = "<group>"; };
 		1C5BD57116B0D1950007B49E /* BBActivityProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBActivityProvider.h; sourceTree = "<group>"; };
@@ -1595,6 +1598,8 @@
 				1CF44676169DB0770064CC40 /* BBTableViewCell.m */,
 				1CB81830169F97FB00F98C43 /* BBIdentifySightingView.h */,
 				1CB81831169F97FB00F98C43 /* BBIdentifySightingView.m */,
+				1C5479A616B7B3E100393B9F /* BBStarView.h */,
+				1C5479A716B7B3E100393B9F /* BBStarView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2373,6 +2378,7 @@
 				1C5BD57C16B108DA0007B49E /* BBProjectId.m in Sources */,
 				1C5BD57F16B108F60007B49E /* BBFavouriteId.m in Sources */,
 				1C5BD58216B1E9F10007B49E /* BBVoteController.m in Sources */,
+				1C5479A816B7B3E100393B9F /* BBStarView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

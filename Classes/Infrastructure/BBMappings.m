@@ -69,11 +69,20 @@
     [manager.mappingProvider addObjectMapping:categoryMapping];
     
     
+    RKObjectMapping *groupMapping = [RKObjectMapping mappingForClass:[BBGroup class]];
+    [groupMapping mapKeyPath:@"Id" toAttribute:@"identifier"];
+    [groupMapping mapKeyPath:@"Name" toAttribute:@"name"];
+    [groupMapping mapKeyPath:@"GroupType" toAttribute:@"groupType"];
+    [groupMapping mapKeyPath:@"Avatar" toRelationship:@"avatar" withMapping:mediaResourceMapping];
+    [manager.mappingProvider setMapping:groupMapping forKeyPath:@"Group"];
+    [manager.mappingProvider addObjectMapping:groupMapping];
+    
+    
     RKObjectMapping *projectMapping = [RKObjectMapping mappingForClass:[BBProject class]];
     [projectMapping mapKeyPath:@"Id" toAttribute:@"identifier"];
     [projectMapping mapKeyPath:@"Name" toAttribute:@"name"];
     [projectMapping mapKeyPath:@"GroupType" toAttribute:@"groupType"];
-    [projectMapping mapKeyPath:@"MemberCount" toAttribute:@"memberCount"];
+    [projectMapping mapKeyPath:@"UserCount" toAttribute:@"userCount"];
     [projectMapping mapKeyPath:@"SightingCount" toAttribute:@"observationCount"];
     [projectMapping mapKeyPath:@"PostCount" toAttribute:@"postCount"];
     [projectMapping mapKeyPath:@"Description" toAttribute:@"description"];
@@ -182,7 +191,19 @@
     [observationMapping mapKeyPath:@"FavouritesCount" toAttribute:@"favouritesCount"];
     [manager.mappingProvider addObjectMapping:observationMapping];
     [manager.mappingProvider setMapping:observationMapping forKeyPath:@"Model.Observation"];
-        
+    
+    
+    RKObjectMapping *postMapping = [RKObjectMapping mappingForClass:[BBPost class]];
+    [postMapping mapKeyPath:@"Id" toAttribute:@"identifier"];
+    [postMapping mapKeyPath:@"CreatedOnDescription" toAttribute:@"createdOnDescription"];
+    [postMapping mapKeyPath:@"Group" toRelationship:@"group" withMapping:groupMapping];
+    [postMapping mapKeyPath:@"GroupId" toAttribute:@"groupId"];
+    [postMapping mapKeyPath:@"Message" toAttribute:@"message"];
+    [postMapping mapKeyPath:@"PostType" toAttribute:@"postType"];
+    [postMapping mapKeyPath:@"Subject" toAttribute:@"subject"];
+    [postMapping mapKeyPath:@"User" toRelationship:@"user" withMapping:userMapping];
+    [manager.mappingProvider addObjectMapping:postMapping];
+    
     
     RKObjectMapping *activityMapping = [RKObjectMapping mappingForClass:[BBActivity class]];
     [activityMapping mapKeyPath:@"Id" toAttribute:@"identifier"];
@@ -196,6 +217,7 @@
     [activityMapping mapKeyPath:@"SightingNoteAdded.Sighting" toRelationship:@"observationNoteObservation" withMapping:observationMapping];
     [activityMapping mapKeyPath:@"IdentificationAdded.Sighting" toRelationship:@"identificationObservation" withMapping:observationMapping];
     [activityMapping mapKeyPath:@"IdentificationAdded.Identification" toRelationship:@"identification" withMapping:identificationMapping];
+    [activityMapping mapKeyPath:@"PostAdded.Post" toRelationship:@"post" withMapping:postMapping];
     [manager.mappingProvider addObjectMapping:activityMapping];
     [manager.mappingProvider setSerializationMapping:activityMapping forClass:[BBActivity class]];
     
@@ -250,6 +272,14 @@
     [sightingPaginationMapping mapKeyPath:@"TotalResultCount" toAttribute:@"objectCount"];
     [sightingPaginationMapping mapKeyPath:@"Model.PagedListItems" toRelationship:@"activities" withMapping:activityMapping];
     [manager.mappingProvider setMapping:sightingPaginationMapping forKeyPath:@"Model.Sightings"];
+    
+    
+    // this is duplicate as API is unstable 
+    RKObjectMapping *jsonResponse = [RKObjectMapping mappingForClass:[BBJsonResponse class]];
+    jsonResponse.rootKeyPath = @"Model";
+    [jsonResponse mapKeyPath:@"Success" toAttribute:@"success"];
+    [manager.mappingProvider addObjectMapping:jsonResponse];
+    [manager.mappingProvider setMapping:jsonResponse forKeyPath:@"Model.Success"];
     
     
     RKObjectMapping *jsonResponseMapping = [RKObjectMapping mappingForClass:[BBJsonResponse class]];
@@ -321,21 +351,21 @@
     
     
     RKObjectMapping *voteCreateMapping = [RKObjectMapping mappingForClass:[BBVoteCreate class]];
-    [voteCreateMapping mapKeyPath:@"id" toAttribute:@"identifier"];
-    [voteCreateMapping mapKeyPath:@"subId" toAttribute:@"subIdentifier"];
-    [voteCreateMapping mapKeyPath:@"contributionType" toAttribute:@"contributionType"];
-    [voteCreateMapping mapKeyPath:@"subContributionType" toAttribute:@"subContributionType"];
-    [voteCreateMapping mapKeyPath:@"score" toAttribute:@"score"];
+    //[voteCreateMapping mapKeyPath:@"id" toAttribute:@"identifier"];
+    //[voteCreateMapping mapKeyPath:@"subId" toAttribute:@"subIdentifier"];
+    //[voteCreateMapping mapKeyPath:@"contributionType" toAttribute:@"contributionType"];
+    //[voteCreateMapping mapKeyPath:@"subContributionType" toAttribute:@"subContributionType"];
+    [voteCreateMapping mapKeyPath:@"Score" toAttribute:@"score"];
     [manager.mappingProvider addObjectMapping:voteCreateMapping];
     [manager.mappingProvider setSerializationMapping:[voteCreateMapping inverseMapping] forClass:[BBVoteCreate class]];
     
     
     RKObjectMapping *subVoteCreateMapping = [RKObjectMapping mappingForClass:[BBSubVoteCreate class]];
-    [subVoteCreateMapping mapKeyPath:@"id" toAttribute:@"identifier"];
-    [subVoteCreateMapping mapKeyPath:@"subId" toAttribute:@"subIdentifier"];
-    [subVoteCreateMapping mapKeyPath:@"contributionType" toAttribute:@"contributionType"];
-    [subVoteCreateMapping mapKeyPath:@"subContributionType" toAttribute:@"subContributionType"];
-    [subVoteCreateMapping mapKeyPath:@"score" toAttribute:@"score"];
+    //[subVoteCreateMapping mapKeyPath:@"id" toAttribute:@"identifier"];
+    //[subVoteCreateMapping mapKeyPath:@"subId" toAttribute:@"subIdentifier"];
+    //[subVoteCreateMapping mapKeyPath:@"contributionType" toAttribute:@"contributionType"];
+    //[subVoteCreateMapping mapKeyPath:@"subContributionType" toAttribute:@"subContributionType"];
+    [subVoteCreateMapping mapKeyPath:@"Score" toAttribute:@"score"];
     [manager.mappingProvider addObjectMapping:subVoteCreateMapping];
     [manager.mappingProvider setSerializationMapping:[subVoteCreateMapping inverseMapping] forClass:[BBSubVoteCreate class]];
     
@@ -346,21 +376,21 @@
     [manager.mappingProvider setSerializationMapping:[modelIdMapping inverseMapping] forClass:[BBModelId class]];
     
     
-    RKObjectMapping *jsonResponse = [RKObjectMapping mappingForClass:[BBJsonResponse class]];
-    jsonResponse.rootKeyPath = @"Model";
-    [jsonResponse mapKeyPath:@"Success" toAttribute:@"success"];
-    [manager.mappingProvider addObjectMapping:jsonResponse];
-    [manager.mappingProvider setMapping:jsonResponse forKeyPath:@"Model.Success"];
+    RKObjectMapping *favouriteMapping = [RKObjectMapping mappingForClass:[BBFavouriteId class]];
+    [favouriteMapping mapKeyPath:@"Id" toAttribute:@"identifier"];
+    [manager.mappingProvider addObjectMapping:favouriteMapping];
+    [manager.mappingProvider setSerializationMapping:[favouriteMapping inverseMapping] forClass:[BBFavouriteId class]];
     
     
+    // using escapeRoutedPath:NO prevents url encoding: http://stackoverflow.com/questions/9688113/avoid-uri-encoding-on-restkit-routers
     [manager.router routeClass:[BBMediaResourceCreate class] toResourcePath:@"/mediaresources" forMethod:RKRequestMethodPOST];
     [manager.router routeClass:[BBObservationCreate class] toResourcePath:@"/observations" forMethod:RKRequestMethodPOST];
-    [manager.router routeClass:[BBIdentifySightingEdit class] toResourcePath:@"/:identifier/createidentification" forMethod:RKRequestMethodPOST];
-    [manager.router routeClass:[BBSightingNoteCreate class] toResourcePathPattern:@"/:sightingId/createnote" forMethod:RKRequestMethodPOST];
-    [manager.router routeClass:[BBFavouriteId class] toResourcePath:@"/favourites" forMethod:RKRequestMethodPOST];
-    [manager.router routeClass:[BBProjectId class] toResourcePath:@"/projects/:identifier/members" forMethod:RKRequestMethodPOST];// this may not be serverside refactored yet
-    [manager.router routeClass:[BBVoteCreate class] toResourcePath:@"/:identifier/vote" forMethod:RKRequestMethodPOST];
-    [manager.router routeClass:[BBSubVoteCreate class] toResourcePath:@"/:identifier/:subIdentifier/vote" forMethod:RKRequestMethodPOST];
+    [manager.router routeClass:[BBIdentifySightingEdit class] toResourcePath:@"/:sightingId/identifications" forMethod:RKRequestMethodPOST escapeRoutedPath:NO];
+    [manager.router routeClass:[BBSightingNoteCreate class] toResourcePathPattern:@"/:sightingId/notes" forMethod:RKRequestMethodPOST escapeRoutedPath:NO];
+    [manager.router routeClass:[BBFavouriteId class] toResourcePath:@"/favourites" forMethod:RKRequestMethodPOST escapeRoutedPath:NO];
+    [manager.router routeClass:[BBProjectId class] toResourcePath:@"/projects/:identifier/members" forMethod:RKRequestMethodPOST escapeRoutedPath:NO];// this may not be serverside refactored yet
+    [manager.router routeClass:[BBVoteCreate class] toResourcePath:@"/:identifier/vote" forMethod:RKRequestMethodPOST escapeRoutedPath:NO];
+    [manager.router routeClass:[BBSubVoteCreate class] toResourcePath:@"/:identifier/:subIdentifier/vote" forMethod:RKRequestMethodPOST escapeRoutedPath:NO];
 }
 
 @end

@@ -6,23 +6,25 @@
 //  Copyright (c) 2013 Museum Victoria. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "BBVoteController.h"
 #import "BBVoteDelegateProtocol.h"
 
 @interface BBVoteController ()
 @property (nonatomic,weak) id<BBVoteDelegateProtocol> contribution;
-@property (nonatomic,strong) NSNumber *myVoteScore;
-@property (nonatomic,strong) NSNumber *totalVoteScore;
 @property (nonatomic,strong) id voteRequest;
 @end
 
 @implementation BBVoteController {
-    MGLine *upVote, *scoreLine, *downVote, *ratingLine;
+    MGLine *scoreLine, *favouriteLine;
+    MGBox *ratingBox, *favoriteWrapper;
+    CoolMGButton *upVoteBtn, *downVoteBtn, *favBtn;
+    UIColor *votedColor, *notVotedColor;
+    UILabel *scoreLabel;
+    int myVoteScore, totalVoteScore;
 }
 
 @synthesize contribution = _contribution,
-            myVoteScore = _myVoteScore,
-            totalVoteScore = _totalVoteScore,
             voteRequest = _voteRequest;
 
 -(id)initWithObservation:(BBObservation*)observation {
@@ -31,8 +33,8 @@
     
     if(self){
         _contribution = observation;
-        _myVoteScore = observation.userVoteScore;
-        _totalVoteScore = observation.totalVoteScore;
+        myVoteScore = [observation.userVoteScore intValue];
+        totalVoteScore = [observation.totalVoteScore intValue];
     }
     
     return self;
@@ -44,8 +46,8 @@
     
     if(self){
         _contribution = observationNote;
-        _myVoteScore = observationNote.userVoteScore;
-        _totalVoteScore = observationNote.totalVoteScore;
+        myVoteScore = [observationNote.userVoteScore intValue];
+        totalVoteScore = [observationNote.totalVoteScore intValue];
     }
     
     return self;
@@ -57,19 +59,20 @@
     
     if(self){
         _contribution = identification;
-        _myVoteScore = identification.userVoteScore;
-        _totalVoteScore = identification.totalVoteScore;
+        myVoteScore = [identification.userVoteScore intValue];
+        totalVoteScore = [identification.totalVoteScore intValue];
     }
     
     return self;
 }
 
 -(void)loadView {
-    // set up a view to be screen sized by a reasonable height.
+
     CGSize size = [self screenSize];
     
-    MGBox *voteView = [MGBox boxWithSize:CGSizeMake(size.width, 100)];
-    
+    MGBox *voteView = [MGBox boxWithSize:CGSizeMake(size.width, 40)];
+    votedColor = [UIColor colorWithRed:0.38 green:0.9 blue:0.65 alpha:1];
+    notVotedColor = [UIColor colorWithRed:0.38 green:0.65 blue:0.9 alpha:1];
     [voteView.boxes addObject:[self displayVotePanel]];
     
     self.view = voteView;
@@ -87,12 +90,13 @@
     // Dispose of any resources that can be recreated.
 }
 
--(MGLine*)displayVotePanel {
+//-(MGLine*)displayVotePanel {
+-(MGBox*)displayVotePanel {
     NSString* contributionType = NSStringFromClass([_contribution class]);
     
-    MGLine *votePanel;
+    MGBox *votePanel;
 
-    // the different vote models route to different resource paths
+    // the different vote models route to different resource paths as defined at the bottom of BBMapper.m
     if([contributionType isEqualToString:@"BBObservation"]) {
 
         _voteRequest = [[BBVoteCreate alloc]initWithObservation:_contribution
@@ -111,120 +115,163 @@
     return votePanel;
 }
 
--(MGLine*)displayVotablePanel {
+-(MGBox*)displayVotablePanel {
     
-    ratingLine = [MGLine lineWithSize:CGSizeMake(300, 40)];
+    ratingBox = [MGBox boxWithSize:CGSizeMake(320, 40)];
+    ratingBox.padding = UIEdgeInsetsMake(10, 10, 10, 10);
     
     __block BBVoteController *this = self;
     
-    upVote = [MGLine lineWithLeft:@"+1" right:nil size:CGSizeMake(90, 40)];
-    scoreLine = [MGLine lineWithLeft:[NSString stringWithFormat:@"%i", [_totalVoteScore intValue]] right:nil size:CGSizeMake(90, 40)];
-    downVote = [MGLine lineWithLeft:@"-1" right:nil size:CGSizeMake(90, 40)];
+    upVoteBtn = [[CoolMGButton alloc]initWithFrame:CGRectMake(0, 0, 65, 40)];
+    [upVoteBtn setTitle:@"+1" forState:UIControlStateNormal];
+    upVoteBtn.titleLabel.font = HEADER_FONT_XBIG;
+    [upVoteBtn onControlEvent:UIControlEventTouchUpInside do:^{[this voteUpOrDown:YES];}];
+    [upVoteBtn setButtonColor:(myVoteScore > 0 ? votedColor : notVotedColor)];
+
+    scoreLine = [MGLine lineWithSize:CGSizeMake(80, 40)];
+    scoreLine.font = HEADER_FONT_XBIG;
+    [scoreLine.middleItems addObject:[NSString stringWithFormat:@"%i", totalVoteScore]];
+    scoreLine.middleItemsTextAlignment = UITextAlignmentCenter;
     
-    upVote.onTap = ^{
-        // if we've previously down voted, ignore, otherwise either vote up or undo upvote
-        if([this.myVoteScore intValue] == 0){
-            [this increment];
-        }
-        else if([this.myVoteScore intValue] > 0){
-            [this decrement];
-        }
+    downVoteBtn = [[CoolMGButton alloc]initWithFrame:CGRectMake(0, 0, 65, 40)];
+    [downVoteBtn setTitle:@"-1" forState:UIControlStateNormal];
+    downVoteBtn.titleLabel.font = HEADER_FONT_XBIG;
+    [downVoteBtn onControlEvent:UIControlEventTouchUpInside do:^{[this voteUpOrDown:NO];}];
+    [downVoteBtn setButtonColor:(myVoteScore < 0 ? votedColor : notVotedColor)];
+    
+    ratingBox.contentLayoutMode = MGLayoutGridStyle;
+    [ratingBox.boxes addObject:upVoteBtn];
+    [ratingBox.boxes addObject:scoreLine];
+    [ratingBox.boxes addObject:downVoteBtn];
+    
+    if([self.contribution respondsToSelector:@selector(favouritesCount)])
+    {
+        BOOL isFavorite = self.contribution.userFavourited;
         
-        [this recalibrate];
-    };
-    
-    downVote.onTap = ^{
-        // if we've previously upvoted, ignore, otherwise either vote down or undo down vote
-        if([this.myVoteScore intValue] == 0){
-            [this decrement];
-        }
-        else if([this.myVoteScore intValue] < 0){
-            [this increment];
-        }
+        UIView *favouriteRating = [[BBStarView alloc]initWithFrame:CGRectMake(10, 0, 40, 40)
+                                                      andFavouriteType:(isFavorite ? BBFavouriteSelected : BBFavouriteNotSelected)
+                                                           andBgColour:[UIColor clearColor]
+                                                           andStarSize:15];
         
-        [this recalibrate];
-    };
-    
-    [ratingLine.leftItems addObject:upVote];
-    [ratingLine.middleItems addObject:scoreLine];
-    [ratingLine.rightItems addObject:downVote];
-    
-    ratingLine.leftItemsTextAlignment = NSTextAlignmentCenter;
-    ratingLine.middleItemsTextAlignment = NSTextAlignmentCenter;
-    ratingLine.rightItemsTextAlignment = NSTextAlignmentCenter;
-    
-    if([_myVoteScore intValue] > 0){
-        // toggle +1 as ticked
-        upVote.backgroundColor = [UIColor greenColor];
-        downVote.backgroundColor = [UIColor blueColor];
-    }
-    else if([_myVoteScore intValue] == 0) {
-        // nothing is ticked
-        downVote.backgroundColor = [UIColor blueColor];
-        upVote.backgroundColor = [UIColor blueColor];
-    }
-    else if([_myVoteScore intValue] < 0) {
-        // toggle -1 is ticked
-        downVote.backgroundColor = [UIColor greenColor];
-        upVote.backgroundColor = [UIColor blueColor];
+        favoriteWrapper = [MGBox boxWithSize:CGSizeMake(favouriteRating.width+20, favouriteRating.height)];
+        favoriteWrapper.backgroundColor = [UIColor clearColor];
+        
+        // http://stackoverflow.com/questions/2264083/rounded-uiview-using-calayers-only-some-corners-how
+        // Create the path (with only the top-left corner rounded)
+        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:favoriteWrapper.bounds
+                                                       byRoundingCorners:UIRectCornerAllCorners
+                                                             cornerRadii:CGSizeMake(8.0, 8.0)];
+        
+        // Create the shape layer and set its path
+        CAShapeLayer *maskLayer = [CAShapeLayer layer];
+        maskLayer.frame = favoriteWrapper.bounds;
+        maskLayer.path = maskPath.CGPath;
+        
+        // Set the newly created shape layer as the mask for the image view's layer
+        favoriteWrapper.layer.mask = maskLayer;
+        
+        favoriteWrapper.margin = UIEdgeInsetsMake(0, 20, 0, 0);
+        favoriteWrapper.onTap = ^{[this toggleFavourite];};
+
+        [favoriteWrapper addSubview:favouriteRating];
+        [ratingBox.boxes addObject:favoriteWrapper];
     }
     
-    scoreLine = [MGLine lineWithLeft:[NSString stringWithFormat:@"%i", [_myVoteScore intValue]]
-                               right:nil
-                                size:CGSizeMake(90, 40)];
+    [ratingBox layout];
     
-    return ratingLine;
+    return ratingBox;
+}
+
+-(void)voteUpOrDown:(BOOL)isVotingUpClicked {
+    switch (myVoteScore) {
+        default:
+        // user hasn't voted. If up clicked, increment. If down clicked, decrement.
+        case 0: isVotingUpClicked ? [self incrementWith:1] : [self decrementWith:1];
+        break;
+        // user has voted up previously. If up clicked, revert to 0, if down clicked, decrement to -1
+        case 1: isVotingUpClicked ? [self decrementWith:1] : [self decrementWith:2];
+        break;
+        // user has voted down previously. If up clicked, increment to 1, else reveert to 0.
+        case -1: isVotingUpClicked ? [self incrementWith:2] : [self incrementWith:1];
+        break;
+    }
+    
+    [self recalibrate];
+}
+
+-(void)toggleFavourite {
+    
+    [_contribution toggleFavourite];
+    
+    BOOL isFavorite = [_contribution userFavourited];
+    
+    UIView *favouriteRating = [[BBStarView alloc]initWithFrame:CGRectMake(10, 0, 40, 40)
+                                                  andFavouriteType:(isFavorite ? BBFavouriteSelected : BBFavouriteNotSelected)
+                                                       andBgColour:[UIColor clearColor]
+                                                       andStarSize:15];
+
+    for (UIView *view in favoriteWrapper.subviews) [view removeFromSuperview];
+    [favoriteWrapper addSubview:favouriteRating];
+    
+    NSString *sightingId = ((BBVoteCreate*)self.voteRequest).identifier;
+    BBFavouriteId *favourite = [[BBFavouriteId alloc]initWithObservationId:sightingId];
+    
+    [favouriteLine layout];
+    
+    RKObjectManager *manager = [RKObjectManager sharedManager];
+    manager.serializationMIMEType = RKMIMETypeJSON;
+    
+    [manager postObject:favourite delegate:self];
 }
 
 -(void)recalibrate {
     
     [BBLog Log:@"recalibrating votes"];
     
-    if([_myVoteScore intValue] > 0){
-        // toggle +1 as ticked
-        upVote.backgroundColor = [UIColor greenColor];
-        downVote.backgroundColor = [UIColor blueColor];
-    }
-    else if([_myVoteScore intValue] == 0) {
-        // nothing is ticked
-        downVote.backgroundColor = [UIColor blueColor];
-        upVote.backgroundColor = [UIColor blueColor];
-    }
-    else if([_myVoteScore intValue] < 0) {
-        // toggle -1 is ticked
-        downVote.backgroundColor = [UIColor greenColor];
-        upVote.backgroundColor = [UIColor blueColor];
-    }
+    [downVoteBtn setButtonColor:(myVoteScore < 0 ? votedColor : notVotedColor)];
+    [upVoteBtn setButtonColor:(myVoteScore > 0 ? votedColor : notVotedColor)];
     
-    [ratingLine.middleItems removeAllObjects];
-    
-    scoreLine = [MGLine lineWithLeft:[NSString stringWithFormat:@"%i", [_totalVoteScore intValue]]
-                               right:nil
-                                size:CGSizeMake(90, 40)];
-    
-    [ratingLine.middleItems addObject:scoreLine];
+    [scoreLine.middleItems removeAllObjects];
+    [scoreLine.middleItems addObject:[NSString stringWithFormat:@"%i", totalVoteScore]];
     
     [(MGBox*)self.view layout];
 }
 
--(void)increment {
-    _myVoteScore = [[NSNumber alloc]initWithInt:([_myVoteScore intValue] + 1)];
-    _totalVoteScore = [[NSNumber alloc]initWithInt:([_totalVoteScore intValue] + 1)];
+-(void)incrementWith:(int)number {
+    myVoteScore = myVoteScore + number;
+    totalVoteScore = totalVoteScore + number;
     
     [(BBVoteCreate*)_voteRequest increment];
+    
     RKObjectManager *manager = [RKObjectManager sharedManager];
     manager.serializationMIMEType = RKMIMETypeJSON;
-    [manager putObject:_voteRequest delegate:self];
+    
+    //[manager postObject:self.voteRequest delegate:self];
+    [manager postObject:_voteRequest usingBlock:^(RKObjectLoader *loader) {
+        NSMutableDictionary *parameters = [[NSMutableDictionary alloc]initWithDictionary:[BBConstants AjaxRequestParams] copyItems:YES];
+        [parameters setObject:[NSString stringWithFormat:@"%i", myVoteScore] forKey:@"Score"];
+        loader.params = parameters;
+    }];
+    
 }
 
--(void)decrement {
-    _myVoteScore = [[NSNumber alloc]initWithInt:([_myVoteScore intValue] - 1)];
-    _totalVoteScore = [[NSNumber alloc]initWithInt:([_totalVoteScore intValue] - 1)];
+-(void)decrementWith:(int)number {
+    myVoteScore = myVoteScore - number;
+    totalVoteScore = totalVoteScore - number;
 
     [(BBVoteCreate*)_voteRequest decrement];
     RKObjectManager *manager = [RKObjectManager sharedManager];
     manager.serializationMIMEType = RKMIMETypeJSON;
-    [manager putObject:_voteRequest delegate:self];
+
+    //[manager postObject:self.voteRequest delegate:self];
+    
+    // trying to manually inject ajax functionality and controller action params..
+    [manager postObject:_voteRequest usingBlock:^(RKObjectLoader *loader) {
+        NSMutableDictionary *parameters = [[NSMutableDictionary alloc]initWithDictionary:[BBConstants AjaxRequestParams] copyItems:YES];
+        [parameters setObject:[NSString stringWithFormat:@"%i", myVoteScore] forKey:@"Score"];
+        loader.params = parameters;
+    }];
+    
 }
 
 #pragma mark -

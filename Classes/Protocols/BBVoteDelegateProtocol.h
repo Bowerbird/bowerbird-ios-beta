@@ -13,6 +13,7 @@
 @optional
 @property (nonatomic,strong) NSNumber* favouritesCount;
 @property BOOL userFavourited;
+-(void)toggleFavourite;
 
 @required
 @property (nonatomic,strong) NSNumber* totalVoteScore;

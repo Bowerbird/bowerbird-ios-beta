@@ -106,7 +106,7 @@
 		1CAB62B8164C7FB50000D8C3 /* BBHomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB61F8164C7FB50000D8C3 /* BBHomeController.m */; };
 		1CAB62BB164C7FB50000D8C3 /* BBLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB61FE164C7FB50000D8C3 /* BBLoginController.m */; };
 		1CAB62BE164C7FB50000D8C3 /* BBMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6204164C7FB50000D8C3 /* BBMenuController.m */; };
-		1CAB62BF164C7FB50000D8C3 /* BBSightingEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6206164C7FB50000D8C3 /* BBSightingEditController.m */; };
+		1CAB62BF164C7FB50000D8C3 /* BBCreateSightingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6206164C7FB50000D8C3 /* BBCreateSightingController.m */; };
 		1CAB62C1164C7FB50000D8C3 /* BBProjectSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB620A164C7FB50000D8C3 /* BBProjectSelectController.m */; };
 		1CAB62C2164C7FB50000D8C3 /* BBRegistrationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB620C164C7FB50000D8C3 /* BBRegistrationController.m */; };
 		1CAB62C4164C7FB50000D8C3 /* BBSightingDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6210164C7FB50000D8C3 /* BBSightingDetailController.m */; };
@@ -321,6 +321,14 @@
 		1CADCE25166CB26A00B95709 /* BBClassificationPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CADCE24166CB26A00B95709 /* BBClassificationPaginator.m */; };
 		1CADCE28166DA9AB00B95709 /* BBCreateSightingNoteController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CADCE27166DA9AB00B95709 /* BBCreateSightingNoteController.m */; };
 		1CADCE2B166DACAF00B95709 /* BBClassificationSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CADCE2A166DACAE00B95709 /* BBClassificationSearchController.m */; };
+		1CAE96A616BA98ED00B92A04 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CAE96A516BA98ED00B92A04 /* MediaPlayer.framework */; };
+		1CAE96A916BA9B4200B92A04 /* BBVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAE96A816BA9B4200B92A04 /* BBVideo.m */; };
+		1CAE96AC16BAA41D00B92A04 /* BBBaseMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAE96AB16BAA41D00B92A04 /* BBBaseMedia.m */; };
+		1CAE96AF16BAA7A700B92A04 /* BBUIMediaHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAE96AE16BAA7A700B92A04 /* BBUIMediaHelper.m */; };
+		1CAE96B616BAC0FC00B92A04 /* LBYouTubeExtractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAE96B316BAC0FC00B92A04 /* LBYouTubeExtractor.m */; };
+		1CAE96B716BAC0FC00B92A04 /* LBYouTubePlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAE96B516BAC0FC00B92A04 /* LBYouTubePlayerController.m */; };
+		1CAE96B916BAC4DF00B92A04 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CAE96B816BAC4DE00B92A04 /* AVFoundation.framework */; };
+		1CAE96BC16BAC5D100B92A04 /* BBAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAE96BB16BAC5D000B92A04 /* BBAudio.m */; };
 		1CB8182C169F883700F98C43 /* BBIdentifySightingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB8182B169F883700F98C43 /* BBIdentifySightingController.m */; };
 		1CB8182F169F8A3500F98C43 /* BBIdentifySightingEdit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB8182E169F8A3500F98C43 /* BBIdentifySightingEdit.m */; };
 		1CB81832169F97FB00F98C43 /* BBIdentifySightingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB81831169F97FB00F98C43 /* BBIdentifySightingView.m */; };
@@ -588,8 +596,8 @@
 		1CAB61FE164C7FB50000D8C3 /* BBLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoginController.m; sourceTree = "<group>"; };
 		1CAB6203164C7FB50000D8C3 /* BBMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMenuController.h; sourceTree = "<group>"; };
 		1CAB6204164C7FB50000D8C3 /* BBMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMenuController.m; sourceTree = "<group>"; };
-		1CAB6205164C7FB50000D8C3 /* BBSightingEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSightingEditController.h; sourceTree = "<group>"; };
-		1CAB6206164C7FB50000D8C3 /* BBSightingEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSightingEditController.m; sourceTree = "<group>"; };
+		1CAB6205164C7FB50000D8C3 /* BBCreateSightingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBCreateSightingController.h; sourceTree = "<group>"; };
+		1CAB6206164C7FB50000D8C3 /* BBCreateSightingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBCreateSightingController.m; sourceTree = "<group>"; };
 		1CAB6209164C7FB50000D8C3 /* BBProjectSelectController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBProjectSelectController.h; sourceTree = "<group>"; };
 		1CAB620A164C7FB50000D8C3 /* BBProjectSelectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBProjectSelectController.m; sourceTree = "<group>"; };
 		1CAB620B164C7FB50000D8C3 /* BBRegistrationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBRegistrationController.h; sourceTree = "<group>"; };
@@ -904,6 +912,21 @@
 		1CADCE27166DA9AB00B95709 /* BBCreateSightingNoteController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBCreateSightingNoteController.m; sourceTree = "<group>"; };
 		1CADCE29166DACAE00B95709 /* BBClassificationSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBClassificationSearchController.h; sourceTree = "<group>"; };
 		1CADCE2A166DACAE00B95709 /* BBClassificationSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBClassificationSearchController.m; sourceTree = "<group>"; };
+		1CAE96A516BA98ED00B92A04 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		1CAE96A716BA9B4200B92A04 /* BBVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBVideo.h; sourceTree = "<group>"; };
+		1CAE96A816BA9B4200B92A04 /* BBVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBVideo.m; sourceTree = "<group>"; };
+		1CAE96AA16BAA41C00B92A04 /* BBBaseMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBBaseMedia.h; sourceTree = "<group>"; };
+		1CAE96AB16BAA41D00B92A04 /* BBBaseMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBBaseMedia.m; sourceTree = "<group>"; };
+		1CAE96AD16BAA7A700B92A04 /* BBUIMediaHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBUIMediaHelper.h; sourceTree = "<group>"; };
+		1CAE96AE16BAA7A700B92A04 /* BBUIMediaHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBUIMediaHelper.m; sourceTree = "<group>"; };
+		1CAE96B116BAC0FC00B92A04 /* LBYouTube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBYouTube.h; sourceTree = "<group>"; };
+		1CAE96B216BAC0FC00B92A04 /* LBYouTubeExtractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBYouTubeExtractor.h; sourceTree = "<group>"; };
+		1CAE96B316BAC0FC00B92A04 /* LBYouTubeExtractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBYouTubeExtractor.m; sourceTree = "<group>"; };
+		1CAE96B416BAC0FC00B92A04 /* LBYouTubePlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBYouTubePlayerController.h; sourceTree = "<group>"; };
+		1CAE96B516BAC0FC00B92A04 /* LBYouTubePlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBYouTubePlayerController.m; sourceTree = "<group>"; };
+		1CAE96B816BAC4DE00B92A04 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		1CAE96BA16BAC5CF00B92A04 /* BBAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBAudio.h; sourceTree = "<group>"; };
+		1CAE96BB16BAC5D000B92A04 /* BBAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBAudio.m; sourceTree = "<group>"; };
 		1CB8182A169F883700F98C43 /* BBIdentifySightingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBIdentifySightingController.h; sourceTree = "<group>"; };
 		1CB8182B169F883700F98C43 /* BBIdentifySightingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBIdentifySightingController.m; sourceTree = "<group>"; };
 		1CB8182D169F8A3500F98C43 /* BBIdentifySightingEdit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBIdentifySightingEdit.h; sourceTree = "<group>"; };
@@ -972,6 +995,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CAE96B916BAC4DF00B92A04 /* AVFoundation.framework in Frameworks */,
+				1CAE96A616BA98ED00B92A04 /* MediaPlayer.framework in Frameworks */,
 				1C8F4FAD1670592200A9F805 /* CoreText.framework in Frameworks */,
 				1CAB6478164C8C690000D8C3 /* CoreLocation.framework in Frameworks */,
 				1C9D7BB515E2A9B6002D9425 /* MapKit.framework in Frameworks */,
@@ -1183,6 +1208,8 @@
 		1C9A854515DDE9B300D98F40 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1CAE96B816BAC4DE00B92A04 /* AVFoundation.framework */,
+				1CAE96A516BA98ED00B92A04 /* MediaPlayer.framework */,
 				1C8F4FAC1670592100A9F805 /* CoreText.framework */,
 				1C9A858D15DE04F100D98F40 /* RestKit */,
 				1CAB6477164C8C690000D8C3 /* CoreLocation.framework */,
@@ -1231,6 +1258,7 @@
 		1C9A857715DDEC6A00D98F40 /* Controls */ = {
 			isa = PBXGroup;
 			children = (
+				1CAE96B016BAC0FC00B92A04 /* LBYouTubeView */,
 				1C9D288A1668384D002270B1 /* DACircularProgress */,
 				1CB8186416A4DF7B00F98C43 /* PDLocationsMap */,
 				1CAADA131696AFF200D98407 /* SVPullToRefresh */,
@@ -1354,8 +1382,8 @@
 				1CAB6212164C7FB50000D8C3 /* BBStreamController.m */,
 				1CAB620F164C7FB50000D8C3 /* BBSightingDetailController.h */,
 				1CAB6210164C7FB50000D8C3 /* BBSightingDetailController.m */,
-				1CAB6205164C7FB50000D8C3 /* BBSightingEditController.h */,
-				1CAB6206164C7FB50000D8C3 /* BBSightingEditController.m */,
+				1CAB6205164C7FB50000D8C3 /* BBCreateSightingController.h */,
+				1CAB6206164C7FB50000D8C3 /* BBCreateSightingController.m */,
 				1CADCE26166DA9AB00B95709 /* BBCreateSightingNoteController.h */,
 				1CADCE27166DA9AB00B95709 /* BBCreateSightingNoteController.m */,
 				1CA67A7A16781EA4003D5642 /* BBSightingNoteAddDescriptionController.h */,
@@ -1415,6 +1443,8 @@
 				1CAB6228164C7FB50000D8C3 /* BBMapPoint.m */,
 				1CAB622B164C7FB50000D8C3 /* BBUIControlHelper.h */,
 				1CAB622C164C7FB50000D8C3 /* BBUIControlHelper.m */,
+				1CAE96AD16BAA7A700B92A04 /* BBUIMediaHelper.h */,
+				1CAE96AE16BAA7A700B92A04 /* BBUIMediaHelper.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1498,6 +1528,12 @@
 				1C8F4F96166EC3D700A9F805 /* BBClassificationSelector.m */,
 				1C3728BB1693B694000472F1 /* BBPaginator.h */,
 				1C3728BC1693B694000472F1 /* BBPaginator.m */,
+				1CAE96A716BA9B4200B92A04 /* BBVideo.h */,
+				1CAE96A816BA9B4200B92A04 /* BBVideo.m */,
+				1CAE96AA16BAA41C00B92A04 /* BBBaseMedia.h */,
+				1CAE96AB16BAA41D00B92A04 /* BBBaseMedia.m */,
+				1CAE96BA16BAC5CF00B92A04 /* BBAudio.h */,
+				1CAE96BB16BAC5D000B92A04 /* BBAudio.m */,
 			);
 			name = GetModels;
 			path = Models;
@@ -1873,6 +1909,18 @@
 			path = Posts;
 			sourceTree = "<group>";
 		};
+		1CAE96B016BAC0FC00B92A04 /* LBYouTubeView */ = {
+			isa = PBXGroup;
+			children = (
+				1CAE96B116BAC0FC00B92A04 /* LBYouTube.h */,
+				1CAE96B216BAC0FC00B92A04 /* LBYouTubeExtractor.h */,
+				1CAE96B316BAC0FC00B92A04 /* LBYouTubeExtractor.m */,
+				1CAE96B416BAC0FC00B92A04 /* LBYouTubePlayerController.h */,
+				1CAE96B516BAC0FC00B92A04 /* LBYouTubePlayerController.m */,
+			);
+			path = LBYouTubeView;
+			sourceTree = "<group>";
+		};
 		1CB8186416A4DF7B00F98C43 /* PDLocationsMap */ = {
 			isa = PBXGroup;
 			children = (
@@ -2190,7 +2238,7 @@
 				1CAB62B8164C7FB50000D8C3 /* BBHomeController.m in Sources */,
 				1CAB62BB164C7FB50000D8C3 /* BBLoginController.m in Sources */,
 				1CAB62BE164C7FB50000D8C3 /* BBMenuController.m in Sources */,
-				1CAB62BF164C7FB50000D8C3 /* BBSightingEditController.m in Sources */,
+				1CAB62BF164C7FB50000D8C3 /* BBCreateSightingController.m in Sources */,
 				1CAB62C1164C7FB50000D8C3 /* BBProjectSelectController.m in Sources */,
 				1CAB62C2164C7FB50000D8C3 /* BBRegistrationController.m in Sources */,
 				1CAB62C4164C7FB50000D8C3 /* BBSightingDetailController.m in Sources */,
@@ -2325,6 +2373,12 @@
 				1CD1440116B8E2E700F3742D /* BBIdentificationActivityController.m in Sources */,
 				1CD1440416B8E3B900F3742D /* BBPostActivityController.m in Sources */,
 				1CD1440B16B96B5E00F3742D /* BBSightingPaginator.m in Sources */,
+				1CAE96A916BA9B4200B92A04 /* BBVideo.m in Sources */,
+				1CAE96AC16BAA41D00B92A04 /* BBBaseMedia.m in Sources */,
+				1CAE96AF16BAA7A700B92A04 /* BBUIMediaHelper.m in Sources */,
+				1CAE96B616BAC0FC00B92A04 /* LBYouTubeExtractor.m in Sources */,
+				1CAE96B716BAC0FC00B92A04 /* LBYouTubePlayerController.m in Sources */,
+				1CAE96BC16BAC5D100B92A04 /* BBAudio.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

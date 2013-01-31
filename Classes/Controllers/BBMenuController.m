@@ -21,10 +21,8 @@
 
 @synthesize menuSize = _menuSize;
 
-
 #pragma mark -
 #pragma mark - Setup and Render
-
 
 -(void)loadView {
     [BBLog Log:@"BBMenuController.loadView"];
@@ -36,11 +34,21 @@
     menuView = (MGScrollView*)self.view;
 }
 
-
 - (void)viewDidLoad {
     [BBLog Log:@"BBMenuController.viewDidLoad"];
     
     [super viewDidLoad];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(projectJoined:)
+                                                 name:@"projectJoined"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(projectLeft:)
+                                                 name:@"projectLeft"
+                                               object:nil];
     
     UITapGestureRecognizer *tapGestureRecognize = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapGestureRecognizer:)];
     tapGestureRecognize.delegate = self;
@@ -57,19 +65,18 @@
     self.view.alpha = 0;
 }
 
-
 #pragma mark -
 #pragma mark - Utilities and Helpers
 
-
--(void)populateMenu
-{
+-(void)populateMenu {
     // heading of avatar and user name
     // link to home
     // heading of projects:
     // link for each project
     // browse all projects
     // log out/profile/settings
+    
+    [menuView.boxes removeAllObjects];
     
     MGLine *bottomRowPadder = [MGLine lineWithSize:CGSizeMake(280, 5)];
     
@@ -94,13 +101,6 @@
     
     // USER PLACES TABLE
     MGTableBox *userTableWrapper = [MGTableBox box];
-    /*
-    MGLine *userTableHeader = [MGLine lineWithLeft:@"My Places" right:nil size:CGSizeMake(280,40)];
-    userTableHeader.font = HEADER_FONT;
-    userTableHeader.padding = UIEdgeInsetsMake(10, 10, 10, 10);
-    userTableHeader.underlineType = MGUnderlineNone;
-    [userTableWrapper.topLines addObject:userTableHeader];
-    */
     MGTableBoxStyled *userTable = [MGTableBoxStyled boxWithSize:CGSizeMake(300.0, 0)];
     [userTableWrapper.middleLines addObject:userTable];
     PhotoBox *userHomeImage = [PhotoBox mediaFor:@"/img/home.png" size:IPHONE_AVATAR_SIZE];
@@ -122,6 +122,10 @@
     userFavoritesDescriptionLabel.underlineType = MGUnderlineNone;
     MGLine *userFavoritesDescription = [MGLine lineWithLeft:userFavoritesImage right:userFavoritesDescriptionLabel size:CGSizeMake(280, 50)];
     userFavoritesDescription.underlineType = MGUnderlineNone;
+    userFavoritesDescription.onTap = ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"loadUserFavorites" object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"menuTappedClose" object:nil];
+    };
     [userTable.middleLines addObject:userFavoritesDescription];
     [userTable.bottomLines addObject:bottomRowPadder];
     
@@ -218,13 +222,51 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"menuTappedClose" object:nil];
 }
 
+-(void)projectJoined:(NSNotification *) notification{
+    
+    BBApplication* appData = [BBApplication sharedInstance];
+    NSDictionary* userInfo = [notification userInfo];
+    BBProject *project = [userInfo objectForKey:@"project"];
+    
+    __block BOOL alreadyExists = NO;
+    [appData.authenticatedUser.projects enumerateObjectsUsingBlock:^(BBProject *obj, NSUInteger idx, BOOL *stop) {
+        if([obj.identifier isEqualToString:project.identifier]) {
+            alreadyExists = YES;
+            *stop = YES;
+        }
+    }];
+    
+    if(!alreadyExists) {
+        NSMutableArray *projects = [[NSMutableArray alloc]initWithArray:appData.authenticatedUser.projects];
+        appData.authenticatedUser.projects = projects;
+    }
+    
+    [self populateMenu];
+    [self.view setNeedsDisplay];
+}
 
-//-(void)loadProjectStream:
-
+-(void)projectLeft:(NSNotification *) notification{
+    
+    BBApplication* appData = [BBApplication sharedInstance];
+    NSDictionary* userInfo = [notification userInfo];
+    BBProject *project = [userInfo objectForKey:@"project"];
+    
+    __block NSMutableArray *projects = [[NSMutableArray alloc]initWithArray:appData.authenticatedUser.projects];
+    [projects enumerateObjectsUsingBlock:^(BBProject *obj, NSUInteger idx, BOOL *stop) {
+        if([obj.identifier isEqualToString:project.identifier]) {
+            [projects removeObject:obj];
+            *stop = YES;
+        }
+    }];
+    
+    appData.authenticatedUser.projects = projects;
+    
+    [self populateMenu];
+    [self.view setNeedsDisplay];
+}
 
 #pragma mark -
 #pragma mark - Delegation and Event Handling
-
 
 - (void)singleTapGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer {
     [BBLog Log:@"BBMenuController.singleTapGestureRecognizer:"];
@@ -239,13 +281,11 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"menuTappedClose" object:nil];
 }
 
-
 - (void)didReceiveMemoryWarning {
     [BBLog Log:@"MEMORY WARNING! - BBMenuController"];
     
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 @end

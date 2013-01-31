@@ -6,14 +6,17 @@
  
  -----------------------------------------------------------------------------------------------*/
 
+
 #import <Foundation/Foundation.h>
-#import "BBModels.h"
+
 
 @interface BBMembership : NSObject
+
 
 @property (nonatomic, strong) NSString* groupId;
 @property (nonatomic, strong) NSString* groupType;
 @property (nonatomic, strong) NSArray* permissions;
 @property (nonatomic, strong) NSArray* roleIds;
+
 
 @end

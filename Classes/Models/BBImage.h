@@ -6,9 +6,12 @@
  
  -----------------------------------------------------------------------------------------------*/
 
+
 #import <Foundation/Foundation.h>
 
+
 @interface BBImage : NSObject
+
 
 @property (nonatomic,retain) NSString* dimensionName;
 @property (nonatomic,retain) NSString* uri;
@@ -17,6 +20,5 @@
 @property (nonatomic,retain) NSNumber* height;
 @property (nonatomic,retain) NSMutableDictionary* original;
 
-//d-(BBImage*)initWithObject:(id)image havingName:(NSString*)name;
 
 @end

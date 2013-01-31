@@ -17,6 +17,9 @@
 #import "BBAppDelegate.h"
 #import "BBStreamView.h"
 #import "BBArrowView.h"
+#import "BBProjectItemController.h"
+#import "BBActivityController.h"
+#import "BBStreamControllerDelegate.h"
 
 
 #pragma mark -
@@ -49,9 +52,11 @@ UIGestureRecognizerDelegate // for swiping
 @interface BBStreamController : UITableViewController  <
     UITableViewDelegate,
     UITableViewDataSource,
-    UIGestureRecognizerDelegate, // for swiping
-    RKObjectLoaderDelegate, // for posting on click
-    RKObjectPaginatorDelegate // for pagination
+    UIGestureRecognizerDelegate,
+    BBStreamControllerDelegate
+    //, // for swiping
+    //RKObjectLoaderDelegate, // for posting on click
+    //RKObjectPaginatorDelegate // for pagination
 > {
 	
 	//  Reloading var should really be your tableviews datasource
@@ -62,6 +67,7 @@ UIGestureRecognizerDelegate // for swiping
     -(BBStreamController*)initWithUserAndDelegate:(id<BBStreamProtocol>)delegate;
     -(BBStreamController*)initWithGroup:(NSString*)groupId andDelegate:(id<BBStreamProtocol>)delegate;
     -(BBStreamController*)initWithProjectsAndDelegate:(id<BBStreamProtocol>)delegate;
+    -(BBStreamController*)initWithFavouritesAndDelegate:(id<BBStreamProtocol>)delegate;
     
     - (void)reloadTableViewDataSource;
     - (void)doneLoadingTableViewData;

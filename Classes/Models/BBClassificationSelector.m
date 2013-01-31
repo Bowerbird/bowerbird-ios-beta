@@ -1,18 +1,31 @@
-//
-//  BBClassificationSelector.m
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 5/12/12.
-//  Copyright (c) 2012 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBClassificationSelector.h"
+#import "BBHelpers.h"
+#import "BBClassification.h"
+
 
 @implementation BBClassificationSelector
 
+
+#pragma mark -
+#pragma mark - Member Accessors
+
+
 @synthesize currentClassification = _currentClassification,
-                      currentRank = _currentRank,
-                     ranksToQuery = _ranksToQuery;
+            currentRank = _currentRank,
+            ranksToQuery = _ranksToQuery;
+
+
+#pragma mark -
+#pragma mark - Constructors
 
 
 -(BBClassificationSelector*)init {
@@ -38,6 +51,11 @@
     
     return self;
 }
+
+
+#pragma mark -
+#pragma mark - Methods
+
 
 -(NSString*)getNextRankQuery {
     [BBLog Log:@"BBClassificationSelector.getNextRank"];
@@ -72,5 +90,6 @@
     
     return nil;
 }
+
 
 @end

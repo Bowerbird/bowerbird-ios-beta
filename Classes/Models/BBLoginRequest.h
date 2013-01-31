@@ -6,12 +6,16 @@
  
  -----------------------------------------------------------------------------------------------*/
 
+
 #import <Foundation/Foundation.h>
 
+
 @interface BBLoginRequest : NSObject
+
 
 @property (nonatomic,retain) NSString* email;
 @property (nonatomic,retain) NSString* password;
 @property BOOL rememberme;
+
 
 @end

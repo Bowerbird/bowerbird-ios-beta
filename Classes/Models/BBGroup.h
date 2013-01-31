@@ -7,16 +7,21 @@
  -----------------------------------------------------------------------------------------------*/
 
 #import <Foundation/Foundation.h>
-#import "BBModels.h"
+
+
+@class BBMediaResource;
+
 
 @interface BBGroup : NSObject
 
-@property (nonatomic,retain) NSString *identifier;
-@property (nonatomic,retain) NSString *name;
-@property (nonatomic,retain) NSString *description;
-@property (nonatomic,retain) NSString *groupType;
+
+@property (nonatomic,strong) NSString *identifier;
+@property (nonatomic,strong) NSString *name;
+@property (nonatomic,strong) NSString *description;
+@property (nonatomic,strong) NSString *groupType;
+@property (nonatomic,strong) BBMediaResource* avatar;
 @property int userCount;
 @property int postCount;
-@property (nonatomic,retain) BBMediaResource* avatar;
+
 
 @end

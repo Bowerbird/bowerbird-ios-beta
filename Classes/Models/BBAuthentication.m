@@ -8,20 +8,22 @@
  
  -----------------------------------------------------------------------------------------------*/
 
+
 #import "BBAuthentication.h"
+#import "BBUser.h"
+
 
 @implementation BBAuthentication
 
+
+#pragma mark -
+#pragma mark - Member Accessors
+
+
 @synthesize authenticatedUser = _authenticatedUser;
 
+-(void)setAuthenticatedUser:(BBUser *)authenticatedUser { _authenticatedUser = authenticatedUser; }
+-(BBUser*)authenticatedUser { return _authenticatedUser; }
 
--(void)setAuthenticatedUser:(BBUser *)authenticatedUser
-{
-    _authenticatedUser = authenticatedUser;
-}
--(BBUser*)authenticatedUser
-{
-    return _authenticatedUser;
-}
 
 @end

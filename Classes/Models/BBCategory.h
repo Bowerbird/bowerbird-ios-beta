@@ -1,17 +1,21 @@
-//
-//  BBCategory.h
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 30/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import <Foundation/Foundation.h>
 
+
 @interface BBCategory : NSObject
+
 
 @property (nonatomic,strong) NSString* identifier;
 @property (nonatomic,strong) NSString* name;
 @property (nonatomic,strong) NSString* taxonomy;
+
 
 @end

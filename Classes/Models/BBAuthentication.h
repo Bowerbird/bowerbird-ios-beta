@@ -6,12 +6,19 @@
  
  -----------------------------------------------------------------------------------------------*/
 
+
 #import <Foundation/Foundation.h>
 #import "BBModels.h"
 #import "BBHelpers.h"
 
+
+@class BBUser;
+
+
 @interface BBAuthentication : NSObject
 
+
 @property (nonatomic, strong) BBUser* authenticatedUser;
+
 
 @end

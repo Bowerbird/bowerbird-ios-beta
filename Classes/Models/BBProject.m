@@ -6,19 +6,22 @@
  
  -----------------------------------------------------------------------------------------------*/
 
-#import "BBModels.h"
+
+#import "BBProject.h"
+
 
 @implementation BBProject
 
+
+#pragma mark -
+#pragma mark - Member Accessors
+
+
 @synthesize observationCount = _observationCount;
 
--(void)setObservationCount:(int)observationCount
-{
-    _observationCount  = observationCount;
-}
--(int)observationCount
-{
-    return _observationCount;
-}
+
+-(void)setObservationCount:(int)observationCount { _observationCount  = observationCount; }
+-(int)observationCount { return _observationCount; }
+
 
 @end

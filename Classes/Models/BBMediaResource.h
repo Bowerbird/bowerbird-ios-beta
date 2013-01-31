@@ -6,10 +6,12 @@
  
  -----------------------------------------------------------------------------------------------*/
 
+
 #import <Foundation/Foundation.h>
-#import "BBModels.h"
+
 
 @interface BBMediaResource : NSObject
+
 
 @property (nonatomic,retain) NSString* identifier;
 @property (nonatomic,retain) NSString* mediaType;
@@ -22,6 +24,8 @@
 @property (nonatomic,retain) NSString* key;
 @property BOOL isPrimaryMedia;
 
+
 -(BBMediaResource*)initWithAvatarObject:(id)avatar;
+
 
 @end

@@ -6,10 +6,6 @@
  
  -----------------------------------------------------------------------------------------------*/
 
-#import <Foundation/Foundation.h>
-#import <RestKit/RestKit.h>
-#import <RestKit/RKISO8601DateFormatter.h>
-
 #import "BBImage.h"
 #import "BBMediaResource.h"
 #import "BBMedia.h"
@@ -26,9 +22,6 @@
 #import "BBActivity.h"
 #import "BBClassification.h"
 #import "BBProject.h"
-#import "BBChat.h"
-#import "BBChatMessage.h"
-#import "BBChatUserTyping.h"
 #import "BBCategory.h"
 #import "BBPost.h"
 
@@ -37,9 +30,7 @@
 #import "BBApplication.h"
 #import "BBMembership.h"
 
-#import "BBPaginator.h"
 #import "BBActivityPaginator.h"
-#import "BBSightingPaginator.h"
 #import "BBClassificationPaginator.h"
 #import "BBPostPaginator.h"
 #import "BBProjectPaginator.h"
@@ -48,6 +39,7 @@
 #import "BBSightingNoteEdit.h"
 #import "BBJsonResponse.h"
 
+#import "BBJsonResponder.h"
 #import "BBModelId.h"
 #import "BBProjectId.h"
 #import "BBFavouriteId.h"

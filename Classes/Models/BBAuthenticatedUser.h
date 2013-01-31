@@ -6,11 +6,18 @@
  
  -----------------------------------------------------------------------------------------------*/
 
-#import <Foundation/Foundation.h>
-#import "BBModels.h"
-#import "BBHelpers.h"
 
-@interface BBAuthenticatedUser : NSObject
+#import <Foundation/Foundation.h>
+#import <RestKit/RestKit.h>
+
+
+@class BBUser;
+
+
+@interface BBAuthenticatedUser : NSObject <
+    RKObjectLoaderDelegate
+>
+
 
 @property (nonatomic, retain) BBUser* user;
 @property (nonatomic, retain) NSArray* categories;
@@ -19,5 +26,6 @@
 @property (nonatomic, retain) NSArray* userProjects;
 @property (nonatomic, retain) NSArray* memberships;
 @property (nonatomic, retain) NSString* defaultLicence;
+
 
 @end

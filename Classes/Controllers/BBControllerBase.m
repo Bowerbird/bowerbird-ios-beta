@@ -10,7 +10,6 @@
 
 @implementation BBControllerBase
 
-
 -(BBImage*)getImageWithDimension:(NSString*)dimensionName fromArrayOf:(NSArray*)images {
     [BBLog Log:@"BBControllerBase.getImageWithDimension:fromArrayOf:"];
     
@@ -54,5 +53,16 @@
     return [UIColor colorWithRed:0.74 green:0.74 blue:0.75 alpha:1];
 }
 
+-(MGBox*)getForwardArrow {
+    UIView *arrow = [[BBArrowView alloc]initWithFrame:CGRectMake(0, 0, 30, 40)
+                                         andDirection:BBArrowNext
+                                       andArrowColour:[UIColor grayColor]
+                                          andBgColour:[UIColor colorWithRed:0.94 green:0.94 blue:0.95 alpha:1]];
+    
+    MGBox *arrowWrapper = [MGBox boxWithSize:CGSizeMake(arrow.width, arrow.height)];
+    [arrowWrapper addSubview:arrow];
+    
+    return arrowWrapper;
+}
 
 @end

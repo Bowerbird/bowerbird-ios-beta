@@ -1,16 +1,20 @@
-//
-//  BBSightingCreate.h
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 22/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Hamish Crittenden : hamish.crittenden@gmail.com, Frank Radocaj : frank@radocaj.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import <Foundation/Foundation.h>
-#import "BBMediaEdit.h"
-#import "BBProject.h"
+
+
+@class BBMediaEdit, BBProject;
+
 
 @interface BBSightingEdit : NSObject
+
 
 @property (nonatomic,strong) NSString* category;
 @property (nonatomic,strong) NSString* title;
@@ -25,4 +29,6 @@
 -(void)addProject:(BBProject *)project;
 -(void)removeProject:(BBProject *)project;
 -(NSDictionary*)buildPostModel;
+
+
 @end

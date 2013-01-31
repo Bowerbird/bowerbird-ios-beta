@@ -1,15 +1,22 @@
-//
-//  BBVoteCreate.h
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 24/01/13.
-//  Copyright (c) 2013 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Hamish Crittenden : hamish.crittenden@gmail.com, Frank Radocaj : frank@radocaj.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import <Foundation/Foundation.h>
-#import "BBObservation.h"
+#import <RestKit/RestKit.h>
 
-@interface BBVoteCreate : NSObject
+
+@class BBObservation;
+
+
+@interface BBVoteCreate : NSObject <
+    RKObjectLoaderDelegate
+>
 
 @property (nonatomic,strong) NSString* identifier;
 @property (nonatomic,strong) NSString* subIdentifier;
@@ -22,5 +29,6 @@
 
 -(void)increment;
 -(void)decrement;
+
 
 @end

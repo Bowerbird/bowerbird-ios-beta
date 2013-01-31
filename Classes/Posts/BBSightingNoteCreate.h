@@ -1,16 +1,20 @@
-//
-//  BBSightingNoteCreate.h
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 7/12/12.
-//  Copyright (c) 2012 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Hamish Crittenden : hamish.crittenden@gmail.com, Frank Radocaj : frank@radocaj.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import <Foundation/Foundation.h>
-#import "BBSightingNoteDescriptionCreate.h"
 
-// This is the object which is actually posted to the server
+
+@class BBSightingNoteDescriptionCreate;
+
+
 @interface BBSightingNoteCreate : NSObject
+
 
 @property (nonatomic, strong) NSString *identifier;
 @property BOOL isCustomIdentification;

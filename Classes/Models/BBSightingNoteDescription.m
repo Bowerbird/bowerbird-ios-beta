@@ -1,28 +1,53 @@
-//
-//  BBSightingNoteDescription.m
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 23/11/12.
-//  Copyright (c) 2012 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+
+ NOTES:
+ 
+ The SightingNoteDescription is a single item model representation of the JSON returned from the server when
+ a request is made for the collection of descriptions that are used in a sighting note.
+ 
+ Changes to the serverside API therefore need to be reflected in this class for Consistency
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBSightingNoteDescription.h"
 
 
-/*
- The SightingNoteDescription is a single item model representation of the JSON returned from the server when
- a request is made for the collection of descriptions that are used in a sighting note.
- 
- At this point, it does NOT include the user entered text field
- */
 @implementation BBSightingNoteDescription
 
-@synthesize     identifier = _identifier,
-                     group = _group,
-                     label = _label,
-               description = _description,
-                      name = _name,
-                      text = _text;
+
+#pragma mark -
+#pragma mark - Member Accessors
+
+
+@synthesize identifier = _identifier,
+            group = _group,
+            label = _label,
+            description = _description,
+            name = _name,
+            text = _text;
+
+
+-(NSString*)identifier { return _identifier; }
+-(void)setIdentifier:(NSString *)identifier { _identifier = identifier; }
+-(NSString*)group { return _group; }
+-(void)setGroup:(NSString *)group { _group = group; }
+-(NSString*)label { return _label; }
+-(void)setLabel:(NSString *)label { _label = label; }
+-(NSString*)description { return _description; }
+-(void)setDescription:(NSString *)description { _description = description; }
+-(NSString*)name { return _name; }
+-(void)setName:(NSString *)name { _name = name; }
+-(NSString*)text { return _text; }
+-(void)setText:(NSString *)text { _text = text; }
+
+
+#pragma mark -
+#pragma mark - Constructors
 
 
 -(BBSightingNoteDescription*)initWithProperties:(NSString*)descriptionId
@@ -42,55 +67,12 @@
 }
 
 
--(NSString*)identifier {
-    return _identifier;
-}
--(void)setIdentifier:(NSString *)identifier {
-    _identifier = identifier;
-}
+#pragma mark -
+#pragma mark - Methods
 
 
--(NSString*)group {
-    return _group;
-}
--(void)setGroup:(NSString *)group {
-    _group = group;
-}
-
-
--(NSString*)label {
-    return _label;
-}
--(void)setLabel:(NSString *)label {
-    _label = label;
-}
-
-
--(NSString*)description {
-    return _description;
-}
--(void)setDescription:(NSString *)description {
-    _description = description;
-}
-
-
--(NSString*)name {
-    return _name;
-}
--(void)setName:(NSString *)name {
-    _name = name;
-}
-
--(NSString*)text {
-    return _text;
-}
--(void)setText:(NSString *)text {
-    _text = text;
-}
-
-
-+(NSArray*)getSightingNoteDescriptions
-{
++(NSArray*)getSightingNoteDescriptions {
+    
     NSMutableArray *descriptions = [[NSMutableArray alloc]init];
     
     [descriptions addObject:[[BBSightingNoteDescription alloc]initWithProperties:@"physicaldescription"
@@ -173,7 +155,6 @@
     
     return descriptions;
 }
-
 
 +(BBSightingNoteDescription*)getDescriptionByIdentifier:(NSString*)identifier {
     NSArray *descriptions = [BBSightingNoteDescription getSightingNoteDescriptions];

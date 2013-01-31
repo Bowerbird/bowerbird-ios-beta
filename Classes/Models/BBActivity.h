@@ -1,18 +1,20 @@
 /*-----------------------------------------------------------------------------------------------
  
  BowerBird V1 - Licensed under MIT 1.1 Public License
- Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Developers: Hamish Crittenden : hamish.crittenden@gmail.com, Frank Radocaj : frank@radocaj.com
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
  -----------------------------------------------------------------------------------------------*/
 
-#import <Foundation/Foundation.h>
-#import "BBModels.h"
 
-// WTF? Forward reference required for lack of compilation
-@class BBObservation, BBObservationNote, BBPost;
+#import <Foundation/Foundation.h>
+
+
+@class BBObservation, BBObservationNote, BBPost, BBUser, BBIdentification, BBGroup;
+
 
 @interface BBActivity : NSObject
+
 
 @property (nonatomic,retain) NSString* identifier;
 @property (nonatomic,retain) NSString* type;
@@ -26,7 +28,7 @@
 @property (nonatomic,retain) BBObservation* observationNoteObservation;
 @property (nonatomic,retain) BBObservation* identificationObservation;
 @property (nonatomic,retain) BBIdentification* identification;
-
 @property (nonatomic,retain) NSSet* groups;
+
 
 @end

@@ -6,7 +6,9 @@
  
  -----------------------------------------------------------------------------------------------*/
 
-#import <RestKit/RestKit.h>
+#import <Foundation/Foundation.h>
+#import <RestKit/RKISO8601DateFormatter.h>
+
 #import "BBCollectionHelper.h"
 #import "BBCookieHelper.h"
 #import "BBGuidGenerator.h"

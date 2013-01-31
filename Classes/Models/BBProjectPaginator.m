@@ -6,32 +6,56 @@
  
  -----------------------------------------------------------------------------------------------*/
 
+
+#import <Foundation/Foundation.h>
 #import "BBProjectPaginator.h"
+#import "BBStreamControllerDelegate.h"
 
-@implementation BBProjectPaginator {
-    int currentOffset;
-    int perPage;
-}
 
-@synthesize projects = _projects;
+@interface BBProjectPaginator()
 
--(void)setProjects:(NSArray *)projects
-{
-    _projects = projects;
-}
--(NSArray*)projects
-{
+@property (nonatomic,weak) id<BBStreamControllerDelegate> delegate;
+
+@end
+
+
+@implementation BBProjectPaginator
+
+
+#pragma mark -
+#pragma mark - Member Accessors
+
+
+@synthesize projects = _projects,
+            delegate = _delegate;
+
+
+-(void)setProjects:(NSArray *)projects { _projects = projects; }
+-(NSArray*)projects {
     if(!_projects)_projects = [[NSArray alloc]init];
     return _projects;
 }
--(NSUInteger)countOfProjects
-{
-    return [self.projects count];
+-(NSUInteger)countOfProjects { return [self.projects count]; }
+-(id)objectInProjectsAtIndex:(NSUInteger)index { return [self.projects objectAtIndex:index]; }
+
+
+#pragma mark -
+#pragma mark - Constructors
+
+
+-(id)initWithPatternURL:(RKURL *)patternURL
+        mappingProvider:(RKObjectMappingProvider *)mappingProvider
+            andDelegate:(id<BBStreamControllerDelegate>)delegate {
+    
+    self = [super initWithPatternURL:patternURL mappingProvider:mappingProvider andDelegate:delegate];
+    
+    return self;
 }
--(id)objectInProjectsAtIndex:(NSUInteger)index
-{
-    return [self.projects objectAtIndex:index];
-}
+
+
+#pragma mark -
+#pragma mark - Delegation and Event Handling for paging
+
 
 - (void) objectLoader:(RKObjectLoader *)loader willMapData:(inout __autoreleasing id *)mappableData {
     NSMutableDictionary* model = [[*mappableData objectForKey: @"Model"] mutableCopy];
@@ -41,5 +65,11 @@
     self.pageCount = ([[pagedResult objectForKey: @"TotalResultCount"] intValue] / [[pagedResult objectForKey: @"PageSize"] intValue]) + 1;
     self.currentPage = [[pagedResult objectForKey: @"Page"] intValue];
 }
+
+
+-(void)dealloc {
+    [[[RKClient sharedClient] requestQueue] cancelRequestsWithDelegate:(id)self];
+}
+
 
 @end

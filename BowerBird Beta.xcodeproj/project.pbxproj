@@ -122,7 +122,6 @@
 		1CAB62CE164C7FB50000D8C3 /* BBLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6226164C7FB50000D8C3 /* BBLog.m */; };
 		1CAB62CF164C7FB50000D8C3 /* BBMapPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6228164C7FB50000D8C3 /* BBMapPoint.m */; };
 		1CAB62D1164C7FB50000D8C3 /* BBUIControlHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB622C164C7FB50000D8C3 /* BBUIControlHelper.m */; };
-		1CAB62D2164C7FB50000D8C3 /* MGHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB622E164C7FB50000D8C3 /* MGHelpers.m */; };
 		1CAB62D3164C7FB50000D8C3 /* Router.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6230164C7FB50000D8C3 /* Router.m */; };
 		1CAB62D4164C7FB50000D8C3 /* BBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6233164C7FB50000D8C3 /* BBAppDelegate.m */; };
 		1CAB62D5164C7FB50000D8C3 /* BBMappings.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6235164C7FB50000D8C3 /* BBMappings.m */; };
@@ -133,9 +132,6 @@
 		1CAB62DB164C7FB50000D8C3 /* BBAuthenticatedUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6241164C7FB50000D8C3 /* BBAuthenticatedUser.m */; };
 		1CAB62DC164C7FB50000D8C3 /* BBAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6243164C7FB50000D8C3 /* BBAuthentication.m */; };
 		1CAB62DD164C7FB50000D8C3 /* BBCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6245164C7FB50000D8C3 /* BBCategory.m */; };
-		1CAB62DE164C7FB50000D8C3 /* BBChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6247164C7FB50000D8C3 /* BBChat.m */; };
-		1CAB62DF164C7FB50000D8C3 /* BBChatMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6249164C7FB50000D8C3 /* BBChatMessage.m */; };
-		1CAB62E0164C7FB50000D8C3 /* BBChatUserTyping.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB624B164C7FB50000D8C3 /* BBChatUserTyping.m */; };
 		1CAB62E1164C7FB50000D8C3 /* BBComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB624D164C7FB50000D8C3 /* BBComment.m */; };
 		1CAB62E2164C7FB50000D8C3 /* BBGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB624F164C7FB50000D8C3 /* BBGroup.m */; };
 		1CAB62E3164C7FB50000D8C3 /* BBImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6251164C7FB50000D8C3 /* BBImage.m */; };
@@ -153,7 +149,6 @@
 		1CAB62EF164C7FB50000D8C3 /* BBRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB626A164C7FB50000D8C3 /* BBRecord.m */; };
 		1CAB62F0164C7FB50000D8C3 /* BBSighting.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB626D164C7FB50000D8C3 /* BBSighting.m */; };
 		1CAB62F1164C7FB50000D8C3 /* BBSightingEdit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB626F164C7FB50000D8C3 /* BBSightingEdit.m */; };
-		1CAB62F2164C7FB50000D8C3 /* BBSightingPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6271164C7FB50000D8C3 /* BBSightingPaginator.m */; };
 		1CAB62F3164C7FB50000D8C3 /* BBUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6273164C7FB50000D8C3 /* BBUser.m */; };
 		1CAB62F4164C7FB50000D8C3 /* MGBox+SizeOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6284164C7FB50000D8C3 /* MGBox+SizeOrientation.m */; };
 		1CAB62F7164C7FB50000D8C3 /* BBBowerBirdHeaderLogo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB628B164C7FB50000D8C3 /* BBBowerBirdHeaderLogo.m */; };
@@ -326,9 +321,6 @@
 		1CAB6481165307B30000D8C3 /* BBObservationCreate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB6480165307B30000D8C3 /* BBObservationCreate.m */; };
 		1CAB648416532C030000D8C3 /* BBMediaResourceCreate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB648316532C030000D8C3 /* BBMediaResourceCreate.m */; };
 		1CAB648716535EF20000D8C3 /* BBMultipartForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB648616535EF00000D8C3 /* BBMultipartForm.m */; };
-		1CAB64A6165489CE0000D8C3 /* BBChatHubClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB64A1165489CE0000D8C3 /* BBChatHubClient.m */; };
-		1CAB64A7165489CE0000D8C3 /* BBGroupHubClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB64A3165489CE0000D8C3 /* BBGroupHubClient.m */; };
-		1CAB64A8165489CE0000D8C3 /* BBUserHubClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAB64A5165489CE0000D8C3 /* BBUserHubClient.m */; };
 		1CADCE1F166C9B2400B95709 /* BBClassificationBrowseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CADCE1E166C9B2400B95709 /* BBClassificationBrowseController.m */; };
 		1CADCE22166CAA0C00B95709 /* BBClassification.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CADCE21166CAA0C00B95709 /* BBClassification.m */; };
 		1CADCE25166CB26A00B95709 /* BBClassificationPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CADCE24166CB26A00B95709 /* BBClassificationPaginator.m */; };
@@ -344,6 +336,14 @@
 		1CB8187216A4F8B200F98C43 /* close-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CB8186E16A4F8B200F98C43 /* close-button.png */; };
 		1CB8187316A4F8B200F98C43 /* mappin.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CB8186F16A4F8B200F98C43 /* mappin.png */; };
 		1CB8187416A4F8B200F98C43 /* MapPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB8187116A4F8B200F98C43 /* MapPoint.m */; };
+		1CC55D2516B890AE005C0970 /* BBJsonResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CC55D2416B890AE005C0970 /* BBJsonResponder.m */; };
+		1CC55D2C16B8D68A005C0970 /* BBProjectItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CC55D2B16B8D689005C0970 /* BBProjectItemController.m */; };
+		1CD143F816B8DD5D00F3742D /* BBActivityController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CD143F716B8DD5D00F3742D /* BBActivityController.m */; };
+		1CD143FB16B8DE5000F3742D /* BBSightingActivityController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CD143FA16B8DE5000F3742D /* BBSightingActivityController.m */; };
+		1CD143FE16B8E12000F3742D /* BBSightingNoteActivityController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CD143FD16B8E12000F3742D /* BBSightingNoteActivityController.m */; };
+		1CD1440116B8E2E700F3742D /* BBIdentificationActivityController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CD1440016B8E2E700F3742D /* BBIdentificationActivityController.m */; };
+		1CD1440416B8E3B900F3742D /* BBPostActivityController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CD1440316B8E3B900F3742D /* BBPostActivityController.m */; };
+		1CD1440B16B96B5E00F3742D /* BBSightingPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CD1440A16B96B5E00F3742D /* BBSightingPaginator.m */; };
 		1CF44643169CE8A10064CC40 /* BBArrowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF44642169CE8A10064CC40 /* BBArrowView.m */; };
 		1CF44677169DB0770064CC40 /* BBTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF44676169DB0770064CC40 /* BBTableViewCell.m */; };
 		1CF6D8DA16671B9C006E760C /* BBTaxonomicRanks.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF6D8D916671B9C006E760C /* BBTaxonomicRanks.m */; };
@@ -629,7 +629,6 @@
 		1CAB622B164C7FB50000D8C3 /* BBUIControlHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBUIControlHelper.h; sourceTree = "<group>"; };
 		1CAB622C164C7FB50000D8C3 /* BBUIControlHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBUIControlHelper.m; sourceTree = "<group>"; };
 		1CAB622D164C7FB50000D8C3 /* MGHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGHelpers.h; sourceTree = "<group>"; };
-		1CAB622E164C7FB50000D8C3 /* MGHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGHelpers.m; sourceTree = "<group>"; };
 		1CAB622F164C7FB50000D8C3 /* Router.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Router.h; sourceTree = "<group>"; };
 		1CAB6230164C7FB50000D8C3 /* Router.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Router.m; sourceTree = "<group>"; };
 		1CAB6232164C7FB50000D8C3 /* BBAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBAppDelegate.h; sourceTree = "<group>"; };
@@ -649,12 +648,6 @@
 		1CAB6243164C7FB50000D8C3 /* BBAuthentication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBAuthentication.m; sourceTree = "<group>"; };
 		1CAB6244164C7FB50000D8C3 /* BBCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBCategory.h; sourceTree = "<group>"; };
 		1CAB6245164C7FB50000D8C3 /* BBCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBCategory.m; sourceTree = "<group>"; };
-		1CAB6246164C7FB50000D8C3 /* BBChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBChat.h; sourceTree = "<group>"; };
-		1CAB6247164C7FB50000D8C3 /* BBChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBChat.m; sourceTree = "<group>"; };
-		1CAB6248164C7FB50000D8C3 /* BBChatMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBChatMessage.h; sourceTree = "<group>"; };
-		1CAB6249164C7FB50000D8C3 /* BBChatMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBChatMessage.m; sourceTree = "<group>"; };
-		1CAB624A164C7FB50000D8C3 /* BBChatUserTyping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBChatUserTyping.h; sourceTree = "<group>"; };
-		1CAB624B164C7FB50000D8C3 /* BBChatUserTyping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBChatUserTyping.m; sourceTree = "<group>"; };
 		1CAB624C164C7FB50000D8C3 /* BBComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBComment.h; sourceTree = "<group>"; };
 		1CAB624D164C7FB50000D8C3 /* BBComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBComment.m; sourceTree = "<group>"; };
 		1CAB624E164C7FB50000D8C3 /* BBGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBGroup.h; sourceTree = "<group>"; };
@@ -690,8 +683,6 @@
 		1CAB626D164C7FB50000D8C3 /* BBSighting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSighting.m; sourceTree = "<group>"; };
 		1CAB626E164C7FB50000D8C3 /* BBSightingEdit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBSightingEdit.h; path = ../Models/BBSightingEdit.h; sourceTree = "<group>"; };
 		1CAB626F164C7FB50000D8C3 /* BBSightingEdit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBSightingEdit.m; path = ../Models/BBSightingEdit.m; sourceTree = "<group>"; };
-		1CAB6270164C7FB50000D8C3 /* BBSightingPaginator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSightingPaginator.h; sourceTree = "<group>"; };
-		1CAB6271164C7FB50000D8C3 /* BBSightingPaginator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSightingPaginator.m; sourceTree = "<group>"; };
 		1CAB6272164C7FB50000D8C3 /* BBUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBUser.h; sourceTree = "<group>"; };
 		1CAB6273164C7FB50000D8C3 /* BBUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBUser.m; sourceTree = "<group>"; };
 		1CAB6275164C7FB50000D8C3 /* BBActionProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBActionProtocol.h; sourceTree = "<group>"; };
@@ -922,12 +913,6 @@
 		1CAB648316532C030000D8C3 /* BBMediaResourceCreate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMediaResourceCreate.m; sourceTree = "<group>"; };
 		1CAB648616535EF00000D8C3 /* BBMultipartForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMultipartForm.m; sourceTree = "<group>"; };
 		1CAB6488165362D00000D8C3 /* BBMultipartForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMultipartForm.h; sourceTree = "<group>"; };
-		1CAB64A0165489CE0000D8C3 /* BBChatHubClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBChatHubClient.h; sourceTree = "<group>"; };
-		1CAB64A1165489CE0000D8C3 /* BBChatHubClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBChatHubClient.m; sourceTree = "<group>"; };
-		1CAB64A2165489CE0000D8C3 /* BBGroupHubClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBGroupHubClient.h; sourceTree = "<group>"; };
-		1CAB64A3165489CE0000D8C3 /* BBGroupHubClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBGroupHubClient.m; sourceTree = "<group>"; };
-		1CAB64A4165489CE0000D8C3 /* BBUserHubClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBUserHubClient.h; sourceTree = "<group>"; };
-		1CAB64A5165489CE0000D8C3 /* BBUserHubClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBUserHubClient.m; sourceTree = "<group>"; };
 		1CADCE1D166C9B2400B95709 /* BBClassificationBrowseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBClassificationBrowseController.h; sourceTree = "<group>"; };
 		1CADCE1E166C9B2400B95709 /* BBClassificationBrowseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBClassificationBrowseController.m; sourceTree = "<group>"; };
 		1CADCE20166CAA0C00B95709 /* BBClassification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBClassification.h; sourceTree = "<group>"; };
@@ -957,6 +942,23 @@
 		1CB8186F16A4F8B200F98C43 /* mappin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mappin.png; sourceTree = "<group>"; };
 		1CB8187016A4F8B200F98C43 /* MapPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapPoint.h; sourceTree = "<group>"; };
 		1CB8187116A4F8B200F98C43 /* MapPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapPoint.m; sourceTree = "<group>"; };
+		1CC55D2316B890AE005C0970 /* BBJsonResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBJsonResponder.h; sourceTree = "<group>"; };
+		1CC55D2416B890AE005C0970 /* BBJsonResponder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBJsonResponder.m; sourceTree = "<group>"; };
+		1CC55D2A16B8D688005C0970 /* BBProjectItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBProjectItemController.h; sourceTree = "<group>"; };
+		1CC55D2B16B8D689005C0970 /* BBProjectItemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBProjectItemController.m; sourceTree = "<group>"; };
+		1CD143F616B8DD5D00F3742D /* BBActivityController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBActivityController.h; sourceTree = "<group>"; };
+		1CD143F716B8DD5D00F3742D /* BBActivityController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBActivityController.m; sourceTree = "<group>"; };
+		1CD143F916B8DE5000F3742D /* BBSightingActivityController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSightingActivityController.h; sourceTree = "<group>"; };
+		1CD143FA16B8DE5000F3742D /* BBSightingActivityController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSightingActivityController.m; sourceTree = "<group>"; };
+		1CD143FC16B8E12000F3742D /* BBSightingNoteActivityController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSightingNoteActivityController.h; sourceTree = "<group>"; };
+		1CD143FD16B8E12000F3742D /* BBSightingNoteActivityController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSightingNoteActivityController.m; sourceTree = "<group>"; };
+		1CD143FF16B8E2E700F3742D /* BBIdentificationActivityController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBIdentificationActivityController.h; sourceTree = "<group>"; };
+		1CD1440016B8E2E700F3742D /* BBIdentificationActivityController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBIdentificationActivityController.m; sourceTree = "<group>"; };
+		1CD1440216B8E3B900F3742D /* BBPostActivityController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBPostActivityController.h; sourceTree = "<group>"; };
+		1CD1440316B8E3B900F3742D /* BBPostActivityController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBPostActivityController.m; sourceTree = "<group>"; };
+		1CD1440516B9327700F3742D /* BBStreamControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BBStreamControllerDelegate.h; sourceTree = "<group>"; };
+		1CD1440916B96B5D00F3742D /* BBSightingPaginator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSightingPaginator.h; sourceTree = "<group>"; };
+		1CD1440A16B96B5E00F3742D /* BBSightingPaginator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSightingPaginator.m; sourceTree = "<group>"; };
 		1CF44641169CE8A10064CC40 /* BBArrowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBArrowView.h; sourceTree = "<group>"; };
 		1CF44642169CE8A10064CC40 /* BBArrowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBArrowView.m; sourceTree = "<group>"; };
 		1CF44675169DB0770064CC40 /* BBTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBTableViewCell.h; sourceTree = "<group>"; };
@@ -1237,7 +1239,6 @@
 			isa = PBXGroup;
 			children = (
 				1C5BD57016B0D1620007B49E /* Providers */,
-				1CAB649F165489C70000D8C3 /* Hubs */,
 				1CAB61DC164C7FB50000D8C3 /* Categories */,
 				1CAB61E1164C7FB50000D8C3 /* Controllers */,
 				1CAB6215164C7FB50000D8C3 /* Helpers */,
@@ -1410,6 +1411,18 @@
 				1C1C988716A8F1D500181917 /* BBDisplayFullImageController.m */,
 				1C5BD58016B1E9EF0007B49E /* BBVoteController.h */,
 				1C5BD58116B1E9F00007B49E /* BBVoteController.m */,
+				1CC55D2A16B8D688005C0970 /* BBProjectItemController.h */,
+				1CC55D2B16B8D689005C0970 /* BBProjectItemController.m */,
+				1CD143F616B8DD5D00F3742D /* BBActivityController.h */,
+				1CD143F716B8DD5D00F3742D /* BBActivityController.m */,
+				1CD143F916B8DE5000F3742D /* BBSightingActivityController.h */,
+				1CD143FA16B8DE5000F3742D /* BBSightingActivityController.m */,
+				1CD143FC16B8E12000F3742D /* BBSightingNoteActivityController.h */,
+				1CD143FD16B8E12000F3742D /* BBSightingNoteActivityController.m */,
+				1CD143FF16B8E2E700F3742D /* BBIdentificationActivityController.h */,
+				1CD1440016B8E2E700F3742D /* BBIdentificationActivityController.m */,
+				1CD1440216B8E3B900F3742D /* BBPostActivityController.h */,
+				1CD1440316B8E3B900F3742D /* BBPostActivityController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1438,7 +1451,6 @@
 				1CAB622B164C7FB50000D8C3 /* BBUIControlHelper.h */,
 				1CAB622C164C7FB50000D8C3 /* BBUIControlHelper.m */,
 				1CAB622D164C7FB50000D8C3 /* MGHelpers.h */,
-				1CAB622E164C7FB50000D8C3 /* MGHelpers.m */,
 				1CAB622F164C7FB50000D8C3 /* Router.h */,
 				1CAB6230164C7FB50000D8C3 /* Router.m */,
 				1CAB6488165362D00000D8C3 /* BBMultipartForm.h */,
@@ -1463,6 +1475,8 @@
 		1CAB6237164C7FB50000D8C3 /* GetModels */ = {
 			isa = PBXGroup;
 			children = (
+				1CD1440916B96B5D00F3742D /* BBSightingPaginator.h */,
+				1CD1440A16B96B5E00F3742D /* BBSightingPaginator.m */,
 				1CAB6238164C7FB50000D8C3 /* BBActivity.h */,
 				1CAB6239164C7FB50000D8C3 /* BBActivity.m */,
 				1CAB623A164C7FB50000D8C3 /* BBActivityPaginator.h */,
@@ -1475,12 +1489,6 @@
 				1CAB6243164C7FB50000D8C3 /* BBAuthentication.m */,
 				1CAB6244164C7FB50000D8C3 /* BBCategory.h */,
 				1CAB6245164C7FB50000D8C3 /* BBCategory.m */,
-				1CAB6246164C7FB50000D8C3 /* BBChat.h */,
-				1CAB6247164C7FB50000D8C3 /* BBChat.m */,
-				1CAB6248164C7FB50000D8C3 /* BBChatMessage.h */,
-				1CAB6249164C7FB50000D8C3 /* BBChatMessage.m */,
-				1CAB624A164C7FB50000D8C3 /* BBChatUserTyping.h */,
-				1CAB624B164C7FB50000D8C3 /* BBChatUserTyping.m */,
 				1CAB624C164C7FB50000D8C3 /* BBComment.h */,
 				1CAB624D164C7FB50000D8C3 /* BBComment.m */,
 				1CAB624E164C7FB50000D8C3 /* BBGroup.h */,
@@ -1513,8 +1521,6 @@
 				1CAB626A164C7FB50000D8C3 /* BBRecord.m */,
 				1CAB626C164C7FB50000D8C3 /* BBSighting.h */,
 				1CAB626D164C7FB50000D8C3 /* BBSighting.m */,
-				1CAB6270164C7FB50000D8C3 /* BBSightingPaginator.h */,
-				1CAB6271164C7FB50000D8C3 /* BBSightingPaginator.m */,
 				1CAB6272164C7FB50000D8C3 /* BBUser.h */,
 				1CAB6273164C7FB50000D8C3 /* BBUser.m */,
 				1C29668E1655532300B3CC16 /* BBJsonResponse.h */,
@@ -1561,6 +1567,7 @@
 				1C06F854167188EE0086B9E0 /* BBSightingNoteEditDelegateProtocol.h */,
 				1CB81833169F9DE800F98C43 /* BBIdentifySightingProtocol.h */,
 				1C5BD58616B1ED4C0007B49E /* BBVoteDelegateProtocol.h */,
+				1CD1440516B9327700F3742D /* BBStreamControllerDelegate.h */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1903,22 +1910,11 @@
 				1C5BD57816B0EFC80007B49E /* BBSubVoteCreate.m */,
 				1C5BD56A16B0B3FF0007B49E /* BBVoteCreate.h */,
 				1C5BD56B16B0B3FF0007B49E /* BBVoteCreate.m */,
+				1CC55D2316B890AE005C0970 /* BBJsonResponder.h */,
+				1CC55D2416B890AE005C0970 /* BBJsonResponder.m */,
 			);
 			name = PostModels;
 			path = Posts;
-			sourceTree = "<group>";
-		};
-		1CAB649F165489C70000D8C3 /* Hubs */ = {
-			isa = PBXGroup;
-			children = (
-				1CAB64A0165489CE0000D8C3 /* BBChatHubClient.h */,
-				1CAB64A1165489CE0000D8C3 /* BBChatHubClient.m */,
-				1CAB64A2165489CE0000D8C3 /* BBGroupHubClient.h */,
-				1CAB64A3165489CE0000D8C3 /* BBGroupHubClient.m */,
-				1CAB64A4165489CE0000D8C3 /* BBUserHubClient.h */,
-				1CAB64A5165489CE0000D8C3 /* BBUserHubClient.m */,
-			);
-			path = Hubs;
 			sourceTree = "<group>";
 		};
 		1CB8186416A4DF7B00F98C43 /* PDLocationsMap */ = {
@@ -2252,7 +2248,6 @@
 				1CAB62CE164C7FB50000D8C3 /* BBLog.m in Sources */,
 				1CAB62CF164C7FB50000D8C3 /* BBMapPoint.m in Sources */,
 				1CAB62D1164C7FB50000D8C3 /* BBUIControlHelper.m in Sources */,
-				1CAB62D2164C7FB50000D8C3 /* MGHelpers.m in Sources */,
 				1CAB62D3164C7FB50000D8C3 /* Router.m in Sources */,
 				1CAB62D4164C7FB50000D8C3 /* BBAppDelegate.m in Sources */,
 				1CAB62D5164C7FB50000D8C3 /* BBMappings.m in Sources */,
@@ -2263,9 +2258,6 @@
 				1CAB62DB164C7FB50000D8C3 /* BBAuthenticatedUser.m in Sources */,
 				1CAB62DC164C7FB50000D8C3 /* BBAuthentication.m in Sources */,
 				1CAB62DD164C7FB50000D8C3 /* BBCategory.m in Sources */,
-				1CAB62DE164C7FB50000D8C3 /* BBChat.m in Sources */,
-				1CAB62DF164C7FB50000D8C3 /* BBChatMessage.m in Sources */,
-				1CAB62E0164C7FB50000D8C3 /* BBChatUserTyping.m in Sources */,
 				1CAB62E1164C7FB50000D8C3 /* BBComment.m in Sources */,
 				1CAB62E2164C7FB50000D8C3 /* BBGroup.m in Sources */,
 				1CAB62E3164C7FB50000D8C3 /* BBImage.m in Sources */,
@@ -2283,7 +2275,6 @@
 				1CAB62EF164C7FB50000D8C3 /* BBRecord.m in Sources */,
 				1CAB62F0164C7FB50000D8C3 /* BBSighting.m in Sources */,
 				1CAB62F1164C7FB50000D8C3 /* BBSightingEdit.m in Sources */,
-				1CAB62F2164C7FB50000D8C3 /* BBSightingPaginator.m in Sources */,
 				1CAB62F3164C7FB50000D8C3 /* BBUser.m in Sources */,
 				1CAB62F4164C7FB50000D8C3 /* MGBox+SizeOrientation.m in Sources */,
 				1CAB62F7164C7FB50000D8C3 /* BBBowerBirdHeaderLogo.m in Sources */,
@@ -2321,9 +2312,6 @@
 				1CAB6481165307B30000D8C3 /* BBObservationCreate.m in Sources */,
 				1CAB648416532C030000D8C3 /* BBMediaResourceCreate.m in Sources */,
 				1CAB648716535EF20000D8C3 /* BBMultipartForm.m in Sources */,
-				1CAB64A6165489CE0000D8C3 /* BBChatHubClient.m in Sources */,
-				1CAB64A7165489CE0000D8C3 /* BBGroupHubClient.m in Sources */,
-				1CAB64A8165489CE0000D8C3 /* BBUserHubClient.m in Sources */,
 				1C2966901655532300B3CC16 /* BBJsonResponse.m in Sources */,
 				1C29669316555E7600B3CC16 /* BBObservationMediaCreate.m in Sources */,
 				1C29669A165A06B300B3CC16 /* SVProgressHUD.m in Sources */,
@@ -2379,6 +2367,14 @@
 				1C5BD57F16B108F60007B49E /* BBFavouriteId.m in Sources */,
 				1C5BD58216B1E9F10007B49E /* BBVoteController.m in Sources */,
 				1C5479A816B7B3E100393B9F /* BBStarView.m in Sources */,
+				1CC55D2516B890AE005C0970 /* BBJsonResponder.m in Sources */,
+				1CC55D2C16B8D68A005C0970 /* BBProjectItemController.m in Sources */,
+				1CD143F816B8DD5D00F3742D /* BBActivityController.m in Sources */,
+				1CD143FB16B8DE5000F3742D /* BBSightingActivityController.m in Sources */,
+				1CD143FE16B8E12000F3742D /* BBSightingNoteActivityController.m in Sources */,
+				1CD1440116B8E2E700F3742D /* BBIdentificationActivityController.m in Sources */,
+				1CD1440416B8E3B900F3742D /* BBPostActivityController.m in Sources */,
+				1CD1440B16B96B5E00F3742D /* BBSightingPaginator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

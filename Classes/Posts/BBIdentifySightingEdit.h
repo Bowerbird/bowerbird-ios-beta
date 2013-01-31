@@ -1,17 +1,17 @@
-//
-//  BBIdentifySightingEdit.h
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 11/01/13.
-//  Copyright (c) 2013 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Hamish Crittenden : hamish.crittenden@gmail.com, Frank Radocaj : frank@radocaj.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import <Foundation/Foundation.h>
 
+
 @interface BBIdentifySightingEdit : NSObject
 
--(BBIdentifySightingEdit*)initWithSightingId:(NSString*)sightingId;
--(void)setCustomIdentification:(NSDictionary*)customId;
 
 @property (nonatomic,strong) NSString *sightingId;
 @property (nonatomic,strong) NSString *taxonomy;
@@ -27,5 +27,10 @@
 @property (nonatomic,strong) NSString *subSpecies;
 @property (nonatomic,strong) NSMutableArray *commonGroupNames;
 @property (nonatomic,strong) NSMutableArray *commonNames;
+
+
+-(BBIdentifySightingEdit*)initWithSightingId:(NSString*)sightingId;
+-(void)setCustomIdentification:(NSDictionary*)customId;
+
 
 @end

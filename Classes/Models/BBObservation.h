@@ -6,16 +6,19 @@
  
  -----------------------------------------------------------------------------------------------*/
 
-#import <Foundation/Foundation.h>
-#import "BBModels.h"
-#import "BBVoteDelegateProtocol.h"
 
-// WTF? Forward reference required for lack of compilation
+#import <Foundation/Foundation.h>
+#import "BBVoteDelegateProtocol.h"
+#import "BBSighting.h"
+
+
 @class BBMedia;
+
 
 @interface BBObservation : BBSighting <
     BBVoteDelegateProtocol
 >
+
 
 @property BOOL isIdentificationRequired;
 @property (nonatomic,retain) BBMedia* primaryMedia;
@@ -26,5 +29,6 @@
 @property (nonatomic,strong) NSNumber* noteCount;
 @property (nonatomic,strong) NSNumber* projectCount;
 @property (nonatomic,strong) NSNumber* identificationCount;
+
 
 @end

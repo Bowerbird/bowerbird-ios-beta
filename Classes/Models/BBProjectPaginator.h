@@ -6,11 +6,20 @@
  
  -----------------------------------------------------------------------------------------------*/
 
-#import <Foundation/Foundation.h>
-#import "BBModels.h"
+
+#import "BBStreamControllerDelegate.h"
+#import "BBPaginator.h"
+
 
 @interface BBProjectPaginator : BBPaginator
 
+
 @property (nonatomic,retain) NSArray* projects;
+
+
+-(id)initWithPatternURL:(RKURL *)patternURL
+        mappingProvider:(RKObjectMappingProvider *)mappingProvider
+            andDelegate:(id<BBStreamControllerDelegate>)delegate;
+
 
 @end

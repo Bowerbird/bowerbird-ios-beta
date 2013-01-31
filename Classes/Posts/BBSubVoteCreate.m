@@ -1,16 +1,23 @@
-//
-//  BBSubVoteCreate.m
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 24/01/13.
-//  Copyright (c) 2013 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Hamish Crittenden : hamish.crittenden@gmail.com, Frank Radocaj : frank@radocaj.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
 
-#import "BBModels.h"
-#import "BBVoteCreate.h"
+
 #import "BBSubVoteCreate.h"
+#import "BBObservationNote.h"
+#import "BBIdentification.h"
+
 
 @implementation BBSubVoteCreate
+
+
+#pragma mark -
+#pragma mark - Constructors
+
 
 -(BBSubVoteCreate*)initWithObservationNote:(BBObservationNote*)observationNote
                                   andScore:(NSNumber*)score {
@@ -41,5 +48,6 @@
     
     return self;
 }
+
 
 @end

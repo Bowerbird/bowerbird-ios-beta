@@ -8,7 +8,9 @@
 
 #import "BBContainerController.h"
 
-@implementation BBContainerController
+@implementation BBContainerController {
+    BBAuthenticatedUser *authUser;
+}
 
 #pragma mark -
 #pragma mark - Setup and Render
@@ -74,9 +76,23 @@
             [SVProgressHUD setStatus:@"Loading your profile"];
         });
         
+        BBApplication* appData = [BBApplication sharedInstance];
+        appData.authenticatedUser = [[BBAuthenticatedUser alloc]init];
+        
+        RKObjectManager *manager = [RKObjectManager sharedManager];
+        manager.serializationMIMEType = RKMIMETypeJSON;
+        
+        //[manager getObject:appData.authenticatedUser delegate:appData.authenticatedUser];
+        /*
+        usingBlock:^(RKObjectLoader *loader) {
+            loader.delegate = authUser;
+            loader.params = [BBConstants AjaxRequestParams];
+        }];
+        */
+        
         // pull down the logged in user's latest profile information
-        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"%@?%@",[BBConstants AuthenticatedUserProfileUrl], [BBConstants AjaxQuerystring]]
-                                                          delegate:self];
+        [manager loadObjectsAtResourcePath:[NSString stringWithFormat:@"%@?%@",[BBConstants AuthenticatedUserProfileUrl], [BBConstants AjaxQuerystring]]
+                                  delegate:appData.authenticatedUser];
     }
     else
     {
@@ -146,6 +162,7 @@
     [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:contributionController animated:NO];
 }
 
+/*
 #pragma mark -
 #pragma mark - Delegation and Event Handling
 
@@ -156,13 +173,13 @@
     {
         BBApplication* appData = [BBApplication sharedInstance];
         appData.authenticatedUser = (BBAuthenticatedUser*)object;
-        [appData.connection start];
+        //[appData.connection start];
      
         [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"Welcome back \n%@", appData.authenticatedUser.user.name]];
         
-        BBUserHubClient* userHubClient = [BBUserHubClient sharedInstance];
-        [userHubClient connectToUserHub:appData.authenticatedUser.user.identifier];
-        appData.userHub = userHubClient.userHub;
+        //BBUserHubClient* userHubClient = [BBUserHubClient sharedInstance];
+        //[userHubClient connectToUserHub:appData.authenticatedUser.user.identifier];
+        //appData.userHub = userHubClient.userHub;
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"userProfileHasLoaded" object:nil];
     }
@@ -173,6 +190,8 @@
     
     [SVProgressHUD showErrorWithStatus:[error localizedDescription]];
 }
+ 
+ */
 
 - (void)didReceiveMemoryWarning {
     [BBLog Log:@"MEMORY WARNING! - BBContainerController"];

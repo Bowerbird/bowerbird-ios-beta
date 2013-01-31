@@ -1,14 +1,17 @@
-//
-//  BBObservationCreateInput.h
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 14/11/12.
-//  Copyright (c) 2012 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Hamish Crittenden : hamish.crittenden@gmail.com, Frank Radocaj : frank@radocaj.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import <Foundation/Foundation.h>
 
+
 @interface BBObservationCreate : NSObject
+
 
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) NSDate *observedOn;
@@ -20,5 +23,6 @@
 @property (nonatomic, retain) NSString *category;
 @property (nonatomic, retain) NSArray *media;
 @property (nonatomic, retain) NSArray *projectIds;
+
 
 @end

@@ -6,131 +6,104 @@
  
  -----------------------------------------------------------------------------------------------*/
 
+
 #import "BBAuthenticatedUser.h"
+#import "BBUser.h"
+#import "BBHelpers.h"
+
 
 @implementation BBAuthenticatedUser
 
+
+#pragma mark -
+#pragma mark - Member Accessors
+
+
 @synthesize     user = _user,
-          categories = _categories,
-            projects = _projects,
-       organisations = _organisations,
-        userProjects = _userProjects,
-         memberships = _memberships,
-      defaultLicence = _defaultLicence;
+                categories = _categories,
+                projects = _projects,
+                organisations = _organisations,
+                userProjects = _userProjects,
+                memberships = _memberships,
+                defaultLicence = _defaultLicence;
 
 
--(void)setUser:(BBUser *)user
-{
-    _user = user;
-}
--(BBUser*)user
-{
-    return _user;
-}
-
-
--(void)setCategories:(NSArray *)categories
-{
-    _categories = categories;
-}
--(NSArray*)categories
-{
+-(void)setUser:(BBUser *)user { _user = user; }
+-(BBUser*)user { return _user; }
+-(void)setCategories:(NSArray *)categories { _categories = categories; }
+-(NSArray*)categories {
     if(!_categories)_categories = [[NSArray alloc]init];
     return _categories;
 }
--(NSUInteger)countOfCategories
-{
-    return [self.categories count];
-}
--(id)objectInCategoriesAtIndex:(NSUInteger)index
-{
-    return [self.categories objectAtIndex:index];
-}
-
-
--(void)setProjects:(NSArray *)projects
-{
-    _projects = projects;
-}
--(NSArray*)projects
-{
+-(NSUInteger)countOfCategories { return [self.categories count]; }
+-(id)objectInCategoriesAtIndex:(NSUInteger)index { return [self.categories objectAtIndex:index]; }
+-(void)setProjects:(NSArray *)projects { _projects = projects; }
+-(NSArray*)projects {
     if(!_projects)_projects = [[NSArray alloc]init];
     return _projects;
 }
--(NSUInteger)countOfProjects
-{
-    return [self.projects count];
-}
--(id)objectInProjectsAtIndex:(NSUInteger)index
-{
-    return [self.projects objectAtIndex:index];
-}
-
-
--(void)setOrganisations:(NSArray *)organisations
-{
-    _organisations = organisations;
-}
--(NSArray*)organisations
-{
+-(NSUInteger)countOfProjects { return [self.projects count]; }
+-(id)objectInProjectsAtIndex:(NSUInteger)index { return [self.projects objectAtIndex:index]; }
+-(void)setOrganisations:(NSArray *)organisations { _organisations = organisations; }
+-(NSArray*)organisations {
     if(!_organisations)_organisations = [[NSArray alloc]init];
     return _organisations;
 }
--(NSUInteger)countOfOrganisations
-{
-    return [self.organisations count];
-}
--(id)objectInOrganisationsAtIndex:(NSUInteger)index
-{
-    return [self.organisations objectAtIndex:index];
-}
-
-
--(void)setUserProjects:(NSArray *)userProjects
-{
-    _userProjects = userProjects;
-}
--(NSArray*)userProjects
-{
+-(NSUInteger)countOfOrganisations { return [self.organisations count]; }
+-(id)objectInOrganisationsAtIndex:(NSUInteger)index { return [self.organisations objectAtIndex:index]; }
+-(void)setUserProjects:(NSArray *)userProjects { _userProjects = userProjects; }
+-(NSArray*)userProjects {
     if(!_userProjects)_userProjects = [[NSArray alloc]init];
     return _userProjects;
 }
--(NSUInteger)countOfUserProjects
-{
-    return [self.userProjects count];
-}
--(id)objectInUserProjectsAtIndex:(NSUInteger)index
-{
-    return [self.userProjects objectAtIndex:index];
-}
-
-
--(void)setMemberships:(NSArray *)memberships
-{
-    _memberships = memberships;
-}
--(NSArray*)memberships
-{
+-(NSUInteger)countOfUserProjects { return [self.userProjects count]; }
+-(id)objectInUserProjectsAtIndex:(NSUInteger)index { return [self.userProjects objectAtIndex:index]; }
+-(void)setMemberships:(NSArray *)memberships { _memberships = memberships; }
+-(NSArray*)memberships {
     if(!_memberships)_memberships = [[NSArray alloc]init];
     return _memberships;
 }
--(NSUInteger)countOfMemberships
-{
-    return [self.memberships count];
-}
--(id)objectInMembershipsAtIndex:(NSUInteger)index
-{
-    return [self.memberships objectAtIndex:index];
+-(NSUInteger)countOfMemberships { return [self.memberships count]; }
+-(id)objectInMembershipsAtIndex:(NSUInteger)index { return [self.memberships objectAtIndex:index]; }
+-(void)setDefaultLicence:(NSString *)defaultLicence { _defaultLicence = defaultLicence; }
+-(NSString*)defaultLicence { return _defaultLicence; }
+
+
+#pragma mark -
+#pragma mark - Delegation and Event Handling for loading AuthenticatedUser
+
+
+-(void)objectLoader:(RKObjectLoader *)objectLoader
+   didFailWithError:(NSError *)error {
+    [BBLog Log:@"BBAuthenticatedUser.objectLoader:didFailWithError"];
+    
+    [BBLog Log:error.description];
 }
 
 
--(void)setDefaultLicence:(NSString *)defaultLicence
-{
-    _defaultLicence = defaultLicence;
+-(void)objectLoaderDidLoadUnexpectedResponse:(RKObjectLoader *)objectLoader {
+    [BBLog Log:@"BBAuthenticatedUser.didLoadUnexpectedResponse"];
+    
+    [BBLog Log:objectLoader.response.bodyAsString];
 }
--(NSString*)defaultLicence
-{
-    return _defaultLicence;
+
+
+-(void)objectLoader:(RKObjectLoader *)objectLoader
+      didLoadObject:(id)object {
+    [BBLog Log:@"BBAuthenticatedUser.didLoadObject"];
+    
+    if([object isKindOfClass:[BBAuthenticatedUser class]])
+    {
+        BBApplication* appData = [BBApplication sharedInstance];
+        appData.authenticatedUser = (BBAuthenticatedUser*)object;
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"userProfileHasLoaded" object:nil];
+    }
+}
+
+
+-(void)dealloc {
+    [[[RKClient sharedClient] requestQueue] cancelRequestsWithDelegate:(id)self];
 }
 
 

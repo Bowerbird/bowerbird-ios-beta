@@ -1,23 +1,49 @@
-//
-//  BBMediaResourceCreate.m
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 14/11/12.
-//  Copyright (c) 2012 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Hamish Crittenden : hamish.crittenden@gmail.com, Frank Radocaj : frank@radocaj.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBMediaResourceCreate.h"
+#import "BBMediaEdit.h"
+
 
 @implementation BBMediaResourceCreate
 
-@synthesize  file = _file,
+
+#pragma mark -
+#pragma mark - Member Accessors
+
+
+@synthesize file = _file,
             usage = _usage,
-              key = _key,
-             type = _type,
-         fileName = _fileName;
+            key = _key,
+            type = _type,
+            fileName = _fileName;
 
 
--(BBMediaResourceCreate*)initWithMedia:(BBMediaEdit*)media forUsage:(NSString*)usage {
+-(NSData*)file { return _file; }
+-(void)setFile:(NSData *)file { _file = file; }
+-(NSString*)fileName { return _fileName; }
+-(void)setFileName:(NSString *)fileName { _fileName = fileName; }
+-(NSString*)usage { return _usage; }
+-(void)setUsage:(NSString *)usage { _usage = usage; }
+-(NSString*)key { return _key; }
+-(void)setKey:(NSString *)key { _key = key; }
+-(NSString*)type { return _type; }
+-(void)setType:(NSString *)type { _type = type; }
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key { if([key isEqualToString:@"Key"]) self.key = value; }
+
+
+#pragma mark -
+#pragma mark - Constructors
+
+
+-(BBMediaResourceCreate*)initWithMedia:(BBMediaEdit*)media
+                              forUsage:(NSString*)usage {
     
     self = [super init];
     
@@ -34,45 +60,5 @@
     return self;
 }
 
-
--(NSData*)file {
-    return _file;
-}
--(void)setFile:(NSData *)file {
-    _file = file;
-}
-
--(NSString*)fileName {
-    return _fileName;
-}
--(void)setFileName:(NSString *)fileName {
-    _fileName = fileName;
-}
-
--(NSString*)usage {
-    return _usage;
-}
--(void)setUsage:(NSString *)usage {
-    _usage = usage;
-}
-
--(NSString*)key {
-    return _key;
-}
--(void)setKey:(NSString *)key {
-    _key = key;
-}
-
--(NSString*)type {
-    return _type;
-}
--(void)setType:(NSString *)type {
-    _type = type;
-}
-
-- (void)setValue:(id)value forUndefinedKey:(NSString *)key
-{
-    if([key isEqualToString:@"Key"]) self.key = value;
-}
 
 @end

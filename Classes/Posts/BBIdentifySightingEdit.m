@@ -1,29 +1,37 @@
-//
-//  BBIdentifySightingEdit.m
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 11/01/13.
-//  Copyright (c) 2013 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Hamish Crittenden : hamish.crittenden@gmail.com, Frank Radocaj : frank@radocaj.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBIdentifySightingEdit.h"
 
+
 @implementation BBIdentifySightingEdit
 
+
+#pragma mark -
+#pragma mark - Member Accessors
+
+
 @synthesize sightingId = _sightingId,
-              taxonomy = _taxonomy,
-isCustomIdentification = _isCustomIdentification,
-              category = _category,
-               kingdom = _kingdom,
-                phylum = _phylum,
-                 klass = _klass,
-                 order = _order,
-                family = _family,
-                 genus = _genus,
-               species = _species,
+            taxonomy = _taxonomy,
+            isCustomIdentification = _isCustomIdentification,
+            category = _category,
+            kingdom = _kingdom,
+            phylum = _phylum,
+            klass = _klass,
+            order = _order,
+            family = _family,
+            genus = _genus,
+            species = _species,
             subSpecies = _subSpecies,
-      commonGroupNames = _commonGroupNames,
-           commonNames = _commonNames;
+            commonGroupNames = _commonGroupNames,
+            commonNames = _commonNames;
+
 
 -(NSString*)sightingId { return _sightingId; }
 -(void)setSightingId:(NSString *)sightingId { _sightingId = sightingId; }
@@ -60,6 +68,11 @@ isCustomIdentification = _isCustomIdentification,
 -(id)objectInCommonNamesAtIndex:(NSUInteger)index { return [_commonNames objectAtIndex:index]; }
 -(void)addCommonNamesObject:(NSString*)commonName { [_commonNames addObject:commonName]; }
 
+
+#pragma mark -
+#pragma mark - Constructors
+
+
 -(BBIdentifySightingEdit*)initWithSightingId:(NSString *)sightingId {
     self = [super init];
     
@@ -67,6 +80,11 @@ isCustomIdentification = _isCustomIdentification,
     
     return self;
 }
+
+
+#pragma mark -
+#pragma mark - Methods
+
 
 -(void)setCustomIdentification:(NSDictionary*)customId {
     
@@ -84,5 +102,6 @@ isCustomIdentification = _isCustomIdentification,
     _commonNames = [customId objectForKey:@"commonNames"];
     
 }
+
 
 @end

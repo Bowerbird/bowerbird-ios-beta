@@ -1,39 +1,27 @@
-//
-//  BBJsonResponse.m
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 16/11/12.
-//  Copyright (c) 2012 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBJsonResponse.h"
 
+
 @implementation BBJsonResponse
 
+
+#pragma mark -
+#pragma mark - Member Accessors
+
+
 @synthesize success = _success;
-@synthesize action = _action;
 
-/*
--(NSString*)success {
-    return _success;
-}
--(void)setSuccess:(NSString *)success {
-    _success = success;
-}
-*/
 
--(BOOL)success {
-    return _success;
-}
--(void)setSuccess:(BOOL)success {
-    _success = success;
-}
+-(BOOL)success { return _success; }
+-(void)setSuccess:(BOOL)success { _success = success; }
 
--(NSString*)action {
-    return _action;
-}
--(void)setAction:(NSString *)action {
-    _action = action;
-}
 
 @end

@@ -6,13 +6,18 @@
  
  -----------------------------------------------------------------------------------------------*/
 
+
 #import <Foundation/Foundation.h>
-#import "BBModels.h"
 #import "BBVoteDelegateProtocol.h"
+
+
+@class BBUser;
+
 
 @interface BBObservationNote : NSObject <
     BBVoteDelegateProtocol
 >
+
 
 @property (nonatomic,strong) NSString* identifier;
 @property (nonatomic,strong) NSDate* createdOn;
@@ -25,5 +30,6 @@
 @property (nonatomic,strong) NSString* allTags;
 @property (nonatomic,strong) NSNumber* tagCount;
 @property (nonatomic,strong) NSNumber* descriptionCount;
+
 
 @end

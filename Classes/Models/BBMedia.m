@@ -6,54 +6,32 @@
  
  -----------------------------------------------------------------------------------------------*/
 
+
 #import "BBMedia.h"
+#import "BBMediaResource.h"
+
 
 @implementation BBMedia
 
-@synthesize     mediaResource = _mediaResource,
-                  description = _description,
-               isPrimaryMedia = _isPrimaryMedia,
-                      licence = _licence;
+
+#pragma mark -
+#pragma mark - Member Accessors
 
 
--(void)setMediaResource:(BBMediaResource *)mediaResource
-{
-    _mediaResource = mediaResource;
-}
--(BBMediaResource*)mediaResource
-{
-    return _mediaResource;
-}
+@synthesize mediaResource = _mediaResource,
+            description = _description,
+            isPrimaryMedia = _isPrimaryMedia,
+            licence = _licence;
 
 
--(void)setDescription:(NSString *)description
-{
-    _description = description;
-}
--(NSString*)description
-{
-    return _description;
-}
-
-
--(void)setIsPrimaryMedia:(BOOL)isPrimaryMedia
-{
-    _isPrimaryMedia = isPrimaryMedia;
-}
--(BOOL)isPrimaryMedia
-{
-    return _isPrimaryMedia;
-}
-
-
--(void)setLicence:(NSString *)licence
-{
-    _licence = licence;
-}
--(NSString*)licence
-{
-    return _licence;
-}
+-(void)setMediaResource:(BBMediaResource *)mediaResource { _mediaResource = mediaResource; }
+-(BBMediaResource*)mediaResource { return _mediaResource; }
+-(void)setDescription:(NSString *)description { _description = description; }
+-(NSString*)description { return _description; }
+-(void)setIsPrimaryMedia:(BOOL)isPrimaryMedia { _isPrimaryMedia = isPrimaryMedia; }
+-(BOOL)isPrimaryMedia { return _isPrimaryMedia; }
+-(void)setLicence:(NSString *)licence { _licence = licence; }
+-(NSString*)licence { return _licence; }
 
 
 @end

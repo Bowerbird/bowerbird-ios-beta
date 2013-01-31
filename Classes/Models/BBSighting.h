@@ -7,9 +7,13 @@
  -----------------------------------------------------------------------------------------------*/
 
 #import <Foundation/Foundation.h>
-#import "BBModels.h"
+
+
+@class BBUser;
+
 
 @interface BBSighting : NSObject
+
 
 @property (nonatomic,retain) NSString* identifier;
 @property (nonatomic,retain) NSString* title;
@@ -23,5 +27,6 @@
 @property (nonatomic,retain) NSArray* comments;
 @property (nonatomic,retain) NSSet* projectIds;
 @property (nonatomic,retain) NSArray* projects;
+
 
 @end

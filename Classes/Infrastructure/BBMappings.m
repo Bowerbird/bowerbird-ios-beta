@@ -45,8 +45,6 @@
     RKObjectMapping *userMapping = [RKObjectMapping mappingForClass:[BBUser class]];
     [userMapping mapKeyPath:@"Id" toAttribute:@"identifier"];
     [userMapping mapKeyPath:@"Name" toAttribute:@"name"];
-    [userMapping mapKeyPath:@"LatestActivity" toAttribute:@"latestActivity"];
-    [userMapping mapKeyPath:@"LatestHeartbeat" toAttribute:@"latestHeartbeat"];
     [userMapping mapKeyPath:@"Avatar" toRelationship:@"avatar" withMapping:mediaResourceMapping];
     [manager.mappingProvider setMapping:userMapping forKeyPath:@"User"];
     [manager.mappingProvider addObjectMapping:userMapping];
@@ -109,8 +107,8 @@
     
     
     RKObjectMapping *taxonomicRankMapping = [RKObjectMapping mappingForClass:[BBTaxonomicRanks class]];
-    [taxonomicRankMapping mapKeyPath:@"RankName" toAttribute:@"rankName"];
-    [taxonomicRankMapping mapKeyPath:@"RankType" toAttribute:@"rankType"];
+    [taxonomicRankMapping mapKeyPath:@"RankName" toAttribute:@"name"];
+    [taxonomicRankMapping mapKeyPath:@"RankType" toAttribute:@"type"];
     [manager.mappingProvider setMapping:taxonomicRankMapping forKeyPath:@"TaxonomicRanks"];
     
     
@@ -264,7 +262,7 @@
     [activityPaginationMapping mapKeyPath:@"PagedListItems" toRelationship:@"activities" withMapping:activityMapping];
     [manager.mappingProvider setMapping:activityPaginationMapping forKeyPath:@"Model.Activities"];
     
-    
+    /*
     RKObjectMapping *sightingPaginationMapping = [RKObjectMapping mappingForClass:[BBSightingPaginator class]];
     sightingPaginationMapping.rootKeyPath = @"Model.Sightings";
     [sightingPaginationMapping mapKeyPath:@"Page" toAttribute:@"currentPage"];
@@ -272,7 +270,7 @@
     [sightingPaginationMapping mapKeyPath:@"TotalResultCount" toAttribute:@"objectCount"];
     [sightingPaginationMapping mapKeyPath:@"Model.PagedListItems" toRelationship:@"activities" withMapping:activityMapping];
     [manager.mappingProvider setMapping:sightingPaginationMapping forKeyPath:@"Model.Sightings"];
-    
+    */
     
     // this is duplicate as API is unstable 
     RKObjectMapping *jsonResponse = [RKObjectMapping mappingForClass:[BBJsonResponse class]];
@@ -281,14 +279,14 @@
     [manager.mappingProvider addObjectMapping:jsonResponse];
     [manager.mappingProvider setMapping:jsonResponse forKeyPath:@"Model.Success"];
     
-    
+    /*
     RKObjectMapping *jsonResponseMapping = [RKObjectMapping mappingForClass:[BBJsonResponse class]];
     jsonResponseMapping.rootKeyPath = @"Model.JsonResult";
     [jsonResponseMapping mapKeyPath:@"Success" toAttribute:@"success"];
     [jsonResponseMapping mapKeyPath:@"Action" toAttribute:@"action"];
     [manager.mappingProvider setMapping:jsonResponseMapping forKeyPath:@"Model.JsonResult"];
     [manager.mappingProvider setSerializationMapping:[jsonResponseMapping inverseMapping] forClass:[BBJsonResponse class]];
-    
+    */
     
     RKObjectMapping *mediaResourceCreateMapping = [RKObjectMapping mappingForClass:[BBMediaResourceCreate class]];
     [mediaResourceCreateMapping mapKeyPath:@"Key" toAttribute:@"key"];
@@ -376,6 +374,12 @@
     [manager.mappingProvider setSerializationMapping:[modelIdMapping inverseMapping] forClass:[BBModelId class]];
     
     
+    RKObjectMapping *projectIdMapping = [RKObjectMapping mappingForClass:[BBProjectId class]];
+    [projectIdMapping mapKeyPath:@"Id" toAttribute:@"identifier"];
+    [manager.mappingProvider addObjectMapping:projectIdMapping];
+    [manager.mappingProvider setSerializationMapping:[projectIdMapping inverseMapping] forClass:[BBProjectId class]];
+    
+    
     RKObjectMapping *favouriteMapping = [RKObjectMapping mappingForClass:[BBFavouriteId class]];
     [favouriteMapping mapKeyPath:@"Id" toAttribute:@"identifier"];
     [manager.mappingProvider addObjectMapping:favouriteMapping];
@@ -388,9 +392,10 @@
     [manager.router routeClass:[BBIdentifySightingEdit class] toResourcePath:@"/:sightingId/identifications" forMethod:RKRequestMethodPOST escapeRoutedPath:NO];
     [manager.router routeClass:[BBSightingNoteCreate class] toResourcePathPattern:@"/:sightingId/notes" forMethod:RKRequestMethodPOST escapeRoutedPath:NO];
     [manager.router routeClass:[BBFavouriteId class] toResourcePath:@"/favourites" forMethod:RKRequestMethodPOST escapeRoutedPath:NO];
-    [manager.router routeClass:[BBProjectId class] toResourcePath:@"/projects/:identifier/members" forMethod:RKRequestMethodPOST escapeRoutedPath:NO];// this may not be serverside refactored yet
+    [manager.router routeClass:[BBProjectId class] toResourcePath:@"/:identifier/members" forMethod:RKRequestMethodPOST escapeRoutedPath:NO];// this may not be serverside refactored yet
     [manager.router routeClass:[BBVoteCreate class] toResourcePath:@"/:identifier/vote" forMethod:RKRequestMethodPOST escapeRoutedPath:NO];
     [manager.router routeClass:[BBSubVoteCreate class] toResourcePath:@"/:identifier/:subIdentifier/vote" forMethod:RKRequestMethodPOST escapeRoutedPath:NO];
+    [manager.router routeClass:[BBAuthenticatedUser class] toResourcePath:@"/account/profile" forMethod:RKRequestMethodGET escapeRoutedPath:NO];
 }
 
 @end

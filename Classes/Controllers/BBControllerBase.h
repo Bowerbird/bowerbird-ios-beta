@@ -21,4 +21,6 @@
 
 -(UIColor*)backgroundColor;
 
+-(MGBox*)getForwardArrow;
+
 @end

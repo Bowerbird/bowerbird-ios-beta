@@ -6,11 +6,14 @@
  
  -----------------------------------------------------------------------------------------------*/
 
+
 #import <Foundation/Foundation.h>
-#import "BBModels.h"
+
 
 @interface BBPostPaginator : NSObject
 
+
 @property (nonatomic,retain) NSArray* posts;
+
 
 @end

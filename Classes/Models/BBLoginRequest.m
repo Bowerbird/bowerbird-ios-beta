@@ -6,44 +6,28 @@
  
  -----------------------------------------------------------------------------------------------*/
 
+
 #import "BBLoginRequest.h"
+
 
 @implementation BBLoginRequest
 
 
-@synthesize     email = _email,
-             password = _password,
-           rememberme = _rememberme;
+#pragma mark -
+#pragma mark - Member Accessors
 
 
--(void)setEmail:(NSString *)email
-{
-    _email = email;
-}
--(NSString*)email
-{
-    return _email;
-}
+@synthesize email = _email,
+            password = _password,
+            rememberme = _rememberme;
 
 
--(void)setPassword:(NSString *)password
-{
-    _password = password;
-}
--(NSString*)password
-{
-    return _password;
-}
-
-
--(void)setRememberme:(BOOL)rememberme
-{
-    _rememberme = rememberme;
-}
--(BOOL)rememberme
-{
-    return _rememberme;
-}
+-(void)setEmail:(NSString *)email { _email = email; }
+-(NSString*)email { return _email; }
+-(void)setPassword:(NSString *)password { _password = password; }
+-(NSString*)password { return _password; }
+-(void)setRememberme:(BOOL)rememberme { _rememberme = rememberme; }
+-(BOOL)rememberme { return _rememberme; }
 
 
 @end

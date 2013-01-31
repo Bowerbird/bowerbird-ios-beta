@@ -134,13 +134,11 @@
     [[RKClient sharedClient] post:@"/account/login" params:params delegate:self];
 }
 
-
 -(void)cancelSignIn {
     [BBLog Log:@"BBLoginController.cancelSignIn"];
     
     [self.navigationController popViewControllerAnimated:NO];
 }
-
 
 #pragma mark -
 #pragma mark BSKeyboardControls Delegate

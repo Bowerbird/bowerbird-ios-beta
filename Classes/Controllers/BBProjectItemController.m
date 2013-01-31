@@ -1,0 +1,105 @@
+//
+//  BBProjectItemController.m
+//  BowerBird Beta
+//
+//  Created by Hamish Crittenden on 30/01/13.
+//  Copyright (c) 2013 Museum Victoria. All rights reserved.
+//
+
+#import "BBProjectItemController.h"
+
+@interface BBProjectItemController ()
+@property (nonatomic,strong) BBProject* project;
+@end
+
+@implementation BBProjectItemController
+
+@synthesize project = _project;
+
+-(id)initWithProject:(BBProject*)project {
+    [BBLog Log:@"BBProjectItemController.initWithProject:"];
+    
+    self = [super init];
+    
+    if(self) {
+        self.project = project;
+    }
+    
+    return self;
+}
+
+-(void)loadView {
+    [BBLog Log:@"BBProject.loadView:"];
+    
+    self.view = [self render];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+	// Do any additional setup after loading the view.
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+-(MGBox*)render {
+    [BBLog Log:@"BBStreamController.renderProject"];
+    
+    BBProject* project = self.project;
+    
+    //MGScrollView *streamView = (MGScrollView*)self.view;
+    BBImage *avatarImage = [self getImageWithDimension:@"Square100" fromArrayOf:project.avatar.imageMedia];
+    PhotoBox *avatar = [PhotoBox mediaFor:avatarImage.uri size:IPHONE_PROJECT_AVATAR_SIZE];
+    
+    MGLine *projectName = [MGLine lineWithLeft:project.name right:nil size:CGSizeMake(280, 40)];
+    projectName.font = HEADER_FONT;
+    
+    NSString *multiLineDisplay = [NSString stringWithFormat:@"%i members \n%i observations \n%i posts", project.userCount, project.observationCount, project.postCount];
+    MGLine *projectStats = [MGLine lineWithLeft:avatar multilineRight:multiLineDisplay width:290 minHeight:100];
+    projectStats.underlineType = MGUnderlineNone;
+    
+    MGTableBoxStyled *info = [MGTableBoxStyled boxWithSize:IPHONE_PROJECT_DESCRIPTION];
+    info.padding = UIEdgeInsetsMake(10, 10, 10, 10);
+    [info.topLines addObject:projectName];
+    [info.middleLines addObject:projectStats];
+    
+    MGLine *description = [MGLine lineWithMultilineLeft:project.description right:nil width:280 minHeight:30];
+    description.padding = UIEdgeInsetsMake(10, 0, 10, 0);
+    description.underlineType = MGUnderlineNone;
+    [info.middleLines addObject:description];
+    
+    BBApplication* appData = [BBApplication sharedInstance];
+    BBProject* projectInUserList = [self getProjectWithIdentifier:project.identifier fromArrayOf:appData.authenticatedUser.projects];
+    
+    BBProjectId *projJoinLeave = [[BBProjectId alloc]initWithProjectId:project.identifier];
+    RKObjectManager *manager = [RKObjectManager sharedManager];
+    manager.serializationMIMEType = RKMIMETypeJSON;
+    
+    if(projectInUserList) {
+        [info.bottomLines addObject:[BBUIControlHelper createButtonWithFrame:CGRectMake(10, 0, 290, 40) andTitle:@"Leave Project" withBlock:^ {
+            [manager postObject:projJoinLeave delegate:projJoinLeave];
+            NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithCapacity:1];
+            [userInfo setObject:self.project forKey:@"project"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"projectLeft" object:self userInfo:userInfo];
+        }]];
+        
+        // force redraw of the view somehow...
+    }
+    else
+    {
+        [info.bottomLines addObject:[BBUIControlHelper createButtonWithFrame:CGRectMake(10, 0, 290, 40) andTitle:@"Join Project" withBlock:^{
+            [manager postObject:projJoinLeave delegate:projJoinLeave];
+            NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithCapacity:1];
+            [userInfo setObject:self.project forKey:@"project"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"projectJoined" object:self userInfo:userInfo];
+        }]];
+    }
+    
+    return info;
+}
+
+@end

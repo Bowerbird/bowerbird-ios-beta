@@ -51,10 +51,8 @@
     ((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController.navigationBarHidden = YES;
 }
 
-
 #pragma mark -
 #pragma mark - Utilities and Helpers
-
 
 -(BBHomeView*)setupHomeView:(BBHomeView*)withView {
     [BBLog Log:@"BBHomeController.setupHomeView:withView"];
@@ -79,14 +77,14 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadUserStream) name:@"loadUserStream" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadGroupStream:) name:@"groupMenuTapped" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadProjectBrowser) name:@"exploreProjectsTapped" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadUserFavorites) name:@"loadUserFavorites" object:nil];
+    //loadUserFavorites
     
     return withView;
 }
 
-
 #pragma mark -
 #pragma mark - Delegation and Event Handling
-
 
 -(void)displayStreamView:(UIView*)streamView {
     [BBLog Log:@"BBHomeController.displayStreamView:"];
@@ -96,13 +94,12 @@
     self.streamController.view.height -= 50;
 }
 
-- (void)handleSwipeRight:(UIGestureRecognizer *)gestureRecognizer {
+-(void)handleSwipeRight:(UIGestureRecognizer *)gestureRecognizer {
     [BBLog Log:@"BBHomeController.handleSwipeRight:"];
     
     // this is a right swipe so bring in the menu
     [[NSNotificationCenter defaultCenter] postNotificationName:@"menuTapped" object:nil];
 }
-
 
 -(void)objectLoader:(RKObjectLoader*)objectLoader didLoadObject:(id)object {
     [BBLog Log:@"BBHomeController.objectLoader:didLoadObject"];
@@ -128,58 +125,13 @@
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"userProfileLoaded" object:nil];
     }
-    
-    /* // REFACTOR: Shifted to StreamController class..
-    if([object isKindOfClass:[BBActivityPaginator class]])
-    {
-        [BBLog Debug:object withMessage:@"### BBActivityPaginator Loaded"];
-
-        // pass model to stream controller constructor
-        self.streamController = [[BBStreamController alloc]init];
-        [self.view addSubview:self.streamController.view];
-        self.streamController.view.y += 50;
-        ((MGScrollView*)self.streamController.view).height -= 50;
-
-        // append stream's view to this window
-        [self.streamController displayActivities:object];
-    }
-    
-    if([object isKindOfClass:[BBProjectPaginator class]])
-    {
-        [BBLog Debug:object withMessage:@"### BBProjectPaginator Loaded"];
-        // we should remove all the stream controller's views at this point
-        
-        // pass model to stream controller constructor
-        self.streamController = [[BBStreamController alloc]init];
-        [self.view addSubview:self.streamController.view];
-        self.streamController.view.y += 50;
-        ((MGScrollView*)self.streamController.view).height -= 50;
-        
-        // append stream's view to this window
-        [self.streamController displayProjects:object];
-    }
-    
-    if([object isKindOfClass:[BBSightingPaginator class]])
-    {
-        [BBLog Debug:object withMessage:@"### BBSightingPaginator Loaded"];
-        
-        // pass model to stream controller constructor
-        self.streamController = [[BBStreamController alloc]init];
-        [self.view addSubview:self.streamController.view];
-        
-        // append stream's view to this window
-        [self.streamController displaySightings:object];
-    }
-     */
 }
-
 
 -(void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     [BBLog Error:[NSString stringWithFormat:@"%@%@", @"BBLoginController.objectLoader:didFailWithError:", [error localizedDescription]]];
     
     [SVProgressHUD showErrorWithStatus:error.description];
 }
-
 
 -(void)showMenu {
     [BBLog Log:@"BBHomeController.showMenu"];
@@ -191,7 +143,6 @@
     [self.view bringSubviewToFront:self.menuController.view];
 }
 
-
 -(void)hideMenu {
     [BBLog Log:@"BBHomeController.hideMenu"];
     [UIView animateWithDuration:0.15 animations:^{
@@ -200,11 +151,9 @@
     }];
 }
 
-
 -(void)showAction {
     [BBLog Log:@"BBHomeController.showAction"];
     [UIView animateWithDuration:0.15 animations:^{
-        // all devices and orientations have the same header height
         self.actionController.view.y = 0;
         self.actionController.view.alpha = 1;
     }];
@@ -212,15 +161,14 @@
     [self.view bringSubviewToFront:self.actionController.view];
 }
 
-
 -(void)hideAction {
     [BBLog Log:@"BBHomeController.hideAction"];
     [UIView animateWithDuration:0.25 animations:^{
         self.actionController.view.y = self.view.height;
         self.actionController.view.alpha = 0;
     }];
+    [self dismissModalViewControllerAnimated:YES];
 }
-
 
 -(void)signOut {
     [BBLog Log:@"BBHomeController.signOut"];
@@ -230,7 +178,6 @@
     //[self setupAuthenticatedViewPort];
 }
 
-
 // REFACTOR: call stream controller's initWithUser constructor
 -(void)loadUserStream {
     [BBLog Log:@"BBHomeController.loadUserStream"];
@@ -238,12 +185,6 @@
     [self clearStreamViews];
     
     self.streamController = [[BBStreamController alloc]initWithUserAndDelegate:self];
-    
-    /* // REFACTOR: Moved to the Stream Controller
-    [SVProgressHUD showWithStatus:@"Loading Activity"];
-    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"%@?%@",[BBConstants ActivityUrl], [BBConstants AjaxQuerystring]]
-                                                      delegate:self];
-    */
     
     NSMutableDictionary *userInfo = [[NSMutableDictionary alloc]init];
     [userInfo setObject:@"Home" forKey:@"name"];
@@ -294,6 +235,24 @@
     
     NSMutableDictionary* userInfo2 = [NSMutableDictionary dictionaryWithCapacity:1];
     [userInfo2 setObject:@"Browse Projects" forKey:@"name"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeadingTitle" object:self userInfo:userInfo2];
+}
+
+-(void)loadUserFavorites {
+    [BBLog Log:@"BBHomeController.loadUserFavorites"];
+    
+    [self clearStreamViews];
+    
+    self.streamController = [[BBStreamController alloc]initWithFavouritesAndDelegate:self];
+    
+    /* // REFACTOR: Moved to the Stream Controller
+     [SVProgressHUD showWithStatus:@"Loading Projects"];
+     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"%@/projects?%@",[BBConstants RootUriString], [BBConstants AjaxQuerystring]]
+     delegate:self];
+     */
+    
+    NSMutableDictionary* userInfo2 = [NSMutableDictionary dictionaryWithCapacity:1];
+    [userInfo2 setObject:@"My Favourites" forKey:@"name"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeadingTitle" object:self userInfo:userInfo2];
 }
 

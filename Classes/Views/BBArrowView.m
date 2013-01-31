@@ -35,9 +35,6 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    int internalPadding = 8;
-    double internalTriangleWidth = internalPadding;// * 2 * 0.8660254; // value is ratio of height to base of equilateral triangle
-    
     context = UIGraphicsGetCurrentContext();
 
     CGContextBeginPath(context);
@@ -53,17 +50,8 @@
             [arrowColour setFill];
             [arrowColour setStroke];
             CGContextDrawPath(context, kCGPathFillStroke);
-            /*
-            // now draw triangle within triangle
-            CGContextMoveToPoint(context, 0, 0);
-            CGContextAddLineToPoint(context, internalTriangleWidth, height/2);
-            CGContextAddLineToPoint(context, 0, height);
-            CGContextClosePath(context);
-            [backgroundColour setFill];
-            [backgroundColour setStroke];
-            CGContextDrawPath(context, kCGPathFillStroke);
-            */
             break;
+            
         case BBArrowBack:
             CGContextMoveToPoint(context, width, 0);
             CGContextAddLineToPoint(context, 0, height/2);
@@ -72,16 +60,6 @@
             [arrowColour setFill];
             [arrowColour setStroke];
             CGContextDrawPath(context, kCGPathFillStroke);
-            /*
-            // now draw triangle within triangle
-            CGContextMoveToPoint(context, width, 0);
-            CGContextAddLineToPoint(context, width - internalTriangleWidth, height/2);
-            CGContextAddLineToPoint(context, width, height);
-            CGContextClosePath(context);
-            [backgroundColour setFill];
-            [backgroundColour setStroke];
-            CGContextDrawPath(context, kCGPathFillStroke);
-            */
             break;
     }
 }

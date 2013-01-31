@@ -1,14 +1,21 @@
-//
-//  BBVoteCreate.m
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 24/01/13.
-//  Copyright (c) 2013 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Hamish Crittenden : hamish.crittenden@gmail.com, Frank Radocaj : frank@radocaj.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
 
-#import "BBModels.h"
+
+#import "BBHelpers.h"
+
 
 @implementation BBVoteCreate
+
+
+#pragma mark -
+#pragma mark - Member Accessors
+
 
 @synthesize identifier = _identifier,
             subIdentifier = _subIdentifier,
@@ -16,9 +23,25 @@
             subContributionType = _subContributionType,
             score = _score;
 
+ 
+-(void)setIdentifier:(NSString *)identifier { _identifier = identifier; }
+-(NSString*)identifier { return _identifier; }
+-(void)setSubIdentifier:(NSString *)subIdentifier { _subIdentifier = subIdentifier; }
+-(NSString*)subIdentifier { return _subIdentifier; }
+-(void)setContributionType:(NSString *)contributionType { _contributionType = _contributionType; }
+-(NSString*)contributionType { return _contributionType; }
+-(void)setSubContributionType:(NSString *)subContributionType { _subContributionType = subContributionType; }
+-(NSString*)subContributionType { return _subContributionType; }
+-(void)setScore:(NSNumber *)score { _score = score; }
+-(NSNumber*)score { return _score; }
+
+
+#pragma mark -
+#pragma mark - Constructors
+
 
 -(id)initWithObservation:(BBObservation*)observation
-                           andScore:(NSNumber*)score {
+                andScore:(NSNumber*)score {
     self = [super init];
     
     if(self) {
@@ -29,42 +52,11 @@
     
     return self;
 }
- 
--(void)setIdentifier:(NSString *)identifier {
-    _identifier = identifier;
-}
--(NSString*)identifier {
-    return _identifier;
-}
 
--(void)setSubIdentifier:(NSString *)subIdentifier {
-    _subIdentifier = subIdentifier;
-}
--(NSString*)subIdentifier {
-    return _subIdentifier;
-}
 
--(void)setContributionType:(NSString *)contributionType {
-    _contributionType = _contributionType;
-}
+#pragma mark -
+#pragma mark - Utilities
 
--(NSString*)contributionType {
-    return _contributionType;
-}
-
--(void)setSubContributionType:(NSString *)subContributionType {
-    _subContributionType = subContributionType;
-}
--(NSString*)subContributionType {
-    return _subContributionType;
-}
-
--(void)setScore:(NSNumber *)score {
-    _score = score;
-}
--(NSNumber*)score {
-    return _score;
-}
 
 -(void)increment {
     _score = [[NSNumber alloc]initWithInt:([_score intValue] + 1)];
@@ -73,5 +65,47 @@
 -(void)decrement {
     _score = [[NSNumber alloc]initWithInt:([_score intValue] - 1)];
 }
+
+
+#pragma mark -
+#pragma mark - Delegation and Event Handling
+
+
+-(void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
+    [BBLog Log:@"BBVoteCreate.objectLoaderDidFailWithError:"];
+    
+    [BBLog Log:error.localizedDescription];
+}
+
+-(void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
+    [BBLog Log:@"BBVoteCreate.request:didLoadResponse"];
+    
+    if([response isKindOfClass:[BBJsonResponse class]]){
+        BBJsonResponse *result = (BBJsonResponse*)response;
+        
+        if(result.success){
+            // the request was successfully completed
+        }
+        else {
+            // the request was unsuccessful
+        }
+    }
+}
+
+-(void)objectLoaderDidLoadUnexpectedResponse:(RKObjectLoader *)objectLoader {
+    [BBLog Log:@"BBVoteCreate.objectLoaderDidLoadUnexpectedResponse"];
+    
+    [BBLog Log:objectLoader.response.bodyAsString];
+}
+
+-(void)objectLoaderDidFinishLoading:(RKObjectLoader *)objectLoader {
+    [BBLog Log:@"BBVoteCreate.objectLoaderDidFinishLoading:"];
+    
+}
+
+-(void)dealloc {
+    [[[RKClient sharedClient] requestQueue] cancelRequestsWithDelegate:(id)self];
+}
+
 
 @end

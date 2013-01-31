@@ -7,9 +7,10 @@
  -----------------------------------------------------------------------------------------------*/
 
 #import <Foundation/Foundation.h>
-#import "BBModels.h"
 #import "BBSighting.h"
 
+
 @interface BBRecord : BBSighting
+
 
 @end

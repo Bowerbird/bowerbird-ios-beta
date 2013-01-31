@@ -6,11 +6,15 @@
  
  -----------------------------------------------------------------------------------------------*/
 
+
 #import <Foundation/Foundation.h>
-#import "BBModels.h"
+#import "BBGroup.h"
+
 
 @interface BBProject : BBGroup
 
+
 @property int observationCount;
+
 
 @end

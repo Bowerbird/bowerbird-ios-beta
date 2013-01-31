@@ -1,19 +1,23 @@
-//
-//  BBObservationMediaCreate.h
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 16/11/12.
-//  Copyright (c) 2012 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Hamish Crittenden : hamish.crittenden@gmail.com, Frank Radocaj : frank@radocaj.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import <Foundation/Foundation.h>
 
+
 @interface BBObservationMediaCreate : NSObject
+
 
 @property (nonatomic,retain) NSString* key;
 @property (nonatomic,retain) NSString* mediaResourceId;
 @property (nonatomic,retain) NSString* description;
 @property (nonatomic,retain) NSString* licence;
 @property BOOL isPrimaryMedia;
+
 
 @end

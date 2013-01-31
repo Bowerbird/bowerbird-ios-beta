@@ -6,10 +6,15 @@
  
  -----------------------------------------------------------------------------------------------*/
 
+
 #import <Foundation/Foundation.h>
-#import "BBModels.h"
+
+
+@class BBGroup, BBUser;
+
 
 @interface BBPost : NSObject
+
 
 @property (nonatomic,strong) NSString* identifier;
 @property (nonatomic,strong) NSString* createdOnDescription;
@@ -19,5 +24,6 @@
 @property (nonatomic,strong) NSString* postType;
 @property (nonatomic,strong) NSString* subject;
 @property (nonatomic,strong) BBUser *user;
+
 
 @end

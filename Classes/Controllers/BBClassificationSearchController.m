@@ -1,16 +1,16 @@
-//
-//  BBClassificationSearchController.m
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 4/12/12.
-//  Copyright (c) 2012 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBClassificationSearchController.h"
+#import "BBRankSearcher.h"
+#import "BBClassificationPaginator.h"
 
-@interface BBClassificationSearchController ()
-
-@end
 
 @implementation BBClassificationSearchController {
     BBClassification *currentIdentification;
@@ -18,7 +18,10 @@
 }
 
 
-// do a first pass to load the first level ranks
+#pragma mark -
+#pragma mark - Constructors
+
+
 -(id)init {
     [BBLog Log:@"BBClassificationSearchController.init"];
     
@@ -30,6 +33,10 @@
 }
 
 
+#pragma mark -
+#pragma mark - Renderers
+
+
 -(void)loadView {
     [BBLog Log:@"BBClassificationSearchController.loadView"];
     
@@ -37,7 +44,6 @@
     self.view.backgroundColor = [self backgroundColor];
 
 }
-
 
 -(void)viewWillAppear:(BOOL)animated {
     
@@ -56,10 +62,13 @@
 }
 
 
+#pragma mark -
+#pragma mark - Utilities and Helpers
+
+
 -(void)cancelClicked {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"cancelIdentification" object:nil userInfo:nil];
 }
-
 
 
 #pragma mark - 
@@ -67,13 +76,11 @@
 
 
 -(void)setSelectedClassification:(BBClassification*)classification {
-    //currentIdentification.currentClassification = classification;
     
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithCapacity:1];
     [userInfo setObject:classification forKey:@"classification"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"identificationSelected" object:self userInfo:userInfo];
 }
-
 
 -(BBClassification*)getCurrentClassification {
     [BBLog Log:@"BBClassificationBrowseController.getCurrentClassification:"];
@@ -84,7 +91,7 @@
 -(void)loadRankForQuery:(NSString*)text {
     [BBLog Log:@"BBClassificationBrowseController.loadRankForQuery:"];
     
-    [[RKRequestQueue sharedQueue] cancelRequestsWithDelegate:self];
+    [[RKRequestQueue requestQueue] cancelRequestsWithDelegate:(id)self];
     
     NSString *query = [NSString stringWithFormat:@"query=%@&pagesize=50", text];
     
@@ -99,11 +106,12 @@
     [manager loadObjectsAtResourcePath:sightingUrl delegate:self];
 }
 
+
 #pragma mark -
 #pragma mark - Delegation and Event Handling
 
 
-- (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
+-(void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     [BBLog Log:@"BBClassificationSearchController.objectLoader:didFailWithError"];
     
     [BBLog Log:error.description];
@@ -111,14 +119,12 @@
     [SVProgressHUD showErrorWithStatus:error.description];
 }
 
-
-- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjectDictionary:(NSDictionary *)dictionary {
+-(void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjectDictionary:(NSDictionary *)dictionary {
     [BBLog Log:@"BBClassificationSearchController.didLoadObjectDictionary"];
 
 }
 
-
-- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
+-(void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
     [BBLog Log:@"BBClassificationBrowseController.didLoadObject"];
     
     BBRankSearcher* view = (BBRankSearcher*)self.view;
@@ -130,5 +136,10 @@
     
     [SVProgressHUD dismiss];
 }
+
+-(void)dealloc {
+    [[RKRequestQueue requestQueue] cancelRequestsWithDelegate:(id)self];
+}
+
 
 @end

@@ -1,16 +1,19 @@
-//
-//  BBCategoryPickerController.h
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 30/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import <Foundation/Foundation.h>
 #import "BBControllerBase.h"
 #import "BBCategoryPickerDelegateProtocol.h"
-#import "BBCategoryPickerView.h"
-#import "BBApplication.h"
+
+
+@class BBCategoryPickerView;
+
 
 @interface BBCategoryPickerController : BBControllerBase <
     BBCategoryPickerDelegateProtocol
@@ -23,5 +26,6 @@
 -(NSArray*)getCategories;
 -(void)updateCategory:(NSString*)category; // pass new value up to delegate parent controller
 -(void)categoryStopEdit; // we are finished editing so close this form
+
 
 @end

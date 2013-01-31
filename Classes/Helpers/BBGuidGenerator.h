@@ -6,10 +6,14 @@
  
  -----------------------------------------------------------------------------------------------*/
 
+
 #import <Foundation/Foundation.h>
+
 
 @interface BBGuidGenerator : NSObject
 
+
 +(NSString *)generateGuid;
+
 
 @end

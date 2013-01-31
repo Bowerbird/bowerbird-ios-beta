@@ -7,7 +7,10 @@
  -----------------------------------------------------------------------------------------------*/
 
 
+#import "BBVoteCreate.h"
 #import "BBHelpers.h"
+#import "BBJsonResponse.h"
+#import "BBObservation.h"
 
 
 @implementation BBVoteCreate

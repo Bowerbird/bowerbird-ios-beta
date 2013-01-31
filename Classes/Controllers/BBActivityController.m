@@ -1,20 +1,40 @@
-//
-//  BBActivityController.m
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 30/01/13.
-//  Copyright (c) 2013 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBActivityController.h"
+#import "BBSightingActivityController.h"
+#import "BBSightingNoteActivityController.h"
+#import "BBIdentificationActivityController.h"
+#import "BBPostActivityController.h"
+#import "BBActivity.h"
+
 
 @interface BBActivityController ()
+
 @property (nonatomic,strong) BBActivity* activity;
+
 @end
+
 
 @implementation BBActivityController
 
+
+#pragma mark -
+#pragma mark - Member Accessors
+
+
 @synthesize activity = _activity;
+
+
+#pragma mark -
+#pragma mark - Constructors
+
 
 - (id)initWithActivity:(BBActivity*)activity {
     [BBLog Log:@"BBActivityController.initWithActivity:"];
@@ -27,6 +47,11 @@
     
     return self;
 }
+
+
+#pragma mark -
+#pragma mark - Renderers
+
 
 -(void)loadView {
     
@@ -65,16 +90,13 @@
     self.view = box;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
+
 
 @end

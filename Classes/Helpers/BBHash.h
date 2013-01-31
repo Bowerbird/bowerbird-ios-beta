@@ -6,12 +6,16 @@
  
  -----------------------------------------------------------------------------------------------*/
 
+
 #import <Foundation/Foundation.h>
 
+
 @interface BBHash : NSObject
+
 
 +(NSString*)GenerateHash:(NSString*)value;
 
 +(NSString*)GenerateHashFromArray:(NSArray*)array;
+
 
 @end

@@ -6,13 +6,15 @@
  
  -----------------------------------------------------------------------------------------------*/
 
+
 #import <Foundation/Foundation.h>
-#import "BBModels.h"
-#import "BBIdentifySightingEdit.h"
-//#import "BBSubVoteCreate.h"
+#import <RestKit/RestKit.h>
+
 
 @interface BBMappings : NSObject
 
+
 +(void)mappingsForRKManager:(RKObjectManager*)manager;
+
 
 @end

@@ -1,18 +1,17 @@
-//
-//  BBDisplayLocationController.h
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 15/01/13.
-//  Copyright (c) 2013 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
 
 #import <MapKit/MapKit.h>
 #import "BBControllerBase.h"
-#import "PDLocation.h"
-#import "MapPoint.h"
-#import "BBSightingDetailController.h"
 
-//@class BBLocationSelectDelegate;
+
+@class PDLocation;
+
 
 @interface BBDisplayLocationController : BBControllerBase <
     UIGestureRecognizerDelegate

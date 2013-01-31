@@ -1,25 +1,26 @@
-//
-//  BBObservationView.h
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 22/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import <Foundation/Foundation.h>
 #import "BBSightingDataSource.h"
 #import "BBSightingEditDelegateProtocol.h"
-#import "MGHelpers.h"
-#import "BBCollectionHelper.h"
-#import "BBProject.h"
-#import "CoolMGButton.h"
-#import "PhotoBox.h"
-#import "UIView+MGEasyFrame.h"
 #import "BBUIControlHelper.h"
-#import "BBGuidGenerator.h"
+#import "MGHelpers.h"
+#import "BBHelpers.h"
+
+
+@class BBMediaEdit, BBProject;
+
 
 #define SIGHTING_TABLE_SIZE     (CGSize){300,40}
 #define EDGE_10_PADDING         (UIEdgeInsets){10,10,10,10}
+
 
 @interface BBSightingEditView : MGScrollView <
      UITextFieldDelegate
@@ -27,7 +28,6 @@
 
 @property (nonatomic,retain) id<BBSightingEditDelegateProtocol> controller;
 @property (nonatomic,retain) id<BBSightingDataSource> dataSource;
-
 @property (nonatomic,strong) UITextField *titleTextField;
 @property (nonatomic,strong) UIPickerView *categoryPickerView;
 @property (nonatomic,strong) UILabel *locationLabel;
@@ -40,8 +40,7 @@
 @property (nonatomic,strong) UILabel *observedOnLabel;
 @property (nonatomic,strong) UILabel *categoryLabel;
 @property (nonatomic,strong) MGBox *mediaBox;
-
-@property (nonatomic,strong)MGTableBoxStyled *titleTable, *mediaTable, *observedOnTable, *locationTable, *categoryTable, *projectsTable, *actionTable;
+@property (nonatomic,strong) MGTableBoxStyled *titleTable, *mediaTable, *observedOnTable, *locationTable, *categoryTable, *projectsTable, *actionTable;
 
 -(UITextField *)createTextFieldWithFrame:(CGRect)frame
                           andPlaceholder:(NSString*)text;

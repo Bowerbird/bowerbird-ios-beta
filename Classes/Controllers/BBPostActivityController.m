@@ -1,12 +1,19 @@
-//
-//  BBPostActivityController.m
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 30/01/13.
-//  Copyright (c) 2013 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBPostActivityController.h"
+#import "BBActivity.h"
+#import "BBPost.h"
+#import "BBImage.h"
+#import "BBMediaResource.h"
+#import "BBUser.h"
+
 
 @interface BBPostActivityController ()
 
@@ -14,9 +21,20 @@
 
 @end
 
+
 @implementation BBPostActivityController
 
+
+#pragma mark -
+#pragma mark - Member Accessors
+
+
 @synthesize activity = _activity;
+
+
+#pragma mark -
+#pragma mark - Constructors
+
 
 - (id)initWithPostActivity:(BBActivity*)activity
 {
@@ -28,6 +46,11 @@
     }
     return self;
 }
+
+
+#pragma mark -
+#pragma mark - Renderers
+
 
 -(void)loadView {
     self.view = [self render];
@@ -44,6 +67,11 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+#pragma mark -
+#pragma mark - Utilities and Helpers
+
 
 -(MGBox*)render {
     [BBLog Log:@"BBStreamController.renderPost"];
@@ -95,5 +123,6 @@
     
     return info;
 }
+
 
 @end

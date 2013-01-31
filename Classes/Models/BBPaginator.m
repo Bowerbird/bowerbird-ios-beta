@@ -10,6 +10,9 @@
 #import "BBHelpers.h"
 #import "BBProject.h"
 #import "BBPaginator.h"
+#import "BBActivityPaginator.h"
+#import "BBProjectPaginator.h"
+#import "BBActivity.h"
 
 
 @interface BBPaginator()

@@ -1,21 +1,32 @@
-//
-//  BBViewController.m
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 4/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBContainerController.h"
+#import "BBHomeController.h"
+#import "BBContainerView.h"
+#import "BBAuthenticationController.h"
+#import "BBContributionController.h"
+#import "BBAppDelegate.h"
+#import "BBApplication.h"
+#import "SVProgressHUD.h"
+#import "BBAuthenticatedUser.h"
+
 
 @implementation BBContainerController {
     BBAuthenticatedUser *authUser;
 }
 
-#pragma mark -
-#pragma mark - Setup and Render
 
-//http://stackoverflow.com/questions/573958/iphone-sdk-what-is-the-difference-between-loadview-and-viewdidload
+#pragma mark -
+#pragma mark - Renderers
+
+
 -(void)loadView {   
     [BBLog Log:@"BBContainerController.loadView"];
     
@@ -103,8 +114,10 @@
     ((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController.navigationBarHidden = YES;
 }
 
+
 #pragma mark -
 #pragma mark - Utilities and Helpers
+
 
 -(BOOL)userIsAuthenticated {
     NSHTTPCookie* cookie = [BBCookieHelper grabCookieForUrl:[BBConstants RootUri]
@@ -113,7 +126,6 @@
     return cookie != nil;
 }
 
-// TODO: call server side signout, Kill hub connections
 -(void)signUserOut{
     [BBLog Log:@"BBContainerController.signUserOut"];
     
@@ -162,42 +174,12 @@
     [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:contributionController animated:NO];
 }
 
-/*
-#pragma mark -
-#pragma mark - Delegation and Event Handling
-
--(void)objectLoader:(RKObjectLoader*)objectLoader didLoadObject:(id)object {
-    [BBLog Log:@"BBLoginController.objectLoader:didLoadObject"];
-
-    if([object isKindOfClass:[BBAuthenticatedUser class]])
-    {
-        BBApplication* appData = [BBApplication sharedInstance];
-        appData.authenticatedUser = (BBAuthenticatedUser*)object;
-        //[appData.connection start];
-     
-        [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"Welcome back \n%@", appData.authenticatedUser.user.name]];
-        
-        //BBUserHubClient* userHubClient = [BBUserHubClient sharedInstance];
-        //[userHubClient connectToUserHub:appData.authenticatedUser.user.identifier];
-        //appData.userHub = userHubClient.userHub;
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"userProfileHasLoaded" object:nil];
-    }
-}
-
--(void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
-    [BBLog Error:[NSString stringWithFormat:@"%@%@", @"BBLoginController.objectLoader:didFailWithError:", [error localizedDescription]]];
-    
-    [SVProgressHUD showErrorWithStatus:[error localizedDescription]];
-}
- 
- */
-
 - (void)didReceiveMemoryWarning {
     [BBLog Log:@"MEMORY WARNING! - BBContainerController"];
     
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 @end

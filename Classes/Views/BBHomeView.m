@@ -1,17 +1,20 @@
-//
-//  BBHomeView.m
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 16/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBHomeView.h"
+#import "BBHelpers.h"
+
 
 @implementation BBHomeView
 
--(BBHomeView *)initWithSize:(CGSize)size
-{
+
+-(BBHomeView *)initWithSize:(CGSize)size {
     [BBLog Log:@"BBHomeView.initWithSize:"];
     
     self = [BBHomeView scrollerWithSize:size];
@@ -28,5 +31,6 @@
     
     return self;
 }
+
 
 @end

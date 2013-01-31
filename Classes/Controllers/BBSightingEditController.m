@@ -1,12 +1,34 @@
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
 
-//  BBObservationEditController.m
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 23/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
 
 #import "BBSightingEditController.h"
+#import "MGScrollView.h"
+#import "BBStyles.h"
+#import "BBSightingEditView.h"
+#import "BBDateSelectController.h"
+#import "BBCategoryPickerController.h"
+#import "BBProjectSelectController.h"
+#import "BBObservationCreate.h"
+#import "SVProgressHUD.h"
+#import "BBLocationSelectController.h"
+#import "UIImage+fixOrientation.h"
+#import "UIView+MGEasyFrame.h"
+#import "BBAppDelegate.h"
+#import "BBSightingEdit.h"
+#import "BBMediaResource.h"
+#import "BBImage.h"
+#import "BBMediaResourceCreate.h"
+#import "BBObservationMediaCreate.h"
+#import "BBJsonResponse.h"
+#import "BBMediaEdit.h"
+#import "BBAuthenticatedUser.h"
+
 
 @interface BBSightingEditController()
 
@@ -14,22 +36,30 @@
 
 @end
 
+
 @implementation BBSightingEditController {
     BOOL isObservation;
 }
 
-@synthesize observation = _observation;
-@synthesize observationEditView = _observationEditView;
-@synthesize editingMedia = _editingMedia;
-@synthesize locationManager = _locationManager;
-@synthesize currentUserCoordinate = _currentUserCoordinate;
-@synthesize spinner = _spinner;
-@synthesize currentLocationActivityIndicatorView = _currentLocationActivityIndicatorView;
-@synthesize addedMedia = _addedMedia;
-@synthesize mediaResourceBoxes = _mediaResourceBoxes;
 
 #pragma mark -
-#pragma mark - Setup and Render
+#pragma mark - Member Accessors
+
+
+@synthesize observation = _observation,
+            observationEditView = _observationEditView,
+            editingMedia = _editingMedia,
+            locationManager = _locationManager,
+            currentUserCoordinate = _currentUserCoordinate,
+            spinner = _spinner,
+            currentLocationActivityIndicatorView = _currentLocationActivityIndicatorView,
+            addedMedia = _addedMedia,
+            mediaResourceBoxes = _mediaResourceBoxes;
+
+
+#pragma mark -
+#pragma mark - Constructors
+
 
 -(BBSightingEditController*)initWithMedia:(BBMediaEdit*)observationMedia {
     [BBLog Log:@"BBSightingEditController.initWithMedia:"];
@@ -70,6 +100,11 @@
     
     return self;
 }
+
+
+#pragma mark -
+#pragma mark - Renderers
+
 
 -(void)loadView {
     [BBLog Log:@"BBSightingEditController.loadView"];
@@ -150,8 +185,10 @@
     return isValid;
 }
 
+
 #pragma mark -
-#pragma mark - Title
+#pragma mark - Title Delegate
+
 
 -(NSString*)title {
     [BBLog Log:@"BBSightingEditController.title"];
@@ -171,8 +208,10 @@
     self.observation.title = title;
 }
 
+
 #pragma mark -
-#pragma mark - CreatedOn
+#pragma mark - CreatedOn Delegate
+
 
 -(NSDate*)createdOn {
     [BBLog Log:@"BBObservationEditController.createdOn"];
@@ -217,8 +256,10 @@
     [((BBSightingEditView*)self.view) layoutWithSpeed:0.3 completion:nil];
 }
 
+
 #pragma mark -
-#pragma mark - Media
+#pragma mark - Media Delegate
+
 
 -(void)showCamera {
     [BBLog Log:@"BBSightingEditController.showCamera"];
@@ -339,8 +380,10 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
     // display the action sheet, or somthing of that kind..
 }
 
+
 #pragma mark -
-#pragma mark - Category
+#pragma mark - Category Delegate
+
 
 -(NSString*)category {
     return _observation.category;
@@ -405,8 +448,10 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [((BBSightingEditView*)self.view) scrollToView:((BBSightingEditView*)self.view).categoryTable withMargin:8];
 }
 
+
 #pragma mark -
-#pragma mark - Projects
+#pragma mark - Projects Delegate
+
 
 -(void)stopAddingProjects {
     [BBLog Log:@"BBSightingEditController.stopAddingProjects"];
@@ -474,8 +519,10 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [((BBSightingEditView*)self.view) layoutWithSpeed:0.3 completion:nil];
 }
 
+
 #pragma mark -
-#pragma mark - Location
+#pragma mark - Location Delegate
+
 
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray *)locations {
@@ -564,8 +611,10 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
     }];
 }
 
+
 #pragma mark -
 #pragma mark - Save or Cancel Observation
+
 
 -(void)save {
     [BBLog Log:@"BBSightingEditController.save"];
@@ -648,8 +697,19 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [BBLog Log:@"Observation finished sending"];
 }
 
+-(void)cancel {
+    [BBLog Log:@"BBSightingEditController.cancel"];
+    
+    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:NO];
+    
+    // notify new sighting cancelled.
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"createSightingCancel" object:nil];
+}
+
+
 #pragma mark -
 #pragma mark - Delegation and Event Handling
+
 
 -(void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     [BBLog Log:@"BBSightingEditController.objectLoaderDidFailWithError:"];
@@ -774,15 +834,6 @@ totalBytesExpectedToReceive:(NSInteger)totalBytesExpectedToReceive {
     if(progress == fileSize) {
         [SVProgressHUD setStatus:@"File Uploaded. \nWaiting for save confirmation"];
     }
-}
-
--(void)cancel {
-    [BBLog Log:@"BBSightingEditController.cancel"];
-    
-    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:NO];
-    
-    // notify new sighting cancelled.
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"createSightingCancel" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {

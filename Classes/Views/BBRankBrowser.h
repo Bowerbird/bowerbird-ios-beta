@@ -1,20 +1,16 @@
-//
-//  BBRankBrowser.h
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 5/12/12.
-//  Copyright (c) 2012 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import <Foundation/Foundation.h>
-#import "BBStyles.h"
-#import "BBHelpers.h"
-#import "MGHelpers.h"
-#import "BBModels.h"
 #import "BBRankDelegateProtocol.h"
-#import "BBUIControlHelper.h"
-#import "SVProgressHUD.h"
-#import "MBProgressHUD.h"
+#import "MGHelpers.h"
+
 
 @interface BBRankBrowser : MGScrollView <
     BBRankDelegateProtocol
@@ -25,5 +21,6 @@
 -(void)displayRanks:(NSArray*)ranks;
 
 -(void)displayRankLoader;
+
 
 @end

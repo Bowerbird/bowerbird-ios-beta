@@ -1,16 +1,31 @@
-//
-//  BBHomeController.m
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 16/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBHomeController.h"
+#import "BBMenuController.h"
+#import "BBActionController.h"
+#import "BBHeaderController.h"
+#import "BBStreamController.h"
+#import "BBHomeView.h"
+#import "MGHelpers.h"
+#import "SVProgressHUD.h"
+#import "BBAppDelegate.h"
+#import "BBUser.h"
+#import "BBAuthenticatedUser.h"
+#import "BBProject.h"
 
-#define HOME_SIZE                  (CGSize){160, 420}
+
+#define HOME_SIZE (CGSize){160, 420}
+
 
 @implementation BBHomeController
+
 
 @synthesize actionController = _actionController;
 @synthesize headerController = _headerController;
@@ -22,7 +37,7 @@
 #pragma mark -
 #pragma mark - Setup and Render
 
-// called on first load of controller
+
 -(void)loadView {
     [BBLog Log:@"BBHomeController.loadView"];
     
@@ -31,7 +46,6 @@
     self.view = [self setupHomeView:[[BBHomeView alloc]initWithSize:HOME_SIZE]];
 }
 
-// called on first load of controller, after view is constructed
 -(void)viewDidLoad {
     [BBLog Log:@"BBHomeController.viewDidLoad"];
     
@@ -45,14 +59,15 @@
     [self loadUserStream];
 }
 
-// called every time view is displayed
 -(void)viewWillAppear:(BOOL)animated {
     
     ((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController.navigationBarHidden = YES;
 }
 
+
 #pragma mark -
 #pragma mark - Utilities and Helpers
+
 
 -(BBHomeView*)setupHomeView:(BBHomeView*)withView {
     [BBLog Log:@"BBHomeController.setupHomeView:withView"];
@@ -83,8 +98,10 @@
     return withView;
 }
 
+
 #pragma mark -
 #pragma mark - Delegation and Event Handling
+
 
 -(void)displayStreamView:(UIView*)streamView {
     [BBLog Log:@"BBHomeController.displayStreamView:"];
@@ -119,9 +136,6 @@
     if([object isKindOfClass:[BBAuthenticatedUser class]])
     {
         [BBLog Debug:object withMessage:@"### BBAuthenticatedUser Loaded"];
-        
-        // BBApplication *appData = [BBApplication sharedInstance];
-        //[appData.connection start];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"userProfileLoaded" object:nil];
     }
@@ -174,11 +188,8 @@
     [BBLog Log:@"BBHomeController.signOut"];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"menuTappedClose" object:nil];
-    // delete the cookie, or elsewhere delete the cookie.
-    //[self setupAuthenticatedViewPort];
 }
 
-// REFACTOR: call stream controller's initWithUser constructor
 -(void)loadUserStream {
     [BBLog Log:@"BBHomeController.loadUserStream"];
 
@@ -191,7 +202,6 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeadingTitle" object:self userInfo:userInfo];
 }
 
-// REFACTOR: call stream controller's initWithGroup constructor, passing group id as parameter
 -(void)loadGroupStream:(NSNotification *) notification {
     [BBLog Log:@"BBHomeController.loadGroupStream"];
     
@@ -202,14 +212,6 @@
     self.streamController = [[BBStreamController alloc]initWithGroup:groupId
                                                          andDelegate:self];
     
-    /* // REFACTOR: Moved to the Stream Controller
-    //NSString *queryUrl =[NSString stringWithFormat:@"%@/%@/activity?%@",[BBConstants RootUriString], project.identifier, [BBConstants AjaxQuerystring]];
-    NSString *queryUrl =[NSString stringWithFormat:@"%@/%@?%@",[BBConstants RootUriString], project.identifier, [BBConstants AjaxQuerystring]];
-  
-    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:queryUrl
-                                                      delegate:self];
-    */
-    
     BBApplication *app = [BBApplication sharedInstance];
     BBProject* project = [self getProjectWithIdentifier:groupId
                                             fromArrayOf:app.authenticatedUser.projects];
@@ -219,20 +221,13 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeadingTitle" object:self userInfo:userInfo2];
 }
 
-// REFACTOR: call stream constructor's initWithProjects constructor
 -(void)loadProjectBrowser {
     [BBLog Log:@"BBHomeController.loadProjectBrowser"];
     
     [self clearStreamViews];
     
     self.streamController = [[BBStreamController alloc]initWithProjectsAndDelegate:self];
-    
-    /* // REFACTOR: Moved to the Stream Controller
-    [SVProgressHUD showWithStatus:@"Loading Projects"];
-    [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"%@/projects?%@",[BBConstants RootUriString], [BBConstants AjaxQuerystring]]
-                                                      delegate:self];
-    */
-    
+
     NSMutableDictionary* userInfo2 = [NSMutableDictionary dictionaryWithCapacity:1];
     [userInfo2 setObject:@"Browse Projects" forKey:@"name"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeadingTitle" object:self userInfo:userInfo2];
@@ -244,13 +239,7 @@
     [self clearStreamViews];
     
     self.streamController = [[BBStreamController alloc]initWithFavouritesAndDelegate:self];
-    
-    /* // REFACTOR: Moved to the Stream Controller
-     [SVProgressHUD showWithStatus:@"Loading Projects"];
-     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"%@/projects?%@",[BBConstants RootUriString], [BBConstants AjaxQuerystring]]
-     delegate:self];
-     */
-    
+
     NSMutableDictionary* userInfo2 = [NSMutableDictionary dictionaryWithCapacity:1];
     [userInfo2 setObject:@"My Favourites" forKey:@"name"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeadingTitle" object:self userInfo:userInfo2];

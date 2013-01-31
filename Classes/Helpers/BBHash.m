@@ -6,9 +6,12 @@
  
  -----------------------------------------------------------------------------------------------*/
 
+
 #import "BBHash.h"
 
+
 @implementation BBHash
+
 
 +(NSString*)GenerateHash:(NSString*)value
 {
@@ -41,5 +44,6 @@
     
     return hashedId;
 }
+
 
 @end

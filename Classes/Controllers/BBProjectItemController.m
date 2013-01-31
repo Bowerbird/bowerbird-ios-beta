@@ -1,20 +1,42 @@
-//
-//  BBProjectItemController.m
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 30/01/13.
-//  Copyright (c) 2013 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBProjectItemController.h"
+#import "BBProject.h"
+#import "BBImage.h"
+#import "BBProject.h"
+#import "BBProjectId.h"
+#import "BBMediaResource.h"
+#import "BBAuthenticatedUser.h"
+#import "BBUIControlHelper.h"
+
 
 @interface BBProjectItemController ()
+
 @property (nonatomic,strong) BBProject* project;
+
 @end
+
 
 @implementation BBProjectItemController
 
+
+#pragma mark -
+#pragma mark - Member Accessors
+
+
 @synthesize project = _project;
+
+
+#pragma mark -
+#pragma mark - Constructors
+
 
 -(id)initWithProject:(BBProject*)project {
     [BBLog Log:@"BBProjectItemController.initWithProject:"];
@@ -28,20 +50,28 @@
     return self;
 }
 
+
+#pragma mark -
+#pragma mark - Renderers
+
+
 -(void)loadView {
     [BBLog Log:@"BBProject.loadView:"];
     
     self.view = [self render];
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning
-{
+
+#pragma mark -
+#pragma mark - Utilities and Helpers
+
+
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -101,5 +131,6 @@
     
     return info;
 }
+
 
 @end

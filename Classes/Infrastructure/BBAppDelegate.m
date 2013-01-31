@@ -1,14 +1,18 @@
-//
-//  BBAppDelegate.m
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 4/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBAppDelegate.h"
 #import "BBContainerController.h"
 #import "BBObservationCreate.h"
+#import "BBMappings.h"
+#import "BBHelpers.h"
+
 
 @implementation BBAppDelegate
 

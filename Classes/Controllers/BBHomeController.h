@@ -1,21 +1,20 @@
-//
-//  BBHomeController.h
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 16/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import <Foundation/Foundation.h>
+#import <RestKit/RestKit.h>
 #import "BBControllerBase.h"
 #import "BBStreamProtocol.h"
-#import "BBMenuController.h"
-#import "BBActionController.h"
-#import "BBHeaderController.h"
-#import "BBStreamController.h"
-#import "BBHomeView.h"
-#import "MGHelpers.h"
-#import "SVProgressHUD.h"
+
+
+@class BBMenuController, BBActionController, BBHeaderController, BBStreamController;
+
 
 @interface BBHomeController : BBControllerBase <
      RKObjectLoaderDelegate
@@ -28,5 +27,6 @@
 @property (nonatomic,retain) BBHeaderController *headerController;
 @property (nonatomic,retain) BBStreamController *streamController;
 @property (nonatomic,weak) id stream;
+
 
 @end

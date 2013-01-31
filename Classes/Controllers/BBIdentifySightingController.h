@@ -1,20 +1,19 @@
-//
-//  BBIdentifySightingController.h
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 11/01/13.
-//  Copyright (c) 2013 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
 
-#import <UIKit/UIKit.h>
-#import <RestKit/RKRequestSerialization.h>
+
 #import "BBControllerBase.h"
-#import "BBIdentifySightingEdit.h"
-#import "BBIdentifySightingView.h"
+#import <RestKit/RestKit.h>
 #import "BBIdentifySightingProtocol.h"
-#import "BBClassificationSearchController.h"
-#import "BBClassificationBrowseController.h"
-#import "BBClassificationCreateController.h"
+
+
+@class BBIdentifySightingEdit;
+
 
 @interface BBIdentifySightingController : BBControllerBase <
      BBIdentifySightingProtocol

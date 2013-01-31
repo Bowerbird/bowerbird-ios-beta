@@ -6,7 +6,10 @@
  
  -----------------------------------------------------------------------------------------------*/
 
+
 #import "BBMappings.h"
+#import "BBModels.h"
+
 
 @implementation BBMappings
 
@@ -262,7 +265,7 @@
     [activityPaginationMapping mapKeyPath:@"PagedListItems" toRelationship:@"activities" withMapping:activityMapping];
     [manager.mappingProvider setMapping:activityPaginationMapping forKeyPath:@"Model.Activities"];
     
-    /*
+    
     RKObjectMapping *sightingPaginationMapping = [RKObjectMapping mappingForClass:[BBSightingPaginator class]];
     sightingPaginationMapping.rootKeyPath = @"Model.Sightings";
     [sightingPaginationMapping mapKeyPath:@"Page" toAttribute:@"currentPage"];
@@ -270,7 +273,7 @@
     [sightingPaginationMapping mapKeyPath:@"TotalResultCount" toAttribute:@"objectCount"];
     [sightingPaginationMapping mapKeyPath:@"Model.PagedListItems" toRelationship:@"activities" withMapping:activityMapping];
     [manager.mappingProvider setMapping:sightingPaginationMapping forKeyPath:@"Model.Sightings"];
-    */
+    
     
     // this is duplicate as API is unstable 
     RKObjectMapping *jsonResponse = [RKObjectMapping mappingForClass:[BBJsonResponse class]];

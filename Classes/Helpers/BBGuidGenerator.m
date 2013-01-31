@@ -11,7 +11,9 @@
 
 #import "BBGuidGenerator.h"
 
+
 @implementation BBGuidGenerator
+
 
 // return a new autoreleased UUID string
 +(NSString *)generateGuid
@@ -28,5 +30,6 @@
     
     return uuidString;
 }
+
 
 @end

@@ -1,26 +1,19 @@
-//
-//  BBIdentificationController.h
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 4/12/12.
-//  Copyright (c) 2012 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
 
-#import <RestKit/RKRequestSerialization.h>
+
+#import <RestKit/RestKit.h>
 #import "BBControllerBase.h"
-#import "BBUIControlHelper.h"
-#import "SVProgressHUD.h"
-#import "BBStyles.h"
-#import "MGHelpers.h"
-#import "BBModels.h"
-#import "BBCreateSightingNoteView.h"
 #import "BBSightingNoteEditDelegateProtocol.h"
-#import "DWTagList.h"
-#import "BBSightingNoteAddDescriptionController.h"
-#import "BBSightingNoteEditDescriptionController.h"
-#import "BBSightingNoteDescriptionCreate.h"
-#import "BBSightingNoteTagController.h"
-#import "NSString+RKAdditions.h"
+
+
+@class BBSightingNoteEdit;
+
 
 @interface BBCreateSightingNoteController : BBControllerBase <
      RKObjectLoaderDelegate

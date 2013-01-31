@@ -1,21 +1,37 @@
-//
-//  BBSightingActivityController.m
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 30/01/13.
-//  Copyright (c) 2013 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBSightingActivityController.h"
+#import "BBSightingDetailController.h"
+#import "BBActivity.h"
+#import "BBImage.h"
+#import "BBUser.h"
+#import "BBMediaResource.h"
+#import "BBObservation.h"
+#import "BBUIControlHelper.h"
+
 
 @interface BBSightingActivityController ()
+
 @property (nonatomic,strong) BBActivity* activity;
+
 @end
+
 
 @implementation BBSightingActivityController
 
--(id)initWithSightingActivity:(BBActivity *)sightingActivity
-{
+
+#pragma mark -
+#pragma mark - Constructors
+
+
+-(id)initWithSightingActivity:(BBActivity *)sightingActivity {
     self = [super init];
     if (self) {
 
@@ -25,21 +41,29 @@
     return self;
 }
 
+
+#pragma mark -
+#pragma mark - Renderers
+
+
 -(void)loadView {
     self.view = [self render];
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+#pragma mark -
+#pragma mark - Utilities and Helpers
+
 
 -(MGBox*)render {
     [BBLog Log:@"BBStreamController.renderSighting"];
@@ -94,5 +118,6 @@
     
     return info;
 }
+
 
 @end

@@ -1,53 +1,39 @@
-//
-//  BBObservationEditController.h
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 23/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import <RestKit/RKRequestSerialization.h>
 #import "BBControllerBase.h"
-#import "BBModels.h"
-#import "MGScrollView.h"
-#import "BBStyles.h"
-#import "UIView+MGEasyFrame.h" // gives us some helpers for x/y/size/etc
-#import "BBSightingEditView.h"
-#import "BBSightingDataSource.h"
-#import "BBDateSelectController.h"
 #import "BBDatePickerDelegateProtocol.h"
-#import "BBCategoryPickerController.h"
 #import "BBProjectSelectDelegateProtocol.h"
-#import "BBProjectSelectController.h"
-#import "BBObservationCreate.h"
-#import "BBMultipartForm.h"
-#import "SVProgressHUD.h"
-#import "BBLocationSelectController.h"
-#import "MBProgressHUD.h"
-#import "UIImage+fixOrientation.h"
+#import "BBSightingEditDelegateProtocol.h"
+#import "BBSightingDataSource.h"
+#import "BBCategoryPickerDelegateProtocol.h"
+#import "BBLocationEditDelegateProtocol.h"
 
-@class UIActivityIndicatorView;
+
+@class BBSightingEdit, BBSightingEditView, BBMediaEdit, UIActivityIndicatorView;
+
 
 @interface BBSightingEditController : BBControllerBase <
-     BBSightingDataSource // controller data access methods
+     BBSightingDataSource
     ,BBSightingEditDelegateProtocol
-    ,UINavigationControllerDelegate // required for image picker modal popup
-    ,UIImagePickerControllerDelegate // required for image picker modal popup
+    ,UINavigationControllerDelegate
+    ,UIImagePickerControllerDelegate
     ,CLLocationManagerDelegate
     ,BBDatePickerDelegateProtocol
     ,BBCategoryPickerDelegateProtocol
     ,BBProjectSelectDelegateProtocol
     ,BBLocationEditDelegateProtocol
     ,RKObjectLoaderDelegate
-    ,MBProgressHUDDelegate
-> {
-    // all these instance vars are for HUD display
-    MBProgressHUD *HUD;
-	long long expectedLength;
-	long long currentLength;
-}
+>
 
 @property (nonatomic,retain) BBSightingEdit *observation;
 @property (nonatomic,retain) BBSightingEditView *observationEditView;
@@ -61,7 +47,6 @@
 -(BBSightingEditController*)initWithMedia:(BBMediaEdit*)observationMedia;
 -(BBSightingEditController*)initAsRecord;
 
-// CLLocationManagerDelegate methods:
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray *)locations;
 

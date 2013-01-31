@@ -1,12 +1,19 @@
-//
-//  BBIdentifySightingController.m
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 11/01/13.
-//  Copyright (c) 2013 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBIdentifySightingController.h"
+#import "BBIdentifySightingEdit.h"
+#import "BBIdentifySightingView.h"
+#import "BBClassificationSearchController.h"
+#import "BBClassificationBrowseController.h"
+#import "BBJsonResponse.h"
+
 
 @interface BBIdentifySightingController()
 
@@ -14,13 +21,20 @@
 
 @end
 
+
 @implementation BBIdentifySightingController
+
+
+#pragma mark -
+#pragma mark - Member Accessors
+
 
 @synthesize identification = _identification;
 
 
 #pragma mark -
-#pragma mark - Setup and Render
+#pragma mark - Constructors
+
 
 -(BBIdentifySightingController*)initWithSightingId:(NSString*)sightingId {
     [BBLog Log:@"BBIdentifySightingController.initWithSightingId:"];
@@ -33,6 +47,11 @@
     
     return self;
 }
+
+
+#pragma mark -
+#pragma mark - Renderers
+
 
 -(void)loadView {
     [BBLog Log:@"BBIdentifySightingController.loadView"];
@@ -61,7 +80,7 @@
 
 
 #pragma mark - 
-#pragma mark - Data Delegations
+#pragma mark - Delegates and Event Handlers
 
 
 -(void)objectLoaderDidLoadUnexpectedResponse:(RKObjectLoader *)objectLoader {
@@ -95,11 +114,6 @@
     [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:YES];
 }
 
-
-#pragma mark -
-#pragma mark - Protocol Implementations
-
-// search for Id clicked, browse for Id clicked, remove Id clicked
 -(void)searchClassifications {
     BBClassificationSearchController *searchController = [[BBClassificationSearchController alloc]init];
     [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:searchController
@@ -112,11 +126,13 @@
                                                                                            animated:YES];
 }
 
+/*
 -(void)createClassification {
     BBClassificationCreateController *createController = [[BBClassificationCreateController alloc]init];
     [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:createController
                                                                                            animated:YES];
 }
+*/
 
 -(void)removeClassification {
     // clear the taxonomy
@@ -167,14 +183,15 @@
     [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:YES];
 }
 
+
 #pragma mark -
 #pragma mark - Notification Responders
+
 
 -(void)cancelIdentification {
     [self.navigationController popToViewController:self animated:NO];
 }
 
-// pad this out to set custom identification
 -(void)setClassification:(NSNotification *) notification {
     [self cancelIdentification];
     
@@ -192,5 +209,6 @@
     BBIdentifySightingEdit *identification = [[BBIdentifySightingEdit alloc]init];
     [identification setCustomIdentification:[userInfo objectForKey:@"customIdentification"]];
 }
+
 
 @end

@@ -1,12 +1,18 @@
-//
-//  BBMenuController.m
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 4/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBMenuController.h"
+#import "BBProject.h"
+#import "BBUser.h"
+#import "BBAuthenticatedUser.h"
+#import "BBMediaResource.h"
+
 
 @interface BBMenuController ()
 
@@ -14,15 +20,23 @@
 
 @end
 
+
 @implementation BBMenuController {
     MGScrollView *menuView;
     UIImage *arrow;
 }
 
-@synthesize menuSize = _menuSize;
 
 #pragma mark -
-#pragma mark - Setup and Render
+#pragma mark - Member Accessors
+
+
+@synthesize menuSize = _menuSize;
+
+
+#pragma mark -
+#pragma mark - Renderers
+
 
 -(void)loadView {
     [BBLog Log:@"BBMenuController.loadView"];
@@ -65,8 +79,10 @@
     self.view.alpha = 0;
 }
 
+
 #pragma mark -
 #pragma mark - Utilities and Helpers
+
 
 -(void)populateMenu {
     // heading of avatar and user name
@@ -265,8 +281,10 @@
     [self.view setNeedsDisplay];
 }
 
+
 #pragma mark -
 #pragma mark - Delegation and Event Handling
+
 
 - (void)singleTapGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer {
     [BBLog Log:@"BBMenuController.singleTapGestureRecognizer:"];
@@ -287,5 +305,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 @end

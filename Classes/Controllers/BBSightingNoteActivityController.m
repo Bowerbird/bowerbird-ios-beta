@@ -1,12 +1,23 @@
-//
-//  BBSightingNoteActivityController.m
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 30/01/13.
-//  Copyright (c) 2013 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBSightingNoteActivityController.h"
+#import "BBSightingDetailController.h"
+#import "BBImage.h"
+#import "BBObservation.h"
+#import "BBObservationNote.h"
+#import "BBUser.h"
+#import "BBActivity.h"
+#import "BBMediaResource.h"
+#import "BBUIControlHelper.h"
+#import "DWTagList.h"
+
 
 @interface BBSightingNoteActivityController ()
 
@@ -14,10 +25,15 @@
 
 @end
 
+
 @implementation BBSightingNoteActivityController
 
--(id)initWithSightingNoteActivity:(BBActivity*)activity
-{
+
+#pragma mark -
+#pragma mark - Constructors
+
+
+-(id)initWithSightingNoteActivity:(BBActivity*)activity {
     self = [super init];
     if (self) {
         self.activity = activity;
@@ -25,15 +41,24 @@
     return self;
 }
 
+
+#pragma mark -
+#pragma mark - Renderers
+
+
 -(void)loadView {
     self.view = (MGBox*)[self render];
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
+
+
+#pragma mark -
+#pragma mark - Utilities and Helpers
+
 
 - (void)didReceiveMemoryWarning
 {

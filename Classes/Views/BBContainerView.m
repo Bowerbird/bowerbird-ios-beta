@@ -1,22 +1,23 @@
-//
-//  BBContainerView.m
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 8/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBContainerView.h"
 
-#define M_PI   3.14159265358979323846264338327950288   /* pi */
 
-// Our conversion definition
-#define DEGREES_TO_RADIANS(angle) (angle / 180.0 * M_PI)
+#define M_PI   3.14159265358979323846264338327950288   /* pi */
+#define DEGREES_TO_RADIANS(angle) (angle / 180.0 * M_PI) // Our conversion definition
+
 
 @implementation BBContainerView
 
--(BBContainerView *)initWithSize:(CGSize)size
-{
+
+-(BBContainerView *)initWithSize:(CGSize)size {
     [BBLog Log:@"BBHomeView.initWithSize:"];
     
     self = [MGBox boxWithSize:size];
@@ -39,8 +40,7 @@
 - (void)rotateImage:(UIImageView *)image
            duration:(NSTimeInterval)duration
               curve:(int)curve
-            degrees:(CGFloat)degrees
-{
+            degrees:(CGFloat)degrees {
     // Setup the animation
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:duration];
@@ -55,5 +55,6 @@
     // Commit the changes
     [UIView commitAnimations];
 }
+
 
 @end

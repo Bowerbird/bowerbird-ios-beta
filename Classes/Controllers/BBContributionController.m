@@ -1,19 +1,34 @@
-//
-//  BBObservationController.m
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 22/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBContributionController.h"
+#import "BBSightingEditController.h"
+#import "BBSightingEditView.h"
+#import "BBSightingEdit.h"
+#import "BBContainerView.h"
+#import "BBAppDelegate.h"
+#import "BBMediaEdit.h"
+
 
 @implementation BBContributionController
 
-@synthesize contributionType = _contributionType;
 
 #pragma mark -
-#pragma mark - Setup and Render
+#pragma mark - Member Accessors
+
+
+@synthesize contributionType = _contributionType;
+
+
+#pragma mark -
+#pragma mark - Constructors
+
 
 -(BBContributionController*)initWithCamera {
     [BBLog Log:@"BBContributionController.initWithCamera:"];
@@ -41,6 +56,11 @@
     
     return self;
 }
+
+
+#pragma mark -
+#pragma mark - Rendering
+
 
 -(void)loadView {
     [BBLog Log:@"BBContributionController.loadView"];
@@ -81,13 +101,10 @@
     [BBLog Log:@"BBContributionController.viewDidAppear"];
 }
 
-#pragma mark -
-#pragma mark - Utilities and Helpers
-
-
 
 #pragma mark -
 #pragma mark - Delegation and Event Handling
+
 
 -(void)showCamera {
     [BBLog Log:@"BBContributionController.showCamera"];
@@ -180,5 +197,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 @end

@@ -1,12 +1,21 @@
-//
-//  BBAuthenticationController.m
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 9/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBAuthenticationController.h"
+#import "BBRegistrationController.h"
+#import "BBLoginController.h"
+#import "BBAuthenticatedUser.h"
+#import "BBAppDelegate.h"
+#import "MGHelpers.h"
+#import "BBHelpers.h"
+#import "BBBowerBirdHeaderLogo.h"
+
 
 @implementation BBAuthenticationController {
     MGScrollView *authenticationView;
@@ -14,7 +23,7 @@
 
 
 #pragma mark -
-#pragma mark - Setup and Render
+#pragma mark - Rendering
 
 
 -(void)loadView {
@@ -25,7 +34,6 @@
     self.view.backgroundColor = [self backgroundColor];
     authenticationView = (MGScrollView*)self.view;
 }
-
 
 -(void)viewDidLoad {
     [BBLog Log:@"BBAuthenticationController.viewDidLoad"];
@@ -39,7 +47,6 @@
     
     [self displayViewControls];
 }
-
 
 -(void)viewWillAppear:(BOOL)animated {
     [BBLog Log:@"BBAuthenticationController.viewWillAppear"];
@@ -168,5 +175,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 @end

@@ -1,17 +1,32 @@
-//
-//  BBCategoryPickerController.m
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 30/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBCategoryPickerController.h"
+#import "BBAuthenticatedUser.h"
+#import "BBCategoryPickerView.h"
+#import "BBApplication.h"
+
 
 @implementation BBCategoryPickerController
 
-@synthesize delegate = _delegate;
-@synthesize categoryPickerView = _categoryPickerView;
+
+#pragma mark -
+#pragma mark - Member Accessors
+
+
+@synthesize delegate = _delegate,
+            categoryPickerView = _categoryPickerView;
+
+
+#pragma mark -
+#pragma mark - Constructors
+
 
 -(id)initWithDelegate:(id<BBCategoryPickerDelegateProtocol>)delegate {
     [BBLog Log:@"BBCategoryPickerController.initWithDelegate"];
@@ -22,6 +37,11 @@
     
     return self;
 }
+
+
+#pragma mark -
+#pragma mark - Renderers
+
 
 -(void)loadView {
     [BBLog Log:@"BBCategoryPickerController.loadView"];
@@ -38,6 +58,11 @@
     
     [super viewDidLoad];
 }
+
+
+#pragma mark -
+#pragma mark - Delegation and Event Handling
+
 
 -(NSArray*)getCategories {
     [BBLog Log:@"BBCategoryPickerController.getCategories"];
@@ -58,7 +83,7 @@
     [BBLog Log:@"BBCategoryPickerController.categoryStopEdit"];
     
     [_delegate categoryStopEdit];
-    //[self.app.navController popViewControllerAnimated:YES];
 }
+
 
 @end

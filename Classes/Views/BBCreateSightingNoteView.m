@@ -1,18 +1,27 @@
-//
-//  BBCreateSightingNoteView.m
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 7/12/12.
-//  Copyright (c) 2012 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBCreateSightingNoteView.h"
+#import "BBHelpers.h"
+#import "BBUIControlHelper.h"
+#import "BBSightingNoteDescriptionCreate.h"
+#import "BBClassification.h"
+#import "DWTagList.h"
+
 
 @implementation BBCreateSightingNoteView {
     MGTableBoxStyled *identificationTable, *descriptionTable, *tagsTable, *actionTable;
 }
 
+
 @synthesize controller = _controller;
+
 
 -(BBCreateSightingNoteView*)initWithDelegate:(id<BBSightingNoteEditDelegateProtocol>)delegate
                                      andSize:(CGSize)size{

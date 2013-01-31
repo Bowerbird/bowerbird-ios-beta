@@ -1,30 +1,53 @@
-//
-//  BBSightingController.m
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 17/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBSightingDetailController.h"
+#import "BBActivity.h"
+#import "MGHelpers.h"
+#import "PhotoBox.h"
+#import "BBUIControlHelper.h"
+#import "MBProgressHUD.h"
+#import "BBCreateSightingNoteController.h"
+#import "BBIdentifySightingController.h"
+#import "DWTagList.h"
+#import "BBArrowView.h"
+#import "PDLocation.h"
+#import "MapPoint.h"
+#import "BBDisplayLocationController.h"
+#import "BBDisplayFullImageController.h"
+#import "SVProgressHUD.h"
+#import "BBSubVoteCreate.h"
+#import "BBVoteController.h"
+#import "BBAppDelegate.h"
+#import "BBSighting.h"
+#import "BBObservation.h"
+#import "BBUser.h"
+#import "BBObservationNote.h"
+#import "BBMedia.h"
+#import "BBIdentification.h"
+#import "BBMediaResource.h"
+
 
 static CGRect MapOriginalFrame;
 static CGRect MapFullFrame;
-
-@protocol BBLocationSelectDelegate <NSObject>
-    
-@end
 
 
 @interface BBSightingDetailController()
 
 @property (nonatomic,strong) BBSighting* sighting;
 @property (nonatomic,strong) NSString* identifier;
-@property (nonatomic, strong) NSArray *locations;
 -(MGBox*)displayMapInBox;
 - (void)showAnnotationsOnMapWithLocations:(NSArray *)aLocations;
 - (MKCoordinateRegion)regionThatFitsAllLocations:(PDLocation *)location;
+
 @end
+
 
 @implementation BBSightingDetailController {
     MGScrollView* sightingView;
@@ -33,12 +56,19 @@ static CGRect MapFullFrame;
     id contributionForVoting;
 }
 
-@synthesize mapView = _mapView;
-@synthesize sighting = _sighting;
-@synthesize identifier = _identifier;
 
 #pragma mark -
-#pragma mark - Setup and Render
+#pragma mark - Member Accessors
+
+
+@synthesize mapView = _mapView,
+            sighting = _sighting,
+            identifier = _identifier;
+
+
+#pragma mark -
+#pragma mark - Constructors
+
 
 -(BBSightingDetailController*)initWithSightingIdentifier:(NSString*)identifier {
 
@@ -48,6 +78,11 @@ static CGRect MapFullFrame;
     
     return self;
 }
+
+
+#pragma mark -
+#pragma mark - Renderers
+
 
 -(void)loadView {
     [BBLog Log:@"BBSightingDetailController.loadView"];
@@ -83,8 +118,10 @@ static CGRect MapFullFrame;
     ((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController.navigationBarHidden = YES;
 }
 
+
 #pragma mark -
 #pragma mark - Utilities and Helpers
+
 
 -(void)displaySighting {
     [BBLog Log:@"BBSightingDetailController.displaySighting"];
@@ -201,7 +238,8 @@ static CGRect MapFullFrame;
     return userWhoAddedSighting;
 }
 
--(MGLine*)sightingNoteUser:(BBUser*)user forNote:(BBObservationNote*)note {
+-(MGLine*)sightingNoteUser:(BBUser*)user
+                   forNote:(BBObservationNote*)note {
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setDateFormat:[NSDate dateFormatHumanReadable]];
@@ -217,8 +255,8 @@ static CGRect MapFullFrame;
     return userWhoAddedSighting;
 }
 
-
--(MGLine*)sightingIdentificationUser:(BBUser*)user forIdentification:(BBIdentification*)identification {
+-(MGLine*)sightingIdentificationUser:(BBUser*)user
+                   forIdentification:(BBIdentification*)identification {
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setDateFormat:[NSDate dateFormatHumanReadable]];
@@ -536,7 +574,6 @@ static CGRect MapFullFrame;
     return note;
 }
 
-
 -(MGBox*)addDescribeIdentifyButtons:(BBObservation*)observation {
     
     CoolMGButton *describeButton = [BBUIControlHelper createButtonWithFrame:CGRectMake(0, 0, 155, 60) andTitle:@"Describe" withBlock:^{
@@ -565,8 +602,10 @@ static CGRect MapFullFrame;
     return describeIdentifyBox;
 }
 
+
 #pragma mark -
 #pragma mark - Delegation and Event Handling
+
 
 -(void)handleSwipeRight:(UIGestureRecognizer *)gestureRecognizer {
     [BBLog Log:@"BBSightingDetailController.handleSwipeRight:"];
@@ -582,7 +621,8 @@ static CGRect MapFullFrame;
     // Dispose of any resources that can be recreated.
 }
 
--(void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
+-(void)objectLoader:(RKObjectLoader *)objectLoader
+   didFailWithError:(NSError *)error {
     [BBLog Log:@"BBSightingDetailController.objectLoader:didFailWithError:"];
     
     [SVProgressHUD showErrorWithStatus:error.description];
@@ -592,7 +632,8 @@ static CGRect MapFullFrame;
     [BBLog Log:@"BBSightingDetailController.objectLoaderDidFinishLoading:"];
 }
 
--(void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
+-(void)objectLoader:(RKObjectLoader *)objectLoader
+      didLoadObject:(id)object {
     [BBLog Log:@"BBSightingDetailController.objectLoader:didLoadObject:"];
     
     [SVProgressHUD dismiss];
@@ -615,5 +656,6 @@ static CGRect MapFullFrame;
     
     return arrowWrapper;
 }
+
 
 @end

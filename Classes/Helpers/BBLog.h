@@ -6,9 +6,12 @@
  
  -----------------------------------------------------------------------------------------------*/
 
+
 #import <Foundation/Foundation.h>
 
+
 @interface BBLog : NSObject
+
 
 +(void)Log:(id)message;
 
@@ -17,5 +20,6 @@
 +(void)Error:(id)message;
 
 +(void)LogStringArray:(NSArray*)params;
+
 
 @end

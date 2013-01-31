@@ -1,12 +1,19 @@
-//
-//  BBRankSearcher.m
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 6/12/12.
-//  Copyright (c) 2012 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBRankSearcher.h"
+#import "BBHelpers.h"
+#import "BBUIControlHelper.h"
+#import "NMCustomLabel.h"
+#import "NMCustomLabelStyle.h"
+#import "BBClassification.h"
+
 
 @interface BBRankSearcher()
 
@@ -14,13 +21,16 @@
 
 @end
 
+
 @implementation BBRankSearcher {
     MGBox* currentClassification;
     MGTableBoxStyled *searchResults;
     MGTableBoxStyled *searchParameters;
 }
 
+
 @synthesize controller = _controller;
+
 
 -(BBRankSearcher*)initWithDelegate:(id<BBRankDelegateProtocol>)delegate {
     
@@ -56,7 +66,6 @@
     [self layout];
 }
 
-// trigger changes to the model via the controller protocols
 -(void)changeSearchQuery:(UITextField*)textField {
     [_controller loadRankForQuery:textField.text];
 }
@@ -132,8 +141,7 @@
     [self layout];
 }
 
-// 
-- (NSString *)trimWhitespace {
+-(NSString *)trimWhitespace {
     NSMutableString *mStr = [self mutableCopy];
     CFStringTrimWhitespace((CFMutableStringRef)mStr);
     
@@ -141,12 +149,10 @@
     return result;
 }
 
-
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
     return YES;
 }
-
 
 -(BOOL)textViewShouldEndEditing:(UITextView *)textView{
     [textView resignFirstResponder];

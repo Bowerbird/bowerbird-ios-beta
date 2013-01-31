@@ -1,18 +1,24 @@
-//
-//  BBRegistrationController.m
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 9/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBRegistrationController.h"
+#import "BBUIControlHelper.h"
+#import "BBStyles.h"
+#import "BBAuthenticatedUser.h"
+#import "BBAuthentication.h"
+#import "BBAppDelegate.h"
+
 
 @interface BBRegistrationController()
 
 @property (nonatomic, strong) BSKeyboardControls *keyboardControls;
 @property (nonatomic, weak) UITextField *textName, *textEmail, *textPassword, *textConfirmPassword;
-
 -(void)scrollViewToTextField:(id)textField;
 
 @end
@@ -26,15 +32,19 @@
 }
 
 
+#pragma mark -
+#pragma mark - Member Accessors
+
+
 @synthesize keyboardControls = _keyboardControls,
-                    textName = _textName,
-                   textEmail = _textEmail,
-                textPassword = _textPassword,
-         textConfirmPassword = _textConfirmPassword;
+            textName = _textName,
+            textEmail = _textEmail,
+            textPassword = _textPassword,
+            textConfirmPassword = _textConfirmPassword;
 
 
 #pragma mark -
-#pragma mark - Setup and Render
+#pragma mark - Renderers
 
 
 -(void)loadView {
@@ -45,7 +55,6 @@
     self.view.backgroundColor = [self backgroundColor];
     registrationView = (MGScrollView*)self.view;
 }
-
 
 - (void)viewDidLoad {
     [BBLog Log:@"BBRegistrationController.viewDidLoad"];
@@ -65,7 +74,6 @@
     [self displayViewControls];
     [self setupKeyboardResponder];
 }
-
 
 -(void)viewWillAppear:(BOOL)animated {
     [BBLog Log:@"BBRegistrationController.viewWillAppear"];
@@ -144,7 +152,6 @@
     [(MGScrollView*)self.view layoutWithSpeed:0.3 completion:nil];
 }
 
-
 -(void)registerUser {
     [BBLog Log:@"BBRegistrationController.registerUser"];
     
@@ -165,7 +172,6 @@
     [[RKClient sharedClient] post:@"/account/register" params:params delegate:self];
 }
 
-
 -(void)cancelRegisterUser {
     [BBLog Log:@"BBRegistrationController.cancelRegisterUser"];
     
@@ -174,7 +180,7 @@
 
 
 #pragma mark -
-#pragma mark BSKeyboardControls Delegate
+#pragma mark - Delegation and Event Handling
 
 
 -(void)setupKeyboardResponder {
@@ -209,40 +215,30 @@
     [self.keyboardControls reloadTextFields];
 }
 
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField
-{
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
     if ([self.keyboardControls.textFields containsObject:textField])
         self.keyboardControls.activeTextField = textField;
 }
 
-
-- (void)keyboardControlsDonePressed:(BSKeyboardControls *)controls
-{
+- (void)keyboardControlsDonePressed:(BSKeyboardControls *)controls {
     [controls.activeTextField resignFirstResponder];
 }
 
-
-- (void)keyboardControlsPreviousNextPressed:(BSKeyboardControls *)controls withDirection:(KeyboardControlsDirection)direction andActiveTextField:(id)textField
-{
+- (void)keyboardControlsPreviousNextPressed:(BSKeyboardControls *)controls
+                              withDirection:(KeyboardControlsDirection)direction
+                         andActiveTextField:(id)textField {
     [textField becomeFirstResponder];
     [self scrollViewToTextField:textField];
 }
 
-
-- (void)scrollViewToTextField:(id)textField
-{
+- (void)scrollViewToTextField:(id)textField {
     MGLine *textFieldLine = (MGLine*)((UITextField*)textField).superview;
 
     [((MGScrollView*)self.view) scrollToView:textFieldLine withMargin:8];
 }
 
-
-#pragma mark -
-#pragma mark - Delegation and Event Handling
-
-
--(void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
+    -(void)request:(RKRequest*)request
+   didLoadResponse:(RKResponse*)response {
     [BBLog Log:@"BBLoginController.request:didLoadResponse"];
     
     if ([request isPOST]) // Register Attempt
@@ -254,7 +250,6 @@
         [self setUserFromProfileResponse:response];
     }
 }
-
 
 -(void)getUserProfileFromRegisterRequest:(RKResponse*)response {
     [BBLog Log:@"BBRegisterController.getUserProfileFromRegisterRequest"];
@@ -279,7 +274,6 @@
     }
 }
 
-
 -(void)setUserFromProfileResponse:(RKResponse*)response {
     [BBLog Log:@"BBLoginController.setUserFromProfileResponse"];
     
@@ -302,9 +296,9 @@
     }
 }
 
-
 // TODO: This is potentially the handler for all RestKit activity
--(void)objectLoader:(RKObjectLoader*)objectLoader didLoadObject:(id)object {
+-(void)objectLoader:(RKObjectLoader*)objectLoader
+      didLoadObject:(id)object {
     [BBLog Log:@"BBLoginController.objectLoader:didLoadObject"];
     
     if([object isKindOfClass:[BBUser class]])
@@ -327,11 +321,10 @@
     }
 }
 
-
--(void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
+-(void)objectLoader:(RKObjectLoader *)objectLoader
+   didFailWithError:(NSError *)error {
     [BBLog Error:[NSString stringWithFormat:@"%@%@", @"BBLoginController.objectLoader:didFailWithError:", [error localizedDescription]]];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [BBLog Log:@"MEMORY WARNING! - BBRegistrationController"];

@@ -8,9 +8,12 @@
  
  -----------------------------------------------------------------------------------------------*/
 
+
 #import <Foundation/Foundation.h>
 
+
 @interface BBConstants : NSObject
+
 
 +(BOOL) TraceLog;
 
@@ -63,5 +66,6 @@
 +(int)DisappearSeconds;
 
 +(NSArray*)ranksToQuery;
+
 
 @end

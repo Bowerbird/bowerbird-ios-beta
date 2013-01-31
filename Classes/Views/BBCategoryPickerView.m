@@ -1,18 +1,25 @@
-//
-//  BBCategoryPickerView.m
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 30/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBCategoryPickerView.h"
+#import "BBHelpers.h"
+#import "BBCategory.h"
+#import "BBUIControlHelper.h"
+
 
 @implementation BBCategoryPickerView
+
 
 @synthesize controller = _controller;
 @synthesize categoryPicker = _categoryPicker;
 @synthesize categories = _categories;
+
 
 -(id)initWithDelegate:(id<BBCategoryPickerDelegateProtocol>)delegate {
     [BBLog Log:@"BBCategoryPickerView.initWithDelegate:"];
@@ -74,16 +81,16 @@
     }
 }
 
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     
     [self.controller updateCategory:(BBCategory*)[_categories objectAtIndex:row]];
 }
 
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 1;
 }
 
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     return _categories.count;
 }
 
@@ -110,7 +117,7 @@
     return pickerItem;
 }
 
-- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
+-(CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
     return 60.0f;
 }
 

@@ -1,13 +1,17 @@
-		//
-//  BBStarView.m
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 29/01/13.
-//  Copyright (c) 2013 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ NOTE:
+ http://stackoverflow.com/questions/8445786/how-to-draw-stars-using-quartz-core
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import <QuartzCore/QuartzCore.h>
 #import "BBStarView.h"
+
 
 @implementation BBStarView {
     BBFavouriteType favouriteType;
@@ -20,8 +24,7 @@
 - (id)initWithFrame:(CGRect)frame
    andFavouriteType:(BBFavouriteType)favourite
         andBgColour:(UIColor*)bgColour
-        andStarSize:(float)starSize
-{
+        andStarSize:(float)starSize {
     self = [super initWithFrame:frame];
     
     if (self) {
@@ -42,9 +45,7 @@
     return self;
 }
 
-// Code taken from: http://stackoverflow.com/questions/8445786/how-to-draw-stars-using-quartz-core
--(void)drawRect:(CGRect)rect
-{
+-(void)drawRect:(CGRect)rect {
     int aSize = 1;
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetLineWidth(context, aSize);
@@ -84,8 +85,7 @@
 
     CGContextClosePath(context);
     CGContextFillPath(context);
-    
-    //[super drawRect:rect];
 }
+
 
 @end

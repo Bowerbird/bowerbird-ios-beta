@@ -1,18 +1,21 @@
-//
-//  BBHeaderController.m
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 4/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBHeaderController.h"
+#import "BBUserHeadingView.h"
+
 
 @implementation BBHeaderController
 
 
 #pragma mark -
-#pragma mark - Setup and Render
+#pragma mark - Renderers
 
 
 - (void)viewDidLoad {
@@ -51,10 +54,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
-#pragma mark -
-#pragma mark - Delegation and Event Handling
 
 
 @end

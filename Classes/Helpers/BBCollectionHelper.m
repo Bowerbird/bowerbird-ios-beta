@@ -6,9 +6,13 @@
  
  -----------------------------------------------------------------------------------------------*/
 
+
 #import "BBCollectionHelper.h"
+#import "BBAuthenticatedUser.h"
+
 
 @implementation BBCollectionHelper
+
 
 +(NSArray*)populateArrayFromDictionary:(NSDictionary*)dictionary
 {

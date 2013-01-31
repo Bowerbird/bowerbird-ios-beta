@@ -1,12 +1,16 @@
-//
-//  BBActionController.m
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 4/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBActionController.h"
+#import "MGHelpers.h"
+#import "BBHelpers.h"
+
 
 @implementation BBActionController {
     MGBox *actionView;
@@ -15,7 +19,7 @@
 
 
 #pragma mark -
-#pragma mark - Setup and Render
+#pragma mark - Rendering
 
 
 -(void)loadView{
@@ -27,7 +31,6 @@
     arrow = [UIImage imageNamed:@"arrow.png"];
     actionView = (MGBox*)self.view;
  }
-
 
 - (void)viewDidLoad {
     [BBLog Log:@"BBActionController.viewDidLoad"];
@@ -116,14 +119,12 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"actionTappedClose" object:nil];
 }
 
-
 - (void)handleSwipeDown:(UIGestureRecognizer *)gestureRecognizer {
     [BBLog Log:@"BBMenuController.handleSwipeFrom:"];
     
     // this is a right swipe so bring in the menu
     [[NSNotificationCenter defaultCenter] postNotificationName:@"actionTappedClose" object:nil];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [BBLog Log:@"MEMORY WARNING! - BBActionController"];

@@ -1,20 +1,39 @@
-//
-//  BBProjectSelectController.m
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 26/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBProjectSelectController.h"
+#import "BBImage.h"
+#import "BBProject.h"
+#import "MGHelpers.h"
+#import "BBHelpers.h"
+#import "BBUIControlHelper.h"
+#import "BBAppDelegate.h"
+#import "BBAuthenticatedUser.h"
+#import "BBMediaResource.h"
+
 
 @implementation BBProjectSelectController {
     MGTableBoxStyled *projectTable;
 }
 
 
-@synthesize controller = _controller;
-@synthesize projects = _projects;
+#pragma mark -
+#pragma mark - Member Accessors
+
+
+@synthesize controller = _controller,
+            projects = _projects;
+
+
+#pragma mark -
+#pragma mark - Constructors
+
 
 -(id)initWithDelegate:(id<BBProjectSelectDelegateProtocol>)delegate {
     [BBLog Log:@"BBProjectSelectController.initWithDelegate"];
@@ -26,31 +45,27 @@
     return self;
 }
 
+
+#pragma mark -
+#pragma mark - Renderers
+
+
 -(void)loadView {
     [BBLog Log:@"BBProjectSelectController.loadView"];
     
     self.view = [MGScrollView scrollerWithSize:[self screenSize]];
     self.view.backgroundColor = [self backgroundColor];
     ((MGScrollView*)self.view).contentLayoutMode = MGLayoutTableStyle;
-    //projectSelectView = (MGScrollView*)self.view;
 }
-
 
 -(void)viewDidLoad {
     [BBLog Log:@"BBProjectSelectController.viewDidLoad"];
     
     [super viewDidLoad];
-    
-    //_projects = [BBCollectionHelper getUserProjects:[_controller getSightingProjects] inYesNotInNo:NO];
-    
-    //[self displayViewControls];
 }
-
 
 -(void)viewWillAppear:(BOOL)animated {
     [BBLog Log:@"BBProjectSelectController.viewWillAppear"];
-    
-    // this may have changed since last view display
     
     [self displayViewControls];
     
@@ -75,6 +90,11 @@
     // this may need to be in loadView
     [(MGScrollView*)self.view layout];
 }
+
+
+#pragma mark -
+#pragma mark - Helpers and Utilities
+
 
 -(void)cancelTapped {
     [_controller stopAddingProjects];
@@ -144,6 +164,11 @@
     [((MGScrollView*)self.view) layoutWithSpeed:0.3 completion:nil];
 }
 
+
+#pragma mark -
+#pragma mark - Delegate and Event Handling
+
+
 -(NSArray*)getUsersProjects {
     [BBLog Log:@"BBProjectSelectController.getUsersProjects"];
     
@@ -174,8 +199,5 @@
     
 }
 
--(void)startAddingProjects {
-    
-}
 
 @end

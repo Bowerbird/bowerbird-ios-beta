@@ -1,19 +1,31 @@
-//
-//  BBVoteController.m
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 25/01/13.
-//  Copyright (c) 2013 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import <QuartzCore/QuartzCore.h>
 #import "BBVoteController.h"
 #import "BBVoteDelegateProtocol.h"
+#import "BBStarView.h"
+#import "BBObservation.h"
+#import "BBObservationNote.h"
+#import "BBIdentification.h"
+#import "BBVoteCreate.h"
+#import "BBSubVoteCreate.h"
+#import "BBFavouriteId.h"
+
 
 @interface BBVoteController ()
+
 @property (nonatomic,weak) id<BBVoteDelegateProtocol> contribution;
 @property (nonatomic,strong) id voteRequest;
+
 @end
+
 
 @implementation BBVoteController {
     MGLine *scoreLine, *favouriteLine;
@@ -24,8 +36,18 @@
     int myVoteScore, totalVoteScore;
 }
 
+
+#pragma mark -
+#pragma mark - Member Accessors
+
+
 @synthesize contribution = _contribution,
             voteRequest = _voteRequest;
+
+
+#pragma mark -
+#pragma mark - Constructors
+
 
 -(id)initWithObservation:(BBObservation*)observation {
 
@@ -66,6 +88,11 @@
     return self;
 }
 
+
+#pragma mark -
+#pragma mark - Renderers
+
+
 -(void)loadView {
 
     CGSize size = [self screenSize];
@@ -85,12 +112,16 @@
 	// Do any additional setup after loading the view.
 }
 
+
+#pragma mark -
+#pragma mark - Utilities and Helpers
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-//-(MGLine*)displayVotePanel {
 -(MGBox*)displayVotePanel {
     NSString* contributionType = NSStringFromClass([_contribution class]);
     
@@ -273,5 +304,6 @@
     }];
     
 }
+
 
 @end

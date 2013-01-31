@@ -1,16 +1,23 @@
-//
-//  BBDisplayFullImage.m
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 18/01/13.
-//  Copyright (c) 2013 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBDisplayFullImageController.h"
+#import "BBUIControlHelper.h"
+#import "BBImage.h"
+
 
 @interface BBDisplayFullImageController ()
+
 @property (nonatomic,strong) BBImage* image;
+
 @end
+
 
 @implementation BBDisplayFullImageController {
     CGSize imgSize;
@@ -19,7 +26,17 @@
     UIScrollView *uiScrollView;
 }
 
+
+#pragma mark -
+#pragma mark - Member Accessors
+
+
 @synthesize image = _image;
+
+
+#pragma mark -
+#pragma mark - Constructors
+
 
 -(id)initWithImage:(BBImage*)img {
     self = [super init];
@@ -31,6 +48,11 @@
     
     return self;
 }
+
+
+#pragma mark -
+#pragma mark - Rendering
+
 
 -(void)loadView {
     [BBLog Log:@"BBDisplayFullImageController.loadView"];
@@ -51,8 +73,7 @@
     [self loadPhotoFromLocation:_image.uri];
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [BBLog Log:@"BBDisplayFullImageController.viewDidLoad"];
     
     [super viewDidLoad];
@@ -88,14 +109,17 @@
     [SVProgressHUD dismiss];
 }
 
-- (void)didReceiveMemoryWarning
-{
+
+#pragma mark -
+#pragma mark - Utilities and Helpers
+
+
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (void)loadPhotoFromLocation:(NSString*)location
-{
+- (void)loadPhotoFromLocation:(NSString*)location {
     [BBLog Log:@"BBDisplayFullImageController.loadPhotoFromLocation"];
     
     id fullPath = [NSString stringWithFormat:@"%@/%@", [BBConstants RootUriString], location];
@@ -158,8 +182,7 @@
     });
 }
 
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
-{
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
     return imageView;
 }
 
@@ -170,5 +193,6 @@
     
     return heightRatio >= widthRatio ? heightRatio : widthRatio;
 }
+
 
 @end

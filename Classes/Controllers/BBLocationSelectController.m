@@ -1,17 +1,30 @@
-//
-//  BBLocationSelectController.m
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 26/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBLocationSelectController.h"
+#import "BBLocationSelectView.h"
+#import "BBMapPoint.h"
+
 
 @implementation BBLocationSelectController
 
+
+#pragma mark -
+#pragma mark - Member Accessors
+
+
 @synthesize controller = _controller,
-    locationSelectView = _locationSelectView;
+            locationSelectView = _locationSelectView;
+
+
+#pragma mark -
+#pragma mark - Constructors
 
 
 -(id)initWithDelegate:(id<BBLocationEditDelegateProtocol>)delegate {
@@ -23,6 +36,10 @@
     
     return self;
 }
+
+
+#pragma mark -
+#pragma mark - Rendering
 
 
 -(void)loadView {
@@ -47,29 +64,13 @@
     [_locationSelectView.mapView setRegion:newRegion animated:YES];
 }
 
-/*
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
-{
-    MKPinAnnotationView *pinView = [[MKPinAnnotationView alloc]
-                                    initWithAnnotation:annotation reuseIdentifier:nil];
-    [pinView setDraggable:YES];
-    [pinView setAnimatesDrop:YES];
-    [pinView setPinColor:MKPinAnnotationColorGreen];
-    return pinView;
-}
 
-- (void)mapView:(MKMapView *)mapView
- annotationView:(MKAnnotationView *)annotationView
-didChangeDragState:(MKAnnotationViewDragState)newState
-   fromOldState:(MKAnnotationViewDragState)oldState
-{
-    //..Whatever you want to happen when the dragging starts or stops
-}
-*/
+#pragma mark -
+#pragma mark - Delegation and Event Handling
+
 
 -(MKAnnotationView *)mapView:(MKMapView *)mV
-           viewForAnnotation:(id <MKAnnotation>)annotation
-{
+           viewForAnnotation:(id <MKAnnotation>)annotation {
     MKAnnotationView *pinView = nil;
     if(annotation != _locationSelectView.mapView.userLocation)
     {
@@ -91,35 +92,12 @@ didChangeDragState:(MKAnnotationViewDragState)newState
     return pinView;
 }
 
-
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray *)locations {
     
     CLLocation *location = [locations lastObject];
     [self updateLocationLatLon:CGPointMake(location.coordinate.latitude, location.coordinate.longitude)];
 }
-
-/*
-
--(void)performCoordinateGeocode:(CLLocation*)location {
-    
-    
-    __block BBSightingEditView *view = (BBSightingEditView*)self.view;
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error) {
-        if (error){
-            NSLog(@"Geocode failed with error: %@", error);
-            return;
-        }
-        NSArray *resultantAddress = [NSArray arrayWithArray:placemarks];
-        CLPlacemark *place = [resultantAddress lastObject];
-        NSString* address = [NSString stringWithFormat:@"%@, %@ %@ %@", place.thoroughfare, place.locality, place.administrativeArea, place.country];
-        
-        [BBLog Log:[NSString stringWithFormat:@"Address: %@", address]];
-        [view updateLocationAddress:address];
-    }];
-}
-*/
 
 -(CGPoint)getLocationLatLon {
     return [_controller getLocationLatLon];

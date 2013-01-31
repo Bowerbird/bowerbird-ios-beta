@@ -1,14 +1,19 @@
-//
-//  BBUIControlHelper.m
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 31/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBUIControlHelper.h"
+#import "BBHelpers.h"
+#import "BBModels.h"
+
 
 @implementation BBUIControlHelper
+
 
 +(UIImage *)arrow {
     return [UIImage imageNamed:@"arrow.png"];
@@ -430,5 +435,6 @@
     
     return arrowWrapper;
 }
+
 
 @end

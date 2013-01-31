@@ -1,32 +1,44 @@
-//
-//  BBSightingNoteEditDescriptionController.m
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 12/12/12.
-//  Copyright (c) 2012 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
 
-#import "BBSightingNoteEditDescriptionController.h"
-
-/*
+ NOTE:
  Programme flow can get to this VC from two pathways: adding a new description or editing the text of an existing one.
  
  In the first instance, we have a BBSightingNoteDescription which is from the list of allowed descriptions.
  It has meta data allowing it to be grouped, labeled etc on the table of usable descriptions and a key allowing it to be identified.
  
- BBSightingNoteDescriptionCreate is the object that either gets returned from the selection of a description for editing, 
+ BBSightingNoteDescriptionCreate is the object that either gets returned from the selection of a description for editing,
  or gets passed when a previously added description is being updated.
  
  In the first case, we start with a BBSightingNoteDescription selected from the table, we take the identifier value (key) from it,
  the text (value) from the text field entered by the user and create a BBSightingNoteDescriptionCreate object with the Key/Value pair
- which is added to the BBSightingNoteCreate model and passed back to the server. 
- 
- */
+ which is added to the BBSightingNoteCreate model and passed back to the server.
+
+ -----------------------------------------------------------------------------------------------*/
+
+
+#import "BBSightingNoteEditDescriptionController.h"
+#import "BBAppDelegate.h"
+#import "BBHelpers.h"
+#import "BBSightingNoteDescription.h"
+#import "BBSightingNoteDescriptionCreate.h"
+#import "BBCollectionHelper.h"
+#import "BBUIControlHelper.h"
+
+
 @implementation BBSightingNoteEditDescriptionController {
     BBSightingNoteDescription *description;
     BBSightingNoteDescriptionCreate *editDescription;
     BOOL isEdit;
 }
+
+
+#pragma mark -
+#pragma mark - Constructors
+
 
 -(BBSightingNoteEditDescriptionController *)initWithDescription:(BBSightingNoteDescription*)desc {
     [BBLog Log:@"BBSightingNoteEditDescriptionController.initWithDescription:"];
@@ -63,6 +75,11 @@
     
     return self;
 }
+
+
+#pragma mark -
+#pragma mark - Renderers
+
 
 -(void)loadView {
     // create the scroll view with table displaying unselected descriptions
@@ -140,19 +157,24 @@
     self.navigationItem.rightBarButtonItem = cancelButton;
 }
 
-// stop adding/editing this description - triggers return to sighting note add
+
+#pragma mark -
+#pragma mark - Utilities and Helpers
+
+
 -(void)cancelTapped {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"sightingNoteEditDescriptionCancel" object:nil userInfo:nil];
 }
 
-// used when editing or adding to save
 -(void)save {
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithCapacity:1];
     [userInfo setObject:editDescription forKey:@"sightingNoteDescription"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"sightingNoteDescriptionSave" object:self userInfo:userInfo];
 }
 
-- (BOOL) textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+        -(BOOL)textView:(UITextView *)textView
+shouldChangeTextInRange:(NSRange)range
+        replacementText:(NSString *)text {
     if([text isEqualToString:@"\n"]){
         [textView resignFirstResponder];
         return NO;
@@ -160,5 +182,6 @@
         return YES;
     }
 }
+
 
 @end

@@ -1,17 +1,23 @@
-//
-//  BBDateSelectView.m
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 26/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBDateSelectView.h"
+#import "BBHelpers.h"
+#import "BBUIControlHelper.h"
+
 
 @implementation BBDateSelectView
 
+
 @synthesize controller = _controller;
 @synthesize datePicker = _datePicker;
+
 
 -(id)initWithDelegate:(id<BBDatePickerDelegateProtocol>)delegate {
     [BBLog Log:@"BBDateSelectView.initWithDelegate:"];
@@ -83,5 +89,6 @@
         [_controller createdOnStopEdit];
     }
 }
+
 
 @end

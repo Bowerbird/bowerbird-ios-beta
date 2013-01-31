@@ -6,11 +6,13 @@
  
  -----------------------------------------------------------------------------------------------*/
 
+
 #import "BBConstants.h"
+
 
 @implementation BBConstants
 
-// colors
+
 +(NSString *)BlueHexString
 {
     return @"#16255B";
@@ -156,5 +158,6 @@
 +(NSArray*)ranksToQuery {
     return [[NSArray alloc]initWithObjects:@"allranks", @"rank2", @"rank3", @"rank4", @"rank5", @"rank6", @"rank7",  nil];
 }
+
 
 @end

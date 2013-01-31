@@ -1,14 +1,16 @@
-//
-//  BBStreamView.h
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 2/01/13.
-//  Copyright (c) 2013 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "MGScrollView.h"
 #import "BBStreamProtocol.h"
 #import "MGHelpers.h"
+
 
 @interface BBStreamView : MGScrollView
 

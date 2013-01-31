@@ -1,23 +1,22 @@
-//
-//  BBProjectSelectController.h
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 26/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import <Foundation/Foundation.h>
-#import "MGHelpers.h"
-#import "BBHelpers.h"
-#import "BBProjectSelectDelegateProtocol.h"
 #import "BBControllerBase.h"
-#import "BBUIControlHelper.h"
+#import "BBProjectSelectDelegateProtocol.h"
 
-@interface BBProjectSelectController : BBControllerBase <BBProjectSelectDelegateProtocol>
 
--(id)initWithDelegate:(id<BBProjectSelectDelegateProtocol>)delegate;
+@interface BBProjectSelectController : BBControllerBase <
+    BBProjectSelectDelegateProtocol
+>
 
-@property (nonatomic,retain) id controller; // parent controller
+@property (nonatomic,retain) id controller;
 @property (nonatomic,strong) NSArray *projects;
 
 -(NSArray*)getUsersProjects;
@@ -25,5 +24,7 @@
 -(NSArray*)getSightingProjects;
 -(void)addSightingProject:(NSString*)projectId;
 -(void)removeSightingProject:(NSString*)projectId;
+
+-(id)initWithDelegate:(id<BBProjectSelectDelegateProtocol>)delegate;
 
 @end

@@ -6,8 +6,10 @@
  
  -----------------------------------------------------------------------------------------------*/
 
+
 #import <Foundation/Foundation.h>
 #import "BBConstants.h"
+
 
 @interface BBCookieHelper : NSObject
 
@@ -18,5 +20,6 @@
 + (NSHTTPCookie *) grabCookieForUrl:(NSURL *)url withName:(NSString *) name;
 
 +(void)deleteCookies;
+
 
 @end

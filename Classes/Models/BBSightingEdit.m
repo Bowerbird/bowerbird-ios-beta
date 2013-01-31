@@ -8,6 +8,7 @@
 
 
 #import "BBSightingEdit.h"
+#import "BBMediaEdit.h"
 #import "BBHelpers.h"
 
 

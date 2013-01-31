@@ -1,25 +1,45 @@
-//
-//  BBIdentificationController.m
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 4/12/12.
-//  Copyright (c) 2012 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBCreateSightingNoteController.h"
+#import "BBUIControlHelper.h"
+#import "SVProgressHUD.h"
+#import "BBStyles.h"
+#import "MGHelpers.h"
+#import "BBAppDelegate.h"
+#import "BBCreateSightingNoteView.h"
+#import "BBSightingNoteEditDelegateProtocol.h"
+#import "DWTagList.h"
+#import "BBSightingNoteAddDescriptionController.h"
+#import "BBSightingNoteEditDescriptionController.h"
+#import "BBSightingNoteDescriptionCreate.h"
+#import "BBSightingNoteTagController.h"
 #import "NSString+RKAdditions.h"
+#import "BBSightingNoteEdit.h"
+#import "BBSightingNoteCreate.h"
+#import "BBJsonResponse.h"
+#import "BBClassification.h"
 
-@interface BBCreateSightingNoteController ()
-
-@end
 
 @implementation BBCreateSightingNoteController
+
+
+#pragma mark -
+#pragma mark - Member Accessors
+
 
 @synthesize sightingNote = _sightingNote;
 
 
 #pragma mark -
-#pragma mark - Setup and Render
+#pragma mark - Constructors
+
 
 -(BBCreateSightingNoteController*)initWithSightingId:(NSString*)sightingId {
     self = [super init];
@@ -28,6 +48,11 @@
     
     return self;
 }
+
+
+#pragma mark -
+#pragma mark - Renderers
+
 
 -(void)loadView {
     [BBLog Log:@"BBCreateSightingNoteController.loadView"];
@@ -49,103 +74,10 @@
     ((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController.navigationBarHidden = YES;
 }
 
-#pragma mark -
-#pragma mark - Protocol Impementations
-
--(void)objectLoaderDidLoadUnexpectedResponse:(RKObjectLoader *)objectLoader {
-    [BBLog Log:@"BBCreateSightingNoteController.objectDidLoadUnexpectedResponse:"];
-    
-    [BBLog Log:objectLoader.response.bodyAsString];
-}
-
--(void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
-    [BBLog Log:@"BBCreateSightingNoteController.objectLoaderDidFailWithError:"];
-    
-    [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-}
-
--(void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
-    // is it a JsonResponse?
-    if([object isKindOfClass:[BBJsonResponse class]]) {
-        BBJsonResponse *response = (BBJsonResponse*)object;
-        
-        if(response.success) {
-            [SVProgressHUD showSuccessWithStatus:@"Saved"];
-            
-            [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:NO];
-        }
-        else {
-            [SVProgressHUD showSuccessWithStatus:@"Didn't save"];
-        }
-    }
-    
-    [SVProgressHUD showSuccessWithStatus:@"Saved Note!/n(But didn't Map Result)"];
-    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:YES];
-}
-
-// start selecting description to add, finish selecting description to add, add description, remove description
--(void)startAddDescription {
-    // pop up a picker control with list of un-added descriptions
-    NSMutableArray *descriptions = [[NSMutableArray alloc]init];
-    // for each description in current descriptions, find source description object and add to array to exclude on picker screen.'
-    for (NSString* key in _sightingNote.descriptions) {
-        BBSightingNoteDescription *description = [BBSightingNoteDescription getDescriptionByIdentifier:key];
-        [descriptions addObject:description];
-    }
-    
-    BBSightingNoteAddDescriptionController *sightingNoteAddDescription = [[BBSightingNoteAddDescriptionController alloc]initWithDescriptions:[[NSArray alloc]initWithArray:descriptions]];
-    
-    // descriptions not added yet:
-    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:sightingNoteAddDescription animated:YES];
-    
-}
-
--(void)endAddDescription {
-    // hide picker popup but add selected item to view for filling in value
-}
-
-// add key/value description pair to the model's description dictionary
--(void)addDescription:(BBSightingNoteDescription *)description {
-    //[_sightingNote.descriptions setObject:description.text forKey:description.label];
-}
-
--(void)editDescription:(BBSightingNoteDescriptionCreate *)description {
-    [BBLog Log:@"BBSightingEditController.editDescription:"];
-    
-    BBSightingNoteEditDescriptionController *sightingNoteEditDescription = [[BBSightingNoteEditDescriptionController alloc]initWithDescriptionEdit:description];
-    
-    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:sightingNoteEditDescription animated:YES];
-}
-
--(void)removeDescription:(BBSightingNoteDescription *)description {
-    // TODO:
-}
-
--(void)startAddTag {
-    BBSightingNoteTagController *tagController = [[BBSightingNoteTagController alloc]initWithDelegate:self];
-    
-    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:tagController animated:YES];
-}
-
--(void)endAddTag {
-    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popToViewController:self animated:YES];
-    
-    [((BBCreateSightingNoteView*)self.view) displayTags];
-}
-
-// add a tag, remove a tag
--(void)addTag:(NSString*)tag {
-    [_sightingNote.tags addObject:tag];
-    // update the View's UI
-}
-
--(void)removeTag:(NSString*)tag {
-    [_sightingNote.tags removeObject:tag];
-    // update the View's UI
-}
 
 #pragma mark -
-#pragma mark - Save or Cancel Observation
+#pragma mark - Utilities and Helpers
+
 
 -(void)save {
     [BBLog Log:@"BBSightingEditController.save"];
@@ -255,8 +187,93 @@
     return nil;
 }
 
+
+
+
+#pragma mark -
+#pragma mark - Delegation and Event Handling
+
+
+-(void)objectLoaderDidLoadUnexpectedResponse:(RKObjectLoader *)objectLoader {
+    [BBLog Log:@"BBCreateSightingNoteController.objectDidLoadUnexpectedResponse:"];
+    
+    [BBLog Log:objectLoader.response.bodyAsString];
+}
+
+-(void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
+    [BBLog Log:@"BBCreateSightingNoteController.objectLoaderDidFailWithError:"];
+    
+    [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+}
+
+-(void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
+    // is it a JsonResponse?
+    if([object isKindOfClass:[BBJsonResponse class]]) {
+        BBJsonResponse *response = (BBJsonResponse*)object;
+        
+        if(response.success) {
+            [SVProgressHUD showSuccessWithStatus:@"Saved"];
+            
+            [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:NO];
+        }
+        else {
+            [SVProgressHUD showSuccessWithStatus:@"Didn't save"];
+        }
+    }
+    
+    [SVProgressHUD showSuccessWithStatus:@"Saved Note!/n(But didn't Map Result)"];
+    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:YES];
+}
+
+// start selecting description to add, finish selecting description to add, add description, remove description
+-(void)startAddDescription {
+    // pop up a picker control with list of un-added descriptions
+    NSMutableArray *descriptions = [[NSMutableArray alloc]init];
+    // for each description in current descriptions, find source description object and add to array to exclude on picker screen.'
+    for (NSString* key in _sightingNote.descriptions) {
+        BBSightingNoteDescription *description = [BBSightingNoteDescription getDescriptionByIdentifier:key];
+        [descriptions addObject:description];
+    }
+    
+    BBSightingNoteAddDescriptionController *sightingNoteAddDescription = [[BBSightingNoteAddDescriptionController alloc]initWithDescriptions:[[NSArray alloc]initWithArray:descriptions]];
+    
+    // descriptions not added yet:
+    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:sightingNoteAddDescription animated:YES];
+    
+}
+
+-(void)editDescription:(BBSightingNoteDescriptionCreate *)description {
+    [BBLog Log:@"BBSightingEditController.editDescription:"];
+    
+    BBSightingNoteEditDescriptionController *sightingNoteEditDescription = [[BBSightingNoteEditDescriptionController alloc]initWithDescriptionEdit:description];
+    
+    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:sightingNoteEditDescription animated:YES];
+}
+
+-(void)startAddTag {
+    BBSightingNoteTagController *tagController = [[BBSightingNoteTagController alloc]initWithDelegate:self];
+    
+    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:tagController animated:YES];
+}
+
+-(void)endAddTag {
+    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popToViewController:self animated:YES];
+    
+    [((BBCreateSightingNoteView*)self.view) displayTags];
+}
+
+-(void)addTag:(NSString*)tag {
+    [_sightingNote.tags addObject:tag];
+}
+
+-(void)removeTag:(NSString*)tag {
+    [_sightingNote.tags removeObject:tag];
+}
+
+
 #pragma mark -
 #pragma mark - Notification Responders
+
 
 -(void)cancelIdentification {
     [self.navigationController popToViewController:self animated:NO];

@@ -1,28 +1,28 @@
-//
-//  BBDateSelectController.h
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 26/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import <Foundation/Foundation.h>
-#import "BBLog.h"
-#import "BBStyles.h"
 #import "BBControllerBase.h"
-#import "BBDateSelectView.h"
 #import "BBDatePickerDelegateProtocol.h"
 
-// as the facilitator of the edit, we only need to pass the updated value back to
-// the parent controller, and close the editing view.
+
+@class BBDateSelectView;
+
+
 @interface BBDateSelectController : BBControllerBase <BBDatePickerDelegateProtocol>
 
-@property (nonatomic,retain) id controller; // parent controller
-@property (nonatomic,strong) BBDateSelectView *dateSelectView; // da view
+@property (nonatomic,retain) id controller;
+@property (nonatomic,strong) BBDateSelectView *dateSelectView;
 
--(id)initWithDelegate:(id<BBDatePickerDelegateProtocol>)delegate; // setup with pointer to parent
+-(id)initWithDelegate:(id<BBDatePickerDelegateProtocol>)delegate;
 -(NSDate*)createdOn;
--(void)updateCreatedOn:(NSDate*)date; // pass new value up to delegate parent controller
--(void)createdOnStopEdit; // we are finished editing so close this form
+-(void)updateCreatedOn:(NSDate*)date;
+-(void)createdOnStopEdit;
 
 @end

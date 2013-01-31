@@ -1,22 +1,35 @@
-//
-//  BBDisplayLocationController.m
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 15/01/13.
-//  Copyright (c) 2013 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBDisplayLocationController.h"
+#import "PDLocation.h"
+#import "MapPoint.h"
+#import "BBSightingDetailController.h"
+#import "BBUIControlHelper.h"
 
-@interface BBDisplayLocationController ()
-
-@end
 
 @implementation BBDisplayLocationController {
     PDLocation *pointLocation;
 }
 
-@synthesize mapView = _mapView, tapGesture = _tapGesture;
+
+#pragma mark -
+#pragma mark - Member Accessors
+
+
+@synthesize mapView = _mapView,
+            tapGesture = _tapGesture;
+
+
+#pragma mark -
+#pragma mark - Constructors
+
 
 -(id)initWithLocation:(PDLocation*)location {
     
@@ -29,8 +42,12 @@
     return self;
 }
 
-- (void)loadView
-{
+
+#pragma mark -
+#pragma mark - Renderers
+
+
+- (void)loadView {
     self.view = [self displayMapInBox];
 }
 
@@ -38,11 +55,15 @@
     ((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController.navigationBarHidden = YES;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+#pragma mark -
+#pragma mark - Utilities and Helpers
+
 
 -(MGBox*)displayMapInBox {
     MGBox *mapBox = [MGBox boxWithSize:CGSizeMake(320, [self screenSize].height/2)];
@@ -84,5 +105,6 @@
     
     return region;
 }
+
 
 @end

@@ -1,19 +1,33 @@
-//
-//  BBStreamController.m
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 9/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
-// for help refer to http://restkit.org/api/master/Classes/RKURL.html
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
 
-#pragma mark - 
-#pragma mark - Using UITableView
 
 #import "BBStreamController.h"
 #import "SVPullToRefresh.h"
+#import "SVProgressHUD.h"
+#import "BBMediaResource.h"
+#import "MGHelpers.h"
+#import "PhotoBox.h"
+#import "BBSightingDetailController.h"
+#import "PhotoBox.h"
+#import "BBUIControlHelper.h"
+#import "BBAppDelegate.h"
+#import "BBStreamView.h"
+#import "BBArrowView.h"
+#import "BBProjectItemController.h"
+#import "BBActivityController.h"
+#import "BBTableViewCell.h"
+#import "BBHelpers.h"
+#import "BBPaginator.h"
+#import "BBActivityPaginator.h"
+#import "BBProjectPaginator.h"
+#import "BBActivity.h"
 
-@class BBStreamProtocol;
 
 @interface BBStreamController()
 
@@ -25,6 +39,7 @@
 
 @end
 
+
 @implementation BBStreamController {
     UIActivityIndicatorView *progress;
     NSString *groupId;
@@ -32,14 +47,21 @@
     MGBox* queriedBox;
 }
 
-@synthesize paginator = _paginator;
-@synthesize scroller = _scroller;
-@synthesize controller = _controller;
-@synthesize streamItemSizesCache = _streamItemSizesCache;
-@synthesize tableView = _tableView;
 
 #pragma mark -
-#pragma mark - Initializers
+#pragma mark - Member Accessors
+
+
+@synthesize paginator = _paginator,
+            scroller = _scroller,
+            controller = _controller,
+            streamItemSizesCache = _streamItemSizesCache,
+            tableView = _tableView;
+
+
+#pragma mark -
+#pragma mark - Constructors
+
 
 -(BBStreamController*)initWithUserAndDelegate:(id<BBStreamProtocol>)delegate {
     [BBLog Log:@"BBStreamController.initWithUserAndDelegate:"];
@@ -189,118 +211,10 @@
     return self;
 }
 
-#pragma mark -
-#pragma mark UITableViewDataSource
-
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    [BBLog Log:@"BBStreamController.numberOfSectionsInTableView:"];
-    return 1;
-}
-
--(NSInteger)tableView:(UITableView *)tableView
-numberOfRowsInSection:(NSInteger)section {
-    [BBLog Log:@"BBStreamController.numberOfRowsInSection:"];
-    return _paginator.items.count;
-}
-
--(UITableViewCell *)tableView:(UITableView *)tableView
-        cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    [BBLog Log:@"tableView:cellForRowAtIndexPath:"];
-    [BBLog Log:[NSString stringWithFormat:@"tableView Cell: %i", indexPath.row]];
-    
-    // Configure the cell...
-    static NSString *sightingIdentifier = @"Sighting";
-    static NSString *noteIdentifier = @"Note";
-    static NSString *projectIdentifier = @"Project";
-    static NSString *postIdentifier = @"Post";
-    static NSString *identificationIdentifier = @"Identification";
-    
-    NSString *identifier = @"Cell";
-    
-    id item = [_paginator.items objectAtIndex:indexPath.row];
-    
-    identifier = sightingIdentifier;
-    if([item isKindOfClass:BBActivity.class]){
-        BBActivity *activity = (BBActivity*)item;
-        if([activity.type isEqualToString:@"sightingadded"])
-        {
-            identifier = sightingIdentifier;
-        }
-        
-        else if([activity.type isEqualToString:@"sightingnoteadded"])
-        {
-            identifier = noteIdentifier;
-        }
-        
-        else if([activity.type isEqualToString:@"identificationadded"])
-        {
-            identifier = identificationIdentifier;
-        }
-        
-        else if([activity.type isEqualToString:@"postadded"])
-        {
-            identifier = postIdentifier;
-        }
-    }
-    else if([item isKindOfClass:BBProject.class]) {
-        identifier = projectIdentifier;
-    }
-    
-    MGBox *box = [self displayStreamItem:item];
-    box.margin = UIEdgeInsetsMake(0, 5, 5, 0);
-    
-    MGBox *wrapper = [MGBox boxWithSize:CGSizeMake(320, box.height + 10)];
-    wrapper.backgroundColor = [UIColor blackColor];
-    [wrapper.boxes addObject:box];
-    [wrapper layout];
-    
-    BBTableViewCell *cell = (BBTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
-    if (cell == nil || (cell.height != wrapper.height)) {
-        cell = [[BBTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-        //cell.userInteractionEnabled = NO;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-       
-        [cell.contentView addSubview:wrapper];
-
-        [cell setNeedsDisplay];
-    });
-    
-    return cell;
-}
-
-    -(CGFloat)tableView:(UITableView *)tableView
-heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    [BBLog Log:@"tableView:heightForRowAtIndexPath:"];
-    [BBLog Log:[NSString stringWithFormat:@"tableView Cell: %i", indexPath.row]];
-    
-    if(![self.streamItemSizesCache objectForKey:[NSString stringWithFormat:@"%i", indexPath.row]]) {
-        
-        MGBox *box = [self displayStreamItem:[[_paginator items] objectAtIndex:[indexPath row]]];
-    
-        queriedBox = box;
-    
-        // add enough size for margins (5 top and bottom) and round off the size to avoid antialaising
-        float boxHeight = (int)(box.height + 10);
-    
-        [self.streamItemSizesCache setObject:[[NSNumber alloc]initWithFloat:boxHeight] forKey:[NSString stringWithFormat:@"%i", indexPath.row]];
-    
-        return boxHeight;
-    }
-    
-    return [((NSNumber*)[self.streamItemSizesCache objectForKey:[NSString stringWithFormat:@"%i", indexPath.row]]) floatValue];
-}
-
--(NSMutableDictionary*)streamItemSizesCache {
-    if(!_streamItemSizesCache) _streamItemSizesCache = [[NSMutableDictionary alloc]init];
-    
-    return _streamItemSizesCache;
-}
 
 #pragma mark -
-#pragma mark - Setup and Render UI and Events
+#pragma mark - Renderers
+
 
 -(void)observeValueForKeyPath:(NSString *)keyPath
                      ofObject:(id)object
@@ -400,8 +314,10 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"menuTapped" object:nil];
 }
 
+
 #pragma mark -
-#pragma mark - Rendering Helpers
+#pragma mark - Utilities and Helpers
+
 
 -(MGBox*)displayStreamItem:(id)item {
     [BBLog Log:@"BBStreamController.displayStreamItem:"];
@@ -435,25 +351,10 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return box;
 }
 
-#pragma mark - 
-#pragma mark - BBPaginationControllerDelegate methods
-
--(void)pagingLoadingComplete {
-    [_tableView.infiniteScrollingView stopAnimating];
-    
-    [SVProgressHUD dismiss];
-}
-
--(void)pageLoadingStarted {
-    [_tableView.infiniteScrollingView startAnimating];
-}
-
--(void)pullToRefreshCompleted {
-    [_tableView.pullToRefreshView stopAnimating];
-}
 
 #pragma mark -
 #pragma mark - UI Helpers
+
 
 -(void)didReceiveMemoryWarning {
     [BBLog Log:@"MEMORY WARNING! - BBStreamController"];
@@ -495,5 +396,137 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     return project;
 }
+
+
+#pragma mark -
+#pragma mark UITableViewDataSource
+
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    [BBLog Log:@"BBStreamController.numberOfSectionsInTableView:"];
+    return 1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView
+numberOfRowsInSection:(NSInteger)section {
+    [BBLog Log:@"BBStreamController.numberOfRowsInSection:"];
+    return _paginator.items.count;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView
+        cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    [BBLog Log:@"tableView:cellForRowAtIndexPath:"];
+    [BBLog Log:[NSString stringWithFormat:@"tableView Cell: %i", indexPath.row]];
+    
+    // Configure the cell...
+    static NSString *sightingIdentifier = @"Sighting";
+    static NSString *noteIdentifier = @"Note";
+    static NSString *projectIdentifier = @"Project";
+    static NSString *postIdentifier = @"Post";
+    static NSString *identificationIdentifier = @"Identification";
+    
+    NSString *identifier = @"Cell";
+    
+    id item = [_paginator.items objectAtIndex:indexPath.row];
+    
+    identifier = sightingIdentifier;
+    if([item isKindOfClass:BBActivity.class]){
+        BBActivity *activity = (BBActivity*)item;
+        if([activity.type isEqualToString:@"sightingadded"])
+        {
+            identifier = sightingIdentifier;
+        }
+        
+        else if([activity.type isEqualToString:@"sightingnoteadded"])
+        {
+            identifier = noteIdentifier;
+        }
+        
+        else if([activity.type isEqualToString:@"identificationadded"])
+        {
+            identifier = identificationIdentifier;
+        }
+        
+        else if([activity.type isEqualToString:@"postadded"])
+        {
+            identifier = postIdentifier;
+        }
+    }
+    else if([item isKindOfClass:BBProject.class]) {
+        identifier = projectIdentifier;
+    }
+    
+    MGBox *box = [self displayStreamItem:item];
+    box.margin = UIEdgeInsetsMake(0, 5, 5, 0);
+    
+    MGBox *wrapper = [MGBox boxWithSize:CGSizeMake(320, box.height + 10)];
+    wrapper.backgroundColor = [UIColor blackColor];
+    [wrapper.boxes addObject:box];
+    [wrapper layout];
+    
+    BBTableViewCell *cell = (BBTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
+    if (cell == nil || (cell.height != wrapper.height)) {
+        cell = [[BBTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        //cell.userInteractionEnabled = NO;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        [cell.contentView addSubview:wrapper];
+        
+        [cell setNeedsDisplay];
+    });
+    
+    return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    [BBLog Log:@"tableView:heightForRowAtIndexPath:"];
+    [BBLog Log:[NSString stringWithFormat:@"tableView Cell: %i", indexPath.row]];
+    
+    if(![self.streamItemSizesCache objectForKey:[NSString stringWithFormat:@"%i", indexPath.row]]) {
+        
+        MGBox *box = [self displayStreamItem:[[_paginator items] objectAtIndex:[indexPath row]]];
+        
+        queriedBox = box;
+        
+        // add enough size for margins (5 top and bottom) and round off the size to avoid antialaising
+        float boxHeight = (int)(box.height + 10);
+        
+        [self.streamItemSizesCache setObject:[[NSNumber alloc]initWithFloat:boxHeight] forKey:[NSString stringWithFormat:@"%i", indexPath.row]];
+        
+        return boxHeight;
+    }
+    
+    return [((NSNumber*)[self.streamItemSizesCache objectForKey:[NSString stringWithFormat:@"%i", indexPath.row]]) floatValue];
+}
+
+-(NSMutableDictionary*)streamItemSizesCache {
+    if(!_streamItemSizesCache) _streamItemSizesCache = [[NSMutableDictionary alloc]init];
+    
+    return _streamItemSizesCache;
+}
+
+
+#pragma mark -
+#pragma mark - Delegates and Event Handling
+
+
+-(void)pagingLoadingComplete {
+    [_tableView.infiniteScrollingView stopAnimating];
+    
+    [SVProgressHUD dismiss];
+}
+
+-(void)pageLoadingStarted {
+    [_tableView.infiniteScrollingView startAnimating];
+}
+
+-(void)pullToRefreshCompleted {
+    [_tableView.pullToRefreshView stopAnimating];
+}
+
 
 @end

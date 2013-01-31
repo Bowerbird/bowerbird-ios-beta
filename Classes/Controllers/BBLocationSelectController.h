@@ -1,20 +1,21 @@
-//
-//  BBLocationSelectController.h
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 26/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
 #import "BBLocationEditDelegateProtocol.h"
-#import "BBLocationSelectView.h"
-#import "BBLog.h"
-#import "BBStyles.h"
 #import "BBControllerBase.h"
-#import "BBMapPoint.h"
-#import "BBLocationSelectView.h"
+
+
+@class BBLocationSelectView;
+
 
 @interface BBLocationSelectController : BBControllerBase <
     BBLocationEditDelegateProtocol
@@ -26,5 +27,6 @@
 @property (nonatomic,strong) BBLocationSelectView *locationSelectView; // da view
 
 -(id)initWithDelegate:(id<BBLocationEditDelegateProtocol>)delegate; // setup with pointer to parent
+
 
 @end

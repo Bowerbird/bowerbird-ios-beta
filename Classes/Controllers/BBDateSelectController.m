@@ -1,17 +1,31 @@
-//
-//  BBDateSelectController.m
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 26/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBDateSelectController.h"
+#import "BBHelpers.h"
+#import "BBDateSelectView.h"
+
 
 @implementation BBDateSelectController
 
-@synthesize controller = _controller;
-@synthesize dateSelectView = _dateSelectView;
+
+#pragma mark -
+#pragma mark - Member Accessors
+
+
+@synthesize controller = _controller,
+            dateSelectView = _dateSelectView;
+
+
+#pragma mark -
+#pragma mark - Constructors
+
 
 -(id)initWithDelegate:(id<BBDatePickerDelegateProtocol>)delegate {
     [BBLog Log:@"BBDateSelectController.initWithDelegate"];
@@ -25,11 +39,21 @@
     return self;
 }
 
+
+#pragma mark -
+#pragma mark - Rendering
+
+
 -(void)loadView {
     [BBLog Log:@"BBDateSelectController.loadView"];
     
     self.view = self.dateSelectView;
 }
+
+
+#pragma mark -
+#pragma mark - Delegation and Event Handling
+
 
 -(NSDate*)createdOn {
     [BBLog Log:@"BBDateSelectController.createdOn"];
@@ -54,5 +78,6 @@
     }
     else [BBLog Log:@"LOGIC ERROR: BBObservationEditController does not respond to createdOnStopEdit"];
 }
+
 
 @end

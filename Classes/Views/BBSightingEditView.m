@@ -1,36 +1,48 @@
-//
-//  BBObservationView.m
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 22/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBSightingEditView.h"
+#import "BBProject.h"
+#import "CoolMGButton.h"
+#import "PhotoBox.h"
+#import "UIView+MGEasyFrame.h"
+#import "BBGuidGenerator.h"
+#import "BBMediaEdit.h"
+#import "BBSightingEditView.h"
+#import "BBMediaResource.h"
+
 
 @implementation BBSightingEditView 
 
-@synthesize controller = _controller;
-@synthesize categoryPickerView = _categoryPickerView;
-@synthesize titleTextField = _titleTextField;
-@synthesize locationLabel = _locationLabel;
-@synthesize projectPickerView = _projectPickerView;
-@synthesize addMediaButton = _addMediaButton;
-@synthesize changeLocationButton = _changeLocationButton;
-@synthesize observedOnLabel = _observedOnLabel;
-@synthesize categoryLabel = _categoryLabel;
-@synthesize mediaBox = _mediaBox;
 
-@synthesize titleTable = _titleTable,
+@synthesize controller = _controller,
+            categoryPickerView = _categoryPickerView,
+            titleTextField = _titleTextField,
+            locationLabel = _locationLabel,
+            projectPickerView = _projectPickerView,
+            addMediaButton = _addMediaButton,
+            changeLocationButton = _changeLocationButton,
+            observedOnLabel = _observedOnLabel,
+            categoryLabel = _categoryLabel,
+            mediaBox = _mediaBox,
+            titleTable = _titleTable,
             mediaTable = _mediaTable,
-       observedOnTable = _observedOnTable,
-         locationTable = _locationTable,
-         categoryTable = _categoryTable,
-         projectsTable = _projectsTable,
-           actionTable = _actionTable;
+            observedOnTable = _observedOnTable,
+            locationTable = _locationTable,
+            categoryTable = _categoryTable,
+            projectsTable = _projectsTable,
+            actionTable = _actionTable;
+
 
 #pragma mark -
-#pragma mark - Setup and Config
+#pragma mark - Constructors
+
 
 -(BBSightingEditView*)initWithDelegate:(id<BBSightingEditDelegateProtocol>)delegate asObservation:(BOOL)isObservation {
     [BBLog Log:@"BBSightingEditView.initWithMedia:andDelegate:"];

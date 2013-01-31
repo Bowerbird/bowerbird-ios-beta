@@ -1,19 +1,19 @@
-//
-//  BBHeaderView.m
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 4/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBUserHeadingView.h"
 
+
 @implementation BBUserHeadingView 
 
-@synthesize headingLabel =_headingLabel;
 
-#pragma mark -
-#pragma mark - Factories
+@synthesize headingLabel =_headingLabel;
 
 
 -(void)setHeadingText:(NSString *)heading{
@@ -23,8 +23,7 @@
 }
 
 -(BBUserHeadingView *)initWithSize:(CGSize)size
-                     andTitle:(NSString *)title
-{    
+                     andTitle:(NSString *)title {
     [BBLog Log:@"BBHeaderView.initWithSize:andTitle:"];
     
     self = [BBUserHeadingView boxWithSize:size];
@@ -57,16 +56,15 @@
     return self;
 }
 
--(void)menuTapped
-{
+-(void)menuTapped {
     [BBLog Log:@"BBHeaderView.menuTapped"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"menuTapped" object:nil];
 }
 
--(void)actionTapped
-{
+-(void)actionTapped {
     [BBLog Log:@"BBHeaderView.actionTapped"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"actionTapped" object:nil];
 }
+
 
 @end

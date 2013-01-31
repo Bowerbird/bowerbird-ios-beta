@@ -1,12 +1,14 @@
-//
-//  BBArrowView.m
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 9/01/13.
-//  Copyright (c) 2013 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBArrowView.h"
+
 
 @implementation BBArrowView {
     BBArrowType arrowDirection;
@@ -15,11 +17,11 @@
     double height, width;
 }
 
+
 - (id)initWithFrame:(CGRect)frame
        andDirection:(BBArrowType)direction
      andArrowColour:(UIColor*)colour
-        andBgColour:(UIColor*)bgColour
-{
+        andBgColour:(UIColor*)bgColour {
     self = [super initWithFrame:frame];
     
     if (self) {
@@ -33,8 +35,7 @@
     return self;
 }
 
-- (void)drawRect:(CGRect)rect
-{
+- (void)drawRect:(CGRect)rect {
     context = UIGraphicsGetCurrentContext();
 
     CGContextBeginPath(context);
@@ -63,5 +64,6 @@
             break;
     }
 }
+
 
 @end

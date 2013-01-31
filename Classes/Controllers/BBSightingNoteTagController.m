@@ -1,16 +1,15 @@
-//
-//  BBSightingNoteTagController.m
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 17/12/12.
-//  Copyright (c) 2012 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBSightingNoteTagController.h"
+#import "BBUIControlHelper.h"
 
-@interface BBSightingNoteTagController ()
-
-@end
 
 @implementation BBSightingNoteTagController {
     UITextField *tagTextField;
@@ -19,7 +18,17 @@
     MGTableBoxStyled *tagInstructionBox;
 }
 
+
+#pragma mark -
+#pragma mark - Member Accessors
+
+
 @synthesize controller = _controller;
+
+
+#pragma mark -
+#pragma mark - Constructors
+
 
 -(BBSightingNoteTagController*)initWithDelegate:(id<BBSightingNoteEditDelegateProtocol>)delegate {
     self = [super init];
@@ -28,6 +37,11 @@
     
     return self;
 }
+
+
+#pragma mark -
+#pragma mark - Renderers
+
 
 -(void)loadView {
     // create the scroll view with table displaying unselected descriptions
@@ -83,6 +97,25 @@
     [(MGScrollView*)self.view layout];
 }
 
+-(void)viewDidLoad{
+    
+    self.title = @"Add Tags";
+    
+    ((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController.navigationBarHidden = NO;
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle: @"Back"
+                                                                   style: UIBarButtonItemStyleBordered
+                                                                  target: self
+                                                                  action: nil];
+    
+    self.navigationItem.backBarButtonItem = backButton;
+}
+
+
+#pragma mark -
+#pragma mark - Utilities and Helpers
+
+
 -(void)displayTagInstructions {
     MGLine *createTagInstructions = [MGLine multilineWithText:@"Type your tag and click 'Create'. Tap tag to remove."
                                                          font:HEADER_FONT
@@ -129,39 +162,18 @@
     // calling method must then call layout on this view
 }
 
-- (void)selectedTag:(NSString*)tagName {
+-(void)selectedTag:(NSString*)tagName {
     [_controller removeTag:tagName];
     
     [self displayTagCloud];
 }
 
--(void)viewDidLoad{
-    
-    self.title = @"Add Tags";
-    
-    ((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController.navigationBarHidden = NO;
-    
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle: @"Back"
-                                                                   style: UIBarButtonItemStyleBordered
-                                                                  target: self
-                                                                  action: nil];
-    
-    self.navigationItem.backBarButtonItem = backButton;
-    /*
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle: @"Cancel"
-                                                                     style: UIBarButtonItemStyleBordered
-                                                                    target: self
-                                                                    action:@selector(cancelTapped)];
-    
-    self.navigationItem.rightBarButtonItem = cancelButton;
-     */
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
     // Hide keyboard.
     [textField resignFirstResponder];
     
     return YES;
 }
+
 
 @end

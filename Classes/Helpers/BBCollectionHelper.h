@@ -6,15 +6,19 @@
  
  -----------------------------------------------------------------------------------------------*/
 
+
 #import <Foundation/Foundation.h>
 #import "BBImage.h"
 #import "BBApplication.h"
 #import "BBProject.h"
 #import "BBSightingNoteDescription.h"
 
+
 @class BBProject;
 
+
 @interface BBCollectionHelper : NSObject
+
 
 +(NSArray*)populateArrayFromDictionary:(NSDictionary*)dictionary;
 
@@ -25,5 +29,6 @@
 +(BBProject*)getUserProjectById:(NSString*)identifier;
 
 +(NSArray*)getObjectsFromCollection:(NSArray*)array withKeyName:(NSString*)key equalToValue:(NSString*)val;
+
 
 @end

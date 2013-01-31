@@ -1,17 +1,22 @@
-//
-//  BBClassificationController.m
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 3/12/12.
-//  Copyright (c) 2012 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBClassificationBrowseController.h"
+#import "BBClassificationSelector.h"
+#import "BBClassificationPaginator.h"
+#import "BBRankBrowser.h"
+#import "BBClassification.h"
+
 
 @implementation UINavigationBar (custom)
 
-- (UINavigationItem *)popNavigationItemAnimated:(BOOL)animated;
-{
+-(UINavigationItem *)popNavigationItemAnimated:(BOOL)animated {
     BBAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     
     [delegate.navController popViewControllerAnimated:NO];
@@ -29,7 +34,11 @@
     BOOL isCustom;
 }
 
-// do a first pass to load the first level ranks
+
+#pragma mark -
+#pragma mark - Constructors
+
+
 -(id)init {
     [BBLog Log:@"BBClassificationBrowseController.init"];
  
@@ -40,8 +49,7 @@
     return self;
 }
 
-
--(BBClassificationBrowseController*)initWithClassification:(BBClassificationSelector*)classification
+-(id)initWithClassification:(BBClassificationSelector*)classification
                                                   asCustom:(BOOL)custom {
     [BBLog Log:@"BBClassificationBrowseController.initWithIdentification"];
     
@@ -52,6 +60,10 @@
     
     return self;
 }
+
+
+#pragma mark -
+#pragma mark - Renderers
 
 
 -(void)loadView {
@@ -67,7 +79,6 @@
     
     ((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController.navigationBarHidden = NO;
 }
-
 
 -(void)viewDidLoad {
     UIBarButtonItem *btnCancel = [[UIBarButtonItem alloc]
@@ -94,6 +105,10 @@
 }
 
 
+#pragma mark -
+#pragma mark - Utilities and Helpers
+
+
 -(void)cancelClicked {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"cancelIdentification" object:nil userInfo:nil];
 }
@@ -117,7 +132,6 @@
     [manager loadObjectsAtResourcePath:sightingUrl delegate:self];
 }
 
-
 -(void)displayCurrentClassification {
     [BBLog Log:@"BBClassificationBrowseController.displayCurrentClassification"];
     
@@ -125,7 +139,6 @@
     
     
 }
-
 
 -(void)displayRankSelector:(NSArray *)ranks {
     [BBLog Log:@"BBClassificationBrowseController.displayRankSelector"];
@@ -150,7 +163,6 @@
     return currentIdentification.currentClassification;
 }
 
-
 -(void)loadNextRankForClassification:(BBClassification*)classification {
     [BBLog Log:@"BBClassificationBrowseController.loadNextRank"];
     
@@ -161,7 +173,6 @@
     
     [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:nextClassificationBrowseController animated:NO];
 }
-
 
 -(void)setSelectedClassification:(BBClassification*)classification {
     //currentIdentification.currentClassification = classification;
@@ -176,7 +187,8 @@
 #pragma mark - Delegation and Event Handling
 
 
-- (void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
+-(void)objectLoader:(RKObjectLoader *)objectLoader
+   didFailWithError:(NSError *)error {
     [BBLog Log:@"BBClassificationBrowseController.objectLoader:didFailWithError"];
     
     [BBLog Log:error.description];
@@ -184,8 +196,8 @@
     [SVProgressHUD showErrorWithStatus:error.description];
 }
 
-
--(void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
+-(void)objectLoader:(RKObjectLoader *)objectLoader
+      didLoadObject:(id)object {
     [BBLog Log:@"BBClassificationBrowseController.objectLoader:didLoadObject"];
     
     BBRankBrowser* view = (BBRankBrowser*)self.view;
@@ -198,10 +210,11 @@
     [SVProgressHUD dismiss];
 }
 
-
-- (void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjectDictionary:(NSDictionary *)dictionary {
+    -(void)objectLoader:(RKObjectLoader *)objectLoader
+didLoadObjectDictionary:(NSDictionary *)dictionary {
     [BBLog Log:@"BBClassificationBrowseController.didLoadObjectDictionary"];
 
 }
+
 
 @end

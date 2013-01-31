@@ -1,31 +1,17 @@
-//
-//  BBSightingController.h
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 17/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
-#import <RestKit/RKRequestSerialization.h>
+#import <RestKit/RestKit.h>
 #import "BBControllerBase.h"
-#import "BBActivity.h"
-#import "MGHelpers.h"
-#import "PhotoBox.h"
-#import "BBUIControlHelper.h"
-#import "MBProgressHUD.h"
-#import "BBCreateSightingNoteController.h"
-#import "BBIdentifySightingController.h"
-#import "DWTagList.h"
-#import "BBArrowView.h"
-#import "PDLocation.h"
-#import "MapPoint.h"
-#import "BBDisplayLocationController.h"
-#import "BBDisplayFullImageController.h"
-#import "SVProgressHUD.h"
-#import "BBSubVoteCreate.h"
-#import "BBVoteController.h"
+
 
 @interface BBSightingDetailController : BBControllerBase <
      UIGestureRecognizerDelegate

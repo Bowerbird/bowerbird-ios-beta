@@ -6,10 +6,13 @@
  
  -----------------------------------------------------------------------------------------------*/
 
+
 #import "BBLog.h"
 #import "BBConstants.h"
 
+
 @implementation BBLog
+
 
 +(void)Log:(id)message
 {
@@ -50,5 +53,6 @@
         [BBLog Log:message];
     }
 }
+
 
 @end

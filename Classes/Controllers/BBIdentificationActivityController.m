@@ -1,12 +1,22 @@
-//
-//  BBIdentificationActivityController.m
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 30/01/13.
-//  Copyright (c) 2013 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBIdentificationActivityController.h"
+#import "BBSightingDetailController.h"
+#import "BBImage.h"
+#import "BBActivity.h"
+#import "BBIdentification.h"
+#import "BBUser.h"
+#import "BBMediaResource.h"
+#import "BBObservation.h"
+#import "BBUIControlHelper.h"
+
 
 @interface BBIdentificationActivityController ()
 
@@ -14,7 +24,13 @@
 
 @end
 
+
 @implementation BBIdentificationActivityController
+
+
+#pragma mark -
+#pragma mark - Constructors
+
 
 - (id)initWithIdentificationActivity:(BBActivity*)activity
 {
@@ -24,6 +40,11 @@
     }
     return self;
 }
+
+
+#pragma mark -
+#pragma mark - Renderers
+
 
 -(void)loadView {
     self.view = [self render];
@@ -35,12 +56,16 @@
 	// Do any additional setup after loading the view.
 }
 
+
+#pragma mark -
+#pragma mark - Utilities and Helpers
+
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 -(MGBox*)render {
     [BBLog Log:@"BBStreamController.renderSightingIdentification"];
@@ -105,5 +130,6 @@
     
     return info;
 }
+
 
 @end

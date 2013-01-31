@@ -1,17 +1,19 @@
-//
-//  BBCreateSightingNoteView.h
-//  BowerBird Beta
-//
-//  Created by Hamish Crittenden on 7/12/12.
-//  Copyright (c) 2012 Museum Victoria. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import <Foundation/Foundation.h>
 #import "BBSightingNoteEditDelegateProtocol.h"
-#import "BBUIControlHelper.h"
 #import "MGHelpers.h"
-#import "BBClassification.h"
-#import "DWTagList.h"
+
+
+@class BBClassification;
+
 
 @interface BBCreateSightingNoteView : MGScrollView
 

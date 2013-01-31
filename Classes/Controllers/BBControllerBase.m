@@ -1,14 +1,26 @@
-//
-//  BBControllerBase.m
-//  BowerBird
-//
-//  Created by Hamish Crittenden on 9/10/12.
-//  Copyright (c) 2012 BowerBird. All rights reserved.
-//
+/*-----------------------------------------------------------------------------------------------
+ 
+ BowerBird V1 - Licensed under MIT 1.1 Public License
+ Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
+ Project Manager: Ken Walker : kwalker@museum.vic.gov.au
+ 
+ -----------------------------------------------------------------------------------------------*/
+
 
 #import "BBControllerBase.h"
+#import "BBHelpers.h"
+#import "MGHelpers.h"
+#import "BBAppDelegate.h"
+#import "BBImage.h"
+#import "BBProject.h"
+#import "BBArrowView.h"
+
 
 @implementation BBControllerBase
+
+
+#pragma mark -
+#pragma mark - Utilities and Helpers
 
 -(BBImage*)getImageWithDimension:(NSString*)dimensionName fromArrayOf:(NSArray*)images {
     [BBLog Log:@"BBControllerBase.getImageWithDimension:fromArrayOf:"];
@@ -26,7 +38,6 @@
     return img;
 }
 
-
 -(BBProject*)getProjectWithIdentifier:(NSString *)identifier fromArrayOf:(NSArray *)projects{
     [BBLog Log:@"BBControllerBase.getProjectWithIdentifier:fromArrayOf:"];
     
@@ -43,11 +54,9 @@
     return project;
 }
 
-
 -(CGSize)screenSize {
     return [UIScreen mainScreen].bounds.size;
 }
-
 
 -(UIColor*)backgroundColor {
     return [UIColor colorWithRed:0.74 green:0.74 blue:0.75 alpha:1];
@@ -64,5 +73,6 @@
     
     return arrowWrapper;
 }
+
 
 @end

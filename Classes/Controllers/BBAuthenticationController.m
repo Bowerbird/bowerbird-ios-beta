@@ -4,6 +4,10 @@
  Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
+ NOTE:
+ 
+ Determines if the user has a cookie. If so, loads the users profile, if not, redirects to login.
+ 
  -----------------------------------------------------------------------------------------------*/
 
 

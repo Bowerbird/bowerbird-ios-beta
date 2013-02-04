@@ -4,6 +4,11 @@
  Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
+ NOTE:
+ 
+ Navigate down through the taxanomic ranks to find an identification. ID will be selectable 
+ once it has a definitive category.
+ 
  -----------------------------------------------------------------------------------------------*/
 
 

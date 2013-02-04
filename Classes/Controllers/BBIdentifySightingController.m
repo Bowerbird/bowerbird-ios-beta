@@ -4,6 +4,11 @@
  Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
+ NOTE:
+ 
+ Container VC to create an identification for a contribution. Can branch from this controller 
+ to a Browse screen or a Search screen which queries the API species list
+ 
  -----------------------------------------------------------------------------------------------*/
 
 

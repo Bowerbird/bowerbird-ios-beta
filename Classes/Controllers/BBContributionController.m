@@ -4,6 +4,11 @@
  Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
+ NOTE: 
+ 
+ This is the container for starting a contribution either from library, camera or as a media-less
+ Record. This decouples the Action VC from the CreateSighting VC.
+ 
  -----------------------------------------------------------------------------------------------*/
 
 

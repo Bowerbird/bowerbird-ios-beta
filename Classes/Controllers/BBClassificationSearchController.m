@@ -4,6 +4,11 @@
  Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
+ NOTE: 
+ 
+ Search the known taxanomic ranks by scientific and common names to provide 50 results to select
+ an identification from
+ 
  -----------------------------------------------------------------------------------------------*/
 
 

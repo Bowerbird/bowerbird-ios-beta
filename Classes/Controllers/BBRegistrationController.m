@@ -4,6 +4,10 @@
  Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
+ NOTE:
+ 
+ Allows non-members to sign up. Also processes a secondary authentication.
+ 
  -----------------------------------------------------------------------------------------------*/
 
 
@@ -170,6 +174,8 @@
     [params setObject:@"XMLHttpRequest" forKey:@"X-Requested-With"];
     
     [[RKClient sharedClient] post:@"/account/register" params:params delegate:self];
+    
+    [SVProgressHUD showWithStatus:@"Processing your registration \nThis may take a few moments"];
 }
 
 -(void)cancelRegisterUser {
@@ -270,6 +276,8 @@
         {
             [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"%@?%@",[BBConstants AuthenticatedUserProfileUrl], [BBConstants AjaxQuerystring]]
                                                               delegate:self];
+            
+            [SVProgressHUD showWithStatus:@"Loading your new profile"];
         }
     }
 }
@@ -308,6 +316,8 @@
         
         [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"%@?%@",[BBConstants AuthenticatedUserProfileUrl], [BBConstants AjaxQuerystring]]
                                                           delegate:self];
+        
+        [SVProgressHUD showWithStatus:@"Loading your new profile"];
     }
     
     if([object isKindOfClass:[BBAuthenticatedUser class]])
@@ -324,6 +334,8 @@
 -(void)objectLoader:(RKObjectLoader *)objectLoader
    didFailWithError:(NSError *)error {
     [BBLog Error:[NSString stringWithFormat:@"%@%@", @"BBLoginController.objectLoader:didFailWithError:", [error localizedDescription]]];
+    
+    [SVProgressHUD showErrorWithStatus:error.localizedDescription];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -5,17 +5,21 @@
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
 
  NOTE:
- Programme flow can get to this VC from two pathways: adding a new description or editing the text of an existing one.
+ Programme flow can get to this VC from two pathways: adding a new description or editing the text 
+ of an existing one.
  
- In the first instance, we have a BBSightingNoteDescription which is from the list of allowed descriptions.
- It has meta data allowing it to be grouped, labeled etc on the table of usable descriptions and a key allowing it to be identified.
+ In the first instance, we have a BBSightingNoteDescription which is from the list of allowed 
+ descriptions. It has meta data allowing it to be grouped, labeled etc on the table of usable 
+ descriptions and a key allowing it to be identified.
  
- BBSightingNoteDescriptionCreate is the object that either gets returned from the selection of a description for editing,
+ BBSightingNoteDescriptionCreate is the object that either gets returned from the selection of a 
+ description for editing,
  or gets passed when a previously added description is being updated.
  
- In the first case, we start with a BBSightingNoteDescription selected from the table, we take the identifier value (key) from it,
- the text (value) from the text field entered by the user and create a BBSightingNoteDescriptionCreate object with the Key/Value pair
- which is added to the BBSightingNoteCreate model and passed back to the server.
+ In the first case, we start with a BBSightingNoteDescription selected from the table, we take 
+ the identifier value (key) from it, the text (value) from the text field entered by the user 
+ and create a BBSightingNoteDescriptionCreate object with the Key/Value pair which is added to 
+ the BBSightingNoteCreate model and passed back to the server.
 
  -----------------------------------------------------------------------------------------------*/
 

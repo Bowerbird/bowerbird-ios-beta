@@ -4,6 +4,10 @@
  Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
+ NOTE:
+ 
+ This is unused but is a placeholder for functionality to manipulate a location on a map
+ 
  -----------------------------------------------------------------------------------------------*/
 
 

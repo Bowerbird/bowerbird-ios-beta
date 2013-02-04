@@ -4,6 +4,10 @@
  Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
+ NOTE:
+ 
+ The Superclass of all VCs that are of ViewController type. Contains common helper methods
+ 
  -----------------------------------------------------------------------------------------------*/
 
 

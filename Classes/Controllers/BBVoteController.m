@@ -4,6 +4,11 @@
  Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
+ NOTE:
+ 
+ Allow the user to vote on a contribution. Voting is up, down or nothing - (+1, 0, -1) and alter
+ the user's vote for a particular contribution accordingly
+ 
  -----------------------------------------------------------------------------------------------*/
 
 

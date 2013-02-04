@@ -4,6 +4,10 @@
  Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
+ NOTE:
+ 
+ Exists as a wrapper to contain all VCs with Logged in context such as menu, stream and heading
+ 
  -----------------------------------------------------------------------------------------------*/
 
 

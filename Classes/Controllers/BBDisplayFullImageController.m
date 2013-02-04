@@ -4,6 +4,10 @@
  Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
+ NOTE:
+ 
+ View a full screen, full size image of the sighting's original photo
+ 
  -----------------------------------------------------------------------------------------------*/
 
 

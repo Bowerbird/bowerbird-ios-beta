@@ -4,6 +4,10 @@
  Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
+ NOTE:
+ 
+ Allows a user to choose projects they are a member of to add to a created sighting
+ 
  -----------------------------------------------------------------------------------------------*/
 
 

@@ -4,6 +4,10 @@
  Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
+ NOTE:
+ 
+ This provides a custom selector to choose a category by displaying the icon and name
+ 
  -----------------------------------------------------------------------------------------------*/
 
 

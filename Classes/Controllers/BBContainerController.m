@@ -4,6 +4,10 @@
  Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
+ NOTE:
+ 
+ This is the lowest level container. All VCs load into this - menu, heading, home, stream etc
+ 
  -----------------------------------------------------------------------------------------------*/
 
 

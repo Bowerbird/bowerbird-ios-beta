@@ -4,6 +4,14 @@
  Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
+ NOTE:
+ 
+ Prompts a user to start adding a contribution by selecting an image from the camera or library.
+ 
+ There is provision for a Record without media which has been implemented in the App but not on
+ the web client. This can quite easily be effected by un-commenting the code on line 103:
+ //[actionView.boxes addObject:record];
+ 
  -----------------------------------------------------------------------------------------------*/
 
 

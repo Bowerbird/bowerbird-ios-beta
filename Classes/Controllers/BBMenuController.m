@@ -4,6 +4,10 @@
  Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
+ NOTE:
+ 
+ Displays swipe-able Menu of user's Projects, favourites, home, project browser and logout
+ 
  -----------------------------------------------------------------------------------------------*/
 
 

@@ -4,6 +4,11 @@
  Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
+ NOTE:
+ 
+ High-level routing VC to display an activity in a stream. Passes based on Activity Type to a
+ more specialised controller - Sighting, SightingNote, Identification or Post.
+ 
  -----------------------------------------------------------------------------------------------*/
 
 

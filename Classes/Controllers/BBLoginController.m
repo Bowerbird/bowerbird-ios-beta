@@ -4,6 +4,10 @@
  Developers: Frank Radocaj : frank@radocaj.com, Hamish Crittenden : hamish.crittenden@gmail.com
  Project Manager: Ken Walker : kwalker@museum.vic.gov.au
  
+ NOTE:
+ 
+ Provides a form to enable user to enter their email and password and log in to the system
+ 
  -----------------------------------------------------------------------------------------------*/
 
 
@@ -132,6 +136,8 @@
     
     [BBLog Log:[NSString stringWithFormat:@"Attempting login with email: %@ and password %@", email, password]];
     
+    [SVProgressHUD showWithStatus:@"Authenticating"];
+    
     NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
     
     [params setObject:email forKey:@"email"];
@@ -239,6 +245,8 @@
         {
             [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"%@?%@",[BBConstants AuthenticatedUserProfileUrl], [BBConstants AjaxQuerystring]]
                                                               delegate:self];
+            
+            [SVProgressHUD showWithStatus:@"Loading your profile"];
         }
     }
 }
@@ -257,6 +265,8 @@
         if([mappedObject isKindOfClass:[BBAuthenticatedUser class]])
         {
             authenticatedUser = (BBAuthenticatedUser*)mappedObject;
+            
+            [SVProgressHUD showSuccessWithStatus:@"Profile Loaded"];
         }
     }
 }

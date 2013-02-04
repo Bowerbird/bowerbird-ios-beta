@@ -11,12 +11,14 @@
 #import <MapKit/MapKit.h>
 #import <RestKit/RestKit.h>
 #import "BBControllerBase.h"
+#import "LBYouTubePlayerController.h"
 
 
 @interface BBSightingDetailController : BBControllerBase <
      UIGestureRecognizerDelegate
     ,MKMapViewDelegate
     ,RKObjectLoaderDelegate
+    ,LBYouTubePlayerControllerDelegate
 >
 
 @property (weak, nonatomic) MKMapView *mapView;

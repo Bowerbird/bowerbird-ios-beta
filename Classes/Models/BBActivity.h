@@ -29,6 +29,7 @@
 @property (nonatomic,retain) BBObservation* identificationObservation;
 @property (nonatomic,retain) BBIdentification* identification;
 @property (nonatomic,retain) NSSet* groups;
+@property (nonatomic,retain) NSString* deleted;
 
 
 @end

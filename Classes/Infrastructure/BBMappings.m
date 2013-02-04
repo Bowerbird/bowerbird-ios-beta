@@ -15,6 +15,29 @@
 
 +(void)mappingsForRKManager:(RKObjectManager*)manager
 {
+    
+    RKObjectMapping *audioMapping = [RKObjectMapping mappingForClass:[BBAudio class]];
+    audioMapping.forceCollectionMapping = YES;
+    [audioMapping mapKeyOfNestedDictionaryToAttribute:@"dimensionName"];
+    [audioMapping mapKeyPath:@"(dimensionName).Uri" toAttribute:@"uri"];
+    [audioMapping mapKeyPath:@"(dimensionName).Width" toAttribute:@"width"];
+    [audioMapping mapKeyPath:@"(dimensionName).Height" toAttribute:@"height"];
+    //[videoMapping mapKeyPath:@"(dimensionName).MimeType" toAttribute:@"mimeType"];
+    [manager.mappingProvider setMapping:audioMapping forKeyPath:@"Audio"];
+    [manager.mappingProvider addObjectMapping:audioMapping];
+    
+    
+    RKObjectMapping *videoMapping = [RKObjectMapping mappingForClass:[BBVideo class]];
+    videoMapping.forceCollectionMapping = YES;
+    [videoMapping mapKeyOfNestedDictionaryToAttribute:@"dimensionName"];
+    [videoMapping mapKeyPath:@"(dimensionName).Uri" toAttribute:@"uri"];
+    [videoMapping mapKeyPath:@"(dimensionName).Width" toAttribute:@"width"];
+    [videoMapping mapKeyPath:@"(dimensionName).Height" toAttribute:@"height"];
+    //[videoMapping mapKeyPath:@"(dimensionName).MimeType" toAttribute:@"mimeType"];
+    [manager.mappingProvider setMapping:videoMapping forKeyPath:@"Video"];
+    [manager.mappingProvider addObjectMapping:videoMapping];
+
+    
     RKObjectMapping *imageMapping = [RKObjectMapping mappingForClass:[BBImage class]];
     imageMapping.forceCollectionMapping = YES;
     [imageMapping mapKeyOfNestedDictionaryToAttribute:@"dimensionName"];
@@ -33,6 +56,8 @@
     [mediaResourceMapping mapKeyPath:@"Key" toAttribute:@"key"];
     [mediaResourceMapping mapKeyPath:@"Id" toAttribute:@"identifier"];
     [mediaResourceMapping mapKeyPath:@"Image" toRelationship:@"imageMedia" withMapping:imageMapping];
+    [mediaResourceMapping mapKeyPath:@"Video" toRelationship:@"videoMedia" withMapping:videoMapping];
+    [mediaResourceMapping mapKeyPath:@"Audio" toRelationship:@"audioMedia" withMapping:audioMapping];
     [manager.mappingProvider addObjectMapping:mediaResourceMapping];
     
 
@@ -219,6 +244,7 @@
     [activityMapping mapKeyPath:@"IdentificationAdded.Sighting" toRelationship:@"identificationObservation" withMapping:observationMapping];
     [activityMapping mapKeyPath:@"IdentificationAdded.Identification" toRelationship:@"identification" withMapping:identificationMapping];
     [activityMapping mapKeyPath:@"PostAdded.Post" toRelationship:@"post" withMapping:postMapping];
+    [activityMapping mapKeyPath:@"DeletedActivityItem.Message" toAttribute:@"deleted"];
     [manager.mappingProvider addObjectMapping:activityMapping];
     [manager.mappingProvider setSerializationMapping:activityMapping forClass:[BBActivity class]];
     

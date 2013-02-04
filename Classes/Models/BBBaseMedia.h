@@ -8,14 +8,15 @@
 
 
 #import <Foundation/Foundation.h>
-#import "BBBaseMedia.h"
 
 
-@interface BBImage : BBBaseMedia
+@interface BBBaseMedia : NSObject
 
 
-@property (nonatomic,retain) NSString* mimeType;
-@property (nonatomic,retain) NSMutableDictionary* original;
+@property (nonatomic,retain) NSString* dimensionName;
+@property (nonatomic,retain) NSString* uri;
+@property (nonatomic,retain) NSNumber* width;
+@property (nonatomic,retain) NSNumber* height;
 
 
 @end

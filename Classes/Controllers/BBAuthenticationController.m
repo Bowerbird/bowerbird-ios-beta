@@ -108,7 +108,7 @@
     [authenticationView.boxes addObject:welcomeTable];
     [authenticationView.boxes addObject:loginTable];
     [authenticationView.boxes addObject:registerTable];
-    [authenticationView.boxes addObject:browseTable];
+    //[authenticationView.boxes addObject:browseTable];
     
     [(MGScrollView*)self.view layoutWithSpeed:0.3 completion:nil];
 }

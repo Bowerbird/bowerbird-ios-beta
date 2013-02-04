@@ -11,10 +11,9 @@
 #import "BBBaseMedia.h"
 
 
-@interface BBImage : BBBaseMedia
+@interface BBVideo : BBBaseMedia
 
 
-@property (nonatomic,retain) NSString* mimeType;
 @property (nonatomic,retain) NSMutableDictionary* original;
 
 

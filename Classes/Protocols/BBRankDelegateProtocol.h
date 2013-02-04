@@ -20,4 +20,9 @@
 -(void)loadNextRankForClassification:(BBClassification*)classification;
 -(void)setSelectedClassification:(BBClassification*)classification;
 
+// implemented in ClassificationBrowser
+-(void)displayRanks:(NSArray*)ranks;
+// implemented in ClassificationSearcher
+-(void)displayRanks:(NSArray*)ranks forQuery:(NSString *)query;
+
 @end

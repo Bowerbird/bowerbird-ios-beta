@@ -8,7 +8,7 @@
 
 
 #import "BBContributionController.h"
-#import "BBSightingEditController.h"
+#import "BBCreateSightingController.h"
 #import "BBSightingEditView.h"
 #import "BBSightingEdit.h"
 #import "BBContainerView.h"
@@ -158,7 +158,7 @@
 -(void)showCreateRecord {
     [BBLog Log:@"BBContributionController.showCreateRecord"];
     
-    BBSightingEditController *observationController = [[BBSightingEditController alloc]initAsRecord];
+    BBCreateSightingController *observationController = [[BBCreateSightingController alloc]initAsRecord];
     
     [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:observationController animated:NO];
 }
@@ -172,7 +172,7 @@
     UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
     BBMediaEdit *mediaEdit = [[BBMediaEdit alloc]initWithImage:image];
     
-    BBSightingEditController *observationController = [[BBSightingEditController alloc]initWithMedia:mediaEdit];
+    BBCreateSightingController *observationController = [[BBCreateSightingController alloc]initWithMedia:mediaEdit];
     
     [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:observationController animated:NO];
 }

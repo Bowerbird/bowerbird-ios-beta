@@ -23,6 +23,7 @@
             metaData = _metaData,
             imageMedia = _imageMedia,
             audioMedia = _audioMedia,
+            videoMedia = _videoMedia,
             description = _description,
             licence = _licence,
             key = _key,
@@ -50,6 +51,14 @@
 }
 -(NSUInteger)countOfImageMedia { return [self.imageMedia count]; }
 -(id)objectInImageMediaAtIndex:(NSUInteger)index { return [self.imageMedia objectAtIndex:index]; }
+-(void)setVideoMedia:(NSArray *)videoMedia { _videoMedia = videoMedia; }
+-(NSArray*)videoMedia {
+    if(!_videoMedia)_videoMedia = [[NSArray alloc]init];
+    return _videoMedia;
+}
+-(NSUInteger)countOfVideoMedia { return [self.videoMedia count]; }
+-(id)objectInVideoMediaAtIndex:(NSUInteger)index { return [self.videoMedia objectAtIndex:index]; }
+
 -(void)setAudioMedia:(NSArray *)audioMedia { _audioMedia = audioMedia; }
 -(NSArray*)audioMedia {
     if(!_audioMedia)_audioMedia = [[NSArray alloc]init];

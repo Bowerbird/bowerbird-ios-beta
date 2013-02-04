@@ -84,7 +84,14 @@
     }
     
     else {
-        [BBLog Log:@"ERROR: BBActivityController.loadView has an unidentified activity type"];
+        // activity has been deleted:
+        
+        NSString *message = self.activity.deleted;
+        
+        MGLine *itemDeleted = [MGLine lineWithMultilineLeft:message right:nil width:300 minHeight:40];
+        itemDeleted.leftItemsTextAlignment = NSTextAlignmentCenter;
+        box = [MGBox boxWithSize:itemDeleted.size];
+        [box.boxes addObject:itemDeleted];
     }
     
     self.view = box;

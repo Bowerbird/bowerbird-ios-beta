@@ -7,13 +7,11 @@
  -----------------------------------------------------------------------------------------------*/
 
 #import "BBControllerBase.h"
-#import <RestKit/RestKit.h>
 #import "BBRankDelegateProtocol.h"
 
 
 @interface BBClassificationSearchController : BBControllerBase<
-     RKObjectLoaderDelegate
-    ,BBRankDelegateProtocol
+    BBRankDelegateProtocol
 >
 
 @end

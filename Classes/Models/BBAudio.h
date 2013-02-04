@@ -7,14 +7,11 @@
  -----------------------------------------------------------------------------------------------*/
 
 
-#import <Foundation/Foundation.h>
 #import "BBBaseMedia.h"
 
+@interface BBAudio : BBBaseMedia
 
-@interface BBImage : BBBaseMedia
 
-
-@property (nonatomic,retain) NSString* mimeType;
 @property (nonatomic,retain) NSMutableDictionary* original;
 
 

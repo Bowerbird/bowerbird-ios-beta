@@ -26,6 +26,7 @@
 #import "BBPaginator.h"
 #import "BBActivityPaginator.h"
 #import "BBProjectPaginator.h"
+#import "BBSightingPaginator.h"
 #import "BBActivity.h"
 
 
@@ -84,14 +85,7 @@
         
         // A new RKURL can be constructed by interpolating the dictionary with the original URL
         RKURL *interpolatedURL = [myURL URLByInterpolatingResourcePathWithObject:dictionary];
-        
-        
-        /* // REFACTOR: Moved to the Stream Controller
-         [SVProgressHUD showWithStatus:@"Loading Activity"];
-         [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"%@?%@",[BBConstants ActivityUrl], [BBConstants AjaxQuerystring]]
-         delegate:self];
-         */
-        
+                
         [_paginator addObserver:self forKeyPath:@"items" options:NSKeyValueChangeInsertion context:NULL];
         
         
@@ -199,7 +193,7 @@
         // A new RKURL can be constructed by interpolating the dictionary with the original URL
         RKURL *interpolatedURL = [myURL URLByInterpolatingResourcePathWithObject:dictionary];
         
-        _paginator = [[BBProjectPaginator alloc]initWithPatternURL:interpolatedURL
+        _paginator = [[BBSightingPaginator alloc]initWithPatternURL:interpolatedURL
                                                    mappingProvider:[RKObjectManager sharedManager].mappingProvider
                                                        andDelegate:self];
         
@@ -239,6 +233,8 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.pagingEnabled = YES;
+    
+    _tableView.decelerationRate = 1;
     
     self.view = _tableView;
     self.view.backgroundColor = [UIColor blackColor];
@@ -351,6 +347,13 @@
     return box;
 }
 
+- (void)scrollViewWillEndDragging:(UITableView *)scrollView
+                     withVelocity:(CGPoint)velocity
+              targetContentOffset:(inout CGPoint *)targetContentOffset {
+    NSInteger index = lrintf(targetContentOffset->x/_tableView.height);
+    targetContentOffset->x = index * _tableView.height;
+}
+
 
 #pragma mark -
 #pragma mark - UI Helpers
@@ -361,40 +364,6 @@
     
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
--(BBImage*)getImageWithDimension:(NSString*)dimensionName
-                     fromArrayOf:(NSArray*)images {
-    [BBLog Log:@"BBControllerBase.getImageWithDimension:fromArrayOf:"];
-    
-    __block BBImage *img;
-    [images enumerateObjectsUsingBlock:^(BBImage* obj, NSUInteger idx, BOOL *stop)
-     {
-         if([obj.dimensionName isEqualToString:dimensionName])
-         {
-             img = obj;
-             *stop = YES;
-         }
-     }];
-    
-    return img;
-}
-
--(BBProject*)getProjectWithIdentifier:(NSString *)identifier
-                          fromArrayOf:(NSArray *)projects{
-    [BBLog Log:@"BBControllerBase.getProjectWithIdentifier:fromArrayOf:"];
-    
-    __block BBProject *project;
-    [projects enumerateObjectsUsingBlock:^(BBProject* proj, NSUInteger idx, BOOL *stop)
-     {
-         if([proj.identifier isEqualToString:identifier])
-         {
-             project = proj;
-             *stop = YES;
-         }
-     }];
-    
-    return project;
 }
 
 

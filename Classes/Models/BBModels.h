@@ -10,6 +10,8 @@
 // Domain Models
 
 #import "BBImage.h"
+#import "BBVideo.h"
+#import "BBAudio.h"
 #import "BBMediaResource.h"
 #import "BBMedia.h"
 #import "BBGroup.h"

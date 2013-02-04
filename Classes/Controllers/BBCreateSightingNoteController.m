@@ -80,7 +80,7 @@
 
 
 -(void)save {
-    [BBLog Log:@"BBSightingEditController.save"];
+    [BBLog Log:@"BBCreateSightingController.save"];
     
     if([self validateForm]) {
         [self saveIsValid];
@@ -243,7 +243,7 @@
 }
 
 -(void)editDescription:(BBSightingNoteDescriptionCreate *)description {
-    [BBLog Log:@"BBSightingEditController.editDescription:"];
+    [BBLog Log:@"BBCreateSightingController.editDescription:"];
     
     BBSightingNoteEditDescriptionController *sightingNoteEditDescription = [[BBSightingNoteEditDescriptionController alloc]initWithDescriptionEdit:description];
     

@@ -108,6 +108,7 @@ didLoadObjectDictionary:(NSDictionary *)dictionary {
 
 
 -(void)dealloc {
+    
     [[[RKClient sharedClient] requestQueue] cancelRequestsWithDelegate:(id)self];
 }
 

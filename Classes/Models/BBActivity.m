@@ -29,7 +29,8 @@
             observationNote = _observationNote,
             observationNoteObservation = _observationNoteObservation,
             identificationObservation = _identificationObservation,
-            identification = _identification;
+            identification = _identification,
+            deleted = _deleted;
 
 
 -(void)setIdentifier:(NSString *)identifier { _identifier = identifier; }
@@ -59,6 +60,9 @@
 -(BBIdentification*)identification { return _identification; }
 -(void)setPost:(BBPost *)post { _post = post; }
 -(BBPost*)post { return _post; }
+-(void)setDeleted:(NSString *)deleted { _deleted = deleted; }
+-(NSString*)deleted { return _deleted;}
+
 - (void)setNilValueForKey:(NSString *)theKey { }
 
 

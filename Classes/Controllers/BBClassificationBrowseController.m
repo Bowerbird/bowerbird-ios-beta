@@ -13,7 +13,7 @@
 #import "BBRankBrowser.h"
 #import "BBClassification.h"
 
-
+/*
 @implementation UINavigationBar (custom)
 
 -(UINavigationItem *)popNavigationItemAnimated:(BOOL)animated {
@@ -25,10 +25,11 @@
 }
 
 @end
-
+*/
 
 @implementation BBClassificationBrowseController {
     BBClassificationSelector *currentIdentification;
+    BBClassificationBrowseController *nextClassificationBrowseController;
     MGTableBoxStyled *classificationBrowser;
     MGBox *currentIdentificationBox;
     BOOL isCustom;
@@ -44,19 +45,23 @@
  
     self = [super init];
     
-    currentIdentification = [[BBClassificationSelector alloc]init];
+    if(self){
+        currentIdentification = [[BBClassificationSelector alloc]initWithDelegate:self];
+    }
     
     return self;
 }
 
 -(id)initWithClassification:(BBClassificationSelector*)classification
-                                                  asCustom:(BOOL)custom {
+                   asCustom:(BOOL)custom {
     [BBLog Log:@"BBClassificationBrowseController.initWithIdentification"];
     
     self = [super init];
     
-    currentIdentification = classification;
-    isCustom = custom;
+    if(self){
+        currentIdentification = classification;
+        isCustom = custom;
+    }
     
     return self;
 }
@@ -72,7 +77,7 @@
     self.view = [[BBRankBrowser alloc]initWithDelegate:self];
     self.view.backgroundColor = [self backgroundColor];
     
-    [self getRanks];
+    [currentIdentification getRanks];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -100,7 +105,7 @@
                                    initWithTitle: @"Back"
                                    style: UIBarButtonItemStyleBordered
                                    target: nil action: nil];
-    
+
     [self.navigationItem setBackBarButtonItem: backButton];
 }
 
@@ -113,49 +118,24 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"cancelIdentification" object:nil userInfo:nil];
 }
 
--(void)getRanks {
-    [BBLog Log:@"BBClassificationBrowseController.getNextRank"];
+-(void)displayRanks:(NSArray*)ranks {
     
-    [SVProgressHUD setStatus:@"Loading Species"];
+    BBRankBrowser* view;
     
-    NSString *query;
-    
-    if(currentIdentification.currentClassification) {
-        query = [NSString stringWithFormat:@"query=%@&field=%@", currentIdentification.currentClassification.name, currentIdentification.currentRank];
+    if(nextClassificationBrowseController) {
+        view = (BBRankBrowser*)nextClassificationBrowseController.view;
     }
     else {
-        query = [NSString stringWithFormat:@"query=&field=%@", currentIdentification.currentRank];
+        view = (BBRankBrowser*)self.view;
     }
     
-    NSString *sightingUrl = [NSString stringWithFormat:@"%@/species?%@&%@", [BBConstants RootUriString], query, @"X-Requested-With=XMLHttpRequest"];
-    RKObjectManager *manager = [RKObjectManager sharedManager];
-    [manager loadObjectsAtResourcePath:sightingUrl delegate:self];
-}
-
--(void)displayCurrentClassification {
-    [BBLog Log:@"BBClassificationBrowseController.displayCurrentClassification"];
-    
-    //[((MGTableBoxStyled*)self.view).topLines addObject:[BBUIControlHelper createCurrentClassification:currentIdentification.currentClassification forSize:CGSizeMake(300, 100)]];
-    
-    
-}
-
--(void)displayRankSelector:(NSArray *)ranks {
-    [BBLog Log:@"BBClassificationBrowseController.displayRankSelector"];
-    
-    
+    [view displayRanks:ranks];
 }
 
 
 #pragma mark -
 #pragma mark - Protocol Implementation
 
-
--(void)loadRankForQuery:(NSString*)query {
-    [BBLog Log:@"BBClassificationBrowseController.loadRankForQuery:"];
-    
-    
-}
 
 -(BBClassification*)getCurrentClassification {
     [BBLog Log:@"BBClassificationBrowseController.getCurrentClassification:"];
@@ -166,10 +146,12 @@
 -(void)loadNextRankForClassification:(BBClassification*)classification {
     [BBLog Log:@"BBClassificationBrowseController.loadNextRank"];
     
-    BBClassificationSelector *nextClassificationSelector = [[BBClassificationSelector alloc]initWithClassification:classification andCurrentRank:[currentIdentification getNextRankQuery]];
+    BBClassificationSelector *nextClassificationSelector = [[BBClassificationSelector alloc]initWithClassification:classification
+                                                                                                    andCurrentRank:[currentIdentification getNextRankQuery]
+                                                                                                       andDelegate:self];
     
-    BBClassificationBrowseController *nextClassificationBrowseController = [[BBClassificationBrowseController alloc]initWithClassification:nextClassificationSelector
-                                                                                                                                  asCustom:isCustom];
+    nextClassificationBrowseController = [[BBClassificationBrowseController alloc]initWithClassification:nextClassificationSelector
+                                                                                                asCustom:isCustom];
     
     [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:nextClassificationBrowseController animated:NO];
 }
@@ -180,40 +162,6 @@
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithCapacity:1];
     [userInfo setObject:classification forKey:@"classification"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"identificationSelected" object:self userInfo:userInfo];
-}
-
-
-#pragma mark -
-#pragma mark - Delegation and Event Handling
-
-
--(void)objectLoader:(RKObjectLoader *)objectLoader
-   didFailWithError:(NSError *)error {
-    [BBLog Log:@"BBClassificationBrowseController.objectLoader:didFailWithError"];
-    
-    [BBLog Log:error.description];
-    
-    [SVProgressHUD showErrorWithStatus:error.description];
-}
-
--(void)objectLoader:(RKObjectLoader *)objectLoader
-      didLoadObject:(id)object {
-    [BBLog Log:@"BBClassificationBrowseController.objectLoader:didLoadObject"];
-    
-    BBRankBrowser* view = (BBRankBrowser*)self.view;
-    
-    // this ought to be a BBClassificationPaginator
-    if([object isKindOfClass:[BBClassificationPaginator class]]) {
-        [view displayRanks:((BBClassificationPaginator*)object).ranks];
-    }
-    
-    [SVProgressHUD dismiss];
-}
-
-    -(void)objectLoader:(RKObjectLoader *)objectLoader
-didLoadObjectDictionary:(NSDictionary *)dictionary {
-    [BBLog Log:@"BBClassificationBrowseController.didLoadObjectDictionary"];
-
 }
 
 

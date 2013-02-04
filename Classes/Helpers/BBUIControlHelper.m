@@ -144,7 +144,8 @@
     [BBLog Log:@"BBUIControlHelper.createMediaViewerForMedia:"];
     
     MGBox *mediaViewer = [MGBox boxWithSize:size];
-    mediaViewer.boxLayoutMode = MGLayoutTableStyle;
+    mediaViewer.boxLayoutMode = MGLayoutTableStyle;  
+    
     BBImage *fullSize = [BBCollectionHelper getImageWithDimension:@"Constrained240" fromArrayOf:primaryMedia.mediaResource.imageMedia];
     
     __block MGBox* currentImageBox = [MGBox boxWithSize:CGSizeMake(300, 240)];

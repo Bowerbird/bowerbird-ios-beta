@@ -15,7 +15,9 @@
 @class BBDateSelectView;
 
 
-@interface BBDateSelectController : BBControllerBase <BBDatePickerDelegateProtocol>
+@interface BBDateSelectController : BBControllerBase <
+    BBDatePickerDelegateProtocol
+>
 
 @property (nonatomic,retain) id controller;
 @property (nonatomic,strong) BBDateSelectView *dateSelectView;

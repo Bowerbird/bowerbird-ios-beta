@@ -32,6 +32,12 @@
 #import "BBMedia.h"
 #import "BBIdentification.h"
 #import "BBMediaResource.h"
+#import "BBVideo.h"
+#import "BBAudio.h"
+#import "BBUIMediaHelper.h"
+#import <MediaPlayer/MediaPlayer.h>
+#import <AVFoundation/AVFoundation.h>
+#import "LBYouTubePlayerController.h"
 
 
 static CGRect MapOriginalFrame;
@@ -54,6 +60,7 @@ static CGRect MapFullFrame;
     UIImage *arrow, *back;
     PhotoBox *fullSizeImage;
     id contributionForVoting;
+    AVAudioPlayer *audioPlayer;
 }
 
 
@@ -398,19 +405,47 @@ static CGRect MapFullFrame;
     
     MGBox *mediaWrapperBox = [MGBox box];
     
-    BBImage *fullSize = [BBCollectionHelper getImageWithDimension:@"Constrained240"
-                                                      fromArrayOf:observation.primaryMedia.mediaResource.imageMedia];
-    BBImage *originalSize = [self getImageWithDimension:@"Original"
-                                            fromArrayOf:observation.primaryMedia.mediaResource.imageMedia];
+    BBImage *fullSize, *originalSize;
+    BBVideo *originalVideo;
+    BBAudio *originalAudio;
+    
+    BBMediaType mediaType = [BBUIMediaHelper typeOfMedia:observation.primaryMedia.mediaResource.mediaType];
+    
+    if(mediaType == BBMediaImage) {
+        fullSize = [BBCollectionHelper getImageWithDimension:@"Constrained240" fromArrayOf:observation.primaryMedia.mediaResource.imageMedia];
+        originalSize = [self getImageWithDimension:@"Original" fromArrayOf:observation.primaryMedia.mediaResource.imageMedia];
+    }
+    else if (mediaType == BBMediaVideo) {
+        fullSize = [BBCollectionHelper getImageWithDimension:@"Constrained240" fromArrayOf:observation.primaryMedia.mediaResource.videoMedia];
+        originalVideo = (BBVideo*)[BBUIMediaHelper getMediaOfSize:@"Original" from:observation.primaryMedia.mediaResource.videoMedia];
+    }
+    else if (mediaType == BBMediaAudio){
+        fullSize = [BBCollectionHelper getImageWithDimension:@"Constrained240" fromArrayOf:observation.primaryMedia.mediaResource.audioMedia];
+        originalAudio = (BBAudio*)[BBUIMediaHelper getMediaOfSize:@"Original" from:observation.primaryMedia.mediaResource.audioMedia];
+    }
     
     MGBox* currentImageBox = [MGBox box];
     currentImageBox.width = 300;
-    __block PhotoBox *currentPic = [PhotoBox mediaFor:fullSize.uri size:CGSizeMake(300, 240)];
-    __weak UINavigationController *nav = self.navigationController;
-    currentPic.onTap = ^{
-        BBDisplayFullImageController *fullImageController = [[BBDisplayFullImageController alloc]initWithImage:originalSize];
-        [nav pushViewController:fullImageController animated:NO];
-    };
+    __weak PhotoBox *currentPic = [PhotoBox mediaFor:fullSize.uri size:CGSizeMake(300, 240)];
+    
+    if(mediaType == BBMediaImage){
+        // do this bit if mediaType is an image:
+        __weak UINavigationController *nav = self.navigationController;
+        currentPic.onTap = ^{
+            BBDisplayFullImageController *fullImageController = [[BBDisplayFullImageController alloc]initWithImage:originalSize];
+            [nav pushViewController:fullImageController animated:NO];
+        };
+    }
+    else if(mediaType == BBMediaVideo){
+        currentPic.onTap = ^{
+            [self displayVideoPlayer:originalVideo toReplace:currentPic];
+        };
+    }
+    else if(mediaType == BBMediaAudio){
+        currentPic.onTap = ^{
+            [self displayAudioPlayer:originalAudio toReplace:currentPic];
+        };
+    }
     
     [currentImageBox.boxes addObject:currentPic];
     
@@ -423,11 +458,35 @@ static CGRect MapFullFrame;
     {
         // take the current box out - add the new box
         for (__block BBMedia* m in observation.media) {
-            PhotoBox *thumb = [PhotoBox mediaFor:[self getImageWithDimension:@"Square100" fromArrayOf:m.mediaResource.imageMedia].uri
-                                            size:(CGSizeMake(90, 90))];
-            thumb.onTap = ^{
-                [self displayFullSizeImage:m toReplace:currentPic];
-            };
+            MGBox *thumb;
+            BBMediaType mediaType = [BBUIMediaHelper typeOfMedia:m.mediaResource.mediaType];
+            if(mediaType == BBMediaImage){
+                thumb = [PhotoBox mediaFor:[self getImageWithDimension:@"Square100" fromArrayOf:m.mediaResource.imageMedia].uri
+                                      size:(CGSizeMake(90, 90))];
+                
+                thumb.onTap = ^{
+                    [self displayFullSizeImage:m toReplace:currentPic];
+                };
+            }
+            else if(mediaType == BBMediaVideo){
+                thumb = [PhotoBox mediaFor:[self getImageWithDimension:@"Square100" fromArrayOf:m.mediaResource.videoMedia].uri
+                                      size:(CGSizeMake(90, 90))];
+                
+                thumb.onTap = ^{
+                    BBVideo *vid = (BBVideo*)[BBUIMediaHelper getMediaOfSize:@"Original" from:m.mediaResource.videoMedia];
+                    [self displayVideoPlayer:vid toReplace:currentPic];
+                };
+            }
+            else if (mediaType == BBMediaAudio){
+                thumb = [PhotoBox mediaFor:[self getImageWithDimension:@"Square100" fromArrayOf:m.mediaResource.audioMedia].uri
+                                      size:(CGSizeMake(90, 90))];
+                
+                thumb.onTap = ^{
+                    BBAudio *aud = (BBAudio*)[BBUIMediaHelper getMediaOfSize:@"Original" from:m.mediaResource.audioMedia];
+                    [self displayAudioPlayer:aud toReplace:currentPic];
+                };
+            }
+            
             [thumbs.boxes addObject:thumb];
         }
     }
@@ -471,6 +530,51 @@ static CGRect MapFullFrame;
     MGBox *section = (id)content.parentBox;
     [section.boxes removeAllObjects];
     [section.boxes addObject:fullSizePhoto];
+    
+    [section layoutWithSpeed:0.0 completion:nil];
+}
+
+-(void)displayAudioPlayer:(BBAudio*)audio
+                toReplace:(PhotoBox*)content {
+
+    NSError *error;
+    
+    NSURL *audioUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [BBConstants RootUriString], audio.uri]];
+    
+    NSData *_objectData = [NSData dataWithContentsOfURL:audioUrl];
+    
+    audioPlayer = [[AVAudioPlayer alloc] initWithData:_objectData error:&error];
+    
+    //audioPlayer.numberOfLoops = -1;
+    
+    if (audioPlayer == nil){
+        //NSLog(error.localizedDescription);
+    }
+    else 
+        [audioPlayer play];
+}
+
+-(void)displayVideoPlayer:(BBVideo*)video
+                toReplace:(PhotoBox*)content {
+    
+    //BBVideo *video = (BBVideo*)[BBUIMediaHelper getMediaOfSize:@"Constrained240" from:media.mediaResource.videoMedia];
+    
+    MGBox *videoBox = [MGBox boxWithSize:CGSizeMake(300, 240)];
+    videoBox.margin = UIEdgeInsetsMake(10, 10, 0, 0);
+    
+    __block LBYouTubePlayerController* youtube = [[LBYouTubePlayerController alloc] initWithYouTubeURL:[NSURL URLWithString:video.uri] quality:LBYouTubeVideoQualityLarge];
+    youtube.delegate = self;
+    youtube.view.frame = videoBox.frame;
+    youtube.view.center = videoBox.center;
+    [videoBox addSubview:youtube.view];
+    
+    videoBox.onTap = ^{
+        [youtube play];
+    };
+    
+    MGBox *section = (id)content.parentBox;
+    [section.boxes removeAllObjects];
+    [section.boxes addObject:videoBox];
     
     [section layoutWithSpeed:0.0 completion:nil];
 }
@@ -606,6 +710,17 @@ static CGRect MapFullFrame;
 #pragma mark -
 #pragma mark - Delegation and Event Handling
 
+#pragma mark -
+#pragma mark LBYouTubePlayerViewControllerDelegate
+
+
+-(void)youTubePlayerViewController:(LBYouTubePlayerController *)controller didSuccessfullyExtractYouTubeURL:(NSURL *)videoURL {
+    NSLog(@"Did extract video source:%@", videoURL);
+}
+
+-(void)youTubePlayerViewController:(LBYouTubePlayerController *)controller failedExtractingYouTubeURLWithError:(NSError *)error {
+    NSLog(@"Failed loading video due to error:%@", error);
+}
 
 -(void)handleSwipeRight:(UIGestureRecognizer *)gestureRecognizer {
     [BBLog Log:@"BBSightingDetailController.handleSwipeRight:"];

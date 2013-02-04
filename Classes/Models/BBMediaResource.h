@@ -19,6 +19,7 @@
 @property (nonatomic,retain) NSDictionary* metaData;
 @property (nonatomic,retain) NSArray* imageMedia;
 @property (nonatomic,retain) NSArray* audioMedia;
+@property (nonatomic,retain) NSArray* videoMedia;
 @property (nonatomic,retain) NSString* description;
 @property (nonatomic,retain) NSString* licence;
 @property (nonatomic,retain) NSString* key;

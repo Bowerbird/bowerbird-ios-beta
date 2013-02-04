@@ -8,10 +8,12 @@
 
 
 #import <Foundation/Foundation.h>
+#import <RestKit/RestKit.h>
+#import "BBRankDelegateProtocol.h"
 
-
-@interface BBClassification : NSObject
-
+@interface BBClassification : NSObject <
+    RKObjectLoaderDelegate
+>
 
 @property (nonatomic,strong) NSString* taxonomy;
 @property (nonatomic,strong) NSString* name;
@@ -26,6 +28,10 @@
 @property (nonatomic,strong) NSArray* commonNames;
 @property (nonatomic,strong) NSArray* synonyms;
 @property (nonatomic,strong) NSString* allCommonNames;
+@property (nonatomic,weak) id<BBRankDelegateProtocol> controller;
+@property (nonatomic,strong) NSString* query;
 
+-(id)initWithDelegate:(id<BBRankDelegateProtocol>)delegate
+             andQuery:(NSString*)query;
 
 @end

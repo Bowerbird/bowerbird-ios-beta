@@ -92,7 +92,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"createRecordTapped" object:nil];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"actionTappedClose" object:nil];
    };
-    [actionView.boxes addObject:record];
+    //[actionView.boxes addObject:record];
     
     MGTableBoxStyled *library = [MGTableBoxStyled boxWithSize:CGSizeMake(300, 44)];
     UIImageView *libraryIcon = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 58,44)];

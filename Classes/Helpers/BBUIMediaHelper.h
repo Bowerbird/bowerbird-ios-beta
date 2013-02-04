@@ -8,14 +8,24 @@
 
 
 #import <Foundation/Foundation.h>
-#import "BBBaseMedia.h"
 
 
-@interface BBImage : BBBaseMedia
+typedef enum {
+    BBMediaVideo = 0,
+    BBMediaImage = 1,
+    BBMediaAudio = 2,
+    BBMediaUnknown = 3
+} BBMediaType;
 
 
-@property (nonatomic,retain) NSString* mimeType;
-@property (nonatomic,retain) NSMutableDictionary* original;
+@class BBMedia, BBBaseMedia;
 
+
+@interface BBUIMediaHelper : NSObject
+
++(BBBaseMedia*)getMediaOfSize:(NSString*)sizeName from:(NSArray*)mediaItems;
+
++(BBMediaType)typeOfMedia:(NSString*)mediaType;
 
 @end
+

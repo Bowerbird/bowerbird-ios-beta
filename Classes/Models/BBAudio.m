@@ -7,22 +7,19 @@
  -----------------------------------------------------------------------------------------------*/
 
 
-#import "BBImage.h"
+#import "BBAudio.h"
 
 
-@implementation BBImage
+@implementation BBAudio
 
 
 #pragma mark -
 #pragma mark - Member Accessors
 
 
-@synthesize     mimeType = _mimeType,
-                original = _original;
+@synthesize  original = _original;
 
 
--(void)setMimeType:(NSString *)mimeType { _mimeType = mimeType; }
--(NSString*)mimeType { return _mimeType; }
 -(void)setOriginal:(NSMutableDictionary *)original { _original = original; }
 -(NSMutableDictionary*)original { return _original; }
 -(NSUInteger)countOfOriginal { return [self.original count]; }

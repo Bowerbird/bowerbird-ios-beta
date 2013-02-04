@@ -23,14 +23,15 @@ typedef enum {
 } ContributionType;
 
 
-@interface BBContributionController : BBControllerBase
-    <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface BBContributionController : BBControllerBase <
+    UINavigationControllerDelegate,
+    UIImagePickerControllerDelegate
+>
 
 -(BBContributionController*)initWithCamera;
 -(BBContributionController*)initWithLibrary;
 -(BBContributionController*)initWithRecord;
 
 @property (nonatomic) ContributionType contributionType;
-
 
 @end

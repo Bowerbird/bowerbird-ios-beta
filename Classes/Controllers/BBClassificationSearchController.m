@@ -10,10 +10,12 @@
 #import "BBClassificationSearchController.h"
 #import "BBRankSearcher.h"
 #import "BBClassificationPaginator.h"
+#import "BBClassification.h"
 
 
 @implementation BBClassificationSearchController {
     BBClassification *currentIdentification;
+    BBClassification *classificationQuery;
     NSString* queryText;
 }
 
@@ -67,7 +69,9 @@
 
 
 -(void)cancelClicked {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"cancelIdentification" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"cancelIdentification"
+                                                        object:nil
+                                                      userInfo:nil];
 }
 
 
@@ -79,66 +83,32 @@
     
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithCapacity:1];
     [userInfo setObject:classification forKey:@"classification"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"identificationSelected" object:self userInfo:userInfo];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"identificationSelected"
+                                                        object:self
+                                                      userInfo:userInfo];
 }
 
 -(BBClassification*)getCurrentClassification {
-    [BBLog Log:@"BBClassificationBrowseController.getCurrentClassification:"];
+    [BBLog Log:@"BBClassificationSearchController.getCurrentClassification:"];
     
     return currentIdentification;
 }
 
 -(void)loadRankForQuery:(NSString*)text {
-    [BBLog Log:@"BBClassificationBrowseController.loadRankForQuery:"];
-    
-    [[RKRequestQueue requestQueue] cancelRequestsWithDelegate:(id)self];
-    
-    NSString *query = [NSString stringWithFormat:@"query=%@&pagesize=50", text];
+    [BBLog Log:@"BBClassificationSearchController.loadRankForQuery:"];
     
     queryText = text;
     
-    [SVProgressHUD setStatus:@"Querying Species"];
+    if(classificationQuery) classificationQuery = nil;
     
-    NSString *sightingUrl = [NSString stringWithFormat:@"%@/species?%@&%@", [BBConstants RootUriString], query, @"X-Requested-With=XMLHttpRequest"];
-    
-    RKObjectManager *manager = [RKObjectManager sharedManager];
-    
-    [manager loadObjectsAtResourcePath:sightingUrl delegate:self];
+    classificationQuery = [[BBClassification alloc] initWithDelegate:self andQuery:text];
 }
 
-
-#pragma mark -
-#pragma mark - Delegation and Event Handling
-
-
--(void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
-    [BBLog Log:@"BBClassificationSearchController.objectLoader:didFailWithError"];
-    
-    [BBLog Log:error.description];
-    
-    [SVProgressHUD showErrorWithStatus:error.description];
-}
-
--(void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjectDictionary:(NSDictionary *)dictionary {
-    [BBLog Log:@"BBClassificationSearchController.didLoadObjectDictionary"];
-
-}
-
--(void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
-    [BBLog Log:@"BBClassificationBrowseController.didLoadObject"];
+-(void)displayRanks:(NSArray*)ranks forQuery:(NSString *)query {
     
     BBRankSearcher* view = (BBRankSearcher*)self.view;
     
-    // this ought to be a BBClassificationPaginator
-    if([object isKindOfClass:[BBClassificationPaginator class]]) {
-        [view displayRanks:((BBClassificationPaginator*)object).ranks forQuery:queryText];
-    }
-    
-    [SVProgressHUD dismiss];
-}
-
--(void)dealloc {
-    [[RKRequestQueue requestQueue] cancelRequestsWithDelegate:(id)self];
+    [view displayRanks:ranks forQuery:queryText];
 }
 
 

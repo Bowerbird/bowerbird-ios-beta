@@ -8,25 +8,32 @@
 
 
 #import <Foundation/Foundation.h>
+#import <RestKit/RestKit.h>
+#import "BBRankDelegateProtocol.h"
 
 
 @class BBClassification;
 
 
-@interface BBClassificationSelector : NSObject
-
+@interface BBClassificationSelector : NSObject <
+    RKObjectLoaderDelegate
+>
 
 @property (nonatomic,strong) BBClassification* currentClassification;
 @property (nonatomic,strong) NSString* currentRank;
 @property (nonatomic,strong) NSArray* ranksToQuery;
+@property (nonatomic,weak) id<BBRankDelegateProtocol> controller;
 
+-(BBClassificationSelector*)initWithDelegate:(id<BBRankDelegateProtocol>)delegate;
 
 -(BBClassificationSelector*)initWithClassification:(BBClassification*)classification
-                                    andCurrentRank:(NSString*)currentRank;
+                                    andCurrentRank:(NSString*)currentRank
+                                       andDelegate:(id<BBRankDelegateProtocol>)delegate;
+
+-(void)getRanks;
 
 -(NSString*)getNextRankQuery;
 
 -(NSString*)getPreviousRankQuery;
-
 
 @end

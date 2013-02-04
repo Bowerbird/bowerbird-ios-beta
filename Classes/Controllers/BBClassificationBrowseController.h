@@ -8,7 +8,6 @@
 
 
 #import "BBControllerBase.h"
-#import <RestKit/RestKit.h>
 #import "BBRankDelegateProtocol.h"
 
 
@@ -16,11 +15,7 @@
 
 
 @interface BBClassificationBrowseController : BBControllerBase <
-     RKObjectLoaderDelegate
-    ,BBRankDelegateProtocol
+     BBRankDelegateProtocol
 >
-
--(BBClassificationBrowseController*)initWithClassification:(BBClassificationSelector*)classification
-                                                  asCustom:(BOOL)custom;
 
 @end

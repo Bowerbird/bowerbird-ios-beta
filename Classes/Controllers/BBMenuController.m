@@ -228,6 +228,27 @@
     [profileTable.middleLines addObject:signOut];
     [profileTable.bottomLines addObject:bottomRowPadder];
     
+    // LEGAL
+    MGTableBox *legalTableWrapper = [MGTableBox box];
+    MGLine *legalTableHeader = [MGLine lineWithLeft:@"BowerBird Legal" right:nil size:CGSizeMake(280,40)];
+    legalTableHeader.padding = UIEdgeInsetsMake(10, 10, 0, 10);
+    legalTableHeader.underlineType = MGUnderlineNone;
+    [legalTableWrapper.topLines addObject:legalTableHeader];
+    MGTableBoxStyled *legalTable = [MGTableBoxStyled boxWithSize:CGSizeMake(300.0, 0)];
+    [legalTableWrapper.middleLines addObject:legalTable];
+    PhotoBox *legalBrowser = [PhotoBox mediaForImage:[UIImage imageNamed:@"background-icon.png"] size:IPHONE_AVATAR_SIZE];
+    legalBrowser.margin = UIEdgeInsetsMake(5, 5, 5, 5);
+    MGLine *legalLabel = [MGLine lineWithLeft:@"Legal and Policy Info" right:arrow size:CGSizeMake(220,40)];
+    legalLabel.font = HEADER_FONT;
+    legalLabel.underlineType = MGUnderlineNone;
+    MGLine *legalLabelWrapper = [MGLine lineWithLeft:legalBrowser right:legalLabel size:CGSizeMake(280, 50)];
+    legalLabelWrapper.underlineType = MGUnderlineNone;
+    legalLabelWrapper.onTap = ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"legalHasBeenTapped" object:nil];
+    };
+    [legalTable.middleLines addObject:legalLabelWrapper];
+    [legalTable.bottomLines addObject:bottomRowPadder];
+    
     [menuView.boxes addObject:userMenu];
     [menuView.boxes addObject:userTableWrapper];
     if(projectsForUser.count > 0)
@@ -236,6 +257,7 @@
     }
     [menuView.boxes addObject:exploreTableWrapper];
     [menuView.boxes addObject:profileTableWrapper];
+    [menuView.boxes addObject:legalTableWrapper];
     
     [(MGScrollView*)self.view layoutWithSpeed:0.3 completion:nil];
     self.view.x = self.view.width * -1;

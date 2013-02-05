@@ -187,8 +187,7 @@
 +(MGLine *)createIdentification:(BBIdentification*)identification
                         forSize:(CGSize)size {
     
-    BBApplication *appData = [BBApplication sharedInstance];
-    NSArray* categories = appData.authenticatedUser.categories;
+    NSArray* categories = [BBCategory getCategoryList];
     __block BBCategory* selectedCategory;
     [categories enumerateObjectsUsingBlock:^(BBCategory* category, NSUInteger idx, BOOL *stop) {
         if([category.name isEqualToString:identification.category]){
@@ -201,7 +200,7 @@
     UIImage *photoImage = [UIImage imageNamed:iconPath];
     PhotoBox *categoryIcon = [PhotoBox mediaForImage:photoImage size:CGSizeMake(70, 70)];
     
-    NSString *identificationText = [NSString stringWithFormat:@"Category: %@\n%@: %@\nName: %@", selectedCategory.name, [identification.rankType capitalizeFirstLetter], identification.rankName, identification.name];
+    NSString *identificationText = [NSString stringWithFormat:@"Category: %@\n%@: %@\nName: %@", identification.category, [identification.rankType capitalizeFirstLetter], identification.rankName, identification.name];
     MGLine *identificationInfo = [MGLine multilineWithText:identificationText font:DESCRIPTOR_FONT width:220 padding:UIEdgeInsetsMake(0, 10, 0, 0)];
     identificationInfo.underlineType = MGUnderlineNone;
     

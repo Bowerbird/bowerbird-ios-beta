@@ -13,6 +13,7 @@
 
 #import "BBAuthenticationController.h"
 #import "BBRegistrationController.h"
+#import "BBAboutController.h"
 #import "BBLoginController.h"
 #import "BBAuthenticatedUser.h"
 #import "BBAppDelegate.h"
@@ -102,17 +103,17 @@
     registerTable.onTap = ^{[self registerAuthenticationScreen];};
     
     // A Browse Table
-    id browseHeading = @"Take a Peek first..";
-    id browseSpiel = @"If you would like to take a look at the contributions in BowerBird before you decide to join, tap to take a peek.";
+    id browseHeading = @"The Fine Print";
+    id browseSpiel = @"If you would like to take a look at the privacy policy, terms of use and list of resource sources before you decide to join, tap to read here.";
     MGTableBoxStyled *browseTable = [self createTableWithHeading:browseHeading
                                                         andSpiel:browseSpiel];
-    browseTable.onTap = ^{};
+    browseTable.onTap = ^{[self legalScreen];};
     
     [authenticationView.boxes addObject:userMenu];
     [authenticationView.boxes addObject:welcomeTable];
     [authenticationView.boxes addObject:loginTable];
     [authenticationView.boxes addObject:registerTable];
-    //[authenticationView.boxes addObject:browseTable];
+    [authenticationView.boxes addObject:browseTable];
     
     [(MGScrollView*)self.view layoutWithSpeed:0.3 completion:nil];
 }
@@ -155,10 +156,12 @@
     [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:registrationController animated:YES];
 }
 
--(void)browseScreen {
+-(void)legalScreen {
     [BBLog Log:@"Browse pushed"];
     
-    // throw a call to the controller to go to browser
+    BBAboutController *aboutController = [[BBAboutController alloc]init];
+    
+    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:aboutController animated:YES];
 }
 
 -(void)authenticatedUserLoaded {

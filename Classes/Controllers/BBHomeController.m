@@ -16,6 +16,7 @@
 #import "BBActionController.h"
 #import "BBHeaderController.h"
 #import "BBStreamController.h"
+#import "BBAboutController.h"
 #import "BBHomeView.h"
 #import "MGHelpers.h"
 #import "SVProgressHUD.h"
@@ -97,6 +98,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadGroupStream:) name:@"groupMenuTapped" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadProjectBrowser) name:@"exploreProjectsTapped" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadUserFavorites) name:@"loadUserFavorites" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showLegal) name:@"legalHasBeenTapped" object:nil];
+
     //loadUserFavorites
     
     return withView;
@@ -247,6 +250,16 @@
     NSMutableDictionary* userInfo2 = [NSMutableDictionary dictionaryWithCapacity:1];
     [userInfo2 setObject:@"My Favourites" forKey:@"name"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeadingTitle" object:self userInfo:userInfo2];
+}
+
+-(void)showLegal {
+    [BBLog Log:@"BBHomeController.showLegal"];
+    
+    [self clearStreamViews];
+    
+    BBAboutController *aboutController = [[BBAboutController alloc]init];
+    
+    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:aboutController animated:YES];
 }
 
 -(void)clearStreamViews {

@@ -266,7 +266,7 @@
         {
             authenticatedUser = (BBAuthenticatedUser*)mappedObject;
             
-            [SVProgressHUD showSuccessWithStatus:@"Profile Loaded"];
+            //[SVProgressHUD showSuccessWithStatus:@"Profile Loaded"];
         }
     }
 }

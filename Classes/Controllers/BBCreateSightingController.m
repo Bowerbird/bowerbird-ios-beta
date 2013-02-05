@@ -254,7 +254,11 @@
     [BBLog Log:@"BBCreateSightingController.createdOnStopEdit"];
     
     [self resumeScrolling];
-    ((BBSightingEditView*)self.view).observedOnTable.onTap=^{[((BBSightingEditView*)self.view).controller createdOnStartEdit];};
+    
+    __weak BBCreateSightingController *this = self;
+    ((BBSightingEditView*)self.view).observedOnTable.onTap=^{
+        [((BBSightingEditView*)this.view).controller createdOnStartEdit];
+    };
     
     [((BBSightingEditView*)self.view).observedOnTable.bottomLines removeAllObjects];
     [((BBSightingEditView*)self.view) layoutWithSpeed:0.3 completion:nil];
@@ -417,7 +421,9 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [BBLog Log:@"BBCreateSightingController.categoryStopEdit"];
     
     [self resumeScrolling];
-    ((BBSightingEditView*)self.view).categoryTable.onTap=^{[((BBSightingEditView*)self.view).controller categoryStartEdit];};
+    
+    __weak BBCreateSightingController *this = self;
+    ((BBSightingEditView*)self.view).categoryTable.onTap=^{[((BBSightingEditView*)this.view).controller categoryStartEdit];};
     
     [((BBSightingEditView*)self.view).categoryTable.bottomLines removeAllObjects];
     [((BBSightingEditView*)self.view) layoutWithSpeed:0.3 completion:nil];
@@ -560,7 +566,9 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [BBLog Log:@"BBCreateSightingController.locationStopEdit"];
     
     [self resumeScrolling];
-    ((BBSightingEditView*)self.view).locationTable.onTap=^{[((BBSightingEditView*)self.view).controller locationStartEdit];};
+    
+    __weak BBCreateSightingController *this = self;
+    ((BBSightingEditView*)self.view).locationTable.onTap=^{[((BBSightingEditView*)this.view).controller locationStartEdit];};
     
     if([((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController.topViewController isKindOfClass:[BBLocationSelectController class]])
     {
@@ -673,7 +681,8 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
     RKObjectManager *manager = [RKObjectManager sharedManager];
     manager.serializationMIMEType = RKMIMETypeJSON;
     
-    [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"Saving Observation"]];
+    [SVProgressHUD dismiss];
+    [SVProgressHUD showWithStatus:@"Saving Observation"];
     
     isObservation = YES;
     
@@ -835,9 +844,14 @@ totalBytesExpectedToReceive:(NSInteger)totalBytesExpectedToReceive {
     
     [SVProgressHUD setStatus:[NSString stringWithFormat:@"%@%@", [formatter stringFromNumber:[NSNumber numberWithDouble:progress]], @"%"]];
     
-    if(progress == 100) {
+    //if([request.URL.resourceSpecifier.pathComponents containsObject:@"/mediaresources"]){
+    if(progress == 100 && ![request.resourcePath rangeOfString:@"mediaresources"].location == NSNotFound){
         [SVProgressHUD setStatus:@"File Uploaded. \nWaiting for save confirmation"];
     }
+    else if(progress == 100 && ![request.resourcePath rangeOfString:@"observations"].location == NSNotFound){
+        [SVProgressHUD setStatus:@"Sighting Uploaded. \nWaiting for save confirmation"];
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {

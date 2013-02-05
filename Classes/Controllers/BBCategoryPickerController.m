@@ -71,10 +71,7 @@
 -(NSArray*)getCategories {
     [BBLog Log:@"BBCategoryPickerController.getCategories"];
     
-    BBApplication* application = [BBApplication sharedInstance];
-    NSArray *categories = application.authenticatedUser.categories;
-    
-    return categories;
+    return [BBCategory getCategoryList];
 }
 
 -(void)updateCategory:(BBCategory*)category {

@@ -14,6 +14,10 @@
 		1C1ABC2F167EDE9600EEA5DF /* BBSightingNoteTagController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1ABC2E167EDE9600EEA5DF /* BBSightingNoteTagController.m */; };
 		1C1C988116A5223500181917 /* BBDisplayLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1C988016A5223500181917 /* BBDisplayLocationController.m */; };
 		1C1C988816A8F1D500181917 /* BBDisplayFullImageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1C988716A8F1D500181917 /* BBDisplayFullImageController.m */; };
+		1C1E873816C0AA740087FAA3 /* BBAboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1E873716C0AA730087FAA3 /* BBAboutController.m */; };
+		1C1E873F16C0ACFB0087FAA3 /* Resources.html in Resources */ = {isa = PBXBuildFile; fileRef = 1C1E873E16C0ACFB0087FAA3 /* Resources.html */; };
+		1C1E874116C0AD110087FAA3 /* PrivacyPolicy.html in Resources */ = {isa = PBXBuildFile; fileRef = 1C1E874016C0AD110087FAA3 /* PrivacyPolicy.html */; };
+		1C1E874516C0AE920087FAA3 /* TermsAndConditions.html in Resources */ = {isa = PBXBuildFile; fileRef = 1C1E874416C0AE920087FAA3 /* TermsAndConditions.html */; };
 		1C2966901655532300B3CC16 /* BBJsonResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C29668F1655532300B3CC16 /* BBJsonResponse.m */; };
 		1C29669316555E7600B3CC16 /* BBObservationMediaCreate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C29669216555E7600B3CC16 /* BBObservationMediaCreate.m */; };
 		1C296699165A06B300B3CC16 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1C296696165A06B300B3CC16 /* SVProgressHUD.bundle */; };
@@ -415,6 +419,11 @@
 		1C1C988016A5223500181917 /* BBDisplayLocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBDisplayLocationController.m; sourceTree = "<group>"; };
 		1C1C988716A8F1D500181917 /* BBDisplayFullImageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBDisplayFullImageController.m; sourceTree = "<group>"; };
 		1C1C988916A8F22D00181917 /* BBDisplayFullImageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBDisplayFullImageController.h; sourceTree = "<group>"; };
+		1C1E873616C0AA710087FAA3 /* BBAboutController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBAboutController.h; sourceTree = "<group>"; };
+		1C1E873716C0AA730087FAA3 /* BBAboutController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBAboutController.m; sourceTree = "<group>"; };
+		1C1E873E16C0ACFB0087FAA3 /* Resources.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Resources.html; sourceTree = "<group>"; };
+		1C1E874016C0AD110087FAA3 /* PrivacyPolicy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = PrivacyPolicy.html; sourceTree = "<group>"; };
+		1C1E874416C0AE920087FAA3 /* TermsAndConditions.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = TermsAndConditions.html; sourceTree = "<group>"; };
 		1C29668E1655532300B3CC16 /* BBJsonResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBJsonResponse.h; sourceTree = "<group>"; };
 		1C29668F1655532300B3CC16 /* BBJsonResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBJsonResponse.m; sourceTree = "<group>"; };
 		1C29669116555E7600B3CC16 /* BBObservationMediaCreate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBObservationMediaCreate.h; sourceTree = "<group>"; };
@@ -1298,6 +1307,9 @@
 			children = (
 				1CAB6342164C80090000D8C3 /* Data */,
 				1CAB6343164C80090000D8C3 /* Images */,
+				1C1E873E16C0ACFB0087FAA3 /* Resources.html */,
+				1C1E874016C0AD110087FAA3 /* PrivacyPolicy.html */,
+				1C1E874416C0AE920087FAA3 /* TermsAndConditions.html */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1416,6 +1428,8 @@
 				1CD1440016B8E2E700F3742D /* BBIdentificationActivityController.m */,
 				1CD1440216B8E3B900F3742D /* BBPostActivityController.h */,
 				1CD1440316B8E3B900F3742D /* BBPostActivityController.m */,
+				1C1E873616C0AA710087FAA3 /* BBAboutController.h */,
+				1C1E873716C0AA730087FAA3 /* BBAboutController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2177,6 +2191,9 @@
 				1CB8186D16A4DF7B00F98C43 /* PDLocationsMapViewController.xib in Resources */,
 				1CB8187216A4F8B200F98C43 /* close-button.png in Resources */,
 				1CB8187316A4F8B200F98C43 /* mappin.png in Resources */,
+				1C1E873F16C0ACFB0087FAA3 /* Resources.html in Resources */,
+				1C1E874116C0AD110087FAA3 /* PrivacyPolicy.html in Resources */,
+				1C1E874516C0AE920087FAA3 /* TermsAndConditions.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2379,6 +2396,7 @@
 				1CAE96B616BAC0FC00B92A04 /* LBYouTubeExtractor.m in Sources */,
 				1CAE96B716BAC0FC00B92A04 /* LBYouTubePlayerController.m in Sources */,
 				1CAE96BC16BAC5D100B92A04 /* BBAudio.m in Sources */,
+				1C1E873816C0AA740087FAA3 /* BBAboutController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

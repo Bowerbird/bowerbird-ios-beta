@@ -258,31 +258,31 @@
     [rightRecognizer setDirection: UISwipeGestureRecognizerDirectionRight];
     [[self view] addGestureRecognizer:rightRecognizer];
     
-    //__block BBStreamController *this = self;
     __weak BBStreamController *stream = self;
     
     if(![_paginator isKindOfClass:[BBProjectPaginator class]]){
+        
+        _tableView.pullToRefreshView.backgroundColor = [UIColor blackColor];
         
         __block NSString *groupIdentifier = [groupId copy];
         
         [((BBStreamView*)self.view) addPullToRefreshWithActionHandler:^{
             
-            NSString* url;
-            _tableView.pullToRefreshView.backgroundColor = [UIColor blackColor];
+            __weak NSString* url;
             
             // hit the server for the newest group results:
             if(groupIdentifier && ![groupIdentifier isEqualToString:@""]) {
-                url = [NSString stringWithFormat:@"%@/%@?%@&NewerThan=%@",[BBConstants RootUriString], groupIdentifier, [BBConstants AjaxQuerystring], [_paginator.latestFetchedActivityNewer dateAsJsonUtcString]];
+                url = [NSString stringWithFormat:@"%@/%@?%@&NewerThan=%@",[BBConstants RootUriString], groupIdentifier, [BBConstants AjaxQuerystring], [stream.paginator.latestFetchedActivityNewer dateAsJsonUtcString]];
                 
-                [[RKObjectManager sharedManager] loadObjectsAtResourcePath:url
-                                                                  delegate:stream];
+                [[RKObjectManager sharedManager] loadObjectsAtResourcePath :url
+                                                                  delegate:stream.paginator];
             }
             // hit the server for the newest user results:
             else {
-                url = [NSString stringWithFormat:@"%@?%@&NewerThan=%@",[BBConstants RootUriString], [BBConstants AjaxQuerystring], [_paginator.latestFetchedActivityNewer dateAsJsonUtcString]];
+                url = [NSString stringWithFormat:@"%@?%@&NewerThan=%@",[BBConstants RootUriString], [BBConstants AjaxQuerystring], [stream.paginator.latestFetchedActivityNewer dateAsJsonUtcString]];
                 
                 [[RKObjectManager sharedManager] loadObjectsAtResourcePath:url
-                                                                  delegate:stream];
+                                                                  delegate:stream.paginator];
             }
             
             //stream.requestWasPullLatest = YES;
@@ -290,11 +290,11 @@
             //stream.latestFetchedActivityNewerLocalTime = [NSDate date];
         }];
     }
-        
+
     [self.tableView addInfiniteScrollingWithActionHandler:^{
-        _tableView.infiniteScrollingView.backgroundColor = [UIColor blackColor];
-        _tableView.infiniteScrollingView.arrowColor = [UIColor whiteColor];
-        _tableView.infiniteScrollingView.textColor = [UIColor whiteColor];
+        stream.tableView.infiniteScrollingView.backgroundColor = [UIColor blackColor];
+        stream.tableView.infiniteScrollingView.arrowColor = [UIColor whiteColor];
+        stream.tableView.infiniteScrollingView.textColor = [UIColor whiteColor];
         
         [stream.paginator handlePaginatorLoadNextPage];
     }];

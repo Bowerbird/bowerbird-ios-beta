@@ -17,5 +17,6 @@
 @property (nonatomic,strong) NSString* name;
 @property (nonatomic,strong) NSString* taxonomy;
 
++(NSArray*)getCategoryList;
 
 @end

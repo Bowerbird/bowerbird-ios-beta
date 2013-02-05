@@ -31,7 +31,7 @@
 -(NSString*)identifier { return _identifier; }
 -(void)setSubIdentifier:(NSString *)subIdentifier { _subIdentifier = subIdentifier; }
 -(NSString*)subIdentifier { return _subIdentifier; }
--(void)setContributionType:(NSString *)contributionType { _contributionType = _contributionType; }
+-(void)setContributionType:(NSString *)contributionType { _contributionType = contributionType; }
 -(NSString*)contributionType { return _contributionType; }
 -(void)setSubContributionType:(NSString *)subContributionType { _subContributionType = subContributionType; }
 -(NSString*)subContributionType { return _subContributionType; }

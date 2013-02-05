@@ -21,7 +21,7 @@
     ,LBYouTubePlayerControllerDelegate
 >
 
-@property (weak, nonatomic) MKMapView *mapView;
+@property (strong, nonatomic) MKMapView *mapView;
 @property (strong, nonatomic) UITapGestureRecognizer *tapGesture;
 
 -(BBSightingDetailController*)initWithSightingIdentifier:(NSString*)identifier;

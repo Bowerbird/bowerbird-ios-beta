@@ -16,7 +16,7 @@
 
 -(void)searchClassifications;
 -(void)browseClassifications;
--(void)createClassification;
+//-(void)createClassification; // for custom clssifications
 -(void)removeClassification;
 -(void)save;
 -(void)cancel;

@@ -20,11 +20,16 @@
 >
 
     -(BBStreamController*)initWithUserAndDelegate:(id<BBStreamProtocol>)delegate;
-    -(BBStreamController*)initWithGroup:(NSString*)groupId andDelegate:(id<BBStreamProtocol>)delegate;
+
+    -(BBStreamController*)initWithGroup:(NSString*)groupId
+                            andDelegate:(id<BBStreamProtocol>)delegate;
+
     -(BBStreamController*)initWithProjectsAndDelegate:(id<BBStreamProtocol>)delegate;
+
     -(BBStreamController*)initWithFavouritesAndDelegate:(id<BBStreamProtocol>)delegate;
     
     - (void)reloadTableViewDataSource;
+
     - (void)doneLoadingTableViewData;
 
 @end

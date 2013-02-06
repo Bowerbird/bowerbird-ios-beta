@@ -113,6 +113,9 @@
 -(void)loadView {
     [BBLog Log:@"BBCreateSightingController.loadView"];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mediaUploaded) name:@"mediaUploaded" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sightingUploaded) name:@"sightingUploaded" object:nil];
+    
     self.observationEditView = [[BBSightingEditView alloc]initWithDelegate:self asObservation:isObservation];
     self.view = self.observationEditView;
     
@@ -339,19 +342,15 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
 -(void)addImageToObservation:(BBMediaEdit*)mediaEdit {
     [BBLog Log:@"BBCreateSightingController.addImageToObservation:"];
     
-    // now we have an image, we'll upload it setting this object up as a listener for completion:
-    BBMediaResourceCreate *mediaResourceCreate = [[BBMediaResourceCreate alloc]initWithMedia:mediaEdit forUsage:@"contribution"];
+    __block BBMediaResourceCreate *mediaResourceCreate = [[BBMediaResourceCreate alloc]initWithMedia:mediaEdit forUsage:@"contribution"];
     RKObjectManager *manager = [RKObjectManager sharedManager];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"Uploading"]];
+        [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"Uploading Media"]];
     });
     
-    //[manager postObject:mediaResourceCreate delegate:self];
-    isObservation = YES;
-    
     [manager postObject:mediaResourceCreate usingBlock:^(RKObjectLoader *loader) {
-        loader.delegate = self;
+        loader.delegate = mediaResourceCreate;
         RKObjectMapping *map = [[[RKObjectManager sharedManager] mappingProvider] serializationMappingForClass:[BBMediaResourceCreate class]];
         NSError *error = nil;
         NSDictionary *d = [[RKObjectSerializer serializerWithObject:mediaResourceCreate mapping:map] serializedObject:&error];
@@ -361,7 +360,6 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
         loader.objectMapping = [[manager mappingProvider] objectMappingForClass:[BBJsonResponse class]];
     }];
     
-    // add this to the list of media in our observation model
     [_observation.media addObject:mediaEdit];
 }
 
@@ -647,7 +645,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
 
 -(void)saveIsValid{
 
-    BBObservationCreate *observation = [[BBObservationCreate alloc]init];
+    __block BBObservationCreate *observation = [[BBObservationCreate alloc]init];
     observation.title = _observation.title;
     observation.observedOn = _observation.createdOn;
     observation.category = _observation.category;
@@ -684,8 +682,6 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [SVProgressHUD dismiss];
     [SVProgressHUD showWithStatus:@"Saving Observation"];
     
-    isObservation = YES;
-    
     //[manager postObject:observation delegate:self]; // ain't working.. posting as text/html.
     [manager postObject:observation usingBlock:^(RKObjectLoader *loader) {
         
@@ -701,9 +697,8 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
         // convert json data object to a string
         NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         loader.params = [RKRequestSerialization serializationWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding] MIMEType:RKMIMETypeJSON];
-        loader.delegate = self;
+        loader.delegate = observation;
     }];
-    
 }
 
 -(void)observationSent {
@@ -721,144 +716,26 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
 
 
 #pragma mark -
-#pragma mark - Delegation and Event Handling
+#pragma mark - Notification Handling
 
 
--(void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
-    [BBLog Log:@"BBCreateSightingController.objectLoaderDidFailWithError:"];
-    
-    [BBLog Log:error.localizedDescription];
-}
-
--(void)request:(RKRequest *)request didFailLoadWithError:(NSError *)error {
-    [BBLog Log:@"BBCreateSightingController.request:didFailLoadWithError:"];
-    
-    [BBLog Log:[NSString stringWithFormat:@"%@%@", @"ERROR:", error.localizedDescription]];
-    
-    [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-}
-
- -(void)request:(RKRequest*)request
-didLoadResponse:(RKResponse*)response {
-    [BBLog Log:@"BBCreateSightingController.request:didLoadResponse"];
-
-    [BBLog Log:response.bodyAsString];
-    
-    if ([response isOK] && [response isJSON])
-    {
-        NSError* error = nil;
-        id obj = [response parsedBody:&error];
-        
-        //RKObjectMapping *authenticationMap = [[[RKObjectManager sharedManager] mappingProvider] serializationMappingForClass:[BBAuthentication class]];
-        RKObjectMapping *jsonResponseMap = [RKObjectMapping mappingForClass:[BBJsonResponse class]];
-        id mappedObject = [jsonResponseMap mappableObjectForData:obj];
-        
-        //id mappedObject = [authenticationMap mappableObjectForData:obj];
-        // we have authenticated and are set to pull down the user's profile
-        
-        if([mappedObject isKindOfClass:[BBJsonResponse class]] && mappedObject != nil)
-        {
-            BBJsonResponse *serverJson = (BBJsonResponse*)mappedObject;
-            
-            if(serverJson.success)
-            {
-                [BBLog Log:@"Success"];
-            }
-            else {
-                [BBLog Log:@"Failure"];
-            }
-        }
-    }
-    
-    if([response isKindOfClass:[BBJsonResponse class]]){
-        BBJsonResponse *result = (BBJsonResponse*)response;
-        
-        if(result.success){
-            // the request was successfully completed
-        }
-        else {
-            // the request was unsuccessful
-        }
-    }
-    
-    // if we've saved an observation successfully, pop to the stream. Question is.. do we pass the
-    // new observation back into it as a pseudo activity? If we do, how do we query it? Using a Key??
-    if(isObservation) {
-        // need to send a notification to kill this puppy
-        //[((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popToViewController:self.parentViewController animated:NO];
-    }
-}
-
--(void)objectLoaderDidLoadUnexpectedResponse:(RKObjectLoader *)objectLoader {
-    [BBLog Log:@"BBCreateSightingController.objectLoaderDidLoadUnexpectedResponse"];
-
-    [BBLog Log:objectLoader.response.bodyAsString];
-}
-
--(void)objectLoaderDidFinishLoading:(RKObjectLoader *)objectLoader {
-    [BBLog Log:@"BBCreateSightingController.objectLoaderDidFinishLoading:"];
-    
-    [SVProgressHUD showSuccessWithStatus:@"Media Uploaded"];
-    //[HUD show:NO];
-    
+-(void)mediaUploaded {
     BBMediaEdit *media = [_observation.media lastObject];
+    
     [_observationEditView addMediaItem:media];
 }
 
--(void)objectLoader:(RKObjectLoader *)objectLoader
-      didLoadObject:(id)object {
-    // is it a JsonResponse?
+-(void)sightingUploaded {
+    // perhaps it's time to pop back to the stream?
+    [self cancel];
 }
 
-    -(void)objectLoader:(RKObjectLoader *)objectLoader
-didLoadObjectDictionary:(NSDictionary *)dictionary {
-    
-}
-
--(void)processMappingResult:(RKObjectMappingResult *)result {
-    [BBLog Log:@"BBCreateSightingController.processMappingResult:"];
-    
-}
-
-             -(void)request:(RKRequest *)request
-             didReceiveData:(NSInteger)bytesReceived
-         totalBytesReceived:(NSInteger)totalBytesReceived
-totalBytesExpectedToReceive:(NSInteger)totalBytesExpectedToReceive {
-    [BBLog Log:[NSString stringWithFormat:@"bytes received: %d total received: %d total to receive: %d", bytesReceived, totalBytesReceived, totalBytesExpectedToReceive]];
-}
-
-            -(void)request:(RKRequest *)request
-           didSendBodyData:(NSInteger)bytesWritten
-         totalBytesWritten:(NSInteger)totalBytesWritten
- totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
-    
-    //[BBLog Log:[NSString stringWithFormat:@"bytes written: %d total written: %d total to send: %d", bytesWritten, totalBytesWritten, totalBytesExpectedToWrite]];
-    
-    double progress = ((double)totalBytesWritten/(double)totalBytesExpectedToWrite)*100;
-    //double fileSize = (double)totalBytesExpectedToWrite/10485760;// added additional factor of ten to bytes denomenator in MB as too big by about 10 X
-
-    NSNumberFormatter *formatter = [[NSNumberFormatter alloc]init];
-    [formatter setRoundingMode:NSNumberFormatterRoundUp];
-    [formatter setGeneratesDecimalNumbers:YES];
-    [formatter setMaximumFractionDigits:1];
-    
-    [SVProgressHUD setStatus:[NSString stringWithFormat:@"%@%@", [formatter stringFromNumber:[NSNumber numberWithDouble:progress]], @"%"]];
-    
-    //if([request.URL.resourceSpecifier.pathComponents containsObject:@"/mediaresources"]){
-    if(progress == 100 && ![request.resourcePath rangeOfString:@"mediaresources"].location == NSNotFound){
-        [SVProgressHUD setStatus:@"File Uploaded. \nWaiting for save confirmation"];
-    }
-    else if(progress == 100 && ![request.resourcePath rangeOfString:@"observations"].location == NSNotFound){
-        [SVProgressHUD setStatus:@"Sighting Uploaded. \nWaiting for save confirmation"];
-    }
-    
-}
-
-- (void)didReceiveMemoryWarning {
+-(void)didReceiveMemoryWarning {
     [BBLog Log:@"MEMORY WARNING! - BBCreateSightingController"];
     
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 @end

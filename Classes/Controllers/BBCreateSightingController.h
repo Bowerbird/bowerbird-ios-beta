@@ -32,7 +32,6 @@
     ,BBCategoryPickerDelegateProtocol
     ,BBProjectSelectDelegateProtocol
     ,BBLocationEditDelegateProtocol
-    ,RKObjectLoaderDelegate
 >
 
 @property (nonatomic,retain) BBSightingEdit *observation;

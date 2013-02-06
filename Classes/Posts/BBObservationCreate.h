@@ -8,9 +8,12 @@
 
 
 #import <Foundation/Foundation.h>
+#import <RestKit/RestKit.h>
 
 
-@interface BBObservationCreate : NSObject
+@interface BBObservationCreate : NSObject <
+    RKObjectLoaderDelegate
+>
 
 
 @property (nonatomic, retain) NSString *title;

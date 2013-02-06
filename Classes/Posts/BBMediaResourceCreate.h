@@ -8,6 +8,7 @@
 
 
 #import <Foundation/Foundation.h>
+#import <RestKit/RestKit.h>
 #import "BBGuidGenerator.h"
 #import "UIImage+fixOrientation.h"
 
@@ -15,7 +16,9 @@
 @class BBMediaEdit;
 
 
-@interface BBMediaResourceCreate : NSObject
+@interface BBMediaResourceCreate : NSObject <
+    RKObjectLoaderDelegate
+>
 
 
 @property (nonatomic,retain) NSData* file;

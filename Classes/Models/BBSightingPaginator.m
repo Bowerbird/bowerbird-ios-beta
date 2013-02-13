@@ -19,9 +19,9 @@
 
 @synthesize sightings = _sightings;
 
--(void)setSightings:(NSArray *)sightings { _sightings = sightings; }
--(NSArray*)sightings {
-    if(!_sightings)_sightings = [[NSArray alloc]init];
+-(void)setSightings:(NSMutableArray *)sightings { _sightings = sightings; }
+-(NSMutableArray*)sightings {
+    if(!_sightings)_sightings = [[NSMutableArray alloc]init];
     return _sightings;
 }
 -(NSUInteger)countOfSightings { return [_sightings count]; }

@@ -114,23 +114,41 @@
     manager.serializationMIMEType = RKMIMETypeJSON;
     
     if(projectInUserList) {
-        [info.bottomLines addObject:[BBUIControlHelper createButtonWithFrame:CGRectMake(10, 0, 290, 40) andTitle:@"Leave Project" withBlock:^ {
+        
+        CoolMGButton *leaveButton =[BBUIControlHelper createButtonWithFrame:CGRectMake(10, 0, 290, 40) andTitle:@"Leave Project" withBlock:^ {
             [manager postObject:projJoinLeave delegate:projJoinLeave];
             NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithCapacity:1];
             [userInfo setObject:self.project forKey:@"project"];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"projectLeft" object:self userInfo:userInfo];
-        }]];
+            
+            [self.view setNeedsDisplay];
+        }];
         
-        // force redraw of the view somehow...
+        [info.bottomLines addObject:leaveButton];
     }
     else
     {
-        [info.bottomLines addObject:[BBUIControlHelper createButtonWithFrame:CGRectMake(10, 0, 290, 40) andTitle:@"Join Project" withBlock:^{
+        __weak BBProjectItemController *this = self;
+        
+        CoolMGButton *joinButton = [BBUIControlHelper createButtonWithFrame:CGRectMake(0, 0, 140, 40) andTitle:@"Join" withBlock:^{
             [manager postObject:projJoinLeave delegate:projJoinLeave];
             NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithCapacity:1];
             [userInfo setObject:self.project forKey:@"project"];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"projectJoined" object:self userInfo:userInfo];
-        }]];
+            
+            [this.view setNeedsDisplay];
+        }];
+        
+        CoolMGButton *browseButton = [BBUIControlHelper createButtonWithFrame:CGRectMake(0, 0, 140, 40) andTitle:@"Browse" withBlock:^{
+            NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithCapacity:2];
+            [userInfo setObject:[NSString stringWithString:project.identifier] forKey:@"groupId"];
+            [userInfo setObject:[NSString stringWithString:project.name] forKey:@"name"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"groupBrowseTapped" object:self userInfo:userInfo];
+        }];
+
+        MGLine *joinBrowseLine = [MGLine lineWithLeft:browseButton right:joinButton size:CGSizeMake(290, 40)];
+        
+        [info.bottomLines addObject:joinBrowseLine];
     }
     
     return info;

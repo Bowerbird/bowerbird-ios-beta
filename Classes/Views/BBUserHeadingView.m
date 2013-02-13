@@ -8,6 +8,7 @@
 
 
 #import "BBUserHeadingView.h"
+#import "BBPlusView.h"
 
 
 @implementation BBUserHeadingView 
@@ -43,9 +44,18 @@
     self.headingLabel.text = title;
     
     UIButton *actionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    CGRect frame = CGRectMake(size.width - HEADER_BTTN.width - PADDING, PADDING, HEADER_BTTN.width, HEADER_BTTN.height);
+    
+    UIColor *plusColour = [UIColor colorWithRed:0.26 green:0.57 blue:0.88 alpha:1.0];
+    UIColor *backgroundColor = [UIColor colorWithRed:0.94 green:0.94 blue:0.95 alpha:1];
+    
+    BBPlusView *actionView = [[BBPlusView alloc]initWithFrame:frame
+                                                  andBgColour:backgroundColor
+                                                andPlusColour:plusColour
+                                                  andPlusSize:10];
+    
     actionBtn.frame = CGRectMake(size.width - HEADER_BTTN.width - PADDING, PADDING, HEADER_BTTN.width, HEADER_BTTN.height);
-    [actionBtn setBackgroundImage:[UIImage imageNamed:@"action.png"] forState:UIControlStateNormal];
-    actionBtn.backgroundColor = headerBgColor;
+    [actionBtn addSubview:actionView];
     [actionBtn addTarget:self action:@selector(actionTapped) forControlEvents:UIControlEventTouchDown];
     
     [self addSubview:menuBtn];

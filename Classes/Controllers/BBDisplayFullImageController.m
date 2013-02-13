@@ -77,7 +77,7 @@
     [self loadPhotoFromLocation:_image.uri];
 }
 
-- (void)viewDidLoad {
+-(void)viewDidLoad {
     [BBLog Log:@"BBDisplayFullImageController.viewDidLoad"];
     
     [super viewDidLoad];
@@ -118,12 +118,12 @@
 #pragma mark - Utilities and Helpers
 
 
-- (void)didReceiveMemoryWarning {
+-(void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (void)loadPhotoFromLocation:(NSString*)location {
+-(void)loadPhotoFromLocation:(NSString*)location {
     [BBLog Log:@"BBDisplayFullImageController.loadPhotoFromLocation"];
     
     id fullPath = [NSString stringWithFormat:@"%@/%@", [BBConstants RootUriString], location];
@@ -186,7 +186,7 @@
     });
 }
 
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+-(UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
     return imageView;
 }
 

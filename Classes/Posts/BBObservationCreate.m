@@ -58,13 +58,15 @@
 #pragma mark - Delegation and Event Handling
 
 
--(void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
+-(void)objectLoader:(RKObjectLoader *)objectLoader
+   didFailWithError:(NSError *)error {
     [BBLog Log:@"BBCreateSightingController.objectLoaderDidFailWithError:"];
     
     [BBLog Log:error.localizedDescription];
 }
 
--(void)request:(RKRequest *)request didFailLoadWithError:(NSError *)error {
+        -(void)request:(RKRequest *)request
+  didFailLoadWithError:(NSError *)error {
     [BBLog Log:@"BBCreateSightingController.request:didFailLoadWithError:"];
     
     [BBLog Log:[NSString stringWithFormat:@"%@%@", @"ERROR:", error.localizedDescription]];
@@ -72,8 +74,8 @@
     [SVProgressHUD showErrorWithStatus:error.localizedDescription];
 }
 
--(void)request:(RKRequest*)request
-didLoadResponse:(RKResponse*)response {
+    -(void)request:(RKRequest*)request
+   didLoadResponse:(RKResponse*)response {
     [BBLog Log:@"BBCreateSightingController.request:didLoadResponse"];
     
     [BBLog Log:response.bodyAsString];
@@ -135,7 +137,7 @@ didLoadResponse:(RKResponse*)response {
     // is it a JsonResponse?
 }
 
--(void)objectLoader:(RKObjectLoader *)objectLoader
+    -(void)objectLoader:(RKObjectLoader *)objectLoader
 didLoadObjectDictionary:(NSDictionary *)dictionary {
     
 }
@@ -143,6 +145,10 @@ didLoadObjectDictionary:(NSDictionary *)dictionary {
 -(void)processMappingResult:(RKObjectMappingResult *)result {
     [BBLog Log:@"BBCreateSightingController.processMappingResult:"];
     
+}
+
+-(void)dealloc {
+    [[[RKClient sharedClient] requestQueue] cancelRequestsWithDelegate:(id)self];
 }
 
 

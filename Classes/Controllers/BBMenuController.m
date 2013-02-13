@@ -52,7 +52,7 @@
     menuView = (MGScrollView*)self.view;
 }
 
-- (void)viewDidLoad {
+-(void)viewDidLoad {
     [BBLog Log:@"BBMenuController.viewDidLoad"];
     
     [super viewDidLoad];

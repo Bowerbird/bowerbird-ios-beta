@@ -15,9 +15,11 @@
 #import "SVPullToRefresh.h"
 #import "SVProgressHUD.h"
 #import "BBMediaResource.h"
+#import "BBObservation.h"
 #import "MGHelpers.h"
 #import "PhotoBox.h"
 #import "BBSightingDetailController.h"
+#import "BBSightingItemController.h"
 #import "PhotoBox.h"
 #import "BBUIControlHelper.h"
 #import "BBAppDelegate.h"
@@ -90,16 +92,16 @@
         // A new RKURL can be constructed by interpolating the dictionary with the original URL
         RKURL *interpolatedURL = [myURL URLByInterpolatingResourcePathWithObject:dictionary];
                 
-        [_paginator addObserver:self forKeyPath:@"items" options:NSKeyValueChangeInsertion context:NULL];
+        [self.paginator addObserver:self forKeyPath:@"items" options:NSKeyValueChangeInsertion context:NULL];
         
         
-        _paginator = [[BBActivityPaginator alloc]initWithPatternURL:interpolatedURL
+        self.paginator = [[BBActivityPaginator alloc]initWithPatternURL:interpolatedURL
                                                     mappingProvider:[RKObjectManager sharedManager].mappingProvider
                                                         andDelegate:self];
         
-        _paginator.delegate = _paginator;
-        [_paginator loadPage:1];
-        [_paginator setPaginatorLoading:YES];
+        self.paginator.delegate = self.paginator;
+        [self.paginator loadPage:1];
+        [self.paginator setPaginatorLoading:YES];
     }
     
     return self;
@@ -129,13 +131,13 @@
         // A new RKURL can be constructed by interpolating the dictionary with the original URL
         RKURL *interpolatedURL = [myURL URLByInterpolatingResourcePathWithObject:dictionary];
         
-        _paginator = [[BBActivityPaginator alloc]initWithPatternURL:interpolatedURL
+        self.paginator = [[BBActivityPaginator alloc]initWithPatternURL:interpolatedURL
                                                     mappingProvider:[RKObjectManager sharedManager].mappingProvider
                                                         andDelegate:self];
         
-        _paginator.delegate = _paginator;
-        [_paginator loadPage:1];
-        [_paginator setPaginatorLoading:YES];
+        self.paginator.delegate = self.paginator;
+        [self.paginator loadPage:1];
+        [self.paginator setPaginatorLoading:YES];
     }
     
     return self;
@@ -150,7 +152,7 @@
         _controller = delegate;
 
         dispatch_async(dispatch_get_main_queue(), ^{
-            [SVProgressHUD showWithStatus:@"Loading Activity"];
+            [SVProgressHUD showWithStatus:@"Loading Projects"];
         });
         
         // Given an RKURL initialized as:
@@ -163,13 +165,13 @@
         // A new RKURL can be constructed by interpolating the dictionary with the original URL
         RKURL *interpolatedURL = [myURL URLByInterpolatingResourcePathWithObject:dictionary];
         
-        _paginator = [[BBProjectPaginator alloc]initWithPatternURL:interpolatedURL
+        self.paginator = [[BBProjectPaginator alloc]initWithPatternURL:interpolatedURL
                                                    mappingProvider:[RKObjectManager sharedManager].mappingProvider
                                                        andDelegate:self];
         
-        _paginator.delegate = _paginator;
-        [_paginator loadPage:1];
-        [_paginator setPaginatorLoading:YES];
+        self.paginator.delegate = self.paginator;
+        [self.paginator loadPage:1];
+        [self.paginator setPaginatorLoading:YES];
     }
     
     return self;
@@ -184,7 +186,7 @@
         _controller = delegate;
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [SVProgressHUD showWithStatus:@"Loading Activity"];
+            [SVProgressHUD showWithStatus:@"Loading Favourites"];
         });
         
         // Given an RKURL initialized as:
@@ -197,13 +199,13 @@
         // A new RKURL can be constructed by interpolating the dictionary with the original URL
         RKURL *interpolatedURL = [myURL URLByInterpolatingResourcePathWithObject:dictionary];
         
-        _paginator = [[BBSightingPaginator alloc]initWithPatternURL:interpolatedURL
-                                                   mappingProvider:[RKObjectManager sharedManager].mappingProvider
-                                                       andDelegate:self];
+        self.paginator = [[BBSightingPaginator alloc]initWithPatternURL:interpolatedURL
+                                                        mappingProvider:[RKObjectManager sharedManager].mappingProvider
+                                                            andDelegate:self];
         
-        _paginator.delegate = _paginator;
-        [_paginator loadPage:1];
-        [_paginator setPaginatorLoading:YES];
+        self.paginator.delegate = self.paginator;
+        [self.paginator loadPage:1];
+        [self.paginator setPaginatorLoading:YES];
     }
     
     return self;
@@ -339,6 +341,14 @@
         BBProjectItemController *projectItemController = [[BBProjectItemController alloc]initWithProject:project];
         
         box = (MGBox*)projectItemController.view;
+    }
+    else if([item isKindOfClass:[BBObservation class]])
+    {
+        BBObservation *observation = (BBObservation*)item;
+        
+        BBSightingItemController *sightingItemController = [[BBSightingItemController alloc]initWithObservation:observation];
+        
+        box = (MGBox*)sightingItemController.view;
     }
     else
     {

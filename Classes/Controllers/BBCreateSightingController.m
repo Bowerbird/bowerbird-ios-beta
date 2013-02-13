@@ -532,7 +532,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
 #pragma mark - Location Delegate
 
 
-- (void)locationManager:(CLLocationManager *)manager
+-(void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray *)locations {
     
     [BBLog Log:@"BBCreateSightingController.locationManager:didUpdateLocation:"];

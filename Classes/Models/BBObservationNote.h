@@ -30,6 +30,7 @@
 @property (nonatomic,strong) NSString* allTags;
 @property (nonatomic,strong) NSNumber* tagCount;
 @property (nonatomic,strong) NSNumber* descriptionCount;
+@property (nonatomic,strong) NSString* noteComments;
 
 
 @end

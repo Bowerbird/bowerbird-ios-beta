@@ -15,7 +15,7 @@
 @interface BBSightingPaginator : BBPaginator
 
 
-@property (nonatomic,retain) NSArray* sightings;
+@property (nonatomic,retain) NSMutableArray* sightings;
 
 
 -(id)initWithPatternURL:(RKURL *)patternURL

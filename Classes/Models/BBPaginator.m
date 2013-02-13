@@ -12,7 +12,10 @@
 #import "BBPaginator.h"
 #import "BBActivityPaginator.h"
 #import "BBProjectPaginator.h"
+#import "BBSightingPaginator.h"
 #import "BBActivity.h"
+#import "BBObservation.h"
+#import "SVProgressHUD.h"
 
 
 @interface BBPaginator()
@@ -82,6 +85,27 @@
 #pragma mark - Delegation and Event Handling for Paginator
 
 
+             -(void)request:(RKRequest *)request
+             didReceiveData:(NSInteger)bytesReceived
+         totalBytesReceived:(NSInteger)totalBytesReceived
+totalBytesExpectedToReceive:(NSInteger)totalBytesExpectedToReceive {
+    [BBLog Log:[NSString stringWithFormat:@"bytes received: %d total received: %d total to receive: %d", bytesReceived, totalBytesReceived, totalBytesExpectedToReceive]];
+                 
+     double progress = ((double)totalBytesReceived/(double)totalBytesExpectedToReceive)*100;
+     //double fileSize = (double)totalBytesExpectedToWrite/10485760;// added additional factor of ten to bytes denomenator in MB as too big by about 10 X
+     
+     NSNumberFormatter *formatter = [[NSNumberFormatter alloc]init];
+     [formatter setRoundingMode:NSNumberFormatterRoundUp];
+     [formatter setGeneratesDecimalNumbers:YES];
+     [formatter setMaximumFractionDigits:1];
+     
+     [SVProgressHUD setStatus:[NSString stringWithFormat:@"%@%@", [formatter stringFromNumber:[NSNumber numberWithDouble:progress]], @"%"]];
+     
+     if(progress == 100){
+         [SVProgressHUD dismiss];
+     }
+}
+
 -(void)paginator:(RKObjectPaginator *)paginator
   didLoadObjects:(NSArray *)objects
          forPage:(NSUInteger)page {
@@ -103,6 +127,12 @@
         NSArray *items = paginator.projects;
         [self processPaginator:items];
     }
+    else if([[objects objectAtIndex:0] isKindOfClass:[BBSightingPaginator class]]) {
+        BBSightingPaginator *paginator = (BBSightingPaginator*)[objects objectAtIndex:0];
+        NSArray *items = paginator.sightings;
+        [self processPaginator:items];
+    }
+    
 }
 
 -(void)paginator:(RKObjectPaginator *)paginator
@@ -143,7 +173,7 @@ didFailWithError:(NSError *)error
     
     // if we haven't already displayed this item, push it to the view
     for(id item in paginatorItems) {
-        if(([item isKindOfClass:[BBActivity class]] || [item isKindOfClass:[BBProject class]]) && ![self.items containsObject:item])
+        if(([item isKindOfClass:[BBActivity class]] || [item isKindOfClass:[BBProject class]] || [item isKindOfClass:[BBObservation class]]) && ![self.items containsObject:item])
         {
             [self.items addObject:item];
         }

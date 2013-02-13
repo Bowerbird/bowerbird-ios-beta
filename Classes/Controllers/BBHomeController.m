@@ -96,6 +96,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadUserStream) name:@"userProfileLoaded" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadUserStream) name:@"loadUserStream" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadGroupStream:) name:@"groupMenuTapped" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(browseGroupStream:) name:@"groupBrowseTapped" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadProjectBrowser) name:@"exploreProjectsTapped" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadUserFavorites) name:@"loadUserFavorites" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showLegal) name:@"legalHasBeenTapped" object:nil];
@@ -220,11 +221,29 @@
                                                          andDelegate:self];
     
     BBApplication *app = [BBApplication sharedInstance];
+    
     BBProject* project = [self getProjectWithIdentifier:groupId
                                             fromArrayOf:app.authenticatedUser.projects];
 
     NSMutableDictionary* userInfo2 = [NSMutableDictionary dictionaryWithCapacity:1];
     [userInfo2 setObject:[NSString stringWithString:project.name] forKey:@"name"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeadingTitle" object:self userInfo:userInfo2];
+}
+
+
+-(void)browseGroupStream:(NSNotification *) notification {
+    [BBLog Log:@"BBHomeController.browseGroupStream"];
+    
+    [self clearStreamViews];
+    
+    NSString *groupId = [[notification userInfo] objectForKey:@"groupId"];
+    NSString *groupName = [[notification userInfo] objectForKey:@"name"];
+    
+    self.streamController = [[BBStreamController alloc]initWithGroup:groupId
+                                                         andDelegate:self];
+    
+    NSMutableDictionary* userInfo2 = [NSMutableDictionary dictionaryWithCapacity:1];
+    [userInfo2 setObject:[NSString stringWithString:groupName] forKey:@"name"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeadingTitle" object:self userInfo:userInfo2];
 }
 

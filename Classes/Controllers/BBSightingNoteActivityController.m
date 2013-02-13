@@ -64,8 +64,7 @@
 #pragma mark - Utilities and Helpers
 
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -126,7 +125,7 @@
         }
     }
     // show tags
-    if(observationNote.tagCount > 0) {
+    if([observationNote.tagCount intValue] > 0) {
         
         [info.middleLines addObject:[BBUIControlHelper createSubHeadingWithTitle:@"Tags"
                                                                          forSize:CGSizeMake(IPHONE_STREAM_WIDTH, 20)]];
@@ -145,6 +144,20 @@
         [tagBox addSubview:tagList];
         
         [info.middleLines addObject:tagBox];
+    }
+    
+    //show comment
+    if(observationNote.noteComments && ![observationNote.noteComments isEqualToString:@""]) {
+        [info.middleLines addObject:[BBUIControlHelper createSubHeadingWithTitle:@"Comment"
+                                                                         forSize:CGSizeMake(IPHONE_STREAM_WIDTH, 20)]];
+        
+        MGLine *commentLine = [MGLine multilineWithText:observationNote.noteComments
+                                                       font:DESCRIPTOR_FONT
+                                                      width:IPHONE_STREAM_WIDTH
+                                                    padding:UIEdgeInsetsMake(5, 10, 5, 10)];
+        commentLine.underlineType = MGUnderlineNone;
+        
+        [info.middleLines addObject:commentLine];
     }
     
     // show the observation the note belongs to in summary form:

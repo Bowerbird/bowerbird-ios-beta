@@ -47,10 +47,13 @@
 +(NSString *)RootUriString
 {
     // live api url
-    return @"http://api.bowerbird.org.au";
+    //return @"http://api.bowerbird.org.au";
+    
+    // live site url
+    //return @"http://www.bowerbird.org.au";
     
     // dev.bowerbird.org.au
-    //return @"http://dev.bowerbird.org.au";
+    return @"http://dev.bowerbird.org.au";
     
     // Hamish's PC
     //return @"http://136.154.22.24:65000";

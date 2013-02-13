@@ -179,6 +179,7 @@
     [observationNoteMapping mapKeyPath:@"Id" toAttribute:@"identifier"];
     [observationNoteMapping mapKeyPath:@"CreatedOn" toAttribute:@"createdOn"];
     [observationNoteMapping mapKeyPath:@"Descriptions" toRelationship:@"descriptions" withMapping:sightingNoteDescriptionMapping];
+    [observationNoteMapping mapKeyPath:@"NoteComments" toAttribute:@"noteComments"];
     [observationNoteMapping mapKeyPath:@"Tags" toAttribute:@"tags"];
     [observationNoteMapping mapKeyPath:@"User" toRelationship:@"user" withMapping:userMapping];
     [observationNoteMapping mapKeyPath:@"TagCount" toAttribute:@"tagCount"];
@@ -297,7 +298,7 @@
     [sightingPaginationMapping mapKeyPath:@"Page" toAttribute:@"currentPage"];
     [sightingPaginationMapping mapKeyPath:@"PageSize" toAttribute:@"perPage"];
     [sightingPaginationMapping mapKeyPath:@"TotalResultCount" toAttribute:@"objectCount"];
-    [sightingPaginationMapping mapKeyPath:@"Model.PagedListItems" toRelationship:@"activities" withMapping:activityMapping];
+    [sightingPaginationMapping mapKeyPath:@"PagedListItems" toRelationship:@"sightings" withMapping:observationMapping];
     [manager.mappingProvider setMapping:sightingPaginationMapping forKeyPath:@"Model.Sightings"];
     
     

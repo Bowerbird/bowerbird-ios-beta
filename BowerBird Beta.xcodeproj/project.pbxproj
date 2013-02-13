@@ -333,6 +333,8 @@
 		1CAE96B716BAC0FC00B92A04 /* LBYouTubePlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAE96B516BAC0FC00B92A04 /* LBYouTubePlayerController.m */; };
 		1CAE96B916BAC4DF00B92A04 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CAE96B816BAC4DE00B92A04 /* AVFoundation.framework */; };
 		1CAE96BC16BAC5D100B92A04 /* BBAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAE96BB16BAC5D000B92A04 /* BBAudio.m */; };
+		1CB1E3DA16CA779200102489 /* BBSightingItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB1E3D916CA779200102489 /* BBSightingItemController.m */; };
+		1CB1E3DD16CB29BC00102489 /* BBPlusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB1E3DC16CB29BC00102489 /* BBPlusView.m */; };
 		1CB8182C169F883700F98C43 /* BBIdentifySightingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB8182B169F883700F98C43 /* BBIdentifySightingController.m */; };
 		1CB8182F169F8A3500F98C43 /* BBIdentifySightingEdit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB8182E169F8A3500F98C43 /* BBIdentifySightingEdit.m */; };
 		1CB81832169F97FB00F98C43 /* BBIdentifySightingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB81831169F97FB00F98C43 /* BBIdentifySightingView.m */; };
@@ -936,6 +938,10 @@
 		1CAE96B816BAC4DE00B92A04 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		1CAE96BA16BAC5CF00B92A04 /* BBAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBAudio.h; sourceTree = "<group>"; };
 		1CAE96BB16BAC5D000B92A04 /* BBAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBAudio.m; sourceTree = "<group>"; };
+		1CB1E3D816CA779200102489 /* BBSightingItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSightingItemController.h; sourceTree = "<group>"; };
+		1CB1E3D916CA779200102489 /* BBSightingItemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSightingItemController.m; sourceTree = "<group>"; };
+		1CB1E3DB16CB29BC00102489 /* BBPlusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBPlusView.h; sourceTree = "<group>"; };
+		1CB1E3DC16CB29BC00102489 /* BBPlusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBPlusView.m; sourceTree = "<group>"; };
 		1CB8182A169F883700F98C43 /* BBIdentifySightingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBIdentifySightingController.h; sourceTree = "<group>"; };
 		1CB8182B169F883700F98C43 /* BBIdentifySightingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBIdentifySightingController.m; sourceTree = "<group>"; };
 		1CB8182D169F8A3500F98C43 /* BBIdentifySightingEdit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBIdentifySightingEdit.h; sourceTree = "<group>"; };
@@ -1400,8 +1406,8 @@
 				1CADCE27166DA9AB00B95709 /* BBCreateSightingNoteController.m */,
 				1CA67A7A16781EA4003D5642 /* BBSightingNoteAddDescriptionController.h */,
 				1CA67A7B16781EA4003D5642 /* BBSightingNoteAddDescriptionController.m */,
-				1CA67A7D16781F1F003D5642 /* BBSightingNoteEditDescriptionController.h */,
 				1CA67A7E16781F1F003D5642 /* BBSightingNoteEditDescriptionController.m */,
+				1CA67A7D16781F1F003D5642 /* BBSightingNoteEditDescriptionController.h */,
 				1C1ABC2D167EDE9600EEA5DF /* BBSightingNoteTagController.h */,
 				1C1ABC2E167EDE9600EEA5DF /* BBSightingNoteTagController.m */,
 				1CB8182A169F883700F98C43 /* BBIdentifySightingController.h */,
@@ -1430,6 +1436,8 @@
 				1CD1440316B8E3B900F3742D /* BBPostActivityController.m */,
 				1C1E873616C0AA710087FAA3 /* BBAboutController.h */,
 				1C1E873716C0AA730087FAA3 /* BBAboutController.m */,
+				1CB1E3D816CA779200102489 /* BBSightingItemController.h */,
+				1CB1E3D916CA779200102489 /* BBSightingItemController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1613,6 +1621,8 @@
 				1CB81831169F97FB00F98C43 /* BBIdentifySightingView.m */,
 				1C5479A616B7B3E100393B9F /* BBStarView.h */,
 				1C5479A716B7B3E100393B9F /* BBStarView.m */,
+				1CB1E3DB16CB29BC00102489 /* BBPlusView.h */,
+				1CB1E3DC16CB29BC00102489 /* BBPlusView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2397,6 +2407,8 @@
 				1CAE96B716BAC0FC00B92A04 /* LBYouTubePlayerController.m in Sources */,
 				1CAE96BC16BAC5D100B92A04 /* BBAudio.m in Sources */,
 				1C1E873816C0AA740087FAA3 /* BBAboutController.m in Sources */,
+				1CB1E3DA16CA779200102489 /* BBSightingItemController.m in Sources */,
+				1CB1E3DD16CB29BC00102489 /* BBPlusView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

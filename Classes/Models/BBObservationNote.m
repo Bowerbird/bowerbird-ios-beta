@@ -30,7 +30,8 @@
             totalVoteScore = _totalVoteScore,
             userVoteScore = _userVoteScore,
             tagCount = _tagCount,
-            descriptionCount = _descriptionCount;
+            descriptionCount = _descriptionCount,
+            noteComments = _noteComments;
 
 
 -(NSString*)identifier {
@@ -123,6 +124,8 @@
 -(void)setUserVoteScore:(NSNumber *)userVoteScore {
     _userVoteScore = userVoteScore;
 }
+-(NSString*)noteComments{ return _noteComments;}
+-(void)setNoteComments:(NSString*)noteComments{_noteComments = noteComments;}
 
 
 @end

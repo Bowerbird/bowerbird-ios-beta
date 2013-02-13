@@ -186,5 +186,10 @@ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
     }    
 }
 
+-(void)dealloc {
+    [[[RKClient sharedClient] requestQueue] cancelRequestsWithDelegate:(id)self];
+}
+
+
 
 @end

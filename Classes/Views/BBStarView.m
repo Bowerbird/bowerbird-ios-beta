@@ -34,11 +34,11 @@
         width = self.frame.size.width;
         sizeOfStar = starSize;
         self.backgroundColor = backgroundColour;
-        float blueColor[4] = { 0.38, 0.9, 0.65, 1.0 };
-        blueColour = CGColorCreate(CGColorSpaceCreateDeviceRGB(), blueColor);
-        float greenColor[4] = { 0.38, 0.65, 0.9, 1.0 };
-        greenColour = CGColorCreate(CGColorSpaceCreateDeviceRGB(), greenColor);
+        float greenColor[4] = { 0.38, 0.9, 0.65, 1.0 };
+        float blueColor[4] = { 0.38, 0.65, 0.9, 1.0 };
         float blackColor[4] = {0 ,0 ,0 ,1 };
+        blueColour = CGColorCreate(CGColorSpaceCreateDeviceRGB(), blueColor);
+        greenColour = CGColorCreate(CGColorSpaceCreateDeviceRGB(), greenColor);
         blackColour = CGColorCreate(CGColorSpaceCreateDeviceRGB(), blackColor);
     }
     

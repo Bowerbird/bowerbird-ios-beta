@@ -79,6 +79,12 @@
                                                       userInfo:nil];
 }
 
+- (void)didReceiveMemoryWarning {
+    [BBLog Log:@"MEMORY WARNING! - BBContainerController"];
+    
+    [super didReceiveMemoryWarning];
+}
+
 
 #pragma mark - 
 #pragma mark - Protocol Implementation

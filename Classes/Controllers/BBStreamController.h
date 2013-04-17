@@ -24,6 +24,9 @@
     -(BBStreamController*)initWithGroup:(NSString*)groupId
                             andDelegate:(id<BBStreamProtocol>)delegate;
 
+    -(BBStreamController*)initWithGroupForBrowsing:(NSString*)groupIdentifier
+                                       andDelegate:(id<BBStreamProtocol>)delegate;
+
     -(BBStreamController*)initWithProjectsAndDelegate:(id<BBStreamProtocol>)delegate;
 
     -(BBStreamController*)initWithFavouritesAndDelegate:(id<BBStreamProtocol>)delegate;

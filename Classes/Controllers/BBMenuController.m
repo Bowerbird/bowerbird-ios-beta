@@ -284,7 +284,7 @@
     }
     
     [self populateMenu];
-    [self.view setNeedsDisplay];
+    [(MGScrollView*)self.view layout];
 }
 
 -(void)projectLeft:(NSNotification *) notification{
@@ -304,7 +304,7 @@
     appData.authenticatedUser.projects = projects;
     
     [self populateMenu];
-    [self.view setNeedsDisplay];
+    [(MGScrollView*)self.view layout];
 }
 
 

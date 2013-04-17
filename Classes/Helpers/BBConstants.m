@@ -46,17 +46,20 @@
 
 +(NSString *)RootUriString
 {
-    // live api url
-    //return @"http://api.bowerbird.org.au";
+    // Prod API
+    return @"http://api.bowerbird.org.au";
     
-    // live site url
+    // Prod on CSIRO
     //return @"http://www.bowerbird.org.au";
     
-    // dev.bowerbird.org.au
-    return @"http://dev.bowerbird.org.au";
+    // Dev on CSIRO
+    // return @"http://dev.bowerbird.org.au";
     
-    // Hamish's PC
+    // Hamish MV PC
     //return @"http://136.154.22.24:65000";
+    
+    // MV Padil
+    // return @"http://136.154.202.119:8001";
 }
 
 // restful segments

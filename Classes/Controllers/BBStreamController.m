@@ -44,6 +44,11 @@
 @property (nonatomic, strong) id<BBStreamProtocol> controller; // parent controller (HomeController in this case)
 @property (nonatomic, strong) NSMutableDictionary *streamItemSizesCache; // dictionary of subview sizes
 
+@property (nonatomic, strong) NSMutableArray *tableItems;
+@property (nonatomic) int fetchBatch;
+//@property (nonatomic, readwrite) BOOL loading;
+@property (nonatomic) BOOL noMoreResultsAvail;
+
 @end
 
 
@@ -52,6 +57,7 @@
     NSString *groupId;
     MGBox *progressBox;
     MGBox* queriedBox;
+    BOOL isJoinable;
 }
 
 
@@ -63,46 +69,45 @@
             scroller = _scroller,
             controller = _controller,
             streamItemSizesCache = _streamItemSizesCache,
-            tableView = _tableView;
+            tableView = _tableView,
+            tableItems = _tableItems,
+            fetchBatch = _fetchBatch,
+            loading = _loading,
+            noMoreResultsAvail = _noMoreResultsAvail;
 
 
 #pragma mark -
 #pragma mark - Constructors
 
 
--(BBStreamController*)initWithUserAndDelegate:(id<BBStreamProtocol>)delegate {
-    [BBLog Log:@"BBStreamController.initWithUserAndDelegate:"];
+-(id)init {
     
     self = [super init];
     
     if(self) {
+        self.tableItems = [[NSMutableArray alloc]init];
+        self.loading = NO;
+        self.noMoreResultsAvail = NO;
+        self.fetchBatch = 0;
+    }
+    
+    return self;
+}
+
+-(BBStreamController*)initWithUserAndDelegate:(id<BBStreamProtocol>)delegate {
+    [BBLog Log:@"BBStreamController.initWithUserAndDelegate:"];
+    
+    self = [self init];
+    
+    if(self) {
         _controller = delegate;
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [SVProgressHUD showWithStatus:@"Loading Activity"];
-        });
+        [self setPaginatorForStream:@""];
         
-        // Given an RKURL initialized as:
-        RKURL *myURL = [RKURL URLWithBaseURLString:[BBConstants RootUriString]
-                                      resourcePath:[NSString stringWithFormat:@"%@&%@", @"/?PageSize=:perPage&Page=:page", [BBConstants AjaxQuerystring]]];
-        
-        // And a dictionary containing values:
-        NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"10", @"perPage", @"1", @"page", nil];
-        
-        // A new RKURL can be constructed by interpolating the dictionary with the original URL
-        RKURL *interpolatedURL = [myURL URLByInterpolatingResourcePathWithObject:dictionary];
-                
-        [self.paginator addObserver:self forKeyPath:@"items" options:NSKeyValueChangeInsertion context:NULL];
-        
-        
-        self.paginator = [[BBActivityPaginator alloc]initWithPatternURL:interpolatedURL
-                                                    mappingProvider:[RKObjectManager sharedManager].mappingProvider
-                                                        andDelegate:self];
-        
-        self.paginator.delegate = self.paginator;
-        [self.paginator loadPage:1];
-        [self.paginator setPaginatorLoading:YES];
+        [self loadRequest];
     }
+    
+    [self loadView];
     
     return self;
 }
@@ -111,68 +116,53 @@
                         andDelegate:(id<BBStreamProtocol>)delegate {
     [BBLog Log:@"BBStreamController.initWithGroup:andDelegate:"];
     
-    self = [super init];
+    self = [self init];
     
     if(self) {
         _controller = delegate;
         groupId = groupIdentifier;
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [SVProgressHUD showWithStatus:@"Loading Activity"];
-        });
-        
-        // Given an RKURL initialized as:
-        RKURL *myURL = [RKURL URLWithBaseURLString:[BBConstants RootUriString]
-                                      resourcePath:[NSString stringWithFormat:@"/%@%@&%@", groupId, @"?PageSize=:perPage&Page=:page", [BBConstants AjaxQuerystring]]];
-        
-        // And a dictionary containing values:
-        NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"10", @"perPage", @"1", @"page", nil];
-        
-        // A new RKURL can be constructed by interpolating the dictionary with the original URL
-        RKURL *interpolatedURL = [myURL URLByInterpolatingResourcePathWithObject:dictionary];
-        
-        self.paginator = [[BBActivityPaginator alloc]initWithPatternURL:interpolatedURL
-                                                    mappingProvider:[RKObjectManager sharedManager].mappingProvider
-                                                        andDelegate:self];
-        
-        self.paginator.delegate = self.paginator;
-        [self.paginator loadPage:1];
-        [self.paginator setPaginatorLoading:YES];
+        [self setPaginatorForStream:groupIdentifier];
     }
     
+    [self loadView];
+    
+    return self;
+}
+
+-(BBStreamController*)initWithGroupForBrowsing:(NSString*)groupIdentifier
+                                   andDelegate:(id<BBStreamProtocol>)delegate {
+    [BBLog Log:@"BBStreamController.initWithGroupForBrowsing:andDelegate:"];
+    
+    self = [self init];
+    
+    if(self) {
+        _controller = delegate;
+        groupId = groupIdentifier;
+        isJoinable = YES;
+        
+        [self setPaginatorForStream:groupIdentifier];
+    }
+    
+    [self loadView];
+        
     return self;
 }
 
 -(BBStreamController*)initWithProjectsAndDelegate:(id<BBStreamProtocol>)delegate {
     [BBLog Log:@"BBStreamController.initWithProjectsAndDelegate:"];
     
-    self = [super init];
+    self = [self init];
     
     if(self){
         _controller = delegate;
 
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [SVProgressHUD showWithStatus:@"Loading Projects"];
-        });
+        [self setPaginatorForStream:@"projects"];
         
-        // Given an RKURL initialized as:
-        RKURL *myURL = [RKURL URLWithBaseURLString:[BBConstants RootUriString]
-                                      resourcePath:[NSString stringWithFormat:@"%@&%@", @"/projects?PageSize=:perPage&Page=:page", [BBConstants AjaxQuerystring]]];
-        
-        // And a dictionary containing values:
-        NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"10", @"perPage", @"1", @"page", nil];
-        
-        // A new RKURL can be constructed by interpolating the dictionary with the original URL
-        RKURL *interpolatedURL = [myURL URLByInterpolatingResourcePathWithObject:dictionary];
-        
-        self.paginator = [[BBProjectPaginator alloc]initWithPatternURL:interpolatedURL
-                                                   mappingProvider:[RKObjectManager sharedManager].mappingProvider
-                                                       andDelegate:self];
-        
-        self.paginator.delegate = self.paginator;
-        [self.paginator loadPage:1];
-        [self.paginator setPaginatorLoading:YES];
+        [self loadRequest];
     }
+    
+    [self loadView];
     
     return self;
 }
@@ -180,35 +170,61 @@
 -(BBStreamController*)initWithFavouritesAndDelegate:(id<BBStreamProtocol>)delegate {
     [BBLog Log:@"BBStreamController.initWithProjectsAndDelegate:"];
     
-    self = [super init];
+    self = [self init];
     
     if(self){
         _controller = delegate;
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [SVProgressHUD showWithStatus:@"Loading Favourites"];
-        });
-        
-        // Given an RKURL initialized as:
-        RKURL *myURL = [RKURL URLWithBaseURLString:[BBConstants RootUriString]
-                                      resourcePath:[NSString stringWithFormat:@"%@&%@", @"/favourites?PageSize=:perPage&Page=:page", [BBConstants AjaxQuerystring]]];
-        
-        // And a dictionary containing values:
-        NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"10", @"perPage", @"1", @"page", nil];
-        
-        // A new RKURL can be constructed by interpolating the dictionary with the original URL
-        RKURL *interpolatedURL = [myURL URLByInterpolatingResourcePathWithObject:dictionary];
-        
+        [self setPaginatorForStream:@"favourites"];
+    }
+    
+    [self loadView];
+    
+    return self;
+}
+
+-(void)setPaginatorForStream:(NSString*)streamName {
+    [BBLog Log:@"BBStreamController.setPaginatorForStream:"];
+    [BBLog Debug:@"streamName:" withMessage:streamName];
+    
+    // Given an RKURL initialized as:
+    RKURL *myURL = [RKURL URLWithBaseURLString:[BBConstants RootUriString]
+                                  resourcePath:[NSString stringWithFormat:@"/%@?PageSize=:perPage&Page=:page&%@", streamName, [BBConstants AjaxQuerystring]]];
+    
+    // And a dictionary containing values:
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"10", @"perPage", @"1", @"page", nil];
+    
+    // A new RKURL can be constructed by interpolating the dictionary with the original URL
+    RKURL *interpolatedURL = [myURL URLByInterpolatingResourcePathWithObject:dictionary];
+    
+    if([streamName isEqualToString:@"favourites"]){ // we're only viewing sightings
         self.paginator = [[BBSightingPaginator alloc]initWithPatternURL:interpolatedURL
                                                         mappingProvider:[RKObjectManager sharedManager].mappingProvider
                                                             andDelegate:self];
         
-        self.paginator.delegate = self.paginator;
-        [self.paginator loadPage:1];
-        [self.paginator setPaginatorLoading:YES];
+    }
+    else if([streamName isEqualToString:@"projects"]){ // we're only viewing projects
+        self.paginator = [[BBProjectPaginator alloc]initWithPatternURL:interpolatedURL
+                                                        mappingProvider:[RKObjectManager sharedManager].mappingProvider
+                                                            andDelegate:self];
+        
+    }
+    else { // we're getting activities
+        self.paginator = [[BBActivityPaginator alloc]initWithPatternURL:interpolatedURL
+                                                        mappingProvider:[RKObjectManager sharedManager].mappingProvider
+                                                            andDelegate:self];
     }
     
-    return self;
+    self.paginator.delegate = self.paginator;
+}
+
+-(void)loadRequest {
+    [BBLog Log:@"BBStreamController.loadRequest"];
+    
+    self.fetchBatch++;
+    [self.paginator loadPage:self.fetchBatch];
+    [self.paginator setPaginatorLoading:YES];
+    self.loading = YES;
 }
 
 
@@ -224,28 +240,27 @@
 }
 
 -(void)displayItems {
-    [self.tableView reloadData];
+    //[self.tableView reloadData];
+    //[self.tableView beginUpdates];
     [self.view setNeedsDisplay];
 }
 
 -(void)loadView {
-    [BBLog Log:[NSString stringWithFormat:@"%s", __FUNCTION__]];
     [BBLog Log:@"BBStreamController.loadView"];
     
-    CGSize size = [UIScreen mainScreen].bounds.size;
+    CGSize size = CGSizeMake([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 50);
     
-    _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, 320, size.height)
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 50, 320, size.height)
                                              style:UITableViewStylePlain];
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    _tableView.pagingEnabled = YES;
     
-    _tableView.decelerationRate = 1;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
     
-    self.view = _tableView;
+    self.view = self.tableView;
     self.view.backgroundColor = [UIColor blackColor];
     
-    [_controller displayStreamView:(UITableView*)self.view];
+    [self.controller displayStreamView:(UITableView*)self.view];
 }
 
 -(void)viewDidLoad {
@@ -253,7 +268,6 @@
     
     [super viewDidLoad];
     self.clearsSelectionOnViewWillAppear = YES;
-    
     
     UISwipeGestureRecognizer *rightRecognizer;
     rightRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeRight:)];
@@ -264,7 +278,7 @@
     
     if(![_paginator isKindOfClass:[BBProjectPaginator class]]){
         
-        _tableView.pullToRefreshView.backgroundColor = [UIColor blackColor];
+        self.tableView.pullToRefreshView.backgroundColor = [UIColor blackColor];
         
         __block NSString *groupIdentifier = [groupId copy];
         
@@ -294,19 +308,24 @@
     }
 
     [self.tableView addInfiniteScrollingWithActionHandler:^{
+        
+        // append data to data source, insert new cells at the end of table view
+        // call [tableView.infiniteScrollingView stopAnimating] when done
+        
         stream.tableView.infiniteScrollingView.backgroundColor = [UIColor blackColor];
         stream.tableView.infiniteScrollingView.arrowColor = [UIColor whiteColor];
         stream.tableView.infiniteScrollingView.textColor = [UIColor whiteColor];
         
-        [stream.paginator handlePaginatorLoadNextPage];
+        //[stream.paginator handlePaginatorLoadNextPage];
+        [stream loadRequest];
     }];
     
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _tableView.showsPullToRefresh = YES;
-}
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.showsPullToRefresh = YES;
+ }
 
 -(void)viewWillAppear:(BOOL)animated {
-    ((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController.navigationBarHidden = YES;
+    //((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController.navigationBarHidden = YES;
 }
 
 -(void)handleSwipeRight:(UIGestureRecognizer *)gestureRecognizer {
@@ -377,13 +396,34 @@
     [BBLog Log:@"MEMORY WARNING! - BBStreamController"];
     
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 
 #pragma mark -
 #pragma mark UITableViewDataSource
 
+
+-(void)addItemsToTableDataSource:(NSArray*)items {
+    [BBLog Log:@"BBStreamController.addItemsToDataSource"];
+    
+    // start by getting the last index and therefore, the index point for inserting
+    int index = self.tableItems.count > 0 ? self.tableItems.count -1 : 0;
+    
+    NSMutableArray *insertIndexPaths = [[NSMutableArray alloc]init];
+    
+    for (id object in items) {
+        [self.tableItems insertObject:object atIndex:index];
+        [insertIndexPaths addObject:[NSIndexPath indexPathForRow:index inSection:0]];
+        index ++;
+    }
+    
+    [self.tableView beginUpdates];
+    [self.tableView insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationBottom];
+    [self.tableView endUpdates];
+
+    //[self.tableView reloadData];
+    //[self.view setNeedsDisplay];
+}
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     [BBLog Log:@"BBStreamController.numberOfSectionsInTableView:"];
@@ -393,7 +433,10 @@
 -(NSInteger)tableView:(UITableView *)tableView
 numberOfRowsInSection:(NSInteger)section {
     [BBLog Log:@"BBStreamController.numberOfRowsInSection:"];
-    return _paginator.items.count;
+    
+    [BBLog Debug:[NSString stringWithFormat:@"Stream Model Item Count: %i", self.tableItems.count]];
+    
+    return self.tableItems.count + 1; // additional cell for loading more... no more records at the bottom
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView
@@ -401,67 +444,114 @@ numberOfRowsInSection:(NSInteger)section {
     [BBLog Log:@"tableView:cellForRowAtIndexPath:"];
     [BBLog Log:[NSString stringWithFormat:@"tableView Cell: %i", indexPath.row]];
     
-    // Configure the cell...
+    /*
     static NSString *sightingIdentifier = @"Sighting";
     static NSString *noteIdentifier = @"Note";
     static NSString *projectIdentifier = @"Project";
     static NSString *postIdentifier = @"Post";
     static NSString *identificationIdentifier = @"Identification";
+    */
     
     NSString *identifier = @"Cell";
     
-    id item = [_paginator.items objectAtIndex:indexPath.row];
+    // Only starts populating the table if data source is not empty.
+    if (self.tableItems.count != 0 && indexPath.row < self.tableItems.count) {
+        id item = [self.tableItems objectAtIndex:indexPath.row];
+        
+        /*
+        //identifier = sightingIdentifier;
+        if([item isKindOfClass:BBActivity.class]){
+            identifier = ((BBActivity*)item).identifier;
+            
+            BBActivity *activity = (BBActivity*)item;
+            if([activity.type isEqualToString:@"sightingadded"])
+            {
+                identifier = sightingIdentifier;
+            }
+            
+            else if([activity.type isEqualToString:@"sightingnoteadded"])
+            {
+                identifier = noteIdentifier;
+            }
+            
+            else if([activity.type isEqualToString:@"identificationadded"])
+            {
+                identifier = identificationIdentifier;
+            }
+            
+            else if([activity.type isEqualToString:@"postadded"])
+            {
+                identifier = postIdentifier;
+            }
+         
+        }
+        else if([item isKindOfClass:BBProject.class]) {
+            //identifier = projectIdentifier;
+            identifier = ((BBProject*)item).identifier;
+        }
     
-    identifier = sightingIdentifier;
-    if([item isKindOfClass:BBActivity.class]){
-        BBActivity *activity = (BBActivity*)item;
-        if([activity.type isEqualToString:@"sightingadded"])
-        {
-            identifier = sightingIdentifier;
+        */
+        
+        MGBox *box = [self displayStreamItem:item];
+        box.margin = UIEdgeInsetsMake(0, 5, 5, 0);
+        
+        MGBox *wrapper = [MGBox boxWithSize:CGSizeMake(320, box.height + 10)];
+        wrapper.backgroundColor = [UIColor blackColor];
+        [wrapper.boxes addObject:box];
+        [wrapper layout];
+        
+        //BBTableViewCell *cell = (BBTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
+        BBTableViewCell *cell;// = (BBTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
+        if (cell == nil || (cell.height != wrapper.height)) {
+            //cell = [[BBTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            cell = [[BBTableViewCell alloc] init];
+            //cell.userInteractionEnabled = NO;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         
-        else if([activity.type isEqualToString:@"sightingnoteadded"])
-        {
-            identifier = noteIdentifier;
+        if(indexPath.row >= (self.tableItems.count - (self.paginator.perPage/2)) && !self.loading){
+            self.loading = YES;
+            [self loadRequest];
         }
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [cell.contentView addSubview:wrapper];
+            [cell setNeedsDisplay];
+        });
         
-        else if([activity.type isEqualToString:@"identificationadded"])
-        {
-            identifier = identificationIdentifier;
-        }
-        
-        else if([activity.type isEqualToString:@"postadded"])
-        {
-            identifier = postIdentifier;
-        }
+        return cell;
     }
-    else if([item isKindOfClass:BBProject.class]) {
-        identifier = projectIdentifier;
+    else {
+
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                                       reuseIdentifier:identifier];
+        // The currently requested cell is the last cell.
+        if (!self.noMoreResultsAvail) {
+            // If there are results available, display @"Loading More..." in the last cell
+            
+            cell.textLabel.text = @"Loading...";
+            cell.textLabel.font = [UIFont systemFontOfSize:18];
+            cell.textLabel.textColor = [UIColor colorWithRed:0.65f
+                                                       green:0.65f
+                                                        blue:0.65f
+                                                       alpha:1.00f];
+            cell.textLabel.textAlignment = UITextAlignmentCenter;
+            return cell;
+        } else {
+            // If there are no results available, display @"Loading More..." in the last cell
+            UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                                           reuseIdentifier:identifier];
+            cell.textLabel.font = [UIFont systemFontOfSize:16];
+            cell.textLabel.text = @"(No More Results Available)";
+            cell.textLabel.textColor = [UIColor colorWithRed:0.65f
+                                                       green:0.65f
+                                                        blue:0.65f
+                                                       alpha:1.00f];
+            cell.textLabel.textAlignment = UITextAlignmentCenter;
+            return cell;
+        }
+
     }
-    
-    MGBox *box = [self displayStreamItem:item];
-    box.margin = UIEdgeInsetsMake(0, 5, 5, 0);
-    
-    MGBox *wrapper = [MGBox boxWithSize:CGSizeMake(320, box.height + 10)];
-    wrapper.backgroundColor = [UIColor blackColor];
-    [wrapper.boxes addObject:box];
-    [wrapper layout];
-    
-    BBTableViewCell *cell = (BBTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
-    if (cell == nil || (cell.height != wrapper.height)) {
-        cell = [[BBTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-        //cell.userInteractionEnabled = NO;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        [cell.contentView addSubview:wrapper];
-        
-        [cell setNeedsDisplay];
-    });
-    
-    return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView
@@ -469,9 +559,15 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     [BBLog Log:@"tableView:heightForRowAtIndexPath:"];
     [BBLog Log:[NSString stringWithFormat:@"tableView Cell: %i", indexPath.row]];
     
-    if(![self.streamItemSizesCache objectForKey:[NSString stringWithFormat:@"%i", indexPath.row]]) {
+    // if this is the last row, pass back a fixed height:
+    if([indexPath row] == self.tableItems.count) {
+        return 20;
+    }
         
-        MGBox *box = [self displayStreamItem:[[_paginator items] objectAtIndex:[indexPath row]]];
+    
+    if(![self.streamItemSizesCache objectForKey:[NSString stringWithFormat:@"%i", indexPath.row]]) {
+    
+        MGBox *box = [self displayStreamItem:[self.tableItems objectAtIndex:[indexPath row]]];
         
         queriedBox = box;
         

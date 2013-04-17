@@ -13,6 +13,7 @@
 #import "BBHelpers.h"
 #import "MGHelpers.h"
 #import "SVProgressHUD.h"
+#import "SDImageCache.h"
 
 
 @class BBImage, BBProject, MGBox;

@@ -17,4 +17,6 @@
 
 -(id)initWithProject:(BBProject*)project;
 
+-(void)displayJoinLeaveController;
+
 @end

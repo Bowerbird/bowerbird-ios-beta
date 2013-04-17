@@ -78,5 +78,12 @@
     return arrowWrapper;
 }
 
+-(void)didReceiveMemoryWarning {
+    [BBLog Log:@"MEMORY WARNING! - BBStreamController"];
+    
+    // clear the memory cache:
+    [[SDImageCache sharedImageCache] clearMemory];
+}
+
 
 @end

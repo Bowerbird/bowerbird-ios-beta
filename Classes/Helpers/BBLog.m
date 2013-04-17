@@ -22,6 +22,14 @@
     }
 }
 
++(void)Debug:(id)message
+{
+    if([BBConstants TraceDebug])
+    {
+        NSLog(@"%@", message);
+    }
+}
+
 +(void)Error:(id)message
 {
     if([BBConstants TraceError])
@@ -34,7 +42,7 @@
 {
     if([BBConstants TraceDebug])
     {
-        NSLog(@"%@", message);
+        NSLog(@"%@ %@", payload, message);
     }
 }
 

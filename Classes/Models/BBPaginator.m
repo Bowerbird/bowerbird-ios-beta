@@ -142,7 +142,8 @@ totalBytesExpectedToReceive:(NSInteger)totalBytesExpectedToReceive {
     RKURL *url = paginator.patternURL;
     
     // hack to overwrite the paging parameter with the propper page number: http://stackoverflow.com/questions/11751880/how-to-fetch-pages-of-results-with-restkit
-    loader.resourcePath = [NSString stringWithFormat:@"%@&OlderThan=%@", [url.resourcePath stringByReplacingOccurrencesOfString:@"Page=1" withString:[NSString stringWithFormat:@"Page=%i", page]], [self.latestFetchedActivityOlder dateAsJsonUtcString]];
+    loader.resourcePath = [NSString stringWithFormat:@"%@&OlderThan=%@", [url.resourcePath stringByReplacingOccurrencesOfString:@"Page=1"
+                                                                                                                     withString:[NSString stringWithFormat:@"Page=%i", page]], [self.latestFetchedActivityOlder dateAsJsonUtcString]];
 }
 
 -(void)paginator:(RKObjectPaginator *)paginator
@@ -171,15 +172,24 @@ didFailWithError:(NSError *)error
 -(void)processPaginator:(NSArray*)paginatorItems {
     [BBLog Log:@"BBPaginator.processPaginator:"];
     
+    NSMutableArray *addToStream = [[NSMutableArray alloc]init];
+    
     // if we haven't already displayed this item, push it to the view
     for(id item in paginatorItems) {
-        if(([item isKindOfClass:[BBActivity class]] || [item isKindOfClass:[BBProject class]] || [item isKindOfClass:[BBObservation class]]) && ![self.items containsObject:item])
+        if(([item isKindOfClass:[BBActivity class]] ||
+            [item isKindOfClass:[BBProject class]] ||
+            [item isKindOfClass:[BBObservation class]]) //&&
+           //![self.items containsObject:item]
+           )
         {
-            [self.items addObject:item];
+            //[self.items addObject:item];
+            [addToStream addObject:item];
         }
     }
     
-    [self.controller displayItems];
+    //[self.controller displayItems];
+    [self.controller addItemsToTableDataSource:addToStream];
+    [self.controller setLoading:NO];
     
     self.requestWasPullLatest = NO;
     

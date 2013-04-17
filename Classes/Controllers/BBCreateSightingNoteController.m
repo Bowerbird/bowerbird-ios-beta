@@ -24,7 +24,7 @@
 #import "BBSightingNoteEditDescriptionController.h"
 #import "BBSightingNoteDescriptionCreate.h"
 #import "BBSightingNoteTagController.h"
-#import "NSString+RKAdditions.h"
+//#import "NSString+RKAdditions.h"
 #import "BBSightingNoteEdit.h"
 #import "BBSightingNoteCreate.h"
 #import "BBJsonResponse.h"
@@ -270,6 +270,12 @@
 
 -(void)removeTag:(NSString*)tag {
     [_sightingNote.tags removeObject:tag];
+}
+
+- (void)didReceiveMemoryWarning {
+    [BBLog Log:@"MEMORY WARNING! - BBContainerController"];
+    
+    [super didReceiveMemoryWarning];
 }
 
 

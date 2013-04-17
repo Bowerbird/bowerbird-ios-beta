@@ -422,7 +422,8 @@
     [manager.router routeClass:[BBIdentifySightingEdit class] toResourcePath:@"/:sightingId/identifications" forMethod:RKRequestMethodPOST escapeRoutedPath:NO];
     [manager.router routeClass:[BBSightingNoteCreate class] toResourcePathPattern:@"/:sightingId/notes" forMethod:RKRequestMethodPOST escapeRoutedPath:NO];
     [manager.router routeClass:[BBFavouriteId class] toResourcePath:@"/favourites" forMethod:RKRequestMethodPOST escapeRoutedPath:NO];
-    [manager.router routeClass:[BBProjectId class] toResourcePath:@"/:identifier/members" forMethod:RKRequestMethodPOST escapeRoutedPath:NO];// this may not be serverside refactored yet
+    [manager.router routeClass:[BBProjectId class] toResourcePath:@"/:identifier/members" forMethod:RKRequestMethodPOST escapeRoutedPath:NO];
+    [manager.router routeClass:[BBProjectId class] toResourcePath:@"/:identifier/members" forMethod:RKRequestMethodDELETE escapeRoutedPath:NO];
     [manager.router routeClass:[BBVoteCreate class] toResourcePath:@"/:identifier/vote" forMethod:RKRequestMethodPOST escapeRoutedPath:NO];
     [manager.router routeClass:[BBSubVoteCreate class] toResourcePath:@"/:identifier/:subIdentifier/vote" forMethod:RKRequestMethodPOST escapeRoutedPath:NO];
     [manager.router routeClass:[BBAuthenticatedUser class] toResourcePath:@"/account/profile" forMethod:RKRequestMethodGET escapeRoutedPath:NO];

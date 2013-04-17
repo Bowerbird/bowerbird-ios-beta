@@ -15,6 +15,8 @@
 
 +(void)Log:(id)message;
 
++(void)Debug:(id)message;
+
 +(void)Debug:(id)payload withMessage:(NSString*)message;
 
 +(void)Error:(id)message;

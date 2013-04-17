@@ -116,7 +116,7 @@
     
     [self.view addSubview:streamView];
     self.streamController.view.y += 50;
-    self.streamController.view.height -= 50;
+    //self.streamController.view.height -= 50;
 }
 
 -(void)handleSwipeRight:(UIGestureRecognizer *)gestureRecognizer {

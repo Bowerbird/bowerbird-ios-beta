@@ -106,7 +106,8 @@
     [userProfileWithArrow.boxes addObject:detailArrow];
     
     userProfileWithArrow.onTap = ^{
-        [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:[[BBSightingDetailController alloc]initWithSightingIdentifier:observation.identifier] animated:YES];
+        [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:[[BBSightingDetailController alloc]initWithSightingIdentifier:observation.identifier]
+                                                                                               animated:YES];
     };
     
     [info.topLines addObject:userProfileWithArrow];

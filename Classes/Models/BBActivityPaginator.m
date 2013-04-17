@@ -82,6 +82,8 @@ didLoadObjectDictionary:(NSDictionary *)dictionary {
       didLoadObject:(id)object {
     [BBLog Log:@"BBStreamController.didLoadObject"];
     
+    [self.controller pullToRefreshCompleted];
+    
     if([object isKindOfClass:[BBActivityPaginator class]]) {
         // reverse the order so the items are popped onto the top of the UI scroll view with the oldest first.
         //[self processPaginator:[[((BBActivityPaginator*)object).activities reverseObjectEnumerator] allObjects]];
@@ -98,6 +100,7 @@ didLoadObjectDictionary:(NSDictionary *)dictionary {
 
 - (void) objectLoader:(RKObjectLoader *)loader
           willMapData:(inout __autoreleasing id *)mappableData {
+    
     NSMutableDictionary* model = [[*mappableData objectForKey: @"Model"] mutableCopy];
     NSDictionary* pagedResult = [model objectForKey:@"Activities"];
     

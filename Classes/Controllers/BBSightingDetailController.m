@@ -528,8 +528,8 @@ static CGRect MapFullFrame;
     
     __weak UINavigationController *nav = self.navigationController;
     fullSizePhoto.onTap = ^{
-        BBDisplayFullImageController *fullImageController = [[BBDisplayFullImageController alloc]initWithImage:originalSize];
-        [nav pushViewController:fullImageController animated:NO];
+        [nav pushViewController:[[BBDisplayFullImageController alloc]initWithImage:originalSize]
+                       animated:NO];
     };
     
     MGBox *section = (id)content.parentBox;

@@ -626,6 +626,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
 #pragma mark - Save or Cancel Observation
 
 
+// Save validation
 -(void)save {
     [BBLog Log:@"BBCreateSightingController.save"];
     
@@ -643,6 +644,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
     }
 }
 
+// Actual save on successful validation
 -(void)saveIsValid{
 
     __block BBObservationCreate *observation = [[BBObservationCreate alloc]init];
@@ -682,7 +684,8 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [SVProgressHUD dismiss];
     [SVProgressHUD showWithStatus:@"Saving Observation"];
     
-    //[manager postObject:observation delegate:self]; // ain't working.. posting as text/html.
+    [manager postObject:observation delegate:observation]; // ain't working.. posting as text/html.
+    /*
     [manager postObject:observation usingBlock:^(RKObjectLoader *loader) {
         
         // map native object to dictionary of key values
@@ -699,6 +702,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
         loader.params = [RKRequestSerialization serializationWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding] MIMEType:RKMIMETypeJSON];
         loader.delegate = observation;
     }];
+    */
 }
 
 -(void)observationSent {

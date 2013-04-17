@@ -43,25 +43,24 @@
     self.headingLabel = [[UILabel alloc]initWithFrame:CGRectMake(50, 5, 200, 30)];
     self.headingLabel.text = title;
     
-    UIButton *actionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     CGRect frame = CGRectMake(size.width - HEADER_BTTN.width - PADDING, PADDING, HEADER_BTTN.width, HEADER_BTTN.height);
-    
     UIColor *plusColour = [UIColor colorWithRed:0.26 green:0.57 blue:0.88 alpha:1.0];
-    UIColor *backgroundColor = [UIColor colorWithRed:0.94 green:0.94 blue:0.95 alpha:1];
+    UIColor *backgroundColor = [UIColor whiteColor];//[UIColor colorWithRed:0.94 green:0.94 blue:0.95 alpha:1];
     
     BBPlusView *actionView = [[BBPlusView alloc]initWithFrame:frame
                                                   andBgColour:backgroundColor
                                                 andPlusColour:plusColour
                                                   andPlusSize:10];
     
-    actionBtn.frame = CGRectMake(size.width - HEADER_BTTN.width - PADDING, PADDING, HEADER_BTTN.width, HEADER_BTTN.height);
-    [actionBtn addSubview:actionView];
-    [actionBtn addTarget:self action:@selector(actionTapped) forControlEvents:UIControlEventTouchDown];
+    UITapGestureRecognizer *actionTap = [[UITapGestureRecognizer alloc]initWithTarget:self
+                                                                               action:@selector(actionTapped)];
+    actionTap.delegate = self;
+    actionTap.numberOfTapsRequired = 1;
+    [actionView addGestureRecognizer:actionTap];
     
     [self addSubview:menuBtn];
     [self addSubview:self.headingLabel];
-    //[self addSubview:logoView];
-    [self addSubview:actionBtn];
+    [self addSubview:actionView];
         
     return self;
 }

@@ -61,14 +61,14 @@
 -(void)loadView {
     [BBLog Log:@"BBDisplayFullImageController.loadView"];
     
+    [SVProgressHUD showWithStatus:@"Loading full size Image"];
+    
     CoolMGButton *backBtn = [BBUIControlHelper createButtonWithFrame:CGRectMake(0, 0, 320, 50)
                                                             andTitle:@"Back to Sighting"
                                                            withBlock:^{
                                                                [[self navigationController] popViewControllerAnimated:NO];
                                                            }];
     
-    
-    [SVProgressHUD showWithStatus:@"Loading full size Image"];
     
     self.view = [[UIView alloc]init];//]WithFrame:CGRectMake(0, 50, [self screenSize].width, [self screenSize].height - 50)];
     
@@ -118,16 +118,51 @@
 #pragma mark - Utilities and Helpers
 
 
--(void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning {
+    [BBLog Log:@"MEMORY WARNING! - BBContainerController"];
+    
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 -(void)loadPhotoFromLocation:(NSString*)location {
     [BBLog Log:@"BBDisplayFullImageController.loadPhotoFromLocation"];
     
-    id fullPath = [NSString stringWithFormat:@"%@/%@", [BBConstants RootUriString], location];
+    id fullPath = [NSString stringWithFormat:@"%@%@", [BBConstants RootUriString], location];
     NSURL *url = [NSURL URLWithString:fullPath];
+    
+    //UIImageView *imageView = [[UIImageView alloc]init];
+    //[imageView setImageWithURL:url placeholderImage:nil];
+  
+    /*
+    // do UI stuff back in UI land
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        // ditch the spinner
+        UIActivityIndicatorView *spinner = self.subviews.lastObject;
+        [spinner stopAnimating];
+        [spinner removeFromSuperview];
+        
+        // failed to get the photo?
+        if (!imageView) {
+            self.alpha = 0.3;
+            return;
+        }
+        
+        // got the photo, so lets show it
+        //UIImage *image = [UIImage imageWithData:data];
+        //UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+        
+        [self addSubview:imageView];
+        imageView.size = self.size;
+        imageView.alpha = 0;
+        imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        
+        // fade the image in
+        [UIView animateWithDuration:0.2 animations:^{
+            imageView.alpha = 1;
+        }];
+    });
+    */
     
     // fetch the remote photo
     NSData *data = [NSData dataWithContentsOfURL:url];
@@ -159,6 +194,7 @@
         // failed to get the photo?
         if (!data) {
             self.view.alpha = 0.3;
+            [SVProgressHUD setStatus:@"Download of image failed for some reason"];
             return;
         }
         
@@ -180,8 +216,6 @@
         [UIView animateWithDuration:0.2 animations:^{
             imageView.alpha = 1;
         }];
-        
-        
         
     });
 }

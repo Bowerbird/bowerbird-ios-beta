@@ -7,17 +7,14 @@
  -----------------------------------------------------------------------------------------------*/
 
 
-#import <Foundation/Foundation.h>
+#import "BBControllerBase.h"
 
 
-@protocol BBStreamControllerDelegate <NSObject>
+@class BBProject;
 
-@required
--(void)pagingLoadingComplete;
--(void)pageLoadingStarted;
--(void)pullToRefreshCompleted;
--(void)displayItems;
--(void)addItemsToTableDataSource:(NSArray*)items;
-@property (nonatomic, readwrite) BOOL loading;
+
+@interface BBProjectJoinLeaveController : BBControllerBase
+
+-(id)initWithProject:(BBProject*)project;
 
 @end

@@ -92,34 +92,32 @@
     
     NSMutableDictionary *sightingDictionary = [[NSMutableDictionary alloc]init];
     
-    [sightingDictionary setObject:_title forKey:@"Title"];
-    [sightingDictionary setObject:_createdOn forKey:@"ObservedOn"];
-    [sightingDictionary setObject:_category forKey:@"Category"];
-    [sightingDictionary setObject:[NSString stringWithFormat:@"%f",_location.x] forKey:@"Latitude"];
-    [sightingDictionary setObject:[NSString stringWithFormat:@"%f",_location.y] forKey:@"Longitude"];
-    [sightingDictionary setObject:_address forKey:@"Address"];
-    [sightingDictionary setObject:@"true" forKey:@"IsIdentificationRequired"];
+    [sightingDictionary setObject:self.title forKey:@"Title"];
+    [sightingDictionary setObject:self.createdOn forKey:@"ObservedOn"];
+    [sightingDictionary setObject:self.category forKey:@"Category"];
+    [sightingDictionary setObject:[NSString stringWithFormat:@"%f",self.location.x] forKey:@"Latitude"];
+    [sightingDictionary setObject:[NSString stringWithFormat:@"%f",self.location.y] forKey:@"Longitude"];
+    [sightingDictionary setObject:self.address forKey:@"Address"];
     [sightingDictionary setObject:@"false" forKey:@"AnonymiseLocation"];
     
     __block NSMutableArray* projectIds = [[NSMutableArray alloc]init];
     [_projects enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         [projectIds addObject:((BBProject*)obj).identifier];
     }];
-    
     [sightingDictionary setObject:projectIds forKey:@"ProjectIds"];
-    NSMutableDictionary *observationMediaDictionary = [[NSMutableDictionary alloc]init];
     
-    for (BBMediaEdit* media in _media) {
+    NSMutableArray *observationMediaArray = [[NSMutableArray alloc]init];
+    for (BBMediaEdit* media in self.media) {
         NSMutableDictionary *mediaResourceDictionary = [[NSMutableDictionary alloc]init];
-        [mediaResourceDictionary setObject:[BBGuidGenerator generateGuid] forKey:@"Key"];
-        [mediaResourceDictionary setObject:@"image" forKey:@"Type"];
-        [mediaResourceDictionary setObject:@"contribution" forKey:@"Usage"];
-        [mediaResourceDictionary setObject:media.image forKey:@"File"];
-        
-        [observationMediaDictionary setObject:mediaResourceDictionary forKey:@"MediaResource"];
+        [mediaResourceDictionary setObject:media.key forKey:@"Key"];
+        [mediaResourceDictionary setObject:@"" forKey:@"MediaResourceId"];
+        [mediaResourceDictionary setObject:media.description forKey:@"Description"];
+        [mediaResourceDictionary setObject:media.licence forKey:@"Licence"];
+        [mediaResourceDictionary setObject:[NSString stringWithFormat:@"%@", media.isPrimaryImage ? @"true" : @"false"] forKey:@"IsPrimaryMedia"];
+        [observationMediaArray addObject:mediaResourceDictionary];
     }
     
-    [sightingDictionary setObject:observationMediaDictionary forKey:@"Media"];
+    [sightingDictionary setObject:observationMediaArray forKey:@"Media"];
     
     return sightingDictionary;
 }

@@ -106,6 +106,10 @@
     uiScrollView.maximumZoomScale=1.0;
     uiScrollView.zoomScale = 1/[self calculateZoomScale];
     
+    [uiScrollView addSubview:spinner];
+    
+    [self.view addSubview:uiScrollView];
+    
     [BBLog Log:[NSString stringWithFormat:@"ScrollView Frame x:%f y:%f w:%f h:%f", frame.origin.x, frame.origin.y, frame.size.width, frame.size.height]];
 }
 
@@ -131,29 +135,29 @@
     NSURL *url = [NSURL URLWithString:fullPath];
     
     //UIImageView *imageView = [[UIImageView alloc]init];
-    //[imageView setImageWithURL:url placeholderImage:nil];
+    [imageView setImageWithURL:url placeholderImage:nil];
   
-    /*
+    
     // do UI stuff back in UI land
     dispatch_async(dispatch_get_main_queue(), ^{
         
         // ditch the spinner
-        UIActivityIndicatorView *spinner = self.subviews.lastObject;
+        UIActivityIndicatorView *spinner = uiScrollView.subviews.lastObject;
         [spinner stopAnimating];
         [spinner removeFromSuperview];
         
         // failed to get the photo?
-        if (!imageView) {
-            self.alpha = 0.3;
-            return;
-        }
+        //if (!imageView) {
+        //    self.alpha = 0.3;
+        //    return;
+        //}
         
         // got the photo, so lets show it
         //UIImage *image = [UIImage imageWithData:data];
         //UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
         
-        [self addSubview:imageView];
-        imageView.size = self.size;
+        [uiScrollView addSubview:imageView];
+        imageView.size = imgSize;
         imageView.alpha = 0;
         imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         
@@ -162,7 +166,9 @@
             imageView.alpha = 1;
         }];
     });
-    */
+    
+    /*
+    // TODO: INTEGRATE SOME OUT OF PROC LOADING HERE...
     
     // fetch the remote photo
     NSData *data = [NSData dataWithContentsOfURL:url];
@@ -218,6 +224,8 @@
         }];
         
     });
+     
+     */
 }
 
 -(UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {

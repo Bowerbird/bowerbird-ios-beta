@@ -95,11 +95,11 @@
 }
 
 -(MGBox*)render {
-    [BBLog Log:@"BBStreamController.renderProject"];
+    [BBLog Log:@"BBProjectItemController.renderProject"];
     
     BBProject* project = self.project;
     
-    MGScrollView *streamView = (MGScrollView*)self.view;
+    //MGScrollView *streamView = (MGScrollView*)self.view;
     BBImage *avatarImage = [self getImageWithDimension:@"Square100" fromArrayOf:project.avatar.imageMedia];
     PhotoBox *avatar = [PhotoBox mediaFor:avatarImage.uri size:IPHONE_PROJECT_AVATAR_SIZE];
     
@@ -121,6 +121,7 @@
     [info.middleLines addObject:description];
     
     [self displayJoinLeaveController];
+    
     /*
     BBProjectId *projJoinLeave = [[BBProjectId alloc]initWithProjectId:project.identifier];
     RKObjectManager *manager = [RKObjectManager sharedManager];

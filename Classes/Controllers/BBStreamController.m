@@ -43,11 +43,8 @@
 @property (nonatomic, retain) BBPaginator *paginator; // model
 @property (nonatomic, strong) id<BBStreamProtocol> controller; // parent controller (HomeController in this case)
 @property (nonatomic, strong) NSMutableDictionary *streamItemSizesCache; // dictionary of subview sizes
-
 @property (nonatomic, strong) NSMutableArray *tableItems;
 @property (nonatomic) int fetchBatch;
-//@property (nonatomic, readwrite) BOOL loading;
-@property (nonatomic) BOOL noMoreResultsAvail;
 
 @end
 
@@ -123,6 +120,8 @@
         groupId = groupIdentifier;
         
         [self setPaginatorForStream:groupIdentifier];
+        
+        [self loadRequest];
     }
     
     [self loadView];
@@ -142,6 +141,8 @@
         isJoinable = YES;
         
         [self setPaginatorForStream:groupIdentifier];
+        
+        [self loadRequest];
     }
     
     [self loadView];
@@ -176,6 +177,8 @@
         _controller = delegate;
         
         [self setPaginatorForStream:@"favourites"];
+        
+        [self loadRequest];
     }
     
     [self loadView];
@@ -420,9 +423,6 @@
     [self.tableView beginUpdates];
     [self.tableView insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationBottom];
     [self.tableView endUpdates];
-
-    //[self.tableView reloadData];
-    //[self.view setNeedsDisplay];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -444,54 +444,12 @@ numberOfRowsInSection:(NSInteger)section {
     [BBLog Log:@"tableView:cellForRowAtIndexPath:"];
     [BBLog Log:[NSString stringWithFormat:@"tableView Cell: %i", indexPath.row]];
     
-    /*
-    static NSString *sightingIdentifier = @"Sighting";
-    static NSString *noteIdentifier = @"Note";
-    static NSString *projectIdentifier = @"Project";
-    static NSString *postIdentifier = @"Post";
-    static NSString *identificationIdentifier = @"Identification";
-    */
-    
     NSString *identifier = @"Cell";
     
     // Only starts populating the table if data source is not empty.
     if (self.tableItems.count != 0 && indexPath.row < self.tableItems.count) {
         id item = [self.tableItems objectAtIndex:indexPath.row];
-        
-        /*
-        //identifier = sightingIdentifier;
-        if([item isKindOfClass:BBActivity.class]){
-            identifier = ((BBActivity*)item).identifier;
-            
-            BBActivity *activity = (BBActivity*)item;
-            if([activity.type isEqualToString:@"sightingadded"])
-            {
-                identifier = sightingIdentifier;
-            }
-            
-            else if([activity.type isEqualToString:@"sightingnoteadded"])
-            {
-                identifier = noteIdentifier;
-            }
-            
-            else if([activity.type isEqualToString:@"identificationadded"])
-            {
-                identifier = identificationIdentifier;
-            }
-            
-            else if([activity.type isEqualToString:@"postadded"])
-            {
-                identifier = postIdentifier;
-            }
-         
-        }
-        else if([item isKindOfClass:BBProject.class]) {
-            //identifier = projectIdentifier;
-            identifier = ((BBProject*)item).identifier;
-        }
-    
-        */
-        
+
         MGBox *box = [self displayStreamItem:item];
         box.margin = UIEdgeInsetsMake(0, 5, 5, 0);
         
@@ -500,16 +458,16 @@ numberOfRowsInSection:(NSInteger)section {
         [wrapper.boxes addObject:box];
         [wrapper layout];
         
-        //BBTableViewCell *cell = (BBTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
         BBTableViewCell *cell;// = (BBTableViewCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
         if (cell == nil || (cell.height != wrapper.height)) {
-            //cell = [[BBTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
             cell = [[BBTableViewCell alloc] init];
-            //cell.userInteractionEnabled = NO;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         
-        if(indexPath.row >= (self.tableItems.count - (self.paginator.perPage/2)) && !self.loading){
+        if(indexPath.row >= (self.tableItems.count - (self.paginator.perPage/2)) &&
+           !self.loading &&
+           !self.noMoreResultsAvail)
+        {
             self.loading = YES;
             [self loadRequest];
         }
@@ -527,7 +485,6 @@ numberOfRowsInSection:(NSInteger)section {
                                                        reuseIdentifier:identifier];
         // The currently requested cell is the last cell.
         if (!self.noMoreResultsAvail) {
-            // If there are results available, display @"Loading More..." in the last cell
             
             cell.textLabel.text = @"Loading...";
             cell.textLabel.font = [UIFont systemFontOfSize:18];
@@ -542,7 +499,7 @@ numberOfRowsInSection:(NSInteger)section {
             UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                                            reuseIdentifier:identifier];
             cell.textLabel.font = [UIFont systemFontOfSize:16];
-            cell.textLabel.text = @"(No More Results Available)";
+            cell.textLabel.text = @"That's all!";
             cell.textLabel.textColor = [UIColor colorWithRed:0.65f
                                                        green:0.65f
                                                         blue:0.65f
@@ -564,7 +521,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
         return 20;
     }
         
-    
     if(![self.streamItemSizesCache objectForKey:[NSString stringWithFormat:@"%i", indexPath.row]]) {
     
         MGBox *box = [self displayStreamItem:[self.tableItems objectAtIndex:[indexPath row]]];
@@ -594,7 +550,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 
 
 -(void)pagingLoadingComplete {
-    [_tableView.infiniteScrollingView stopAnimating];
+    [self.tableView.infiniteScrollingView stopAnimating];
     
     [SVProgressHUD dismiss];
 }

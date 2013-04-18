@@ -115,6 +115,10 @@ totalBytesExpectedToReceive:(NSInteger)totalBytesExpectedToReceive {
     
     [self.controller pagingLoadingComplete];
     
+    BOOL noMorePages = paginator.currentPage == paginator.pageCount;
+    
+    [self.controller setNoMoreResultsAvail:noMorePages];
+    
     [BBLog Log:[NSString stringWithFormat:@"%@ %@ Page:%i", @"Paginator objects:", objects, page]];
     
     if([[objects objectAtIndex:0] isKindOfClass:[BBActivityPaginator class]]) {
@@ -132,6 +136,8 @@ totalBytesExpectedToReceive:(NSInteger)totalBytesExpectedToReceive {
         NSArray *items = paginator.sightings;
         [self processPaginator:items];
     }
+    
+    
     
 }
 
@@ -153,11 +159,13 @@ didFailWithError:(NSError *)error
     
     [BBLog Log:error.description];
 
-    _paginatorIsLoading = NO;
+    self.paginatorIsLoading = NO;
+    [self.controller setLoading:NO];
     
     [self.controller pagingLoadingComplete];
 }
 
+// this has probably been made obsolete
 -(void)handlePaginatorLoadNextPage {
     if([self moreItemsExist] && !_paginatorIsLoading)
     {

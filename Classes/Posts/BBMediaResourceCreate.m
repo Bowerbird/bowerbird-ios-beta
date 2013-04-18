@@ -90,6 +90,8 @@ didLoadResponse:(RKResponse*)response {
     
     if ([response isOK] && [response isJSON])
     {
+        [BBLog Log:@"LOG REGION 1"];
+        
         NSError* error = nil;
         id obj = [response parsedBody:&error];
         
@@ -102,6 +104,8 @@ didLoadResponse:(RKResponse*)response {
         
         if([mappedObject isKindOfClass:[BBJsonResponse class]] && mappedObject != nil)
         {
+            [BBLog Log:@"LOG REGION 2"];
+
             BBJsonResponse *serverJson = (BBJsonResponse*)mappedObject;
             
             if(serverJson.success)
@@ -117,10 +121,16 @@ didLoadResponse:(RKResponse*)response {
     if([response isKindOfClass:[BBJsonResponse class]]){
         BBJsonResponse *result = (BBJsonResponse*)response;
         
+        [BBLog Log:@"LOG REGION 3"];
+
         if(result.success){
+            [BBLog Log:@"LOG REGION 3 - SUCCESS"];
+
             // the request was successfully completed
         }
         else {
+            [BBLog Log:@"LOG REGION 3 - ERROR"];
+
             // the request was unsuccessful
         }
     }

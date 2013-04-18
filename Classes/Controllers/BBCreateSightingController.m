@@ -344,6 +344,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     __block BBMediaResourceCreate *mediaResourceCreate = [[BBMediaResourceCreate alloc]initWithMedia:mediaEdit forUsage:@"contribution"];
     RKObjectManager *manager = [RKObjectManager sharedManager];
+    manager.serializationMIMEType = RKMIMETypeJSON;
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"Uploading Media"]];
@@ -357,6 +358,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
         RKParams *p = [RKParams paramsWithDictionary:d];
         [p setData:mediaResourceCreate.file MIMEType:@"image/jpeg" forParam:@"file"];
         loader.params = p;
+        loader.serializationMIMEType = RKMIMETypeJSON;
         loader.objectMapping = [[manager mappingProvider] objectMappingForClass:[BBJsonResponse class]];
     }];
     
@@ -679,12 +681,14 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
     observation.media = [[NSArray alloc]initWithArray:newMedia];
     
     RKObjectManager *manager = [RKObjectManager sharedManager];
-    manager.serializationMIMEType = RKMIMETypeJSON;
+    [manager setSerializationMIMEType:RKMIMETypeJSON];
+    [manager setAcceptMIMEType:RKMIMETypeJSON];
     
     [SVProgressHUD dismiss];
     [SVProgressHUD showWithStatus:@"Saving Observation"];
     
     [manager postObject:observation delegate:observation]; // ain't working.. posting as text/html.
+    
     /*
     [manager postObject:observation usingBlock:^(RKObjectLoader *loader) {
         
@@ -701,6 +705,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
         NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         loader.params = [RKRequestSerialization serializationWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding] MIMEType:RKMIMETypeJSON];
         loader.delegate = observation;
+        loader.serializationMIMEType = RKMIMETypeJSON;
     }];
     */
 }

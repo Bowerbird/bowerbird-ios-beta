@@ -60,14 +60,14 @@
 
 -(void)objectLoader:(RKObjectLoader *)objectLoader
    didFailWithError:(NSError *)error {
-    [BBLog Log:@"BBCreateSightingController.objectLoaderDidFailWithError:"];
+    [BBLog Log:@"BBObservationCreate.objectLoaderDidFailWithError:"];
     
     [BBLog Log:error.localizedDescription];
 }
 
         -(void)request:(RKRequest *)request
   didFailLoadWithError:(NSError *)error {
-    [BBLog Log:@"BBCreateSightingController.request:didFailLoadWithError:"];
+    [BBLog Log:@"BBObservationCreate.request:didFailLoadWithError:"];
     
     [BBLog Log:[NSString stringWithFormat:@"%@%@", @"ERROR:", error.localizedDescription]];
     
@@ -76,7 +76,7 @@
 
     -(void)request:(RKRequest*)request
    didLoadResponse:(RKResponse*)response {
-    [BBLog Log:@"BBCreateSightingController.request:didLoadResponse"];
+    [BBLog Log:@"BBObservationCreate.request:didLoadResponse"];
     
     [BBLog Log:response.bodyAsString];
     
@@ -119,13 +119,13 @@
 }
 
 -(void)objectLoaderDidLoadUnexpectedResponse:(RKObjectLoader *)objectLoader {
-    [BBLog Log:@"BBCreateSightingController.objectLoaderDidLoadUnexpectedResponse"];
+    [BBLog Log:@"BBObservationCreate.objectLoaderDidLoadUnexpectedResponse"];
     
     [BBLog Log:objectLoader.response.bodyAsString];
 }
 
 -(void)objectLoaderDidFinishLoading:(RKObjectLoader *)objectLoader {
-    [BBLog Log:@"BBCreateSightingController.objectLoaderDidFinishLoading:"];
+    [BBLog Log:@"BBObservationCreate.objectLoaderDidFinishLoading:"];
     
     [SVProgressHUD showSuccessWithStatus:@"Sighting Saved"];
 
@@ -143,7 +143,7 @@ didLoadObjectDictionary:(NSDictionary *)dictionary {
 }
 
 -(void)processMappingResult:(RKObjectMappingResult *)result {
-    [BBLog Log:@"BBCreateSightingController.processMappingResult:"];
+    [BBLog Log:@"BBObservationCreate.processMappingResult:"];
     
 }
 

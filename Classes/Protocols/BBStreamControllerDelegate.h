@@ -19,5 +19,5 @@
 -(void)displayItems;
 -(void)addItemsToTableDataSource:(NSArray*)items;
 @property (nonatomic, readwrite) BOOL loading;
-
+@property (nonatomic, readwrite) BOOL noMoreResultsAvail;
 @end

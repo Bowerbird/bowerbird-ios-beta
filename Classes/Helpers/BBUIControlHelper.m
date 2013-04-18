@@ -353,22 +353,38 @@
     MGLine *titleLine = [MGLine multilineWithText:observation.title font:[UIFont boldSystemFontOfSize:13] width:135 padding:UIEdgeInsetsMake(0, 0, 0, 0)];
     [sightingSummary.boxes addObject:titleLine];
     
-    MGLine *noteCountLine = [MGLine lineWithLeft:[NSString stringWithFormat:@"%i notes", [observation.noteCount intValue]] right:nil size:CGSizeMake(120,20)];
-    noteCountLine.font = SMALL_DESCRIPTOR_FONT;
-    [sightingSummary.boxes addObject:noteCountLine];
+    if([observation.noteCount intValue] > 0){
+        NSString *txt = [observation.noteCount intValue] > 1 ? [NSString stringWithFormat:@"%i notes", [observation.noteCount intValue]] : @"1 note";
+        MGLine *noteCountLine = [MGLine lineWithLeft:txt right:nil size:CGSizeMake(120,20)];
+        noteCountLine.font = SMALL_DESCRIPTOR_FONT;
+        [sightingSummary.boxes addObject:noteCountLine];
+    }
     
-    MGLine *identificationCountLine = [MGLine lineWithLeft:[NSString stringWithFormat:@"%i identifications", [observation.identificationCount intValue]] right:nil size:CGSizeMake(120,20)];
-    identificationCountLine.font = SMALL_DESCRIPTOR_FONT;
-    [sightingSummary.boxes addObject:identificationCountLine];
+    if([observation.identificationCount intValue] > 0){
+        NSString *txt = [observation.identificationCount intValue] == 1 ? @"identified once" :
+            [observation.identificationCount intValue] == 2 ? @"identified twice" :
+                [NSString stringWithFormat:@"identified %i times", [observation.identificationCount intValue]];
+        
+        MGLine *identificationCountLine = [MGLine lineWithLeft:txt right:nil size:CGSizeMake(120,20)];
+        identificationCountLine.font = SMALL_DESCRIPTOR_FONT;
+        [sightingSummary.boxes addObject:identificationCountLine];
+    }
     
-    MGLine *projectCountLine = [MGLine lineWithLeft:[NSString stringWithFormat:@"%i projects", [observation.projectCount intValue]] right:nil size:CGSizeMake(120,20)];
-    projectCountLine.font = SMALL_DESCRIPTOR_FONT;
-    [sightingSummary.boxes addObject:projectCountLine];
-
-    MGLine *commentCountLine = [MGLine lineWithLeft:[NSString stringWithFormat:@"%i comments", [observation.commentCount intValue]] right:nil size:CGSizeMake(120,20)];
-    commentCountLine.font = SMALL_DESCRIPTOR_FONT;
-    [sightingSummary.boxes addObject:commentCountLine];
-
+    if([observation.favouritesCount intValue] > 0){
+        NSString *txt = [observation.favouritesCount intValue] > 1 ? [NSString stringWithFormat:@"favourited %i times", [observation.projectCount intValue]] : @"favourited once";
+        MGLine *favouriteCountLine = [MGLine lineWithLeft:txt right:nil size:CGSizeMake(120,20)];
+        favouriteCountLine.font = SMALL_DESCRIPTOR_FONT;
+        [sightingSummary.boxes addObject:favouriteCountLine];
+    }
+    
+    
+    if([observation.projectCount intValue] > 0){
+        NSString *txt = [observation.projectCount intValue] > 1 ? [NSString stringWithFormat:@"added to %i projects", [observation.projectCount intValue]] : @"added to 1 project";
+        MGLine *projectCountLine = [MGLine lineWithLeft:txt right:nil size:CGSizeMake(120,20)];
+        projectCountLine.font = SMALL_DESCRIPTOR_FONT;
+        [sightingSummary.boxes addObject:projectCountLine];
+    }
+    
     [subObservationSummary.boxes addObject:sightingSummary];
     
     MGBox *detailArrowBox = [BBUIControlHelper getForwardArrow];

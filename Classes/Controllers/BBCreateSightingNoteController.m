@@ -154,8 +154,8 @@
         loader.delegate = self;
         loader.method = RKRequestMethodPOST;
         loader.params = [BBConstants AjaxRequestParams];
-        NSString *encodedUrl = [postSightingNote.sightingId stringByReplacingURLEncoding];
-        loader.resourcePath = [NSString stringWithFormat:@"/%@/createnote", encodedUrl];
+        //NSString *encodedUrl = [postSightingNote.sightingId stringByReplacingURLEncoding];
+        //loader.resourcePath = [NSString stringWithFormat:@"/%@/createnote", encodedUrl];
     }];
     */
     
@@ -200,12 +200,20 @@
     [BBLog Log:@"BBCreateSightingNoteController.objectDidLoadUnexpectedResponse:"];
     
     [BBLog Log:objectLoader.response.bodyAsString];
+    
+    [SVProgressHUD dismiss];
+    
+    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:YES];
 }
 
 -(void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
     [BBLog Log:@"BBCreateSightingNoteController.objectLoaderDidFailWithError:"];
     
     [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+    
+    [SVProgressHUD dismiss];
+    
+    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:YES];
 }
 
 -(void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {

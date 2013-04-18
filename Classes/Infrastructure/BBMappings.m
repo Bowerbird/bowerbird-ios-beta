@@ -345,7 +345,7 @@
     [observationCreateMapping mapKeyPath:@"Latitude" toAttribute:@"latitude"];
     [observationCreateMapping mapKeyPath:@"Longitude" toAttribute:@"longitude"];
     [observationCreateMapping mapKeyPath:@"Address" toAttribute:@"address"];
-    [observationCreateMapping mapKeyPath:@"IsIdentificationRequired" toAttribute:@"isIdentificationRequired"];
+    //[observationCreateMapping mapKeyPath:@"IsIdentificationRequired" toAttribute:@"isIdentificationRequired"];
     [observationCreateMapping mapKeyPath:@"AnonymiseLocation" toAttribute:@"anonymiseLocation"];
     [observationCreateMapping mapKeyPath:@"Category" toAttribute:@"category"];
     [observationCreateMapping mapKeyPath:@"Media" toRelationship:@"media" withMapping:observationMediaCreateMapping];

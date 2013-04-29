@@ -26,7 +26,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "112"
          endingLineNumber = "112"
-         landmarkName = "-paginator:didLoadObjects:forPage:"
+         landmarkName = "-initWithPatternURL:mappingProvider:andDelegate:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -39,71 +39,6 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "650"
          endingLineNumber = "650"
-         landmarkName = "-saveIsValid"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "Classes/Controllers/BBCreateSightingNoteController.m"
-         timestampString = "387948817.097873"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "220"
-         endingLineNumber = "220"
-         landmarkName = "-objectLoader:didLoadObject:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "Classes/Controllers/BBCreateSightingNoteController.m"
-         timestampString = "387947821.709139"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "200"
-         endingLineNumber = "200"
-         landmarkName = "-objectLoaderDidLoadUnexpectedResponse:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "Classes/Controllers/BBCreateSightingNoteController.m"
-         timestampString = "387947828.998424"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "154"
-         endingLineNumber = "154"
-         landmarkName = "-saveIsValid"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "Classes/Controllers/BBCreateSightingNoteController.m"
-         timestampString = "387948817.097873"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "210"
-         endingLineNumber = "210"
-         landmarkName = "-objectLoader:didFailWithError:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "Classes/Controllers/BBCreateSightingNoteController.m"
-         timestampString = "387964607.022895"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "155"
-         endingLineNumber = "155"
          landmarkName = "-saveIsValid"
          landmarkType = "5">
       </FileBreakpoint>

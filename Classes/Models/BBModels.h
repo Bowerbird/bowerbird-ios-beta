@@ -9,6 +9,7 @@
 
 // Domain Models
 
+#import "BBValidationError.h"
 #import "BBImage.h"
 #import "BBVideo.h"
 #import "BBAudio.h"
@@ -29,6 +30,7 @@
 #import "BBProject.h"
 #import "BBCategory.h"
 #import "BBPost.h"
+#import "BBLoginRequest.h"
 
 
 // User Models

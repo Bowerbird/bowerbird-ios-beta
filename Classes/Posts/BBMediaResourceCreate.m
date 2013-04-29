@@ -12,6 +12,7 @@
 #import "SVProgressHUD.h"
 #import "BBHelpers.h"
 #import "BBJsonResponse.h"
+#import "BBValidationError.h"
 
 
 @implementation BBMediaResourceCreate
@@ -25,7 +26,8 @@
             usage = _usage,
             key = _key,
             type = _type,
-            fileName = _fileName;
+            fileName = _fileName,
+            errors = _errors;
 
 
 -(NSData*)file { return _file; }
@@ -38,7 +40,9 @@
 -(void)setKey:(NSString *)key { _key = key; }
 -(NSString*)type { return _type; }
 -(void)setType:(NSString *)type { _type = type; }
-- (void)setValue:(id)value forUndefinedKey:(NSString *)key { if([key isEqualToString:@"Key"]) self.key = value; }
+-(void)setValue:(id)value forUndefinedKey:(NSString *)key { if([key isEqualToString:@"Key"]) self.key = value; }
+-(BBValidationError*)errors { return _errors; }
+-(void)setErrors:(BBValidationError *)errors { _errors = errors; }
 
 
 #pragma mark -
@@ -62,144 +66,6 @@
     
     return self;
 }
-
-
-#pragma mark -
-#pragma mark - Delegation and Event Handling
-
-
--(void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
-    [BBLog Log:@"BBCreateSightingController.objectLoaderDidFailWithError:"];
-    
-    [BBLog Log:error.localizedDescription];
-}
-
--(void)request:(RKRequest *)request didFailLoadWithError:(NSError *)error {
-    [BBLog Log:@"BBCreateSightingController.request:didFailLoadWithError:"];
-    
-    [BBLog Log:[NSString stringWithFormat:@"%@%@", @"ERROR:", error.localizedDescription]];
-    
-    [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-}
-
--(void)request:(RKRequest*)request
-didLoadResponse:(RKResponse*)response {
-    [BBLog Log:@"BBCreateSightingController.request:didLoadResponse"];
-    
-    [BBLog Log:response.bodyAsString];
-    
-    if ([response isOK] && [response isJSON])
-    {
-        [BBLog Log:@"LOG REGION 1"];
-        
-        NSError* error = nil;
-        id obj = [response parsedBody:&error];
-        
-        //RKObjectMapping *authenticationMap = [[[RKObjectManager sharedManager] mappingProvider] serializationMappingForClass:[BBAuthentication class]];
-        RKObjectMapping *jsonResponseMap = [RKObjectMapping mappingForClass:[BBJsonResponse class]];
-        id mappedObject = [jsonResponseMap mappableObjectForData:obj];
-        
-        //id mappedObject = [authenticationMap mappableObjectForData:obj];
-        // we have authenticated and are set to pull down the user's profile
-        
-        if([mappedObject isKindOfClass:[BBJsonResponse class]] && mappedObject != nil)
-        {
-            [BBLog Log:@"LOG REGION 2"];
-
-            BBJsonResponse *serverJson = (BBJsonResponse*)mappedObject;
-            
-            if(serverJson.success)
-            {
-                [BBLog Log:@"Success"];
-            }
-            else {
-                [BBLog Log:@"Failure"];
-            }
-        }
-    }
-    
-    if([response isKindOfClass:[BBJsonResponse class]]){
-        BBJsonResponse *result = (BBJsonResponse*)response;
-        
-        [BBLog Log:@"LOG REGION 3"];
-
-        if(result.success){
-            [BBLog Log:@"LOG REGION 3 - SUCCESS"];
-
-            // the request was successfully completed
-        }
-        else {
-            [BBLog Log:@"LOG REGION 3 - ERROR"];
-
-            // the request was unsuccessful
-        }
-    }
-}
-
--(void)objectLoaderDidLoadUnexpectedResponse:(RKObjectLoader *)objectLoader {
-    [BBLog Log:@"BBCreateSightingController.objectLoaderDidLoadUnexpectedResponse"];
-    
-    [BBLog Log:objectLoader.response.bodyAsString];
-}
-
--(void)objectLoaderDidFinishLoading:(RKObjectLoader *)objectLoader {
-    [BBLog Log:@"BBCreateSightingController.objectLoaderDidFinishLoading:"];
-    
-    [SVProgressHUD showSuccessWithStatus:@"Media Uploaded"];
-    
-    //BBMediaEdit *media = [_observation.media lastObject];
-    //[_observationEditView addMediaItem:media];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"mediaUploaded" object:nil];
-}
-
--(void)objectLoader:(RKObjectLoader *)objectLoader
-      didLoadObject:(id)object {
-    // is it a JsonResponse?
-}
-
-    -(void)objectLoader:(RKObjectLoader *)objectLoader
-didLoadObjectDictionary:(NSDictionary *)dictionary {
-    
-}
-
--(void)processMappingResult:(RKObjectMappingResult *)result {
-    [BBLog Log:@"BBCreateSightingController.processMappingResult:"];
-    
-}
-
-             -(void)request:(RKRequest *)request
-             didReceiveData:(NSInteger)bytesReceived
-         totalBytesReceived:(NSInteger)totalBytesReceived
-totalBytesExpectedToReceive:(NSInteger)totalBytesExpectedToReceive {
-    [BBLog Log:[NSString stringWithFormat:@"bytes received: %d total received: %d total to receive: %d", bytesReceived, totalBytesReceived, totalBytesExpectedToReceive]];
-}
-
-           -(void)request:(RKRequest *)request
-          didSendBodyData:(NSInteger)bytesWritten
-        totalBytesWritten:(NSInteger)totalBytesWritten
-totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
-    
-    //[BBLog Log:[NSString stringWithFormat:@"bytes written: %d total written: %d total to send: %d", bytesWritten, totalBytesWritten, totalBytesExpectedToWrite]];
-    
-    double progress = ((double)totalBytesWritten/(double)totalBytesExpectedToWrite)*100;
-    //double fileSize = (double)totalBytesExpectedToWrite/10485760;// added additional factor of ten to bytes denomenator in MB as too big by about 10 X
-    
-    NSNumberFormatter *formatter = [[NSNumberFormatter alloc]init];
-    [formatter setRoundingMode:NSNumberFormatterRoundUp];
-    [formatter setGeneratesDecimalNumbers:YES];
-    [formatter setMaximumFractionDigits:1];
-    
-    [SVProgressHUD setStatus:[NSString stringWithFormat:@"%@%@", [formatter stringFromNumber:[NSNumber numberWithDouble:progress]], @"%"]];
-    
-    if(progress == 100){
-        [SVProgressHUD setStatus:@"File Uploaded. \nWaiting for save confirmation"];
-    }    
-}
-
--(void)dealloc {
-    [[[RKClient sharedClient] requestQueue] cancelRequestsWithDelegate:(id)self];
-}
-
 
 
 @end

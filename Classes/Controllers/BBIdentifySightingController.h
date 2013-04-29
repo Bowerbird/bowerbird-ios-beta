@@ -17,7 +17,6 @@
 
 @interface BBIdentifySightingController : BBControllerBase <
      BBIdentifySightingProtocol
-    ,RKObjectLoaderDelegate
 >
 
 @property (nonatomic,strong) BBIdentifySightingEdit *identifySighting;

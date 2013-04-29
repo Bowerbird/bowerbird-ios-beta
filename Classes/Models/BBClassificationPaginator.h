@@ -11,7 +11,7 @@
 #import <RestKit/RestKit.h>
 
 
-@interface BBClassificationPaginator : RKObjectPaginator
+@interface BBClassificationPaginator : RKPaginator
 
 
 @property (nonatomic,retain) NSArray* ranks;

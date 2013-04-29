@@ -39,8 +39,8 @@
 #pragma mark - Constructors
 
 
--(id)initWithPatternURL:(RKURL *)patternURL
-        mappingProvider:(RKObjectMappingProvider *)mappingProvider
+-(id)initWithPatternURL:(NSURLRequest *)patternURL
+        mappingProvider:(RKObjectMapping *)mappingProvider
             andDelegate:(id<BBStreamControllerDelegate>)delegate {
     
     self = [super initWithPatternURL:patternURL mappingProvider:mappingProvider andDelegate:delegate];
@@ -53,66 +53,8 @@
 #pragma mark - Delegation and Event Handling for pull to refresh
 
 
--(void)objectLoader:(RKObjectLoader *)objectLoader
-   didFailWithError:(NSError *)error {
-    [BBLog Log:@"BBStreamController.objectLoader:didFailWithError"];
-    
-    [BBLog Log:error.description];
-    
-    //[SVProgressHUD showErrorWithStatus:error.description];
-    //[_tableView.pullToRefreshView stopAnimating];
-    [self.controller pullToRefreshCompleted];
-    
-    //[[((BBStreamView*)self.view) pullToRefreshView] stopAnimating];
-    //[[((BBStreamView*)self.view) pullToRefreshView] setLastUpdatedDate:_paginator.latestFetchedActivityNewer];
-}
-
-
-    -(void)objectLoader:(RKObjectLoader *)objectLoader
-didLoadObjectDictionary:(NSDictionary *)dictionary {
-    [BBLog Log:@"BBStreamController.didLoadObjectDictionary"];
-    
-    for (NSString* key in dictionary) {
-        [BBLog Log:[NSString stringWithFormat:@"%@: %@", key, [dictionary objectForKey:key]]];
-    }
-}
-
-
--(void)objectLoader:(RKObjectLoader *)objectLoader
-      didLoadObject:(id)object {
-    [BBLog Log:@"BBStreamController.didLoadObject"];
-    
-    [self.controller pullToRefreshCompleted];
-    
-    if([object isKindOfClass:[BBActivityPaginator class]]) {
-        // reverse the order so the items are popped onto the top of the UI scroll view with the oldest first.
-        //[self processPaginator:[[((BBActivityPaginator*)object).activities reverseObjectEnumerator] allObjects]];
-    }
-    
-    //[[((BBStreamView*)self.view) pullToRefreshView] stopAnimating];
-    //[[((BBStreamView*)self.view) pullToRefreshView] setLastUpdatedDate:self.latestFetchedActivityNewerLocalTime];
-}
-
-
-#pragma mark -
-#pragma mark - Delegation and Event Handling for paging
-
-
-- (void) objectLoader:(RKObjectLoader *)loader
-          willMapData:(inout __autoreleasing id *)mappableData {
-    
-    NSMutableDictionary* model = [[*mappableData objectForKey: @"Model"] mutableCopy];
-    NSDictionary* pagedResult = [model objectForKey:@"Activities"];
-    
-    self.perPage = [[pagedResult objectForKey: @"PageSize"] intValue];
-    self.pageCount = ([[pagedResult objectForKey: @"TotalResultCount"] intValue] / [[pagedResult objectForKey: @"PageSize"] intValue]) + 1;
-    self.currentPage = [[pagedResult objectForKey: @"Page"] intValue];
-}
-
-
 -(void)dealloc {
-    
-    [[[RKClient sharedClient] requestQueue] cancelRequestsWithDelegate:(id)self];
+    [[RKObjectManager sharedManager].operationQueue cancelAllOperations];
 }
 
 

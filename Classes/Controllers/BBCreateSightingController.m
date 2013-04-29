@@ -32,6 +32,9 @@
 #import "BBJsonResponse.h"
 #import "BBMediaEdit.h"
 #import "BBAuthenticatedUser.h"
+#import "BBMediaResourceCreate.h"
+#import "BBValidationError.h"
+#import "AFHTTPClient.h"
 
 
 @interface BBCreateSightingController()
@@ -343,26 +346,68 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [BBLog Log:@"BBCreateSightingController.addImageToObservation:"];
     
     __block BBMediaResourceCreate *mediaResourceCreate = [[BBMediaResourceCreate alloc]initWithMedia:mediaEdit forUsage:@"contribution"];
-    RKObjectManager *manager = [RKObjectManager sharedManager];
-    manager.serializationMIMEType = RKMIMETypeJSON;
+
+    NSURLRequest *request = [[RKObjectManager sharedManager] multipartFormRequestWithObject:mediaResourceCreate
+                                                                                     method:RKRequestMethodPOST
+                                                                                       path:nil
+                                                                                 parameters:nil
+                                                                  constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
+                                                                      [formData appendPartWithFileData:UIImagePNGRepresentation(mediaEdit.image)
+                                                                                                  name:mediaResourceCreate.key
+                                                                                              fileName:mediaResource.fileName
+                                                                                              mimeType:@"image/jpg"];
+                                                                  }];
+                             
+    RKObjectRequestOperation *operation = [objectManager objectRequestOperationWithRequest:request
+                                                                                   success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                                                                       if([mappingResult isKindOfClass:[BBMediaResourceCreate class]]){
+                                                                                           
+                                                                                           if(((BBMediaResourceCreate*)mappingResult).errors != nil) {
+                                                                                               NSArray *messages = ((BBMediaResourceCreate*)mappingResult).errors.messages;
+                                                                                               
+                                                                                               [messages enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                                                                                                   [BBLog Log:obj];
+                                                                                                   UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Validation Error:"
+                                                                                                                                                   message:obj
+                                                                                                                                                  delegate:nil
+                                                                                                                                         cancelButtonTitle:@"OK"
+                                                                                                                                         otherButtonTitles:nil];
+                                                                                                   [alert show];
+                                                                                               }];
+                                                                                           }
+                                                                                           else {
+                                                                                               // SUCCESS
+                                                                                               [self.observation.media addObject:mediaEdit];
+                                                                                               // Broadcast the new Sighting Note Creation.... do we display it?
+                                                                                               /*
+                                                                                               NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithCapacity:1];
+                                                                                               [userInfo setObject:mappingResult forKey:@"mediaResource"];
+                                                                                               [[NSNotificationCenter defaultCenter] postNotificationName:@"sightingNoteCreated" object:self userInfo:userInfo];
+                                                                                               */
+                                                                                           }
+                                                                                       }
+                                                                                   }
+                                                                                   failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                                                       [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"Error occurred submitting Sighting Note: %@", error.localizedDescription]];
+                                                                                   }];
+
+    [[RKObjectManager sharedManager] enqueueObjectRequestOperation:operation];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"Uploading Media"]];
-    });
-    
-    [manager postObject:mediaResourceCreate usingBlock:^(RKObjectLoader *loader) {
-        loader.delegate = mediaResourceCreate;
-        RKObjectMapping *map = [[[RKObjectManager sharedManager] mappingProvider] serializationMappingForClass:[BBMediaResourceCreate class]];
-        NSError *error = nil;
-        NSDictionary *d = [[RKObjectSerializer serializerWithObject:mediaResourceCreate mapping:map] serializedObject:&error];
-        RKParams *p = [RKParams paramsWithDictionary:d];
-        [p setData:mediaResourceCreate.file MIMEType:@"image/jpeg" forParam:@"file"];
-        loader.params = p;
-        loader.serializationMIMEType = RKMIMETypeJSON;
-        loader.objectMapping = [[manager mappingProvider] objectMappingForClass:[BBJsonResponse class]];
+    [operation.HTTPRequestOperation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+        double progress = ((double)totalBytesWritten/(double)totalBytesExpectedToWrite)*100;
+        
+        NSNumberFormatter *formatter = [[NSNumberFormatter alloc]init];
+        [formatter setRoundingMode:NSNumberFormatterRoundUp];
+        [formatter setGeneratesDecimalNumbers:YES];
+        [formatter setMaximumFractionDigits:1];
+        
+        [SVProgressHUD setStatus:[NSString stringWithFormat:@"%@%@", [formatter stringFromNumber:[NSNumber numberWithDouble:progress]], @"%"]];
+        
+        if(progress == 100){
+            [SVProgressHUD showSuccessWithStatus:@"File Uploaded. \nWaiting for save confirmation"];
+        }
     }];
-    
-    [_observation.media addObject:mediaEdit];
 }
 
 -(void)mediaResourceUploadFailed:(NSNotification*)notification {
@@ -680,14 +725,14 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
     }
     observation.media = [[NSArray alloc]initWithArray:newMedia];
     
-    RKObjectManager *manager = [RKObjectManager sharedManager];
-    [manager setSerializationMIMEType:RKMIMETypeJSON];
-    [manager setAcceptMIMEType:RKMIMETypeJSON];
+    //RKObjectManager *manager = [RKObjectManager sharedManager];
+    //[manager setSerializationMIMEType:RKMIMETypeJSON];
+    //[manager setAcceptMIMEType:RKMIMETypeJSON];
     
     [SVProgressHUD dismiss];
     [SVProgressHUD showWithStatus:@"Saving Observation"];
     
-    [manager postObject:observation delegate:observation]; // ain't working.. posting as text/html.
+    //[manager postObject:observation delegate:observation]; // ain't working.. posting as text/html.
     
     /*
     [manager postObject:observation usingBlock:^(RKObjectLoader *loader) {

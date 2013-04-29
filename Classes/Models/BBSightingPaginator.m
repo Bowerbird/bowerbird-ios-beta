@@ -32,11 +32,13 @@
 #pragma mark - Constructors
 
 
--(id)initWithPatternURL:(RKURL *)patternURL
-        mappingProvider:(RKObjectMappingProvider *)mappingProvider
+-(id)initWithPatternURL:(NSURLRequest *)patternURL
+        mappingProvider:(RKObjectMapping *)mappingProvider
             andDelegate:(id<BBStreamControllerDelegate>)delegate {
     
-    self = [super initWithPatternURL:patternURL mappingProvider:mappingProvider andDelegate:delegate];
+    self = [super initWithPatternURL:patternURL
+                     mappingProvider:mappingProvider
+                         andDelegate:delegate];
     
     return self;
 }
@@ -46,6 +48,7 @@
 #pragma mark - Delegation and Event Handling for paging
 
 
+/*
 - (void) objectLoader:(RKObjectLoader *)loader
           willMapData:(inout __autoreleasing id *)mappableData {
     NSMutableDictionary* model = [[*mappableData objectForKey: @"Model"] mutableCopy];
@@ -55,10 +58,11 @@
     self.pageCount = ([[pagedResult objectForKey: @"TotalResultCount"] intValue] / [[pagedResult objectForKey: @"PageSize"] intValue]) + 1;
     self.currentPage = [[pagedResult objectForKey: @"Page"] intValue];
 }
+*/
 
 
 -(void)dealloc {
-    [[[RKClient sharedClient] requestQueue] cancelRequestsWithDelegate:(id)self];
+    [[RKObjectManager sharedManager].operationQueue cancelAllOperations];
 }
 
 

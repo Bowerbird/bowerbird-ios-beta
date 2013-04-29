@@ -14,10 +14,7 @@
 @class BBUser;
 
 
-@interface BBAuthenticatedUser : NSObject <
-    RKObjectLoaderDelegate
->
-
+@interface BBAuthenticatedUser : NSObject
 
 @property (nonatomic, retain) BBUser* user;
 @property (nonatomic, retain) NSArray* categories;

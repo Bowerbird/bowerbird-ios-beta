@@ -17,8 +17,7 @@
 
 
 @interface BBHomeController : BBControllerBase <
-     RKObjectLoaderDelegate
-    ,UIGestureRecognizerDelegate
+    UIGestureRecognizerDelegate
     ,BBStreamProtocol
 >
 

@@ -101,8 +101,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadUserFavorites) name:@"loadUserFavorites" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showLegal) name:@"legalHasBeenTapped" object:nil];
 
-    //loadUserFavorites
-    
     return withView;
 }
 
@@ -116,7 +114,6 @@
     
     [self.view addSubview:streamView];
     self.streamController.view.y += 50;
-    //self.streamController.view.height -= 50;
 }
 
 -(void)handleSwipeRight:(UIGestureRecognizer *)gestureRecognizer {
@@ -124,35 +121,6 @@
     
     // this is a right swipe so bring in the menu
     [[NSNotificationCenter defaultCenter] postNotificationName:@"menuTapped" object:nil];
-}
-
--(void)objectLoader:(RKObjectLoader*)objectLoader didLoadObject:(id)object {
-    [BBLog Log:@"BBHomeController.objectLoader:didLoadObject"];
-    
-    [SVProgressHUD dismiss];
-    
-    if([object isKindOfClass:[BBUser class]])
-    {
-        [BBLog Debug:object withMessage:@"### BBUser Loaded"];
-        
-        BBApplication *appData = [BBApplication sharedInstance];
-        appData.user = (BBUser*)object;
-        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"%@?%@",[BBConstants AuthenticatedUserProfileUrl], [BBConstants AjaxQuerystring]]
-                                                          delegate:self];
-    }
-    
-    if([object isKindOfClass:[BBAuthenticatedUser class]])
-    {
-        [BBLog Debug:object withMessage:@"### BBAuthenticatedUser Loaded"];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"userProfileLoaded" object:nil];
-    }
-}
-
--(void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
-    [BBLog Error:[NSString stringWithFormat:@"%@%@", @"BBLoginController.objectLoader:didFailWithError:", [error localizedDescription]]];
-    
-    [SVProgressHUD showErrorWithStatus:error.description];
 }
 
 -(void)showMenu {
@@ -229,7 +197,6 @@
     [userInfo2 setObject:[NSString stringWithString:project.name] forKey:@"name"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateHeadingTitle" object:self userInfo:userInfo2];
 }
-
 
 -(void)browseGroupStream:(NSNotification *) notification {
     [BBLog Log:@"BBHomeController.browseGroupStream"];

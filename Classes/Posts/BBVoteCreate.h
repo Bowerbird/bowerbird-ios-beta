@@ -14,9 +14,7 @@
 @class BBObservation;
 
 
-@interface BBVoteCreate : NSObject <
-    RKObjectLoaderDelegate
->
+@interface BBVoteCreate : NSObject
 
 @property (nonatomic,strong) NSString* identifier;
 @property (nonatomic,strong) NSString* subIdentifier;

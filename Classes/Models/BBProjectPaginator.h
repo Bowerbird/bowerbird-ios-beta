@@ -17,8 +17,8 @@
 @property (nonatomic,retain) NSArray* projects;
 
 
--(id)initWithPatternURL:(RKURL *)patternURL
-        mappingProvider:(RKObjectMappingProvider *)mappingProvider
+-(id)initWithPatternURL:(NSURLRequest *)patternURL
+        mappingProvider:(RKObjectMapping *)mappingProvider
             andDelegate:(id<BBStreamControllerDelegate>)delegate;
 
 

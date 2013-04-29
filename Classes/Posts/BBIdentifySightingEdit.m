@@ -8,6 +8,7 @@
 
 
 #import "BBIdentifySightingEdit.h"
+#import "BBValidationError.h"
 
 
 @implementation BBIdentifySightingEdit
@@ -30,7 +31,8 @@
             species = _species,
             subSpecies = _subSpecies,
             commonGroupNames = _commonGroupNames,
-            commonNames = _commonNames;
+            commonNames = _commonNames,
+            errors = _errors;
 
 
 -(NSString*)sightingId { return _sightingId; }
@@ -67,6 +69,8 @@
 -(NSUInteger)countOfCommonNames { return [_commonNames count]; }
 -(id)objectInCommonNamesAtIndex:(NSUInteger)index { return [_commonNames objectAtIndex:index]; }
 -(void)addCommonNamesObject:(NSString*)commonName { [_commonNames addObject:commonName]; }
+-(BBValidationError*)errors { return _errors; }
+-(void)setErrors:(BBValidationError *)errors { _errors = errors; }
 
 
 #pragma mark -
@@ -87,7 +91,6 @@
 
 
 -(void)setCustomIdentification:(NSDictionary*)customId {
-    
     _isCustomIdentification = YES;
     _category = [customId objectForKey:@"category"];
     _kingdom = [customId objectForKey:@"kingdom"];
@@ -100,7 +103,6 @@
     _subSpecies = [customId objectForKey:@"subSpecies"];
     _commonGroupNames = [customId objectForKey:@"commonGroupNames"];
     _commonNames = [customId objectForKey:@"commonNames"];
-    
 }
 
 

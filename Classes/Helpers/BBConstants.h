@@ -45,6 +45,8 @@
 
 +(NSURL*)AuthenticatedUserProfileUrl;
 
++(NSString *)AuthenticatedUserProfileRoute;
+
 +(NSString*)AuthCookieName;
 
 +(NSArray*)AvatarTypes;

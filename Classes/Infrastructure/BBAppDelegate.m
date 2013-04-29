@@ -12,16 +12,34 @@
 #import "BBObservationCreate.h"
 #import "BBMappings.h"
 #import "BBHelpers.h"
+#import <RestKit/RestKit.h>
 
 
 @implementation BBAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // MAPPINGS
-    RKObjectManager* restKitManager = [RKObjectManager objectManagerWithBaseURL:[BBConstants RootUri]];
+    // RestKit
+    RKObjectManager *restKitManager = [RKObjectManager managerWithBaseURL:[BBConstants RootUri]];
+    [restKitManager.HTTPClient setDefaultHeader:@"X-Requested-With" value:@"XMLHttpRequest"];
+    [restKitManager.HTTPClient setDefaultHeader:@"Content-Type" value:@"application%2Fx-www-form-urlencoded"];
     [BBMappings mappingsForRKManager:restKitManager];
-  
+    
+    // Turn on Spinner when Network is Busy
+    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+    
+    // Reachability
+    [restKitManager.HTTPClient setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        if(status == AFNetworkReachabilityStatusNotReachable){
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"No Network Connection"
+                                                           message:@"You must be connected to the internet either over 3G, 4G, LTE or WIFI to use the BowerBird app"
+                                                          delegate:nil
+                                                 cancelButtonTitle:@"OK"
+                                                 otherButtonTitles:nil];
+            [alert show];
+        }
+    }];    
+    
     // UI
     self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
     BBContainerController *container = [[BBContainerController alloc]init];

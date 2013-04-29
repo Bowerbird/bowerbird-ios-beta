@@ -10,18 +10,17 @@
 #import <Foundation/Foundation.h>
 
 
-@class BBSightingNoteDescriptionCreate;
+@class BBSightingNoteDescriptionCreate, BBValidationError;
 
 
 @interface BBSightingNoteCreate : NSObject
 
-
-@property (nonatomic, strong) NSString *identifier;
-@property BOOL isCustomIdentification;
+@property (nonatomic,strong) NSString *identifier;
 @property (nonatomic,strong) NSString *sightingId;
 @property (nonatomic,strong) NSMutableArray *descriptions;
 @property (nonatomic,strong) NSString *tags;
-@property (nonatomic,strong) NSString *taxonomy;
+@property (nonatomic,strong) NSString *comments;
+@property (nonatomic,strong) BBValidationError *errors;
 
 -(void)addDescription:(BBSightingNoteDescriptionCreate*)description;
 

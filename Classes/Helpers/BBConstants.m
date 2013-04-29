@@ -109,6 +109,11 @@
     return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", [self RootUriString], @"/account/profile"]];
 }
 
++(NSString *)AuthenticatedUserProfileRoute
+{
+    return @"/account/profile";
+}
+
 +(NSString *)AuthCookieName
 {
     return @"ASP.NET_SessionId";

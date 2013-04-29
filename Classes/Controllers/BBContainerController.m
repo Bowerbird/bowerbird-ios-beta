@@ -46,7 +46,7 @@
 
     // triggered once user has successfully signed in or registered
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(showHomeView)
+                                             selector:@selector(setUserProfile:)
                                                  name:@"userProfileHasLoaded"
                                                object:nil];
     
@@ -91,23 +91,21 @@
             [SVProgressHUD setStatus:@"Loading your profile"];
         });
         
-        BBApplication* appData = [BBApplication sharedInstance];
-        appData.authenticatedUser = [[BBAuthenticatedUser alloc]init];
-        
-        RKObjectManager *manager = [RKObjectManager sharedManager];
-        manager.serializationMIMEType = RKMIMETypeJSON;
-        
-        //[manager getObject:appData.authenticatedUser delegate:appData.authenticatedUser];
-        /*
-        usingBlock:^(RKObjectLoader *loader) {
-            loader.delegate = authUser;
-            loader.params = [BBConstants AjaxRequestParams];
-        }];
-        */
-        
-        // pull down the logged in user's latest profile information
-        [manager loadObjectsAtResourcePath:[NSString stringWithFormat:@"%@?%@",[BBConstants AuthenticatedUserProfileUrl], [BBConstants AjaxQuerystring]]
-                                  delegate:appData.authenticatedUser];
+        [[RKObjectManager sharedManager] getObjectsAtPath:[BBConstants AuthenticatedUserProfileRoute]
+                                               parameters:nil
+                                                  success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                                      if([mappingResult isKindOfClass:[BBAuthenticatedUser class]]){
+                                                          [SVProgressHUD showSuccessWithStatus:@"Welcome Back!"];
+                                                          NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithCapacity:1];
+                                                          [userInfo setObject:mappingResult forKey:@"authenticatedUser"];
+                                                          [[NSNotificationCenter defaultCenter] postNotificationName:@"userProfileHasLoaded" object:self userInfo:userInfo];
+                                                      }
+                                                      [SVProgressHUD showErrorWithStatus:@"Could not log you in"];
+                                                  }
+                                                  failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                      [BBLog Log:[error localizedDescription]];
+                                                      [SVProgressHUD showErrorWithStatus:@"Could not log you in"];
+                                                  }];
     }
     else
     {
@@ -116,6 +114,21 @@
     }
     
     ((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController.navigationBarHidden = YES;
+}
+
+-(void)setUserProfile:(NSNotification *) notification {
+    //[NSAssert(notification != nil, @"notification must not be null")];
+    
+    NSDictionary* userInfo = [notification userInfo];
+    id authenticatedUser = [userInfo objectForKey:@"authenticatedUser"];
+    
+    //[NSAssert([authenticatedUser isKindOfClass:[BBAuthenticatedUser class]], @"User Profile must load an AuthenticatedUser object")];
+    
+    BBApplication *appData = [BBApplication sharedInstance];
+    appData.authenticatedUser = (BBAuthenticatedUser*)authenticatedUser;
+    
+    // send user to home view via notification... could just as easily call method directly
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"userHasAuthenticated" object:nil userInfo:nil];
 }
 
 

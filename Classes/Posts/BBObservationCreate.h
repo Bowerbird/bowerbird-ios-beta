@@ -11,9 +11,7 @@
 #import <RestKit/RestKit.h>
 
 
-@interface BBObservationCreate : NSObject <
-    RKObjectLoaderDelegate
->
+@interface BBObservationCreate : NSObject
 
 
 @property (nonatomic, retain) NSString *title;

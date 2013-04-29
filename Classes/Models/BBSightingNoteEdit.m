@@ -17,7 +17,7 @@
 #pragma mark - Member Accessors
 
 
-@synthesize taxonomy = _taxonomy,
+@synthesize comments = _comments,
             descriptions = _descriptions,
             tags = _tags,
             sightingId = _sightingId;
@@ -25,8 +25,8 @@
 
 -(NSString*)sightingId { return _sightingId; }
 -(void)setSightingId:(NSString *)sightingId { _sightingId = sightingId; }
--(NSString*)taxonomy { return _taxonomy; }
--(void)setTaxonomy:(NSString *)taxonomy { _taxonomy = taxonomy; }
+-(NSString*)comments { return _comments; }
+-(void)setComments:(NSString *)comments { _comments = comments; }
 -(NSMutableDictionary*)descriptions {
     if(!_descriptions) _descriptions = [[NSMutableDictionary alloc]init];
     return _descriptions;

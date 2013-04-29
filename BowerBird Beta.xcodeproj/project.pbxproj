@@ -333,6 +333,8 @@
 		1CAE96B716BAC0FC00B92A04 /* LBYouTubePlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAE96B516BAC0FC00B92A04 /* LBYouTubePlayerController.m */; };
 		1CAE96B916BAC4DF00B92A04 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CAE96B816BAC4DE00B92A04 /* AVFoundation.framework */; };
 		1CAE96BC16BAC5D100B92A04 /* BBAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAE96BB16BAC5D000B92A04 /* BBAudio.m */; };
+		1CB0651A1727B19B00B9012F /* BBRegisterRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB065191727B19B00B9012F /* BBRegisterRequest.m */; };
+		1CB0651D172E420300B9012F /* BBValidationError.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB0651C172E420300B9012F /* BBValidationError.m */; };
 		1CB1E3DA16CA779200102489 /* BBSightingItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB1E3D916CA779200102489 /* BBSightingItemController.m */; };
 		1CB1E3DD16CB29BC00102489 /* BBPlusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB1E3DC16CB29BC00102489 /* BBPlusView.m */; };
 		1CB1E50816CDCE1C00102489 /* BBProjectJoinLeaveController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CB1E50716CDCE1C00102489 /* BBProjectJoinLeaveController.m */; };
@@ -396,13 +398,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 25160E78145651060060A5C5;
 			remoteInfo = RestKitFrameworkTests;
-		};
-		1C31AEE915DE1B2100A602BE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1C31AED615DE1B2100A602BE /* RestKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 259C301615128079003066A2;
-			remoteInfo = RestKitResources;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -660,8 +655,8 @@
 		1CAB624F164C7FB50000D8C3 /* BBGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBGroup.m; sourceTree = "<group>"; };
 		1CAB6250164C7FB50000D8C3 /* BBImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBImage.h; sourceTree = "<group>"; };
 		1CAB6251164C7FB50000D8C3 /* BBImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBImage.m; sourceTree = "<group>"; };
-		1CAB6252164C7FB50000D8C3 /* BBLoginRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBLoginRequest.h; sourceTree = "<group>"; };
-		1CAB6253164C7FB50000D8C3 /* BBLoginRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBLoginRequest.m; sourceTree = "<group>"; };
+		1CAB6252164C7FB50000D8C3 /* BBLoginRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BBLoginRequest.h; path = ../Models/BBLoginRequest.h; sourceTree = "<group>"; };
+		1CAB6253164C7FB50000D8C3 /* BBLoginRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BBLoginRequest.m; path = ../Models/BBLoginRequest.m; sourceTree = "<group>"; };
 		1CAB6254164C7FB50000D8C3 /* BBMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMedia.h; sourceTree = "<group>"; };
 		1CAB6255164C7FB50000D8C3 /* BBMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBMedia.m; sourceTree = "<group>"; };
 		1CAB6256164C7FB50000D8C3 /* BBMediaEdit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBMediaEdit.h; sourceTree = "<group>"; };
@@ -939,6 +934,10 @@
 		1CAE96B816BAC4DE00B92A04 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		1CAE96BA16BAC5CF00B92A04 /* BBAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBAudio.h; sourceTree = "<group>"; };
 		1CAE96BB16BAC5D000B92A04 /* BBAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBAudio.m; sourceTree = "<group>"; };
+		1CB065181727B19B00B9012F /* BBRegisterRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBRegisterRequest.h; sourceTree = "<group>"; };
+		1CB065191727B19B00B9012F /* BBRegisterRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBRegisterRequest.m; sourceTree = "<group>"; };
+		1CB0651B172E420200B9012F /* BBValidationError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBValidationError.h; sourceTree = "<group>"; };
+		1CB0651C172E420300B9012F /* BBValidationError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBValidationError.m; sourceTree = "<group>"; };
 		1CB1E3D816CA779200102489 /* BBSightingItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSightingItemController.h; sourceTree = "<group>"; };
 		1CB1E3D916CA779200102489 /* BBSightingItemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSightingItemController.m; sourceTree = "<group>"; };
 		1CB1E3DB16CB29BC00102489 /* BBPlusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBPlusView.h; sourceTree = "<group>"; };
@@ -1054,7 +1053,6 @@
 				1C31AEE415DE1B2100A602BE /* RestKitTests.octest */,
 				1C31AEE615DE1B2100A602BE /* RestKit.framework */,
 				1C31AEE815DE1B2100A602BE /* RestKitFrameworkTests.octest */,
-				1C31AEEA15DE1B2100A602BE /* RestKitResources.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1523,8 +1521,6 @@
 				1CAB6251164C7FB50000D8C3 /* BBImage.m */,
 				1C29668E1655532300B3CC16 /* BBJsonResponse.h */,
 				1C29668F1655532300B3CC16 /* BBJsonResponse.m */,
-				1CAB6252164C7FB50000D8C3 /* BBLoginRequest.h */,
-				1CAB6253164C7FB50000D8C3 /* BBLoginRequest.m */,
 				1CAB6254164C7FB50000D8C3 /* BBMedia.h */,
 				1CAB6255164C7FB50000D8C3 /* BBMedia.m */,
 				1CAB6256164C7FB50000D8C3 /* BBMediaEdit.h */,
@@ -1561,6 +1557,8 @@
 				1CAB6273164C7FB50000D8C3 /* BBUser.m */,
 				1CAE96A716BA9B4200B92A04 /* BBVideo.h */,
 				1CAE96A816BA9B4200B92A04 /* BBVideo.m */,
+				1CB0651B172E420200B9012F /* BBValidationError.h */,
+				1CB0651C172E420300B9012F /* BBValidationError.m */,
 			);
 			name = GetModels;
 			path = Models;
@@ -1905,14 +1903,14 @@
 		1CAB647E165307600000D8C3 /* PostModels */ = {
 			isa = PBXGroup;
 			children = (
+				1CAB6252164C7FB50000D8C3 /* BBLoginRequest.h */,
+				1CAB6253164C7FB50000D8C3 /* BBLoginRequest.m */,
 				1C5BD57D16B108F40007B49E /* BBFavouriteId.h */,
 				1C5BD57E16B108F50007B49E /* BBFavouriteId.m */,
 				1CB8182D169F8A3500F98C43 /* BBIdentifySightingEdit.h */,
 				1CB8182E169F8A3500F98C43 /* BBIdentifySightingEdit.m */,
 				1CAB648216532C030000D8C3 /* BBMediaResourceCreate.h */,
 				1CAB648316532C030000D8C3 /* BBMediaResourceCreate.m */,
-				1C2966D1165E1D7000B3CC16 /* BBModelId.h */,
-				1C2966D2165E1D7000B3CC16 /* BBModelId.m */,
 				1CAB647F165307B30000D8C3 /* BBObservationCreate.h */,
 				1CAB6480165307B30000D8C3 /* BBObservationCreate.m */,
 				1C29669116555E7600B3CC16 /* BBObservationMediaCreate.h */,
@@ -1920,6 +1918,8 @@
 				1C5BD57A16B108D90007B49E /* BBProjectId.h */,
 				1C5BD57B16B108D90007B49E /* BBProjectId.m */,
 				1CAB626E164C7FB50000D8C3 /* BBSightingEdit.h */,
+				1C2966D1165E1D7000B3CC16 /* BBModelId.h */,
+				1C2966D2165E1D7000B3CC16 /* BBModelId.m */,
 				1CAB626F164C7FB50000D8C3 /* BBSightingEdit.m */,
 				1C06F84B167178C40086B9E0 /* BBSightingNoteCreate.h */,
 				1C06F84C167178C40086B9E0 /* BBSightingNoteCreate.m */,
@@ -1933,6 +1933,8 @@
 				1C5BD56B16B0B3FF0007B49E /* BBVoteCreate.m */,
 				1CC55D2316B890AE005C0970 /* BBJsonResponder.h */,
 				1CC55D2416B890AE005C0970 /* BBJsonResponder.m */,
+				1CB065181727B19B00B9012F /* BBRegisterRequest.h */,
+				1CB065191727B19B00B9012F /* BBRegisterRequest.m */,
 			);
 			name = PostModels;
 			path = Posts;
@@ -2048,13 +2050,6 @@
 			fileType = wrapper.cfbundle;
 			path = RestKitFrameworkTests.octest;
 			remoteRef = 1C31AEE715DE1B2100A602BE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		1C31AEEA15DE1B2100A602BE /* RestKitResources.bundle */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = RestKitResources.bundle;
-			remoteRef = 1C31AEE915DE1B2100A602BE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -2415,6 +2410,8 @@
 				1CB1E3DA16CA779200102489 /* BBSightingItemController.m in Sources */,
 				1CB1E3DD16CB29BC00102489 /* BBPlusView.m in Sources */,
 				1CB1E50816CDCE1C00102489 /* BBProjectJoinLeaveController.m in Sources */,
+				1CB0651A1727B19B00B9012F /* BBRegisterRequest.m in Sources */,
+				1CB0651D172E420300B9012F /* BBValidationError.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

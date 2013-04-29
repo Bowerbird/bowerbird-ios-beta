@@ -12,12 +12,15 @@
  -----------------------------------------------------------------------------------------------*/
 
 
+#import <RestKit/RestKit.h>
 #import "BBIdentifySightingController.h"
 #import "BBIdentifySightingEdit.h"
 #import "BBIdentifySightingView.h"
 #import "BBClassificationSearchController.h"
 #import "BBClassificationBrowseController.h"
 #import "BBJsonResponse.h"
+#import "BBValidationError.h"
+#import "SVProgressHUD.h"
 
 
 @interface BBIdentifySightingController()
@@ -88,37 +91,6 @@
 #pragma mark - Delegates and Event Handlers
 
 
--(void)objectLoaderDidLoadUnexpectedResponse:(RKObjectLoader *)objectLoader {
-    
-}
-
--(void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
-    [BBLog Log:@"BBCreateSightingNoteController.objectLoaderDidFailWithError:"];
-    
-    [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-        
-    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:YES];
-}
-
--(void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
-    // is it a JsonResponse?
-    if([object isKindOfClass:[BBJsonResponse class]]) {
-        BBJsonResponse *response = (BBJsonResponse*)object;
-        
-        if(response.success) {
-            [SVProgressHUD showSuccessWithStatus:@"Saved"];
-            
-            [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:NO];
-        }
-        else {
-            [SVProgressHUD showSuccessWithStatus:@"Didn't save"];
-        }
-    }
-    
-    [SVProgressHUD showSuccessWithStatus:@"Saved Note!/n(But didn't Map Result)"];
-    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:YES];
-}
-
 -(void)searchClassifications {
     BBClassificationSearchController *searchController = [[BBClassificationSearchController alloc]init];
     [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:searchController
@@ -130,14 +102,6 @@
     [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:browseController
                                                                                            animated:YES];
 }
-
-/*
--(void)createClassification {
-    BBClassificationCreateController *createController = [[BBClassificationCreateController alloc]init];
-    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController pushViewController:createController
-                                                                                           animated:YES];
-}
-*/
 
 -(void)removeClassification {
     // clear the taxonomy
@@ -153,35 +117,46 @@
     identify.isCustomIdentification = NO;
     
     // do the actual saving..
-    RKObjectManager *manager = [RKObjectManager sharedManager];
-    manager.serializationMIMEType = RKMIMETypeJSON;
+    RKObjectManager *objectManager = [RKObjectManager sharedManager];
     
-    // do UI stuff back in UI land
-    //dispatch_async(dispatch_get_main_queue(), ^{
-        [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"Saving Identification"]];
-    //});
-
-    [manager postObject:identify delegate:self];
+    NSURLRequest *request = [objectManager requestWithObject:identify
+                                                      method:RKRequestMethodPOST
+                                                        path:nil
+                                                  parameters:nil];
     
-    /*
-    [manager postObject:identify
-             usingBlock:^(RKObjectLoader *loader)
-    {
-        // map native object to dictionary of key values
-        RKObjectMapping *map = [[manager mappingProvider] serializationMappingForClass:[BBIdentifySightingEdit class]];
-        NSError *error = nil;
-        NSDictionary *d = [[RKObjectSerializer serializerWithObject:identify mapping:map] serializedObject:&error];
-        
-        // convert key value dictionary to json data object
-        NSError *e;
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:d options:0 error:&e];
-        
-        // convert json data object to a string
-        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        loader.params = [RKRequestSerialization serializationWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding] MIMEType:RKMIMETypeJSON];
-        loader.delegate = self;
-    }];
-     */
+    RKObjectRequestOperation *operation = [objectManager objectRequestOperationWithRequest:request
+                                                                                   success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                                                                       if([mappingResult isKindOfClass:[BBIdentifySightingEdit class]]){
+                                                                                           
+                                                                                           if(((BBIdentifySightingEdit*)mappingResult).errors != nil) {
+                                                                                               NSArray *messages = ((BBIdentifySightingEdit*)mappingResult).errors.messages;
+                                                                                               
+                                                                                               [messages enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                                                                                                   [BBLog Log:obj];
+                                                                                                   UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Validation Error:"
+                                                                                                                                                   message:obj
+                                                                                                                                                  delegate:nil
+                                                                                                                                         cancelButtonTitle:@"OK"
+                                                                                                                                         otherButtonTitles:nil];
+                                                                                                   [alert show];
+                                                                                               }];
+                                                                                           }
+                                                                                           else {
+                                                                                               // SUCCESS
+                                                                                               [SVProgressHUD showSuccessWithStatus:@"Saving your identification"];
+                                                                                               
+                                                                                               // Broadcast the new Identification.... do we display it?
+                                                                                               NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithCapacity:1];
+                                                                                               [userInfo setObject:mappingResult forKey:@"identification"];
+                                                                                               [[NSNotificationCenter defaultCenter] postNotificationName:@"identificationCreated" object:self userInfo:userInfo];
+                                                                                           }
+                                                                                       }
+                                                                                   }
+                                                                                   failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                                                       [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"Error occurred submitting the Identification: %@", error.localizedDescription]];
+                                                                                   }];
+    
+    [SVProgressHUD showWithStatus:@"Saving your identification"];
 }
 
 -(void)cancel {

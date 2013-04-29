@@ -15,7 +15,6 @@
 
 @interface BBLoginController : BBControllerBase <
      UITextFieldDelegate
-    ,RKObjectLoaderDelegate
     ,BSKeyboardControlsDelegate
 >
 

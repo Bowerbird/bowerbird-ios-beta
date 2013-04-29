@@ -190,18 +190,13 @@
     [BBLog Log:@"BBStreamController.setPaginatorForStream:"];
     [BBLog Debug:@"streamName:" withMessage:streamName];
     
+    NSString *streamUrl = [NSString stringWithFormat:@"/%@?PageSize=:perPage&Page=:page", streamName];
+    
     // Given an RKURL initialized as:
-    RKURL *myURL = [RKURL URLWithBaseURLString:[BBConstants RootUriString]
-                                  resourcePath:[NSString stringWithFormat:@"/%@?PageSize=:perPage&Page=:page&%@", streamName, [BBConstants AjaxQuerystring]]];
-    
-    // And a dictionary containing values:
-    NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"10", @"perPage", @"1", @"page", nil];
-    
-    // A new RKURL can be constructed by interpolating the dictionary with the original URL
-    RKURL *interpolatedURL = [myURL URLByInterpolatingResourcePathWithObject:dictionary];
+    NSURL *myURL = [NSURL URLWithString:streamUrl relativeToURL:[BBConstants RootUri]];
     
     if([streamName isEqualToString:@"favourites"]){ // we're only viewing sightings
-        self.paginator = [[BBSightingPaginator alloc]initWithPatternURL:interpolatedURL
+        self.paginator = [[BBSightingPaginator alloc]initWithPatternURL:myURL
                                                         mappingProvider:[RKObjectManager sharedManager].mappingProvider
                                                             andDelegate:self];
         

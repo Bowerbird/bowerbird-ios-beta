@@ -24,11 +24,11 @@
 #import "BBSightingNoteEditDescriptionController.h"
 #import "BBSightingNoteDescriptionCreate.h"
 #import "BBSightingNoteTagController.h"
-//#import "NSString+RKAdditions.h"
 #import "BBSightingNoteEdit.h"
 #import "BBSightingNoteCreate.h"
 #import "BBJsonResponse.h"
 #import "BBClassification.h"
+#import "BBValidationError.h"
 
 
 @implementation BBCreateSightingNoteController
@@ -99,7 +99,7 @@
     // empty the validation area of the view
     BOOL isValid = YES;
     
-    if(_sightingNote.tags.count == 0 && _sightingNote.descriptions.count == 0 && ([_sightingNote.taxonomy isEqualToString:@""] || !_sightingNote.taxonomy)) {
+    if(_sightingNote.tags.count == 0 && _sightingNote.descriptions.count == 0 && ([_sightingNote.comments isEqualToString:@""] || !_sightingNote.comments)) {
         isValid = NO;
     }
     
@@ -126,7 +126,7 @@
         }
     }];
     postSightingNote.tags = tagsAsString;
-    postSightingNote.taxonomy = _sightingNote.taxonomy;
+    postSightingNote.comments = _sightingNote.comments;
     
     NSMutableArray *descriptionObjects = [[NSMutableArray alloc]init];
     for (NSString* key in [_sightingNote.descriptions allKeys]) {
@@ -140,25 +140,45 @@
     }
     
     postSightingNote.descriptions = descriptionObjects;
-        
-    // post this data to the server. On Success, pop this biatch off the stack.
-    RKObjectManager *manager = [RKObjectManager sharedManager];
-    manager.serializationMIMEType = RKMIMETypeJSON;
     
-    [SVProgressHUD showWithStatus:[NSString stringWithFormat:@"Saving Sighting Note"]];
-
-    [manager postObject:postSightingNote delegate:self];
+    RKObjectManager *objectManager = [RKObjectManager sharedManager];
     
-    /*
-    [manager postObject:postSightingNote usingBlock:^(RKObjectLoader *loader) {
-        loader.delegate = self;
-        loader.method = RKRequestMethodPOST;
-        loader.params = [BBConstants AjaxRequestParams];
-        //NSString *encodedUrl = [postSightingNote.sightingId stringByReplacingURLEncoding];
-        //loader.resourcePath = [NSString stringWithFormat:@"/%@/createnote", encodedUrl];
-    }];
-    */
+    NSURLRequest *request = [objectManager requestWithObject:postSightingNote
+                                                      method:RKRequestMethodPOST
+                                                        path:nil
+                                                  parameters:nil];
     
+    RKObjectRequestOperation *operation = [objectManager objectRequestOperationWithRequest:request
+                                                                                   success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                                                                       if([mappingResult isKindOfClass:[BBSightingNoteCreate class]]){
+                                                                                           
+                                                                                           if(((BBSightingNoteCreate*)mappingResult).errors != nil) {
+                                                                                               NSArray *messages = ((BBSightingNoteCreate*)mappingResult).errors.messages;
+                                                                                               
+                                                                                               [messages enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                                                                                                   [BBLog Log:obj];
+                                                                                                   UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Validation Error:"
+                                                                                                                                                   message:obj
+                                                                                                                                                  delegate:nil
+                                                                                                                                         cancelButtonTitle:@"OK"
+                                                                                                                                         otherButtonTitles:nil];
+                                                                                                   [alert show];
+                                                                                               }];
+                                                                                           }
+                                                                                           else {
+                                                                                               // SUCCESS
+                                                                                               // Broadcast the new Sighting Note Creation.... do we display it?
+                                                                                               NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithCapacity:1];
+                                                                                               [userInfo setObject:mappingResult forKey:@"sightingNote"];
+                                                                                               [[NSNotificationCenter defaultCenter] postNotificationName:@"sightingNoteCreated" object:self userInfo:userInfo];
+                                                                                           }
+                                                                                       }
+                                                                                   }
+                                                                                   failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                                                       [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"Error occurred submitting Sighting Note: %@", error.localizedDescription]];
+                                                                                   }];
+    
+    [SVProgressHUD showWithStatus:@"Saving your sighting"];
 }
 
 -(void)cancel {
@@ -195,45 +215,6 @@
 #pragma mark -
 #pragma mark - Delegation and Event Handling
 
-
--(void)objectLoaderDidLoadUnexpectedResponse:(RKObjectLoader *)objectLoader {
-    [BBLog Log:@"BBCreateSightingNoteController.objectDidLoadUnexpectedResponse:"];
-    
-    [BBLog Log:objectLoader.response.bodyAsString];
-    
-    [SVProgressHUD dismiss];
-    
-    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:YES];
-}
-
--(void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
-    [BBLog Log:@"BBCreateSightingNoteController.objectLoaderDidFailWithError:"];
-    
-    [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-    
-    [SVProgressHUD dismiss];
-    
-    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:YES];
-}
-
--(void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
-    // is it a JsonResponse?
-    if([object isKindOfClass:[BBJsonResponse class]]) {
-        BBJsonResponse *response = (BBJsonResponse*)object;
-        
-        if(response.success) {
-            [SVProgressHUD showSuccessWithStatus:@"Saved"];
-            
-            [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:NO];
-        }
-        else {
-            [SVProgressHUD showSuccessWithStatus:@"Didn't save"];
-        }
-    }
-    
-    [SVProgressHUD showSuccessWithStatus:@"Saved Note!/n(But didn't Map Result)"];
-    [((BBAppDelegate *)[UIApplication sharedApplication].delegate).navController popViewControllerAnimated:YES];
-}
 
 // start selecting description to add, finish selecting description to add, add description, remove description
 -(void)startAddDescription {
@@ -295,15 +276,15 @@
     [self.navigationController popToViewController:self animated:NO];
 }
 
--(void)setClassificationForNote:(NSNotification *) notification{
-    [self cancelIdentification];
-    
-    NSDictionary* userInfo = [notification userInfo];
-    BBClassification *classification = [userInfo objectForKey:@"classification"];
-    
-    _sightingNote.taxonomy = classification.taxonomy;
-    [((BBCreateSightingNoteView*)self.view) displayIdentification:classification];
-}
+//-(void)setClassificationForNote:(NSNotification *) notification{
+//    [self cancelIdentification];
+//    
+//    NSDictionary* userInfo = [notification userInfo];
+//    BBClassification *classification = [userInfo objectForKey:@"classification"];
+//    
+//    _sightingNote.taxonomy = classification.taxonomy;
+//    [((BBCreateSightingNoteView*)self.view) displayIdentification:classification];
+//}
 
 -(void)cancelSightingNoteDescriptionEdit {
     [self.navigationController popToViewController:self animated:NO];

@@ -13,20 +13,17 @@
 #import "UIImage+fixOrientation.h"
 
 
-@class BBMediaEdit;
+@class BBMediaEdit, BBValidationError;
 
 
-@interface BBMediaResourceCreate : NSObject <
-    RKObjectLoaderDelegate
->
-
+@interface BBMediaResourceCreate : NSObject 
 
 @property (nonatomic,retain) NSData* file;
 @property (nonatomic,retain) NSString* fileName;
 @property (nonatomic,retain) NSString* usage;
 @property (nonatomic,retain) NSString* key;
 @property (nonatomic,retain) NSString* type;
-
+@property (nonatomic,strong) BBValidationError *errors;
 
 -(BBMediaResourceCreate*)initWithMedia:(BBMediaEdit*)media
                               forUsage:(NSString*)usage;

@@ -10,6 +10,9 @@
 #import <Foundation/Foundation.h>
 
 
+@class BBValidationError;
+
+
 @interface BBIdentifySightingEdit : NSObject
 
 
@@ -27,6 +30,7 @@
 @property (nonatomic,strong) NSString *subSpecies;
 @property (nonatomic,strong) NSMutableArray *commonGroupNames;
 @property (nonatomic,strong) NSMutableArray *commonNames;
+@property (nonatomic,strong) BBValidationError *errors;
 
 
 -(BBIdentifySightingEdit*)initWithSightingId:(NSString*)sightingId;

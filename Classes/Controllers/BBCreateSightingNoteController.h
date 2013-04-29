@@ -16,8 +16,7 @@
 
 
 @interface BBCreateSightingNoteController : BBControllerBase <
-     RKObjectLoaderDelegate
-    ,BBSightingNoteEditDelegateProtocol
+    BBSightingNoteEditDelegateProtocol
 >
 
 @property (nonatomic,strong) BBSightingNoteEdit *sightingNote;

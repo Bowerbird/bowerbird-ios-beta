@@ -13,8 +13,4 @@
 
 @interface BBJsonResponder : NSObject
 
--(void)objectLoader:(RKObjectLoader *)objectLoader
-      didLoadObject:(id)object;
-
-
 @end

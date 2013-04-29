@@ -17,6 +17,7 @@
 #import "BBAuthenticatedUser.h"
 #import "BBAuthentication.h"
 #import "BBAppDelegate.h"
+#import "BBRegisterRequest.h"
 
 
 @interface BBRegistrationController()
@@ -54,13 +55,19 @@
 -(void)loadView {
     [BBLog Log:@"BBRegistrationController.loadView"];
     
+    // triggered once user has successfully signed in or registered
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(loadAuthenticatedUser:)
+                                                 name:@"userAuthenticated"
+                                               object:nil];
+    
     self.view = [MGScrollView scrollerWithSize:[self screenSize]];
     ((MGScrollView*)self.view).contentLayoutMode = MGLayoutTableStyle;
     self.view.backgroundColor = [self backgroundColor];
     registrationView = (MGScrollView*)self.view;
 }
 
-- (void)viewDidLoad {
+-(void)viewDidLoad {
     [BBLog Log:@"BBRegistrationController.viewDidLoad"];
     
     [super viewDidLoad];
@@ -87,11 +94,6 @@
     self.title = @"Register";
 }
 
-
-#pragma mark -
-#pragma mark - Utilities and Helpers
-
-
 -(void)displayViewControls {
     [BBLog Log:@"BBRegistrationController.displayViewControls"];
     
@@ -104,8 +106,8 @@
     
     // name
     _textName = [BBUIControlHelper createTextFieldWithFrame:CGRectMake(0, 0, 280, 40)
-                                              andPlaceholder:@"Name"
-                                                 andDelegate:self];
+                                             andPlaceholder:@"Name"
+                                                andDelegate:self];
     
     MGLine *nameLine = [MGLine lineWithSize:CGSizeMake(280, 60)];
     [nameLine.middleItems addObject:_textName];
@@ -123,12 +125,12 @@
     [emailLine.middleItems addObject:_textEmail];
     emailLine.padding = UIEdgeInsetsMake(10, 0, 10, 0);
     [registrationTable.middleLines addObject:emailLine];
-
+    
     // password
     _textPassword = [BBUIControlHelper createTextFieldWithFrame:CGRectMake(0, 0, 280, 40)
-    andPlaceholder:@"Password"
-    andDelegate:self];
-
+                                                 andPlaceholder:@"Password"
+                                                    andDelegate:self];
+    
     _textPassword.secureTextEntry = YES;
     MGLine *passwordLine = [MGLine lineWithSize:CGSizeMake(280, 60)];
     [passwordLine.middleItems addObject:_textPassword];
@@ -136,14 +138,14 @@
     
     // confirm password
     _textConfirmPassword = [BBUIControlHelper createTextFieldWithFrame:CGRectMake(0, 0, 280, 40)
-                                                 andPlaceholder:@"Confirm Password"
-                                                    andDelegate:self];
+                                                        andPlaceholder:@"Confirm Password"
+                                                           andDelegate:self];
     
     _textConfirmPassword.secureTextEntry = YES;
     MGLine *confirmPasswordLine = [MGLine lineWithSize:CGSizeMake(280, 60)];
     [confirmPasswordLine.middleItems addObject:_textConfirmPassword];
     [registrationTable.middleLines addObject:confirmPasswordLine];
-
+    
     // buttons
     CoolMGButton *signInBtn = [BBUIControlHelper createButtonWithFrame:CGRectMake(0,0,280,40)
                                                               andTitle:@"Register Me"
@@ -156,31 +158,64 @@
     [(MGScrollView*)self.view layoutWithSpeed:0.3 completion:nil];
 }
 
+
+#pragma mark -
+#pragma mark - Utilities and Helpers
+
+
 -(void)registerUser {
     [BBLog Log:@"BBRegistrationController.registerUser"];
     
-    NSString* email = _textEmail.text;
-    NSString* password = _textPassword.text;
-    NSString* name = _textName.text;
+    BBRegisterRequest *registerRequest = [[BBRegisterRequest alloc] initWithEmail:self.textEmail.text
+                                                                         password:self.textPassword.text
+                                                                             name:self.textName.text];
+                                          
+    RKObjectManager *objectManager = [RKObjectManager sharedManager];
     
-    [BBLog Log:[NSString stringWithFormat:@"Attempting login with email: %@ and password %@", email, password]];
+    NSURLRequest *request = [objectManager requestWithObject:registerRequest
+                                                      method:RKRequestMethodPOST
+                                                        path:nil
+                                                  parameters:nil];
     
-    NSMutableDictionary* params = [[NSMutableDictionary alloc] init];
+    RKObjectRequestOperation *operation = [objectManager objectRequestOperationWithRequest:request
+                                                                                   success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                                                                       if([mappingResult isKindOfClass:[BBAuthentication class]]){
+                                                                                           NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithCapacity:1];
+                                                                                           [userInfo setObject:mappingResult forKey:@"authenticatedUser"];
+                                                                                           [[NSNotificationCenter defaultCenter] postNotificationName:@"loadAuthenticatedUser" object:self userInfo:userInfo];
+                                                                                       }
+                                                                                   }
+                                                                                   failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                                                       [SVProgressHUD showErrorWithStatus:@"Could not register you"];
+                                                                                   }];
     
-    [params setObject:email forKey:@"email"];
-    [params setObject:password forKey:@"password"];
-    [params setObject:name forKey:@"name"];
-    [params setObject:@"true" forKey:@"rememberme"];
-    [params setObject:@"XMLHttpRequest" forKey:@"X-Requested-With"];
+    [SVProgressHUD showWithStatus:@"Registering you"];
+}
+
+-(void)loadAuthenticatedUser:(NSNotification *) notification {
     
-    [[RKClient sharedClient] post:@"/account/register" params:params delegate:self];
+    NSDictionary* userInfo = [notification userInfo];
+    BBAuthentication *authenticatedUser = [userInfo objectForKey:@"authenticatedUser"];
     
-    [SVProgressHUD showWithStatus:@"Processing your registration \nThis may take a few moments"];
+    [SVProgressHUD showWithStatus:@"Loading your profile"];
+    
+    
+    [[RKObjectManager sharedManager] getObjectsAtPath:[BBConstants AuthenticatedUserProfileUrl]
+                                           parameters:nil
+                                              success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                                  [SVProgressHUD showSuccessWithStatus:@"Welcome to BowerBird!"];
+                                                  [[NSNotificationCenter defaultCenter] postNotificationName:@"userHasAuthenticated" object:nil userInfo:nil];
+                                              }
+                                              failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                  [SVProgressHUD showErrorWithStatus:@"Could not log you in"];
+                                              }];
 }
 
 -(void)cancelRegisterUser {
     [BBLog Log:@"BBRegistrationController.cancelRegisterUser"];
     
+    [[RKObjectManager sharedManager].operationQueue cancelAllOperations];
+
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -221,128 +256,37 @@
     [self.keyboardControls reloadTextFields];
 }
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
+-(void)textFieldDidBeginEditing:(UITextField *)textField {
     if ([self.keyboardControls.textFields containsObject:textField])
         self.keyboardControls.activeTextField = textField;
 }
 
-- (void)keyboardControlsDonePressed:(BSKeyboardControls *)controls {
+-(void)keyboardControlsDonePressed:(BSKeyboardControls *)controls {
     [controls.activeTextField resignFirstResponder];
 }
 
-- (void)keyboardControlsPreviousNextPressed:(BSKeyboardControls *)controls
+-(void)keyboardControlsPreviousNextPressed:(BSKeyboardControls *)controls
                               withDirection:(KeyboardControlsDirection)direction
                          andActiveTextField:(id)textField {
     [textField becomeFirstResponder];
     [self scrollViewToTextField:textField];
 }
 
-- (void)scrollViewToTextField:(id)textField {
+-(void)scrollViewToTextField:(id)textField {
     MGLine *textFieldLine = (MGLine*)((UITextField*)textField).superview;
 
     [((MGScrollView*)self.view) scrollToView:textFieldLine withMargin:8];
 }
 
-    -(void)request:(RKRequest*)request
-   didLoadResponse:(RKResponse*)response {
-    [BBLog Log:@"BBLoginController.request:didLoadResponse"];
-    
-    if ([request isPOST]) // Register Attempt
-    {
-        [self getUserProfileFromRegisterRequest:response];
-    }
-    else if ([request isGET]) // Load Profile
-    {
-        [self setUserFromProfileResponse:response];
-    }
-}
-
--(void)getUserProfileFromRegisterRequest:(RKResponse*)response {
-    [BBLog Log:@"BBRegisterController.getUserProfileFromRegisterRequest"];
-    
-    if ([response isOK] && [response isJSON])
-    {
-        NSError* error = nil;
-        id obj = [response parsedBody:&error];
-        
-        //RKObjectMapping *authenticationMap = [[[RKObjectManager sharedManager] mappingProvider] serializationMappingForClass:[BBAuthentication class]];
-        RKObjectMapping *authenticationMap = [RKObjectMapping mappingForClass:[BBAuthentication class]];
-        id mappedObject = [authenticationMap mappableObjectForData:obj];
-        
-        //id mappedObject = [authenticationMap mappableObjectForData:obj];
-        // we have authenticated and are set to pull down the user's profile
-        
-        if([mappedObject isKindOfClass:[BBAuthentication class]] && mappedObject != nil)
-        {
-            [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"%@?%@",[BBConstants AuthenticatedUserProfileUrl], [BBConstants AjaxQuerystring]]
-                                                              delegate:self];
-            
-            [SVProgressHUD showWithStatus:@"Loading your new profile"];
-        }
-    }
-}
-
--(void)setUserFromProfileResponse:(RKResponse*)response {
-    [BBLog Log:@"BBLoginController.setUserFromProfileResponse"];
-    
-    if ([response isOK] && [response isJSON])
-    {
-        //NSError* error = nil;
-        //id obj = [response parsedBody:&error];
-        //RKObjectMapping *authenticationMap = [[[RKObjectManager sharedManager] mappingProvider] serializationMappingForClass:[BBAuthenticatedUser class]];
-        
-        id obj = [response bodyAsString];
-        RKObjectMapping *authenticationMap = [RKObjectMapping mappingForClass:[BBAuthenticatedUser class]];
-        
-        id mappedObject = [authenticationMap mappableObjectForData:obj];
-        
-        // we now have the user's profile - send to delegate method for system setup
-        if([mappedObject isKindOfClass:[BBAuthenticatedUser class]])
-        {
-            authenticatedUser = (BBAuthenticatedUser*)mappedObject;
-        }
-    }
-}
-
-// TODO: This is potentially the handler for all RestKit activity
--(void)objectLoader:(RKObjectLoader*)objectLoader
-      didLoadObject:(id)object {
-    [BBLog Log:@"BBLoginController.objectLoader:didLoadObject"];
-    
-    if([object isKindOfClass:[BBUser class]])
-    {
-        BBApplication *appData = [BBApplication sharedInstance];
-        appData.user = (BBUser*)object;
-        
-        [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"%@?%@",[BBConstants AuthenticatedUserProfileUrl], [BBConstants AjaxQuerystring]]
-                                                          delegate:self];
-        
-        [SVProgressHUD showWithStatus:@"Loading your new profile"];
-    }
-    
-    if([object isKindOfClass:[BBAuthenticatedUser class]])
-    {
-        // TODO: Get the mappings for Authenticated User working for the menu items et al.
-        
-        BBApplication *appData = [BBApplication sharedInstance];
-        appData.authenticatedUser = (BBAuthenticatedUser*)object;
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"authenticatedUserLoaded" object:nil];
-    }
-}
-
--(void)objectLoader:(RKObjectLoader *)objectLoader
-   didFailWithError:(NSError *)error {
-    [BBLog Error:[NSString stringWithFormat:@"%@%@", @"BBLoginController.objectLoader:didFailWithError:", [error localizedDescription]]];
-    
-    [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-}
-
-- (void)didReceiveMemoryWarning {
+-(void)didReceiveMemoryWarning {
     [BBLog Log:@"MEMORY WARNING! - BBRegistrationController"];
     
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)dealloc {
+    [self cancelRegisterUser];
 }
 
 

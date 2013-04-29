@@ -15,9 +15,21 @@
 
 +(void)mappingsForRKManager:(RKObjectManager*)manager
 {
+    RKObjectMapping *validationErrorMapping = [RKObjectMapping mappingForClass:[BBValidationError class]];
+    [validationErrorMapping addAttributeMappingsFromDictionary:@{ @"Field":@"field",@"Messages":@"messages",@"Errors":@"errors" }];
+    
+    /*
+    [validationErrorMapping mapKeyPath:@"Field" toAttribute:@"field"];
+    [validationErrorMapping mapKeyPath:@"Messages" toAttribute:@"messages"];
+     */
+    [manager.mappingProvider setMapping:validationErrorMapping forKeyPath:@"Errors"];
+    [manager.mappingProvider addObjectMapping:validationErrorMapping];
+    
     
     RKObjectMapping *audioMapping = [RKObjectMapping mappingForClass:[BBAudio class]];
     audioMapping.forceCollectionMapping = YES;
+    [audioMapping addAttributeMappingsFromDictionary:@{ @"(dimensionName).Uri":@"uri",@"(dimensionName).Width":@"width",@"(dimensionName).Height":@"height" }];
+    
     [audioMapping mapKeyOfNestedDictionaryToAttribute:@"dimensionName"];
     [audioMapping mapKeyPath:@"(dimensionName).Uri" toAttribute:@"uri"];
     [audioMapping mapKeyPath:@"(dimensionName).Width" toAttribute:@"width"];
@@ -365,7 +377,8 @@
     [sightingNoteCreateMapping mapKeyPath:@"SightingId" toAttribute:@"sightingId"];
     [sightingNoteCreateMapping mapKeyPath:@"Descriptions" toRelationship:@"descriptions" withMapping:sightingNoteDescriptionCreateMapping];
     [sightingNoteCreateMapping mapKeyPath:@"Tags" toAttribute:@"tags"];
-    [sightingNoteCreateMapping mapKeyPath:@"Taxonomy" toAttribute:@"taxonomy"];
+    [sightingNoteCreateMapping mapKeyPath:@"NoteComments" toAttribute:@"comments"];
+    //[sightingNoteCreateMapping mapKeyPath:@"Taxonomy" toAttribute:@"taxonomy"];
     [manager.mappingProvider addObjectMapping:sightingNoteCreateMapping];
     [manager.mappingProvider setSerializationMapping:[sightingNoteCreateMapping inverseMapping] forClass:[BBSightingNoteCreate class]];
     
@@ -417,16 +430,20 @@
     
     
     // using escapeRoutedPath:NO prevents url encoding: http://stackoverflow.com/questions/9688113/avoid-uri-encoding-on-restkit-routers
-    [manager.router routeClass:[BBMediaResourceCreate class] toResourcePath:@"/mediaresources" forMethod:RKRequestMethodPOST];
-    [manager.router routeClass:[BBObservationCreate class] toResourcePath:@"/observations" forMethod:RKRequestMethodPOST];
-    [manager.router routeClass:[BBIdentifySightingEdit class] toResourcePath:@"/:sightingId/identifications" forMethod:RKRequestMethodPOST escapeRoutedPath:NO];
-    [manager.router routeClass:[BBSightingNoteCreate class] toResourcePathPattern:@"/:sightingId/notes" forMethod:RKRequestMethodPOST escapeRoutedPath:NO];
-    [manager.router routeClass:[BBFavouriteId class] toResourcePath:@"/favourites" forMethod:RKRequestMethodPOST escapeRoutedPath:NO];
-    [manager.router routeClass:[BBProjectId class] toResourcePath:@"/:identifier/members" forMethod:RKRequestMethodPOST escapeRoutedPath:NO];
-    [manager.router routeClass:[BBProjectId class] toResourcePath:@"/:identifier/members" forMethod:RKRequestMethodDELETE escapeRoutedPath:NO];
-    [manager.router routeClass:[BBVoteCreate class] toResourcePath:@"/:identifier/vote" forMethod:RKRequestMethodPOST escapeRoutedPath:NO];
-    [manager.router routeClass:[BBSubVoteCreate class] toResourcePath:@"/:identifier/:subIdentifier/vote" forMethod:RKRequestMethodPOST escapeRoutedPath:NO];
-    [manager.router routeClass:[BBAuthenticatedUser class] toResourcePath:@"/account/profile" forMethod:RKRequestMethodGET escapeRoutedPath:NO];
+    //escapeRoutedPath:NO]; has been depracated: https://github.com/restkit/restkit/issues/1091
+    [manager.router.routeSet addRoute:[RKRoute routeWithClass:[BBMediaResourceCreate Class] pathPattern:@"/mediaresources" method:RKRequestMethodPOST]];
+    [manager.router.routeSet addRoute:[RKRoute routeWithClass:[BBObservationCreate Class] pathPattern:@"/observations" method:RKRequestMethodPOST]];
+    [manager.router.routeSet addRoute:[RKRoute routeWithClass:[BBIdentifySightingEdit Class] pathPattern:@"/:\\sightingId/identifications" method:RKRequestMethodPOST]]; 
+    [manager.router.routeSet addRoute:[RKRoute routeWithClass:[BBSightingNoteCreate Class] pathPattern:@"/:\\sightingId/notes" method:RKRequestMethodPOST]]; //escapeRoutedPath:NO];
+    [manager.router.routeSet addRoute:[RKRoute routeWithClass:[BBFavouriteId Class] pathPattern:@"/favourites" method:RKRequestMethodPOST]]; //escapeRoutedPath:NO];
+    [manager.router.routeSet addRoute:[RKRoute routeWithClass:[BBProjectId Class] pathPattern:@"/:\\dentifier/members" method:RKRequestMethodPOST]]; //escapeRoutedPath:NO];
+    [manager.router.routeSet addRoute:[RKRoute routeWithClass:[BBProjectId Class] pathPattern:@"/:\\identifier/members" method:RKRequestMethodDELETE]]; //escapeRoutedPath:NO];
+    [manager.router.routeSet addRoute:[RKRoute routeWithClass:[BBVoteCreate Class] pathPattern:@"/:\\identifier/vote" method:RKRequestMethodPOST]]; //escapeRoutedPath:NO];
+    [manager.router.routeSet addRoute:[RKRoute routeWithClass:[BBSubVoteCreate Class] pathPattern:@"/:\\identifier/:\\subIdentifier/vote" method:RKRequestMethodPOST]]; //escapeRoutedPath:NO];
+    [manager.router.routeSet addRoute:[RKRoute routeWithClass:[BBAuthenticatedUser Class] pathPattern:@"/account/profile" method:RKRequestMethodGET]]; //escapeRoutedPath:NO];
+    [manager.router.routeSet addRoute:[RKRoute routeWithClass:[BBLoginRequest Class] pathPattern:@"/account/login" method:RKRequestMethodPOST]];
+    
+    [manager.router routeClass:[BBAuthenticatedUser class] toResourcePath:@"/account/profile" forMethod:RKRequestMethodGET escapeRoutedPath:NO];RKRequestMethodGET
 }
 
 @end

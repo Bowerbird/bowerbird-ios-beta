@@ -15,9 +15,7 @@
 @class BBClassification;
 
 
-@interface BBClassificationSelector : NSObject <
-    RKObjectLoaderDelegate
->
+@interface BBClassificationSelector : NSObject
 
 @property (nonatomic,strong) BBClassification* currentClassification;
 @property (nonatomic,strong) NSString* currentRank;

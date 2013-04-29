@@ -10,9 +10,10 @@
 #import <Foundation/Foundation.h>
 
 
-@interface BBLoginRequest : NSObject
+@interface BBRegisterRequest : NSObject
 
 -(id)initWithEmail:(NSString*)email
-          password:(NSString*)password;
+          password:(NSString*)password
+              name:(NSString*)name;
 
 @end

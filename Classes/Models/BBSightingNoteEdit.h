@@ -14,7 +14,7 @@
 
 
 @property (nonatomic,strong) NSString *sightingId;
-@property (nonatomic,strong) NSString *taxonomy;
+@property (nonatomic,strong) NSString *comments;
 @property (nonatomic,strong) NSMutableDictionary *descriptions;
 @property (nonatomic,strong) NSMutableSet *tags;
 

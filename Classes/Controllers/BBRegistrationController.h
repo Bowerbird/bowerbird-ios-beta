@@ -15,7 +15,6 @@
 
 @interface BBRegistrationController : BBControllerBase <
      UITextFieldDelegate
-    ,RKObjectLoaderDelegate
     ,BSKeyboardControlsDelegate
 >
 

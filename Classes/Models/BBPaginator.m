@@ -64,11 +64,11 @@
 #pragma mark - Constructors
 
 
--(id)initWithPatternURL:(RKURL *)patternURL
-        mappingProvider:(RKObjectMappingProvider *)mappingProvider
+-(id)initWithPatternURL:(id)patternURL
+        mappingProvider:(id)mappingProvider
             andDelegate:(id<BBStreamControllerDelegate>)delegate {
 
-    self = [super initWithPatternURL:patternURL mappingProvider:mappingProvider];
+    self = [super initWithRequest:(NSURLRequest *)patternURL paginationMapping:(RKObjectMapping *)mappingProvider responseDescriptors:<#(NSArray *)#>
     
     if(self) {
         self.controller = delegate;
@@ -85,7 +85,8 @@
 #pragma mark - Delegation and Event Handling for Paginator
 
 
-             -(void)request:(RKRequest *)request
+/*
+             -(void)request:(id)request
              didReceiveData:(NSInteger)bytesReceived
          totalBytesReceived:(NSInteger)totalBytesReceived
 totalBytesExpectedToReceive:(NSInteger)totalBytesExpectedToReceive {
@@ -106,7 +107,7 @@ totalBytesExpectedToReceive:(NSInteger)totalBytesExpectedToReceive {
      }
 }
 
--(void)paginator:(RKObjectPaginator *)paginator
+-(void)paginator:(id)paginator
   didLoadObjects:(NSArray *)objects
          forPage:(NSUInteger)page {
     [BBLog Log:@"BBPaginator.paginator:didLoadObjects:forPage"];
@@ -115,9 +116,9 @@ totalBytesExpectedToReceive:(NSInteger)totalBytesExpectedToReceive {
     
     [self.controller pagingLoadingComplete];
     
-    BOOL noMorePages = paginator.currentPage == paginator.pageCount;
+    //BOOL noMorePages = paginator.currentPage == paginator.pageCount;
     
-    [self.controller setNoMoreResultsAvail:noMorePages];
+    //[self.controller setNoMoreResultsAvail:noMorePages];
     
     [BBLog Log:[NSString stringWithFormat:@"%@ %@ Page:%i", @"Paginator objects:", objects, page]];
     
@@ -141,9 +142,9 @@ totalBytesExpectedToReceive:(NSInteger)totalBytesExpectedToReceive {
     
 }
 
--(void)paginator:(RKObjectPaginator *)paginator
+-(void)paginator:(id)paginator
     willLoadPage:(NSUInteger)page
-    objectLoader:(RKObjectLoader *)loader {
+    objectLoader:(id)loader {
     [BBLog Log:@"BBPaginator.paginator:willLoadPage:objectLoader:"];
     RKURL *url = paginator.patternURL;
     
@@ -205,9 +206,10 @@ didFailWithError:(NSError *)error
     
     [BBLog Log:[NSString stringWithFormat:@"Paginator item count: %i", self.items.count]];
 }
+ */
 
 -(void)dealloc {
-    [[[RKClient sharedClient] requestQueue] cancelRequestsWithDelegate:(id)self];
+    [[RKObjectManager sharedManager].operationQueue cancelAllOperations];
 }
 
 

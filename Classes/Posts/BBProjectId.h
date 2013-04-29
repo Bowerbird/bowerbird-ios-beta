@@ -11,9 +11,7 @@
 #import "BBModelId.h"
 
 
-@interface BBProjectId : BBModelId <
-    RKObjectLoaderDelegate
->
+@interface BBProjectId : BBModelId
 
 -(id)initWithProjectId:(NSString *)identifier;
 

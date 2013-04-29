@@ -11,9 +11,7 @@
 #import <RestKit/RestKit.h>
 #import "BBRankDelegateProtocol.h"
 
-@interface BBClassification : NSObject <
-    RKObjectLoaderDelegate
->
+@interface BBClassification : NSObject
 
 @property (nonatomic,strong) NSString* taxonomy;
 @property (nonatomic,strong) NSString* name;

@@ -39,14 +39,34 @@
 #pragma mark - Constructors
 
 
--(id)initWithPatternURL:(NSURLRequest *)patternURL
-        mappingProvider:(RKObjectMapping *)mappingProvider
-            andDelegate:(id<BBStreamControllerDelegate>)delegate {
+-(id)initWithRequest:(NSURLRequest *)request
+   paginationMapping:(RKObjectMapping *)paginationMapping
+ responseDescriptors:(NSArray *)responseDescriptors
+         andDelegate:(id<BBStreamControllerDelegate>)delegate {
+
+    self = [super initWithRequest:request
+                paginationMapping:paginationMapping
+              responseDescriptors:responseDescriptors
+                      andDelegate:delegate];
     
-    self = [super initWithPatternURL:patternURL mappingProvider:mappingProvider andDelegate:delegate];
+    if(self){
+        
+    }
     
     return self;
+
 }
+
+
+//-(id)initWithPatternURL:(NSURLRequest *)patternURL
+//        mappingProvider:(RKObjectMapping *)mappingProvider
+//            andDelegate:(id<BBStreamControllerDelegate>)delegate {
+//    
+//    self = [super initWithPatternURL:patternURL mappingProvider:mappingProvider andDelegate:delegate];
+//    
+//    
+//    return self;
+//}
 
 
 #pragma mark -

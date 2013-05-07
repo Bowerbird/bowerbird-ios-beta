@@ -97,13 +97,13 @@
     
     BBProjectId *projJoinLeave = [[BBProjectId alloc]initWithProjectId:self.project.identifier];
     RKObjectManager *manager = [RKObjectManager sharedManager];
-    manager.serializationMIMEType = RKMIMETypeJSON;
-    manager.acceptMIMEType = RKMIMETypeJSON;
+    //manager.serializationMIMEType = RKMIMETypeJSON;
+    //manager.acceptMIMEType = RKMIMETypeJSON;
     
     if(isAMember) {
         
         CoolMGButton *leaveButton =[BBUIControlHelper createButtonWithFrame:CGRectMake(10, 0, 290, 40) andTitle:@"Leave Project" withBlock:^ {
-            [manager deleteObject:projJoinLeave delegate:projJoinLeave];
+            //[manager deleteObject:projJoinLeave delegate:projJoinLeave];
             NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithCapacity:1];
             [userInfo setObject:self.project forKey:@"project"];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"projectLeft" object:self userInfo:userInfo];
@@ -116,7 +116,7 @@
     else
     {
         CoolMGButton *joinButton = [BBUIControlHelper createButtonWithFrame:CGRectMake(0, 0, 140, 40) andTitle:@"Join" withBlock:^{
-            [manager postObject:projJoinLeave delegate:projJoinLeave];
+            //[manager postObject:projJoinLeave delegate:projJoinLeave];
             NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithCapacity:1];
             [userInfo setObject:self.project forKey:@"project"];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"projectJoined" object:self userInfo:userInfo];

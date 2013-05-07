@@ -17,7 +17,6 @@
 @interface BBSightingDetailController : BBControllerBase <
      UIGestureRecognizerDelegate
     ,MKMapViewDelegate
-    ,RKObjectLoaderDelegate
     ,LBYouTubePlayerControllerDelegate
 >
 

@@ -70,45 +70,4 @@
 }
 
 
-#pragma mark -
-#pragma mark - Delegation and Event Handling
-
-
--(void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
-    [BBLog Log:@"BBVoteCreate.objectLoaderDidFailWithError:"];
-    
-    [BBLog Log:error.localizedDescription];
-}
-
--(void)request:(RKRequest*)request didLoadResponse:(RKResponse*)response {
-    [BBLog Log:@"BBVoteCreate.request:didLoadResponse"];
-    
-    if([response isKindOfClass:[BBJsonResponse class]]){
-        BBJsonResponse *result = (BBJsonResponse*)response;
-        
-        if(result.success){
-            // the request was successfully completed
-        }
-        else {
-            // the request was unsuccessful
-        }
-    }
-}
-
--(void)objectLoaderDidLoadUnexpectedResponse:(RKObjectLoader *)objectLoader {
-    [BBLog Log:@"BBVoteCreate.objectLoaderDidLoadUnexpectedResponse"];
-    
-    [BBLog Log:objectLoader.response.bodyAsString];
-}
-
--(void)objectLoaderDidFinishLoading:(RKObjectLoader *)objectLoader {
-    [BBLog Log:@"BBVoteCreate.objectLoaderDidFinishLoading:"];
-    
-}
-
--(void)dealloc {
-    [[[RKClient sharedClient] requestQueue] cancelRequestsWithDelegate:(id)self];
-}
-
-
 @end

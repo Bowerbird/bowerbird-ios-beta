@@ -35,6 +35,7 @@
 #import "BBMediaResourceCreate.h"
 #import "BBValidationError.h"
 #import "AFHTTPClient.h"
+#import "BBMediaResourceCreate.h"
 
 
 @interface BBCreateSightingController()
@@ -355,11 +356,11 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
         
                                                                       [formData appendPartWithFileData:UIImagePNGRepresentation(mediaEdit.image)
                                                                                                   name:mediaResourceCreate.key
-                                                                                              fileName:mediaResource.fileName
+                                                                                              fileName:mediaResourceCreate.fileName
                                                                                               mimeType:@"image/jpg"];
                                                                   }];
                              
-    RKObjectRequestOperation *operation = [objectManager objectRequestOperationWithRequest:request
+    RKObjectRequestOperation *operation = [[RKObjectManager sharedManager] objectRequestOperationWithRequest:request
                                                                                    success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
                                                                                        if([mappingResult isKindOfClass:[BBMediaResourceCreate class]]){
                                                                                            
@@ -394,7 +395,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info {
 
     [[RKObjectManager sharedManager] enqueueObjectRequestOperation:operation];
     
-    [operation.HTTPRequestOperation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+    [operation.HTTPRequestOperation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
         double progress = ((double)totalBytesWritten/(double)totalBytesExpectedToWrite)*100;
         
         NSNumberFormatter *formatter = [[NSNumberFormatter alloc]init];

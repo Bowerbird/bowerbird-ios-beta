@@ -34,13 +34,14 @@
 #import "BBProjectPaginator.h"
 #import "BBSightingPaginator.h"
 #import "BBActivity.h"
+#import "BBActivityArray.h"
 
 
 @interface BBStreamController()
 
 @property (nonatomic, strong) BBStreamView *scroller; // view
 @property (nonatomic, strong) UITableView *tableView; // table
-@property (nonatomic, retain) BBPaginator *paginator; // model
+@property (nonatomic, retain) RKPaginator *paginator; // model
 @property (nonatomic, strong) id<BBStreamProtocol> controller; // parent controller (HomeController in this case)
 @property (nonatomic, strong) NSMutableDictionary *streamItemSizesCache; // dictionary of subview sizes
 @property (nonatomic, strong) NSMutableArray *tableItems;
@@ -187,41 +188,207 @@
 }
 
 -(void)setPaginatorForStream:(NSString*)streamName {
+    
     [BBLog Log:@"BBStreamController.setPaginatorForStream:"];
     [BBLog Debug:@"streamName:" withMessage:streamName];
     
-    NSString *streamUrl = [NSString stringWithFormat:@"/%@?PageSize=:perPage&Page=:page", streamName];
+    __weak typeof(self) weakSelf = self;
     
-    // Given an RKURL initialized as:
-    NSURL *myURL = [NSURL URLWithString:streamUrl relativeToURL:[BBConstants RootUri]];
+    NSString *streamUrl = [NSString stringWithFormat:@"http://api.bowerbird.org.au/%@?PageSize=:perPage&Page=:currentPage&X-Requested-With=XMLHttpRequest", streamName];
     
-    if([streamName isEqualToString:@"favourites"]){ // we're only viewing sightings
-        self.paginator = [[BBSightingPaginator alloc]initWithPatternURL:myURL
-                                                        mappingProvider:[RKObjectManager sharedManager].mappingProvider
-                                                            andDelegate:self];
+    if (!self.paginator) {
         
-    }
-    else if([streamName isEqualToString:@"projects"]){ // we're only viewing projects
-        self.paginator = [[BBProjectPaginator alloc]initWithPatternURL:interpolatedURL
-                                                        mappingProvider:[RKObjectManager sharedManager].mappingProvider
-                                                            andDelegate:self];
+        RKObjectManager *objectManager = [RKObjectManager sharedManager];
+        RKObjectMapping *paginationMapping = nil;
         
+        // TODO: Create response descriptors for these puppies:
+        
+        if([streamName isEqualToString:@"favourites"]){ // sightings
+            paginationMapping = [RKObjectMapping mappingForClass:[BBSightingPaginator class]];
+            
+            self.paginator = [[BBSightingPaginator alloc]initWithRequest:[NSURLRequest requestWithURL:[[NSURL alloc]initWithString:streamUrl]]
+                                                       paginationMapping:paginationMapping
+                                                     responseDescriptors:nil
+                                                             andDelegate:weakSelf];
+        }
+        else if([streamName isEqualToString:@"projects"]){
+            paginationMapping = [RKObjectMapping mappingForClass:[BBProjectPaginator class]];
+            
+            self.paginator = [[BBProjectPaginator alloc]initWithRequest:[NSURLRequest requestWithURL:[[NSURL alloc]initWithString:streamUrl]]
+                                                      paginationMapping:paginationMapping
+                                                    responseDescriptors:nil
+                                                            andDelegate:weakSelf];
+        }
+        else {
+            paginationMapping = [RKObjectMapping mappingForClass:[BBPaginator class]];
+            
+            /*
+            RKResponseDescriptor *descriptor = [RKResponseDescriptor responseDescriptorWithMapping:[RKObjectMapping mappingForClass:[BBActivity class]]
+                                                                                       pathPattern:nil
+                                                                                           keyPath:@"PagedListItems"
+                                                                                       statusCodes:[NSIndexSet indexSetWithIndex:200]];
+            */
+            
+            RKResponseDescriptor *activitiesResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[RKObjectMapping mappingForClass:[BBActivityPaginator class]]
+                                                                                                         pathPattern:nil
+                                                                                                             keyPath:nil
+                                                                                                         statusCodes:[NSIndexSet indexSetWithIndex:200]];
+            
+            self.paginator = [[BBActivityPaginator alloc]initWithRequest:[NSURLRequest requestWithURL:[[NSURL alloc]initWithString:streamUrl]]
+                                                       paginationMapping:paginationMapping
+                                                     responseDescriptors:[[NSArray alloc] initWithObjects:activitiesResponseDescriptor, nil]
+                                                             andDelegate:weakSelf];
+        }
+        
+        self.paginator.perPage = 20;
+        
+        [self.paginator setCompletionBlockWithSuccess:^(RKPaginator *paginator, NSArray *objects, NSUInteger page) {
+            [weakSelf.tableItems addObjectsFromArray:objects];
+            //[weakSelf.tableItems addObjectsFromArray:((BBActivityPaginator*)paginator).activities];
+            
+            [weakSelf.tableView reloadData];
+            
+        } failure:^(RKPaginator *paginator, NSError *error) {
+            NSLog(@"Failure: %@", error);
+        }];
     }
-    else { // we're getting activities
-        self.paginator = [[BBActivityPaginator alloc]initWithPatternURL:interpolatedURL
-                                                        mappingProvider:[RKObjectManager sharedManager].mappingProvider
-                                                            andDelegate:self];
-    }
-    
-    self.paginator.delegate = self.paginator;
 }
+
+/*
+-(void)setPaginatorForStream:(NSString*)streamName {
+    
+    [BBLog Log:@"BBStreamController.setPaginatorForStream:"];
+    [BBLog Debug:@"streamName:" withMessage:streamName];
+    
+    __weak typeof(self) weakSelf = self;
+    
+    NSString *streamUrl = [NSString stringWithFormat:@"http://api.bowerbird.org.au/%@?PageSize=:perPage&Page=:currentPage&X-Requested-With=XMLHttpRequest", streamName];
+    
+    if (!self.paginator) {
+        
+
+        RKObjectMapping *paginationMapping = nil;
+        RKResponseDescriptor *responseDescriptor = nil;
+        
+        // TODO: Create response descriptors for these puppies:
+        
+        if([streamName isEqualToString:@"favourites"]){ // sightings
+
+            responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[RKObjectMapping mappingForClass:[BBSighting class]]
+                                                                         pathPattern:nil
+                                                                             keyPath:@"Model.Sightings.PageListItems"
+                                                                         statusCodes:[NSIndexSet indexSetWithIndex:200]];
+            
+            paginationMapping = [RKObjectMapping mappingForClass:[BBSightingPaginator class]];
+
+            self.paginator = [[BBSightingPaginator alloc]initWithRequest:[NSURLRequest requestWithURL:[[NSURL alloc]initWithString:streamUrl]]
+                                                       paginationMapping:paginationMapping
+                                                     responseDescriptors:[[NSArray alloc]initWithObjects:responseDescriptor, nil]
+                                                             andDelegate:weakSelf];
+        }
+        else if([streamName isEqualToString:@"projects"]){
+            
+            responseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[RKObjectMapping mappingForClass:[BBProject class]]
+                                                                         pathPattern:nil
+                                                                             keyPath:@"Model.Projects.PageListItems"
+                                                                         statusCodes:[NSIndexSet indexSetWithIndex:200]];
+            
+            paginationMapping = [RKObjectMapping mappingForClass:[BBProjectPaginator class]];
+            
+            self.paginator = [[BBProjectPaginator alloc]initWithRequest:[NSURLRequest requestWithURL:[[NSURL alloc]initWithString:streamUrl]]
+                                                       paginationMapping:paginationMapping
+                                                     responseDescriptors:[[NSArray alloc]initWithObjects:responseDescriptor, nil]
+                                                             andDelegate:weakSelf];
+        }
+        else {
+            paginationMapping = [RKObjectMapping mappingForClass:[BBActivityPaginator class]];
+          
+            RKResponseDescriptor *activitiesResponseDescriptor = [RKResponseDescriptor responseDescriptorWithMapping:[RKObjectMapping mappingForClass:[BBActivityPaginator class]]
+                                                                         pathPattern:nil
+                                                                             keyPath:nil
+                                                                         statusCodes:[NSIndexSet indexSetWithIndex:200]];
+            
+            self.paginator = [[BBActivityPaginator alloc]initWithRequest:[NSURLRequest requestWithURL:[[NSURL alloc]initWithString:streamUrl]]
+                                                       paginationMapping:paginationMapping
+                                                     responseDescriptors:[[NSArray alloc]initWithObjects:activitiesResponseDescriptor, nil]
+                                                             andDelegate:weakSelf];
+            
+        }
+        
+        self.paginator.perPage = 20;
+        
+        [self.paginator setCompletionBlockWithSuccess:^(RKPaginator *paginator, NSArray *objects, NSUInteger page) {
+            [weakSelf.tableItems addObjectsFromArray:objects];
+            [weakSelf.tableView reloadData];
+            
+        } failure:^(RKPaginator *paginator, NSError *error) {
+            NSLog(@"Failure: %@", error);
+        }];
+    }
+}
+*/
+
+//        RKResponseDescriptor *response = [RKResponseDescriptor responseDescriptorWithMapping:[RKObjectMapping mappingForClass:[BBSightingPaginator class]]
+//                                                                                 pathPattern:streamUrl
+//                                                                                     keyPath:nil
+//                                                                                 statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)];
+//        
+//        __weak typeof(self) weakSelf = self;
+//
+//        NSURL *paginatorURL = [NSURL URLWithString:streamUrl relativeToURL:[BBConstants RootUri]];
+//        
+//        if([streamName isEqualToString:@"favourites"]){ // sightings
+//            
+//            
+//            self.paginator = [[BBSightingPaginator alloc]initWithPatternURL:[[NSURLRequest alloc]initWithURL:paginatorURL]
+//                                                            mappingProvider:[RKObjectMapping mappingForClass:[BBSightingPaginator class]]
+//                                                                andDelegate:self];
+//            
+//        }
+//        else if([streamName isEqualToString:@"projects"]){ 
+//            self.paginator = [[BBProjectPaginator alloc]initWithPatternURL:[[NSURLRequest alloc]initWithURL:paginatorURL]
+//                                                            mappingProvider:[RKObjectMapping mappingForClass:[BBProjectPaginator class]]
+//                                                                andDelegate:self];
+//            
+//        }
+//        else {
+//            
+//            self.paginator = [[BBActivityPaginator alloc]initWithRequest:[[NSURLRequest alloc]initWithURL:paginatorURL]
+//                                                       paginationMapping:[RKObjectMapping mappingForClass:[BBActivityPaginator class]]
+//                                                     responseDescriptors:[NSArray arrayWithObject:[RKResponseDescriptor responseDescriptorWithMapping:[RKObjectMapping mappingForClass:[BBActivityPaginator class]]
+//                                                                                                                                          pathPattern:@"/authenticate"
+//                                                                                                                                              keyPath:nil
+//                                                                                                                                          statusCodes:RKStatusCodeIndexSetForClass(RKStatusCodeClassSuccessful)]]
+//                                                             andDelegate:self];
+//            
+//            self.paginator.perPage = 20; 
+//            
+//            [self.paginator setCompletionBlockWithSuccess:^(RKPaginator *paginator, NSArray *objects, NSUInteger page) {
+//                
+//                if (page == 1) {
+//                    [weakSelf.tableItems removeAllObjects];
+//                }
+//                [weakSelf.tableItems addObjectsFromArray:objects];
+//                [weakSelf.tableView reloadData];
+//                
+//            } failure:^(RKPaginator *paginator, NSError *error) {
+//                NSLog(@"Failure: %@", error);
+//            }];
+//        }
+    //}
+    
+    //[_paginator loadPage:1];
+    
+//}
 
 -(void)loadRequest {
     [BBLog Log:@"BBStreamController.loadRequest"];
     
     self.fetchBatch++;
+    
     [self.paginator loadPage:self.fetchBatch];
-    [self.paginator setPaginatorLoading:YES];
+    
+    //[self.paginator setPaginatorLoading:YES];
     self.loading = YES;
 }
 
@@ -283,7 +450,8 @@
         [((BBStreamView*)self.view) addPullToRefreshWithActionHandler:^{
             
             __weak NSString* url;
-            
+          
+            /*
             // hit the server for the newest group results:
             if(groupIdentifier && ![groupIdentifier isEqualToString:@""]) {
                 url = [NSString stringWithFormat:@"%@/%@?%@&NewerThan=%@",[BBConstants RootUriString], groupIdentifier, [BBConstants AjaxQuerystring], [stream.paginator.latestFetchedActivityNewer dateAsJsonUtcString]];
@@ -298,7 +466,7 @@
                 [[RKObjectManager sharedManager] loadObjectsAtResourcePath:url
                                                                   delegate:stream.paginator];
             }
-            
+            */
             //stream.requestWasPullLatest = YES;
             //stream.latestFetchedActivityNewer = [NSDate getCurrentUTCDate]; // set latest fetch to now for future fetches
             //stream.latestFetchedActivityNewerLocalTime = [NSDate date];

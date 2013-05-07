@@ -106,10 +106,11 @@ static CGRect MapFullFrame;
     self.mapView = [[MKMapView alloc]init];
     
     // LOAD THIS OBSERVATION FROM THE SERVER
+    /*
     NSString *sightingUrl = [NSString stringWithFormat:@"%@/%@?%@", [BBConstants RootUriString], _identifier, @"X-Requested-With=XMLHttpRequest"];
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [manager loadObjectsAtResourcePath:sightingUrl delegate:self];
-    
+    */
     [SVProgressHUD showWithStatus:@"Loading Sighting"];
 }
 
@@ -739,29 +740,6 @@ static CGRect MapFullFrame;
     
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
--(void)objectLoader:(RKObjectLoader *)objectLoader
-   didFailWithError:(NSError *)error {
-    [BBLog Log:@"BBSightingDetailController.objectLoader:didFailWithError:"];
-    
-    [SVProgressHUD showErrorWithStatus:error.description];
-}
-
--(void)objectLoaderDidFinishLoading:(RKObjectLoader *)objectLoader {
-    [BBLog Log:@"BBSightingDetailController.objectLoaderDidFinishLoading:"];
-}
-
--(void)objectLoader:(RKObjectLoader *)objectLoader
-      didLoadObject:(id)object {
-    [BBLog Log:@"BBSightingDetailController.objectLoader:didLoadObject:"];
-    
-    [SVProgressHUD dismiss];
-    
-    if([object isKindOfClass:[BBObservation class]]) {
-        _sighting = object;
-        [self displaySighting];
-    }
 }
 
 -(MGBox*)getBackArrow {

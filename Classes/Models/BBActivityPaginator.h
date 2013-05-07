@@ -17,9 +17,15 @@
 @property (nonatomic,retain) NSArray* activities;
 
 
--(id)initWithPatternURL:(NSURLRequest *)patternURL
-        mappingProvider:(RKObjectMapping *)mappingProvider
-            andDelegate:(id<BBStreamControllerDelegate>)delegate;
+//-(id)initWithPatternURL:(NSURLRequest *)patternURL
+//        mappingProvider:(RKObjectMapping *)mappingProvider
+//            andDelegate:(id<BBStreamControllerDelegate>)delegate;
+
+
+-(id)initWithRequest:(NSURLRequest *)request
+   paginationMapping:(RKObjectMapping *)paginationMapping
+ responseDescriptors:(NSArray *)responseDescriptors
+         andDelegate:(id<BBStreamControllerDelegate>)delegate;
 
 
 @end

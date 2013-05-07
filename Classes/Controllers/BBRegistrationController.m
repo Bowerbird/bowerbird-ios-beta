@@ -174,7 +174,7 @@
     
     NSURLRequest *request = [objectManager requestWithObject:registerRequest
                                                       method:RKRequestMethodPOST
-                                                        path:nil
+                                                        path:@"/account/register"
                                                   parameters:nil];
     
     RKObjectRequestOperation *operation = [objectManager objectRequestOperationWithRequest:request
@@ -187,7 +187,10 @@
                                                                                    }
                                                                                    failure:^(RKObjectRequestOperation *operation, NSError *error) {
                                                                                        [SVProgressHUD showErrorWithStatus:@"Could not register you"];
+                                                                                       [BBLog Log:[NSString stringWithFormat:@"ERROR Registering: %@", error.localizedDescription]];
                                                                                    }];
+    
+    [operation start];
     
     [SVProgressHUD showWithStatus:@"Registering you"];
 }

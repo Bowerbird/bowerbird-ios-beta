@@ -13,15 +13,6 @@
 #import "BBLog.h"
 
 
-@interface BBLoginRequest()
-
-@property (nonatomic,retain) NSString* email;
-@property (nonatomic,retain) NSString* password;
-@property BOOL rememberme;
-
-@end
-
-
 @implementation BBLoginRequest
 
 
@@ -32,6 +23,14 @@
 @synthesize email = _email,
             password = _password,
             rememberme = _rememberme;
+
+
+-(NSString*)email { return _email; }
+-(void)setEmail:(NSString *)email { _email = email; }
+-(NSString*)password { return _password; }
+-(void)setPassword:(NSString *)password { _password = password; }
+-(BOOL)rememberme { return _rememberme; }
+-(void)setRememberme:(BOOL)rememberme { _rememberme = rememberme; }
 
 
 #pragma mark -

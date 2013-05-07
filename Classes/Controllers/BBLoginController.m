@@ -135,6 +135,7 @@
 
 
 -(void)signIn {
+    
     [BBLog Log:@"BBLoginController.signIn"];
     
     BBLoginRequest *loginRequest = [[BBLoginRequest alloc]initWithEmail:self.emailField.text
@@ -144,28 +145,44 @@
     
     NSURLRequest *request = [objectManager requestWithObject:loginRequest
                                                       method:RKRequestMethodPOST
-                                                        path:nil
+                                                        path:@"/account/login"
                                                   parameters:nil];
     
     RKObjectRequestOperation *operation = [objectManager objectRequestOperationWithRequest:request
                                                                                    success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                                                                                       if([mappingResult isKindOfClass:[BBAuthentication class]]){
+                                                                                       if([mappingResult.firstObject isKindOfClass:[BBAuthentication class]]){
+                                                                                           BBAuthentication *authentication = [mappingResult firstObject];
+                                                                                           
                                                                                            NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithCapacity:1];
-                                                                                           [userInfo setObject:mappingResult forKey:@"authenticatedUser"];
-                                                                                           [[NSNotificationCenter defaultCenter] postNotificationName:@"loadAuthenticatedUser" object:self userInfo:userInfo];
+                                                                                           [userInfo setObject:authentication forKey:@"authenticatedUser"];
+                                                                                           
+                                                                                           [[NSNotificationCenter defaultCenter] postNotificationName:@"userAuthenticated" object:self userInfo:userInfo];
+                                                                                           
+                                                                                           [BBLog Log:authentication];
+                                                                                       }
+                                                                                       else {
+                                                                                           [SVProgressHUD showErrorWithStatus:@"No dice bro."];
+                                                                                           [BBLog Log:[NSString stringWithFormat:@"ERROR: %@", @"Server didn't return user profile."]];
                                                                                        }
                                                                                    }
                                                                                    failure:^(RKObjectRequestOperation *operation, NSError *error) {
                                                                                        [SVProgressHUD showErrorWithStatus:@"Could not log you in"];
+                                                                                       [BBLog Log:[NSString stringWithFormat:@"ERROR: %@", error.localizedDescription]];
                                                                                    }];
+    
+    [operation start];
     
     [SVProgressHUD showWithStatus:@"Logging you in"];
 }
 
 -(void)loadAuthenticatedUser:(NSNotification *) notification {
     
+    [BBLog Log:@"BBLoginController.loadAutheticatedUser:"];
+    
     NSDictionary* userInfo = [notification userInfo];
+    
     BBAuthentication *authenticatedUser = [userInfo objectForKey:@"authenticatedUser"];
+    [BBLog Log:authenticatedUser];
     
     [SVProgressHUD showWithStatus:@"Loading your profile"];
     
@@ -173,10 +190,20 @@
     [[RKObjectManager sharedManager] getObjectsAtPath:[BBConstants AuthenticatedUserProfileRoute]
                                            parameters:nil
                                               success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                                  
+                                                  // this ma-fcuker is a what??
+                                                  [BBLog Log:mappingResult];
+                                                  
+                                                  if([mappingResult.firstObject isKindOfClass:[BBAuthenticatedUser class]]){
+                                                      BBApplication *app = [BBApplication sharedInstance];
+                                                      app.authenticatedUser = mappingResult.firstObject;
+                                                  }
+                                                  
                                                   [SVProgressHUD showSuccessWithStatus:@"Welcome Back!"];
                                                   [[NSNotificationCenter defaultCenter] postNotificationName:@"userHasAuthenticated" object:nil userInfo:nil];
                                               }
                                               failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                  [BBLog Log:[NSString stringWithFormat:@"ERROR loading authenticatedUser profile: %@", error.localizedDescription]];
                                                   [SVProgressHUD showErrorWithStatus:@"Could not log you in"];
                                               }];
 }

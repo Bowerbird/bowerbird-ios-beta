@@ -12,9 +12,7 @@
 #import "BBStreamControllerDelegate.h"
 
 
-@interface BBPaginator : RKPaginator //ß<
-    //RKObjectPaginatorDelegate
-//>
+@interface BBPaginator : RKPaginator
 
 
 @property (nonatomic,strong) NSMutableArray *items;
@@ -30,9 +28,16 @@
 -(void)handlePaginatorLoadNextPage;
 
 
+/*
 -(id)initWithPatternURL:(NSURLRequest *)patternURL
         mappingProvider:(RKObjectMapping *)mappingProvider
             andDelegate:(id<BBStreamControllerDelegate>)delegate;
+*/
+
+- (id)initWithRequest:(NSURLRequest *)request
+    paginationMapping:(RKObjectMapping *)paginationMapping
+  responseDescriptors:(NSArray *)responseDescriptors
+          andDelegate:(id<BBStreamControllerDelegate>)delegate;
 
 
 @end

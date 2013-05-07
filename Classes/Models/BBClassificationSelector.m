@@ -78,9 +78,14 @@
         query = [NSString stringWithFormat:@"query=&field=%@", _currentRank];
     }
     
+    // TODO: Finish this puppy off...
+    
+    /*
     NSString *sightingUrl = [NSString stringWithFormat:@"%@/species?%@&%@", [BBConstants RootUriString], query, @"X-Requested-With=XMLHttpRequest"];
     RKObjectManager *manager = [RKObjectManager sharedManager];
     [manager loadObjectsAtResourcePath:sightingUrl delegate:self];
+     
+     */
 }
 
 -(NSString*)getNextRankQuery {
@@ -115,36 +120,6 @@
     }
     
     return nil;
-}
-
-#pragma mark -
-#pragma mark - Delegation and Event Handling
-
-
--(void)objectLoader:(RKObjectLoader *)objectLoader
-   didFailWithError:(NSError *)error {
-    [BBLog Log:@"BBClassificationBrowseController.objectLoader:didFailWithError"];
-    
-    [BBLog Log:error.description];
-}
-
--(void)objectLoader:(RKObjectLoader *)objectLoader
-      didLoadObject:(id)object {
-    [BBLog Log:@"BBClassificationBrowseController.objectLoader:didLoadObject"];
-    
-    if([object isKindOfClass:[BBClassificationPaginator class]]) {
-        [self.controller displayRanks:((BBClassificationPaginator*)object).ranks];
-    }
-}
-
--(void)objectLoader:(RKObjectLoader *)objectLoader
-didLoadObjectDictionary:(NSDictionary *)dictionary {
-    [BBLog Log:@"BBClassificationBrowseController.didLoadObjectDictionary"];
-    
-}
-
--(void)dealloc {
-    [[RKClient sharedClient].requestQueue cancelRequestsWithDelegate:self];
 }
 
 

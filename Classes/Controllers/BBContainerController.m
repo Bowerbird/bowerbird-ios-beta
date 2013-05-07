@@ -94,10 +94,10 @@
         [[RKObjectManager sharedManager] getObjectsAtPath:[BBConstants AuthenticatedUserProfileRoute]
                                                parameters:nil
                                                   success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
-                                                      if([mappingResult isKindOfClass:[BBAuthenticatedUser class]]){
+                                                      if([mappingResult.firstObject isKindOfClass:[BBAuthenticatedUser class]]){
                                                           [SVProgressHUD showSuccessWithStatus:@"Welcome Back!"];
                                                           NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithCapacity:1];
-                                                          [userInfo setObject:mappingResult forKey:@"authenticatedUser"];
+                                                          [userInfo setObject:mappingResult.firstObject forKey:@"authenticatedUser"];
                                                           [[NSNotificationCenter defaultCenter] postNotificationName:@"userProfileHasLoaded" object:self userInfo:userInfo];
                                                       }
                                                       [SVProgressHUD showErrorWithStatus:@"Could not log you in"];

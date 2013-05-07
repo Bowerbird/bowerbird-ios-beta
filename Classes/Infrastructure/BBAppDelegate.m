@@ -22,7 +22,7 @@
     // RestKit
     RKObjectManager *restKitManager = [RKObjectManager managerWithBaseURL:[BBConstants RootUri]];
     [restKitManager.HTTPClient setDefaultHeader:@"X-Requested-With" value:@"XMLHttpRequest"];
-    [restKitManager.HTTPClient setDefaultHeader:@"Content-Type" value:@"application%2Fx-www-form-urlencoded"];
+    [restKitManager.HTTPClient setDefaultHeader:@"Content-Type" value:@"application/www-form-urlencoded"];
     [BBMappings mappingsForRKManager:restKitManager];
     
     // Turn on Spinner when Network is Busy

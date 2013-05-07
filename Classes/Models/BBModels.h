@@ -31,6 +31,7 @@
 #import "BBCategory.h"
 #import "BBPost.h"
 #import "BBLoginRequest.h"
+#import "BBRegisterRequest.h"
 
 
 // User Models

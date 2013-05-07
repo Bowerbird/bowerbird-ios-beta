@@ -47,7 +47,7 @@
         mappingProvider:(RKObjectMapping *)mappingProvider
             andDelegate:(id<BBStreamControllerDelegate>)delegate {
     
-    self = [super initWithPatternURL:patternURL mappingProvider:mappingProvider andDelegate:delegate];
+    //self = [super initWithPatternURL:patternURL mappingProvider:mappingProvider andDelegate:delegate];
     
     return self;
 }

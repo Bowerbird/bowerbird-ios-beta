@@ -17,7 +17,8 @@
 @property (nonatomic,retain) NSString* mediaType;
 @property (nonatomic,retain) NSDate* uploadedOn;
 @property (nonatomic,retain) NSDictionary* metaData;
-@property (nonatomic,retain) NSArray* imageMedia;
+@property (nonatomic,retain) NSArray* image;
+@property (nonatomic,retain) NSArray* imageMedia;// looks like this is obsolete
 @property (nonatomic,retain) NSArray* audioMedia;
 @property (nonatomic,retain) NSArray* videoMedia;
 @property (nonatomic,retain) NSString* description;

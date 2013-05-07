@@ -143,7 +143,7 @@
     else if([contributionType isEqualToString:@"BBObservationNote"] || [contributionType isEqualToString:@"BBIdentification"]) {
         
         _voteRequest = [[BBSubVoteCreate alloc]initWithObservationNote:_contribution
-                                                                       andScore:_contribution.totalVoteScore];
+                                                              andScore:_contribution.totalVoteScore];
         
         votePanel = [self displayVotablePanel];
     }
@@ -254,10 +254,20 @@
     
     [favouriteLine layout];
     
-    RKObjectManager *manager = [RKObjectManager sharedManager];
-    manager.serializationMIMEType = RKMIMETypeJSON;
+    RKObjectManager *objectManager = [RKObjectManager sharedManager];
     
-    [manager postObject:favourite delegate:self];
+    NSURLRequest *request = [objectManager requestWithObject:favourite
+                                                      method:RKRequestMethodPOST
+                                                        path:@"/favourites"
+                                                  parameters:nil];
+    
+    RKObjectRequestOperation *operation = [objectManager objectRequestOperationWithRequest:request
+                                                                                   success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult) {
+                                                                                       // Vote Updated
+                                                                                   }
+                                                                                   failure:^(RKObjectRequestOperation *operation, NSError *error) {
+                                                                                       // Nothing Happened
+                                                                                   }];
 }
 
 -(void)recalibrate {
@@ -279,6 +289,11 @@
     
     [(BBVoteCreate*)_voteRequest increment];
     
+    // TODO: Fix this up - finish it off...
+    
+    /*
+    
+    
     RKObjectManager *manager = [RKObjectManager sharedManager];
     manager.serializationMIMEType = RKMIMETypeJSON;
     
@@ -288,7 +303,7 @@
         [parameters setObject:[NSString stringWithFormat:@"%i", myVoteScore] forKey:@"Score"];
         loader.params = parameters;
     }];
-    
+    */
 }
 
 -(void)decrementWith:(int)number {
@@ -296,6 +311,11 @@
     totalVoteScore = totalVoteScore - number;
 
     [(BBVoteCreate*)_voteRequest decrement];
+    
+    
+    // TODO: Fix this up - finish it off...
+    
+    /*
     RKObjectManager *manager = [RKObjectManager sharedManager];
     manager.serializationMIMEType = RKMIMETypeJSON;
 
@@ -307,6 +327,7 @@
         [parameters setObject:[NSString stringWithFormat:@"%i", myVoteScore] forKey:@"Score"];
         loader.params = parameters;
     }];
+    */
     
 }
 

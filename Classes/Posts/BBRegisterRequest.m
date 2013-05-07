@@ -13,16 +13,6 @@
 #import "BBLog.h"
 
 
-@interface BBRegisterRequest()
-
-@property (nonatomic,retain) NSString* email;
-@property (nonatomic,retain) NSString* name;
-@property (nonatomic,retain) NSString* password;
-@property BOOL rememberme;
-
-@end
-
-
 @implementation BBRegisterRequest
 
 
@@ -34,6 +24,16 @@
             name = _name,
             password = _password,
             rememberme = _rememberme;
+
+
+-(NSString*)email { return _email; }
+-(void)setEmail:(NSString *)email { _email = email; }
+-(NSString*)name { return _name; }
+-(void)setName:(NSString *)name { _name = name; }
+-(NSString*)password { return _password; }
+-(void)setPassword:(NSString *)password { _password = password; }
+-(BOOL)rememberme { return _rememberme; }
+-(void)setRememberme:(BOOL)rememberme { _rememberme = rememberme; }
 
 
 #pragma mark -

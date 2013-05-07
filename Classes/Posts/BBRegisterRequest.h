@@ -16,4 +16,9 @@
           password:(NSString*)password
               name:(NSString*)name;
 
+@property (nonatomic,retain) NSString* email;
+@property (nonatomic,retain) NSString* name;
+@property (nonatomic,retain) NSString* password;
+@property BOOL rememberme;
+
 @end

@@ -112,42 +112,13 @@
 
 -(void)runClassificationQuery {
 
+    /*
     [[RKRequestQueue requestQueue] cancelRequestsWithDelegate:(id)self];
 
     // this is a candidate for subclassing BBClassificationPaginator as BBClassificationPaginatorSearch and hitting a predefined resourcePath pattern
     [[RKObjectManager sharedManager] loadObjectsAtResourcePath:[NSString stringWithFormat:@"%@/species?%@&%@", [BBConstants RootUriString], [NSString stringWithFormat:@"query=%@&pagesize=50", self.query], @"X-Requested-With=XMLHttpRequest"]
                                                       delegate:self];
-
-}
-
-
-#pragma mark -
-#pragma mark - Delegation and Event Handling
-
-
--(void)objectLoader:(RKObjectLoader *)objectLoader didFailWithError:(NSError *)error {
-    [BBLog Log:@"BBClassificationSearchController.objectLoader:didFailWithError"];
-    
-    [BBLog Log:error.description];
-    
-    [SVProgressHUD showErrorWithStatus:error.description];
-}
-
--(void)objectLoader:(RKObjectLoader *)objectLoader didLoadObjectDictionary:(NSDictionary *)dictionary {
-    [BBLog Log:@"BBClassificationSearchController.didLoadObjectDictionary"];
-    
-}
-
--(void)objectLoader:(RKObjectLoader *)objectLoader didLoadObject:(id)object {
-    [BBLog Log:@"BBClassificationBrowseController.didLoadObject"];
-    
-    if([object isKindOfClass:[BBClassificationPaginator class]]) {
-        [self.controller displayRanks:((BBClassificationPaginator*)object).ranks forQuery:self.query];
-    }
-}
-
--(void)dealloc {
-    [[RKClient sharedClient].requestQueue cancelRequestsWithDelegate:self];
+     */
 }
 
 

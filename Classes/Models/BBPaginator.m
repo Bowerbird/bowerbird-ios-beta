@@ -63,12 +63,14 @@
 #pragma mark -
 #pragma mark - Constructors
 
-
--(id)initWithPatternURL:(id)patternURL
-        mappingProvider:(id)mappingProvider
-            andDelegate:(id<BBStreamControllerDelegate>)delegate {
-
-    self = [super initWithRequest:(NSURLRequest *)patternURL paginationMapping:(RKObjectMapping *)mappingProvider responseDescriptors:<#(NSArray *)#>
+-(id)initWithRequest:(NSURLRequest *)request
+   paginationMapping:(RKObjectMapping *)paginationMapping
+ responseDescriptors:(NSArray *)responseDescriptors
+         andDelegate:(id<BBStreamControllerDelegate>)delegate {
+      
+    self = [super initWithRequest:request
+                paginationMapping:paginationMapping
+              responseDescriptors:responseDescriptors];
     
     if(self) {
         self.controller = delegate;
@@ -79,6 +81,28 @@
     
     return self;
 }
+
+/*
+
+-(id)initWithPatternURL:(id)patternURL
+        mappingProvider:(id)mappingProvider
+            andDelegate:(id<BBStreamControllerDelegate>)delegate {
+
+    self = [super initWithRequest:(NSURLRequest *)patternURL paginationMapping:(RKObjectMapping *)mappingProvider responseDescriptors:<#(NSArray *)#>
+    
+    //self = [super initWithRequest:patternURL paginationMapping:<#(RKObjectMapping *)#> responseDescriptors:<#(NSArray *)#>]
+    
+    if(self) {
+        self.controller = delegate;
+        self.latestFetchedActivityOlder = [NSDate getCurrentUTCDate];
+        self.latestFetchedActivityNewer = [NSDate getCurrentUTCDate];
+        self.latestFetchedActivityNewerLocalTime = [NSDate date];
+    }
+    
+    return self;
+}
+ 
+ */
 
 
 #pragma mark -
